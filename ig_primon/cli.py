@@ -69,6 +69,26 @@ def _cmd_firewall(args):
     return 0 if res.firewall_intact else 1
 
 
+def _cmd_precision_matrix(args):
+    from .precision import OPS, build_matrix, format_matrix, sweep_reduction, format_sweep
+    ops = list(OPS) if args.op == "all" else [args.op]
+    cells = build_matrix(ops, size=args.size, budget=args.budget, iters=args.iters)
+    if args.json:
+        import json
+        from dataclasses import asdict
+        print(json.dumps({"size": args.size, "budget": args.budget,
+                          "cells": [asdict(c) for c in cells]}, indent=2, default=str))
+        return 0
+    print(format_matrix(cells, args.size, args.budget))
+    if args.sweep:
+        for op in ops:
+            if OPS[op].reduces:
+                be, rows, cross = sweep_reduction(op, [256, 512, 1024, 2048, 4096, 8192],
+                                                  budget=args.budget)
+                print(format_sweep(be, rows, cross, op, args.budget))
+    return 0
+
+
 def build_parser():
     p = argparse.ArgumentParser(prog="igprimon",
                                 description="Operational layer over the IG-PRIMON-T1 research receipts.")
@@ -96,6 +116,16 @@ def build_parser():
                    help="loose FP32-grade exploration tolerance (Tier-C certify budget is the float32 noise floor)")
     f.add_argument("--backend", choices=["auto", "cuda", "cpu"], default="auto")
     f.set_defaults(func=_cmd_firewall)
+
+    pm = sub.add_parser("precision-matrix",
+                        help="certify inference primitives (GEMM/softmax/norm/attention) across {device}x{precision}")
+    pm.add_argument("--op", choices=["gemm", "softmax", "layernorm", "attention", "all"], default="all")
+    pm.add_argument("--size", type=int, default=1024)
+    pm.add_argument("--budget", type=float, default=1e-3, help="inference safety budget (relative error)")
+    pm.add_argument("--iters", type=int, default=10)
+    pm.add_argument("--sweep", action="store_true", help="reduction-width dependence for reduction ops")
+    pm.add_argument("--json", action="store_true")
+    pm.set_defaults(func=_cmd_precision_matrix)
     return p
 
 

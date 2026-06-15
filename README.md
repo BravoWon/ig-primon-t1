@@ -52,6 +52,8 @@ igprimon list                    # list anchors, groups, and receipts
 igprimon run <receipt>           # run a receipt's full certification output (e.g. perceptron-finiteT)
 igprimon hwscan                  # scan the device; print the Tier-C / Tier-E map
 igprimon firewall                # Precision–Certification Firewall (CUDA Tier-E if available)
+igprimon precision-matrix        # certify inference primitives (GEMM/softmax/norm/attention) × {device}×{precision}
+igprimon precision-matrix --sweep  # reduction-width / context-length precision fragility
 ```
 
 **Anchors.** `igprimon verify` re-checks, programmatically, every exact reference value the receipts pin —
@@ -69,3 +71,12 @@ the float32 epsilon: it passes an FP32-grade tolerance *and* would fool an FP32 
 reference (whose own error is ~1 eps), yet Tier-C **rejects** it because its deviation exceeds what FP32
 roundoff can explain. An honest kernel (within the FP32 noise floor) certifies; a gross kernel fails outright.
 A GPU number is `[E-hw]` (exploratory); only a Tier-C reproduction within the noise floor licenses `[V]`.
+
+**Precision-certification matrix** (`ig_primon.precision` / `igprimon precision-matrix`). The firewall
+applied to the numerical primitives of LLM inference (GEMM, softmax, LayerNorm, attention) across
+`{RTX 5070, GTX 1660 Ti, CPU} × {fp64, fp32, fp16}`, each certified against an fp64 reference. The
+finding: GEMM is the easy primitive (fp16 safe), but the reduction ops need **fp32-accumulate**, and that
+becomes mandatory with context length — fp16-accumulate LayerNorm *overflows* past ~64k, attention breaks
+the budget by ~256. Scope is the numerical precision of inference primitives only. Whether locally-safe
+ops compose to globally bounded output through N layers is the named open frontier
+(`T1_precision_map_v0_1.md`), deliberately not built.
