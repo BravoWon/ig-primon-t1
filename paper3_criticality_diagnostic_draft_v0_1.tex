@@ -1,0 +1,465 @@
+% =====================================================================
+%  PAPER 3  —  A curvature diagnostic for continuous-RSB criticality
+%             versus kinematic volume-divergence in disordered systems
+%  IG-PRIMON-T1.  Draft v0.1 (2026-06-14).
+%  Compilable: pdflatex twice (refs/labels).
+%  STATUS (HONEST_CLAIMS):
+%    - ridge kinematic side .......... [V]  (module_L_ridge_curvature.py)
+%    - SK genuine side (R_eps) ....... [V]  (module_L_SK_converse.py)
+%    - perceptron susceptibility ..... [V]  (module_L_perceptron_replicon.py)
+%    - perceptron CURVATURE .......... [V]  (module_L_perceptron_finiteT.py, positive-definite
+%                                            (beta,eps); indefinite (alpha,eps) first pass =
+%                                            module_L_perceptron_curvature.py, recorded as such)
+%  Citations verified against sources 2026-06-14 (Gardner, Gardner-Derrida, Krauth-Mezard,
+%  Gyorgyi, de Almeida-Thouless, Sherrington-Kirkpatrick, Ruppeiner, Janyszek-Mrugala, Belkin).
+%  For J. Stat. Mech. submission, swap \documentclass to {iopart}.
+% =====================================================================
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\Ric}{R}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\detg}{\det g}
+\newcommand{\repl}{\lambda_{\mathrm{repl}}}
+\DeclareMathOperator{\Dz}{D}
+
+\title{A curvature diagnostic for continuous-RSB criticality versus\\
+       kinematic volume-divergence in disordered systems}
+\author{Aaron Jones\\ \small JtechAI LLC}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A diverging response is ambiguous: it can mark genuine interacting criticality, or a purely \emph{kinematic}
+explosion of a metric \emph{volume} while nothing critical happens. We give a sharp information-geometric
+criterion that separates them, built on the Ruppeiner scalar curvature $\Ric$: a genuine transition is a
+diverging metric \emph{component} on a non-degenerate, \emph{positive-definite} metric, whereas a
+$\detg\to0$ or coordinate-degenerate divergence is spurious and a manifold lacking the order parameter's
+conjugate field is blind. ``$|\Ric|\to\infty$'' alone proves nothing. We validate the criterion on three
+exactly-solvable archetypes from distinct venues. (i)~\emph{Learning}: ridge regression at the interpolation
+threshold---double descent is kinematic, $\detg\sim\lambda^{-3/2}$ while $\Ric$ stays flat-to-bounded.
+(ii)~\emph{Spin glass}: Sherrington--Kirkpatrick approached along the de Almeida--Thouless line, where
+$|\Ric|\sim\chi_{\mathrm{SG}}^2$ diverges on a positive-definite metric. (iii)~\emph{Storage/jamming}: the
+spherical perceptron, which carries \emph{both} sides in one model---convex storage is kinematic, while
+non-convex (negative-margin) storage is a continuous replicon at which $|\Ric|\sim\chi^2$ diverges on a
+positive-definite finite-temperature metric, a signature the natural (structural) coordinate fails to
+reveal. The phases are classical; the contribution is their uniform curvature \emph{classification} across
+venues---learning, spin glasses, and constraint satisfaction---of one subject: continuous-RSB criticality
+versus kinematic volume-divergence in disordered systems.
+\end{abstract}
+
+% =====================================================================
+\section{Introduction}\label{sec:intro}
+The Ruppeiner scalar curvature $\Ric$ of a thermodynamic state space is a geometric measure of fluctuations,
+diverging at ordinary critical points where the correlation volume becomes macroscopic
+\cite{ruppeiner1995,janyszek1990}. One-dimensional curvature claims are vacuous; on a two-parameter
+manifold $\Ric$ is a non-trivial invariant.
+
+A recurring confusion motivates this paper. Modern high-dimensional inference exhibits divergences---most
+famously the double-descent peak of the generalization error at the interpolation threshold
+\cite{belkin2019}---that \emph{look} like phase transitions but need not be. The question ``is this
+divergence a genuine transition?'' has, we argue, a clean geometric answer, and the answer is not ``does
+something blow up.'' A metric \emph{volume} $\detg$ can diverge for purely kinematic reasons while the
+intrinsic curvature stays bounded; conversely, $|\Ric|\to\infty$ on a degenerate metric can be a coordinate
+artifact. The diagnostic must therefore be \emph{refined}.
+
+We make this precise (Sec.~\ref{sec:diagnostic}) and validate it on three exactly-solvable archetypes
+(Secs.~\ref{sec:ridge}--\ref{sec:perceptron}). The archetypes are deliberately drawn from three different
+\emph{venues}---supervised learning, mean-field spin glasses, and constraint satisfaction/jamming---because
+our central claim is that the dichotomy is not about any one of them. ``The geometry of learning
+transitions'' would name the venue, not the subject. The subject is the dichotomy between
+\emph{continuous-RSB criticality} and \emph{kinematic volume-divergence in disordered systems}.
+
+\paragraph{Status of the claims.} We follow a strict claim hygiene. All three archetypes are verified
+($[V]$). For the perceptron (Sec.~\ref{sec:perceptron}) we keep separate two statements that are easily
+conflated: the divergence of the \emph{overlap susceptibility} (Sec.~\ref{sec:perc-chi}) and the literal
+\emph{curvature} statement $|\Ric|\to\infty$ (Sec.~\ref{sec:perc-R}). The latter is the more demanding
+because ``$|\Ric|\sim$ correlation volume'' is Riemannian: it is established here on the
+finite-temperature $(\beta,\eps)$ manifold, where both coordinates are conjugate fields and the metric is
+positive-definite by construction. A first computation tuned by the structural load $\alpha$ gives the same
+divergence on an \emph{indefinite} metric and is recorded as the cautionary intermediate it is.
+
+% =====================================================================
+\section{The refined diagnostic}\label{sec:diagnostic}
+Let $\psi(\theta^1,\theta^2)=\log Z$ be the log-partition function of a two-parameter exponential family in
+natural parameters $\theta=(\theta^1,\theta^2)$, with sufficient statistics $T=(T_1,T_2)$. The Fisher
+information / thermodynamic metric is the Hessian
+\begin{equation}
+g_{ij}=\partial_{\theta^i}\partial_{\theta^j}\psi=\mathrm{Cov}(T_i,T_j),
+\label{eq:metric}
+\end{equation}
+positive-semidefinite by construction. The Ruppeiner scalar curvature of \eqref{eq:metric} is, in the
+program's sphere-positive convention,
+\begin{equation}
+\Ric=-\frac{N}{2(\detg)^2},
+\label{eq:R}
+\end{equation}
+with $N$ the standard determinant of second and third derivatives of $\psi$ (Appendix; the engine is pinned
+to $\Ric=-1$ on the normal family). The sign of $\Ric$ is convention-dependent; only the \emph{invariant}
+distinction between $|\Ric|$ bounded and $|\Ric|\to\infty$ carries physical content. Equation~\eqref{eq:R}
+already exposes the logical engine of the diagnostic: a \emph{diverging} $\detg$ \emph{suppresses} $|\Ric|$
+(the kinematic mode---a volume that explodes faster than the numerator), whereas a \emph{vanishing} $\detg$
+\emph{inflates} it (the spurious mode); only a diverging numerator component on a bounded-below, positive
+$\detg$ produces a genuine divergence.
+
+\begin{definition}[Refined criticality diagnostic]\label{def:diag}
+A divergence is a \emph{genuine continuous transition} iff $|\Ric|\to\infty$ is produced by a diverging
+metric \emph{component} $g_{\eps\eps}\to\infty$ on a metric that remains \emph{non-degenerate and
+positive-definite} ($\detg>0$, well-conditioned), where $\eps$ is the natural field conjugate to the order
+parameter. Two failure modes are disqualified:
+\begin{itemize}
+\item \emph{Kinematic (volume).} $\detg\to\infty$ while $|\Ric|$ stays bounded: the metric volume explodes,
+      the intrinsic curvature does not. (Double descent, Sec.~\ref{sec:ridge}.)
+\item \emph{Spurious (degenerate).} $|\Ric|\to\infty$ driven by $\detg\to0$ or by functionally dependent
+      coordinates (e.g.\ $E\propto M^2$, Curie--Weiss): a coordinate artifact, not a fluctuation.
+\item \emph{Blind.} A manifold lacking the order parameter's conjugate field as a coordinate sees no
+      transition at all.
+\end{itemize}
+\end{definition}
+
+The discipline of Definition~\ref{def:diag} is that ``$|\Ric|\to\infty$'' alone proves nothing; the
+mechanism and the signature must both be checked.
+
+% =====================================================================
+\section{Kinematic archetype: ridge regression and double descent}\label{sec:ridge}
+Consider the Gibbs measure over student weights of a linear (Gaussian) teacher--student problem,
+$P(w)\propto\exp\!\big(-\beta E-\beta\lambda\,\tfrac12\|w\|^2\big)$ with $E=\tfrac12\|y-Xw/\sqrt N\|^2$ and a
+(possibly noisy) teacher $y=Xw_\star/\sqrt N+\sigma\xi$. The sufficient statistics are $(E,\tfrac12\|w\|^2)$
+and the natural parameters $(\theta^1,\theta^2)=(-\beta,-\beta\lambda)$---the faithful analog of a gas's
+$(-\beta,\log z)$, with the ridge field $\lambda$ in the fugacity role.
+
+\subsection{The exact manifold}\label{sec:ridge-manifold}
+Because $E$ is quadratic in $w$, $\log Z$ is a Gaussian integral, diagonal in the eigenbasis $\{v_i\}$ of the
+sample covariance $M=X^\top X/N$ with eigenvalues $\{\mu_i\}$ and teacher projections
+$d_i=\langle v_i,\,X^\top y/\sqrt N\rangle$:
+\begin{equation}
+\log Z(\theta)=\mathrm{const}-\tfrac12\textstyle\sum_i\log k_i+\tfrac{\beta^2}{2}\sum_i\frac{d_i^2}{k_i},
+\qquad k_i=\beta(\mu_i+\lambda).
+\label{eq:ridgeZ}
+\end{equation}
+The metric \eqref{eq:metric} and all third derivatives are therefore closed-form spectral sums; the
+fluctuation that controls the transition is the variance term $g\supset\sum_i k_i^{-2}$. The interpolation
+threshold $\alpha=P/N=1$ is the candidate transition: there the Marchenko--Pastur (MP) soft edge touches
+zero, so the spectral density behaves as $\rho(\mu)\sim(\pi\sqrt\mu)^{-1}$ as $\mu\to0$, and as the ridge
+$\lambda\to0$ the softest mode $k_{\min}=\beta(\mu_{\min}+\lambda)\to0$.
+
+\subsection{The kinematic verdict}\label{sec:ridge-verdict}
+At $\beta=1,\alpha=1$ the limit $\lambda\to0$ produces a textbook-looking divergence that the diagnostic
+classifies as \emph{kinematic} (receipt \texttt{module\_L\_ridge\_curvature.py}; analytic Hessian validated
+against finite differences of $\log Z$ to max.\ relative error $8.9\times10^{-6}$, engine pinned to
+$\Ric=-1$ on the normal family):
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+quantity & as $\lambda\to0$ & reading\\
+\midrule
+metric volume $\detg$ & diverges $\sim\lambda^{-3/2}$ & MP soft-edge fluctuation explosion\\
+metric rank & collapses to rank 1 (defect $\to1.000$) & one soft mode dominates\\
+$\Ric$, noiseless teacher & $\to0$, $\sim\lambda$ ($-2.0\mathrm{e}{-}5\to-8.1\mathrm{e}{-}10$) & asymptotically flat\\
+$\Ric$, noisy teacher ($\sigma=0.5$) & bounded $\approx-1\times10^{-4}$, seed-robust & bounded floor, never diverges\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The diverging volume is a direct soft-edge effect: from \eqref{eq:ridgeZ} the singular metric component is
+$\sum_i k_i^{-2}\to N\!\int_0\rho(\mu)\,[\beta(\mu+\lambda)]^{-2}\,d\mu\sim\!\int_0
+\mu^{-1/2}(\mu+\lambda)^{-2}\,d\mu\propto\lambda^{-3/2}$, so $\detg\sim\lambda^{-3/2}$ while the metric
+collapses onto the single softest mode (the defect $\to1$).
+
+\subsection{Mechanism: a free versus a sourced soft mode}\label{sec:ridge-mech}
+The divergence is thus \emph{entirely} a metric-volume effect: $\detg\to\infty$ while $|\Ric|$ is bounded
+(noisy) or vanishing (noiseless). It is the exact cancellation of singular powers in $\Ric=-N/(2(\detg)^2)$,
+with $N$ and $(\detg)^2$ diverging at \emph{matching} rates, so that $\Ric$ stays finite whenever the
+diverging volume is sourced by a free log-determinant sector---the same flat-sector cancellation that keeps
+thermodynamic curvature finite at a limiting-temperature transition in product-form gases. The mechanism is
+transparent at the soft mode: with a noiseless teacher the soft direction is a \emph{free} log-determinant
+mode (signal weight $d^2_{\min}\sim\mu^2_{\min}\to0$ vanishes with the eigenvalue), giving exactly flat
+curvature, the classical ideal-gas baseline; noise gives that mode a \emph{source} ($d^2_{\min}\to$ the
+noise floor $\sim\sigma^2$), lifting $\Ric$ to a bounded nonzero value. Neither diverges. Forty-digit
+arithmetic is required, not optional: the rank-1 collapse costs $\sim11$ digits to cancellation, and at
+single precision the bounded $\Ric$ masquerades as a divergence---a standing caution for numerical
+thermodynamic geometry in high dimension.
+
+% =====================================================================
+\section{Genuine archetype: the SK spin glass at the dAT line}\label{sec:sk}
+The Sherrington--Kirkpatrick model \cite{sk1975} is the positive control: a genuine interacting transition,
+reached without any replica-symmetry-breaking ansatz.
+
+\subsection{The two-replica construction}\label{sec:sk-construct}
+We stay replica-symmetric and \emph{approach} (never cross) the de Almeida--Thouless (dAT) instability
+\cite{at1978}. Take two real replicas $s^1,s^2$ and couple them by a field $\eps$ conjugate to their overlap
+$O=\sum_i s^1_i s^2_i$; the disorder-averaged two-replica RS free energy $\psi_2(\beta,h,\eps)$ is then a
+function on a manifold whose $\eps$-direction \emph{is} the order-parameter channel. At $\eps=0$ the replicas
+decouple, $\psi_2=2\psi_1$ (verified to $|\text{diff}|=0$), so $\eps$ is a clean perturbation of the
+single-replica state and the $\eps$-metric component is the spin-glass susceptibility
+$g_{\eps\eps}=\beta\,\partial p/\partial\eps=\beta\chi_{\mathrm{SG}}$, $p=\langle O\rangle/N$ the
+inter-replica overlap.
+
+\subsection{The $h=0$ closed form}\label{sec:sk-h0}
+At $h=0$ the construction is fully explicit:
+\begin{equation}
+\psi_2(\beta,\eps)=\tfrac{\beta^2}{2}(1-p^2)+\log4+\log\cosh(\beta^2 p+\beta\eps),\qquad p=\tanh(\beta^2 p+\beta\eps).
+\label{eq:psi2}
+\end{equation}
+For $\beta<1$ the saddle is $p=0$ at $\eps=0$; differentiating the self-consistency,
+$\partial p/\partial\eps|_0=\beta\,\mathrm{sech}^2(0)/(1-\beta^2\mathrm{sech}^2(0))=\beta/(1-\beta^2)$, so
+with the replicon $\repl\equiv1-\beta^2$,
+\begin{equation}
+g_{\eps\eps}=\frac{\beta^2}{\repl},\qquad
+\Ric_{\text{bare}}=\frac{4}{\beta^2}\ (\text{bounded: bare manifold \emph{blind}}),\qquad
+\Ric_{\eps}=\frac{2}{\beta^2\repl^2}\xrightarrow{\;\repl\to0\;}\infty,\qquad \detg=\frac{\beta^2}{\repl}>0.
+\label{eq:sk}
+\end{equation}
+So $|\Ric_\eps|\sim\chi_{\mathrm{SG}}^2$ diverges on a \emph{strictly positive-definite} metric---a genuine
+transition by Definition~\ref{def:diag} (e.g.\ $\Ric_\eps=68,\,233,\,1328$ at $\beta=0.90,0.95,0.98$), the
+exact prototype the perceptron reproduces in Sec.~\ref{sec:perc-R}. The bare $(\beta,h)$ manifold, lacking
+the $\eps$-coordinate, sees only the bounded $\Ric_{\text{bare}}=4/\beta^2$: it is \emph{blind}.
+
+\subsection{Along the de Almeida--Thouless line}\label{sec:sk-dat}
+Off the symmetric axis there is no closed form: the coupled $(p,q)$ saddle is solved on Gauss--Hermite nodes
+and $g_{\eps\eps}$ obtained by \emph{implicit differentiation} (linear response). It scales cleanly as
+$g_{\eps\eps}=\beta\chi_{\mathrm{SG}}\sim C(h)/\lambda_{AT}$ all along the dAT line, the constant $C(h)$
+stabilizing as the replicon $\lambda_{AT}\to0$:
+
+\begin{center}
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+$h$ & $\lambda_{AT}$ & $\beta$ & $g_{\eps\eps}$ (implicit) & $g_{\eps\eps}$ (fin.\ diff.) & $\chi_{\mathrm{SG}}\lambda_{AT}$\\
+\midrule
+$0.3$ & $0.30$ & $1.013$ & $3.83$ & $3.83$ & $1.13$\\
+$0.3$ & $0.10$ & $1.342$ & $17.36$ & $17.98$ & $1.29$\\
+$0.3$ & $0.02$ & $1.495$ & $97.46$ & $30.98$ & $1.30$\\
+$0.5$ & $0.30$ & $1.265$ & $4.35$ & $4.35$ & $1.03$\\
+$0.5$ & $0.10$ & $1.662$ & $17.76$ & $18.29$ & $1.07$\\
+$0.5$ & $0.02$ & $1.827$ & $97.79$ & $32.03$ & $1.07$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The product $\chi_{\mathrm{SG}}\lambda_{AT}\to C(h)$ flattens to three digits, confirming
+$g_{\eps\eps}\sim1/\lambda_{AT}\to\infty$; note the finite-difference column \emph{drifts} below the stable
+implicit value as $\lambda_{AT}\to0$ ($30.98$ vs.\ $97.46$ at $\lambda_{AT}=0.02$), the breakdown quantified
+in Remark~\ref{rem:fd}. The divergence mechanism is $\det(I-M)\to0$---the two-replica saddle's stability
+matrix going singular, which \emph{is} the replicon condition---with $\detg>0$ and growing throughout, while
+the bare $(\beta,h)$ curvature stays bounded ($\approx16$ at $h=0.3$): blindness confirmed off-axis. The
+diagnostic tracks the replicon wherever it sits in the $(T,h)$ plane
+\cite[receipt \texttt{module\_L\_SK\_converse.py}]{repo}.
+
+\begin{remark}[Numerical caveat, honestly recorded]\label{rem:fd}
+Third-derivative finite differences of $\Ric$ break down for $\lambda_{AT}\lesssim0.05$ (in double precision
+on an \texttt{fsolve}'d saddle, $\Ric$ sign-flips and the finite-difference $g_{\eps\eps}$ itself drifts,
+$31$ vs.\ $97$ at $\lambda_{AT}=0.02$). The $|\Ric|\to\infty$ claim therefore rests on the $h=0$ closed
+form \eqref{eq:sk}, the stable linear-response $g_{\eps\eps}$ (clean to $\lambda_{AT}=0.02$), and the $\Ric$
+growth where the third difference is still reliable ($\lambda_{AT}\gtrsim0.1$: $26\to41\to99$)---never on the
+edge values. The same caveat governs the perceptron curvature (Sec.~\ref{sec:perc-R}), which is likewise
+built from a soft-mode/linear-response construction rather than naive edge differences.
+\end{remark}
+
+% =====================================================================
+\section{The third archetype: the spherical perceptron carries both sides}\label{sec:perceptron}
+The Gardner storage problem for a perceptron \cite{gardner1988,gardnerderrida1988} is, geometrically, a
+single model that realises \emph{both} sides of the dichotomy as the weight geometry is varied. For weights
+$w$ ($\|w\|^2=N$ spherical, or $w\in\{\pm1\}^N$ Ising), $p=\alpha N$ random patterns at margin $\kappa$, the
+Gardner volume $V=\int d\mu(w)\prod_\mu\Theta(\sigma^\mu(w\!\cdot\!\xi^\mu)/\sqrt N-\kappa)$ has the
+replica-symmetric free entropy $s(q)=G_S(q)+\alpha\,G_E(q)$ with the energetic term
+\begin{equation}
+G_E(q)=\int \Dz t\,\log H(u),\qquad u=\frac{\kappa-\sqrt q\,t}{\sqrt{1-q}},\qquad
+H(x)=\tfrac12\operatorname{erfc}(x/\sqrt2),
+\label{eq:GE}
+\end{equation}
+($\Dz t$ the standard Gaussian measure) and the spherical entropic term
+$G_S(q)=\tfrac12[\log(1-q)+q/(1-q)]$. We emphasise that \eqref{eq:GE} is the log-volume of a
+\emph{constraint-satisfaction} problem; the transition below is jamming, not generalization.
+
+The \emph{phases} of this model are classical: the Gardner capacity \cite{gardner1988,gardnerderrida1988},
+the frozen-1RSB capacity of the Ising case \cite{krauthmezard1989}, and the continuous-RSB / jamming
+instability of the negative-margin case are all established results. We claim none of them as new. The
+contribution of this section is not the phase diagram but its \emph{classification by curvature signature}:
+we show that the \emph{same} information-geometric criterion (Definition~\ref{def:diag}) that separates
+double descent from SK assigns each of these known phases to the correct tier, and in particular that one
+model supplies both a kinematic and a genuine entry. The lens is the object of study; the phases validate
+it.
+
+\subsection{Convex storage is kinematic; Ising storage is first-order}\label{sec:perc-convex}
+For $\kappa\ge0$ the problem is convex: the RS solution is exact up to capacity and there is no replicon
+instability. The only transition is $q\to1$ at the Gardner capacity
+$\alpha_c(\kappa)=\big[\int_{-\kappa}^\infty \Dz t\,(t+\kappa)^2\big]^{-1}$ (so $\alpha_c(0)=2$ exactly,
+verified), a metric-\emph{volume} effect---the storage twin of double descent, the kinematic side. For
+Ising weights the storage transition is instead \emph{frozen-1RSB}: the RS free entropy starts at
+$s(0)=\log2$ and goes negative, crossing zero at $\alpha_{RS}=0.83308$, coinciding with the Krauth--M\'ezard
+capacity $0.833$ \cite{krauthmezard1989}; a negative quenched entropy for discrete weights is impossible, so
+the solution space freezes discontinuously ($q$ jumps) and the continuous-replicon route does not apply.
+(The Ising \emph{learning} transition is likewise first order \cite{gyorgyi1990}.)
+
+\subsection{Non-convex storage: susceptibility-genuine $[V]$}\label{sec:perc-chi}
+For $\kappa<0$ the problem is non-convex and a continuous replicon appears below capacity. From the RS saddle
+$q/(1-q)=\alpha\int\Dz t\,(H'/H)^2$ the replicon (AT) eigenvalue is
+\begin{equation}
+\repl=1-\alpha\int \Dz t\,\big[G_1'(u)\big]^2,\qquad G_1=H'/H,\quad G_1'=-uG_1-G_1^2.
+\label{eq:repl}
+\end{equation}
+Equation~\eqref{eq:repl} is anchored to Gardner: at $\kappa=0$ it vanishes precisely at $\alpha=2=\alpha_c$
+(the AT line meets capacity, marginal). For $\kappa<0$ it crosses zero \emph{continuously} at
+$\alpha_{AT}(\kappa)<\alpha_c(\kappa)$ (e.g.\ $\alpha_{AT}=2.32,2.67,3.05,3.95$ for
+$\kappa=-0.1,-0.2,-0.3,-0.5$), and the overlap susceptibility $\chi=1/\repl$ diverges continuously,
+$\chi\cdot(\alpha_{AT}-\alpha)\to\text{const}$ ($\approx3.22$ at $\kappa=-0.5$)---a clean
+$1/(\alpha_{AT}-\alpha)$ power law, the direct twin of SK's $\chi_{\mathrm{SG}}\sim1/\lambda_{AT}$. Since
+$\eps$ (conjugate to the overlap) is a genuine natural field, $g_{\eps\eps}\sim1/\repl$ is a true
+conjugate-field susceptibility whose divergence is coordinate-independent, Gardner-anchored, and
+component-driven. \textbf{By the susceptibility criterion the non-convex spherical perceptron sits on the
+genuine side; this is verified} $[V]$ \cite[receipt \texttt{module\_L\_perceptron\_replicon.py}]{repo}.
+
+\subsection{The literal curvature: $[V]$, on a positive-definite manifold}\label{sec:perc-R}
+On the RS side the overlap sector is a Gaussian soft mode, so the $\eps$-augmented free energy is
+$\psi(c,\eps)=2\,\psi_0(c)+\chi(c)\,\eps^2/2+O(\eps^4)$ in a \emph{generic} tuning coordinate $c$, with
+$\chi=1/\repl$ the overlap susceptibility. We instantiate $c$ two ways below---first the structural load
+$\alpha$, which fails the signature test, then the natural field $\beta$, which passes---to show the
+diagnostic is doing real work.
+
+At $\eps=0$ the engine inputs are $g_{\eps\eps}=\chi$ (singular), $g_{cc}=2\psi_0''$ and $g_{c\eps}=0$
+(regular), and among the third derivatives only the cross-term $\partial_c g_{\eps\eps}=\chi'\sim\chi^2$ is
+singular (since $c$ tunes $\repl$), while $\partial_\eps^3\psi=0$ and the rest are $O(1)$. The numerator $N$
+of \eqref{eq:R} is then dominated by the single term $\propto(\partial_c g_{\eps\eps})^2\sim\chi^4$, whereas
+$\detg\sim g_{cc}\,\chi\sim\chi$; hence $\Ric=-N/(2(\detg)^2)\sim\chi^4/\chi^2=\chi^2$, i.e.
+$|\Ric|\sim\chi^2\sim1/(c_{AT}-c)^2$, the curvature diverging as the \emph{square} of the susceptibility,
+exactly as SK's $\Ric_\eps\sim\chi_{\mathrm{SG}}^2$. Crucially this is a genuine divergence, \emph{not} the
+ridge cancellation of Sec.~\ref{sec:ridge}: there the singular powers of $N$ and $(\detg)^2$ matched and
+cancelled, whereas here the singular cross-derivative $\partial_c g_{\eps\eps}$ survives uncancelled.
+Freezing $\chi$ (i.e.\ setting $\chi'=0$) sends $\Ric\to0$, confirming the divergence is a \emph{component}
+effect, not a background one.
+
+The signature, however, depends on \emph{which} tuning coordinate is used, and this is where
+Definition~\ref{def:diag} earns its keep. Tuning with the load $\alpha$ (a \emph{structural} parameter, not a
+natural field) gives $g_{\alpha\alpha}=2s''<0$ (the free entropy is concave): $|\Ric|\to\infty$ but on an
+\emph{indefinite} metric ($\detg<0$), which does not establish the Riemannian statement
+``$|\Ric|\sim$ correlation volume.'' We therefore tune instead with a genuine natural field. At finite
+temperature the storage problem is a Gibbs measure with inverse temperature $\beta$ conjugate to the
+constraint energy; the soft constraint $a=e^{-\beta}$ gives $m=a+(1-a)H(u)$ and $M_1=(1-a)H'/m$, with the
+replicon retaining its form, $\repl=1-\alpha\int\Dz t\,[M_1']^2$, $M_1'=-uM_1-M_1^2$ (recovering
+\eqref{eq:repl} as $\beta\to\infty$). Now $\beta$ is a natural field, so $g_{\beta\beta}=2\psi_0''=
+2\,\mathrm{Var}(\text{energy})/N>0$, \emph{and} it tunes the replicon, $\repl(\beta)\to0$ at a finite
+$\beta_{AT}$. On the $(\beta,\eps)$ manifold both coordinates are conjugate fields, so the metric is a genuine
+covariance, positive-definite by construction. The receipt confirms it at \emph{two} operating points in the
+finite-$T$ RSB window:
+\begin{equation}
+\detg>0\ \text{throughout and diverging},\qquad
+|\Ric|\sim\chi^2\sim\frac{1}{(\beta_{AT}-\beta)^2},\qquad
+|\Ric|\cdot(\beta_{AT}-\beta)^2\to
+\begin{cases}11.8 & (\kappa=-0.5,\ \alpha=4.2,\ \beta_{AT}=5.99)\\[2pt]
+12.9 & (\kappa=-0.3,\ \alpha=3.2,\ \beta_{AT}=6.32)\end{cases}
+\label{eq:percR}
+\end{equation}
+so the $\chi^2$ law is robust across the line, not a one-point fit. This is a diverging metric
+\emph{component} ($g_{\eps\eps}=\chi\to\infty$) on a \emph{non-degenerate, positive-definite} metric---the
+genuine side of Definition~\ref{def:diag} in full, the literal Riemannian twin of \eqref{eq:sk}. \textbf{Curvature-genuine for the perceptron storage/jamming archetype is verified}
+$[V]$ \cite[receipt \texttt{module\_L\_perceptron\_finiteT.py}; the indefinite $(\alpha,\eps)$ first pass is
+\texttt{module\_L\_perceptron\_curvature.py}]{repo}.
+
+% =====================================================================
+\section{Discussion}\label{sec:discussion}
+The four-tier picture (Table~\ref{tab:tax}) is uniform across venues. A divergence earns ``genuine'' only as
+a positive-definite component blow-up; the metric-volume explosion of double descent, the
+coordinate-degeneracy of Curie--Weiss, and the blindness of a manifold without the conjugate field are its
+three foils.
+
+\begin{table}[h]\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+system (venue) & metric $\detg$ & scalar $\Ric$ & verdict\\
+\midrule
+ideal Bose gas (BEC) & non-degenerate, diverging comp. & $|\Ric|\to\infty$ & genuine (classical \cite{janyszek1990})\\
+ridge / double descent (learning) & $\to\infty$ (rank-1) & $\to0^-$ (noiseless) / bdd $<0$ (noisy) & kinematic\\
+Curie--Weiss, dependent coords & $\to0$ / indefinite & spurious $|\Ric|\to\infty$ & degenerate\\
+bare SK $(\beta,h)$ & finite & bounded & blind\\
+$\eps$-augmented SK at dAT (spin glass) & $>0$, diverging comp. & $|\Ric|\to\infty$ & genuine $[V]$\\
+spherical perceptron, $\kappa\ge0$ (storage) & regular & bounded & kinematic\\
+spherical perceptron, $\kappa<0$ (jamming) & $>0$, diverging comp. & $|\Ric|\sim\chi^2$ & genuine $[V]$\\
+\bottomrule
+\end{tabular}
+\caption{The diagnostic across venues. The perceptron uniquely supplies both a kinematic and a genuine
+entry.}\label{tab:tax}
+\end{table}
+
+The ideal Bose gas at condensation (Table~\ref{tab:tax}, first row) is the canonical classical exemplar of
+the genuine signature \cite{janyszek1990}, included as the literature anchor; the three disordered-system
+archetypes below it are this paper's contribution.
+
+The organising claim is that none of these systems is special: the dichotomy is a statement about disordered
+systems with a continuous replicon, and learning is merely the venue in which the question is most often
+asked. None of the underlying phase structure is new---it is the classical content of
+\cite{gardner1988,gardnerderrida1988,krauthmezard1989,sk1975,at1978}. What is verified ($[V]$) is the
+per-system curvature behaviour of each archetype; their \emph{uniformity under a single criterion}---that
+these facts collectively constitute a general diagnostic separating genuine from kinematic---is the
+extrapolation we propose, supported by but not reducible to the three exactly-solvable cases. The discipline
+of Definition~\ref{def:diag} (positive-definite signature, not merely $|\Ric|\to\infty$) is load-bearing
+rather than pedantic: the $(\alpha,\eps)$ versus $(\beta,\eps)$ contrast of Sec.~\ref{sec:perc-R} is exactly
+a case where the wrong coordinate produces a divergence that \emph{looks} genuine on an indefinite metric and
+is not.
+
+\paragraph{Limitations.} The diagnostic presumes one can identify and adjoin the order parameter's conjugate
+field $\eps$; absent that, the manifold is blind by construction, so the method \emph{classifies} known
+transitions rather than discovering order parameters. Our validation is on mean-field, replica-symmetric (or
+RS-approached) exactly-solvable archetypes on two-parameter manifolds; extension to finite-dimensional
+systems, to full-RSB structure, and to higher-dimensional manifolds is open.
+
+% =====================================================================
+\appendix
+\section{The curvature engine and receipts}\label{app:engine}
+All curvatures use $\Ric=-N/(2(\detg)^2)$ with $N=g_{xx}(g_{xxy}g_{yyy}-g_{xyy}^2)
+-g_{xy}(g_{xxx}g_{yyy}-g_{xyy}g_{xxy})+g_{yy}(g_{xxx}g_{xyy}-g_{xxy}^2)$, pinned to $\Ric=-1$ on the normal
+family. Five computational receipts reproduce every numerical claim:
+\texttt{module\_L\_ridge\_curvature.py} (Sec.~\ref{sec:ridge}),
+\texttt{module\_L\_SK\_converse.py} (Sec.~\ref{sec:sk}),
+\texttt{module\_L\_perceptron\_replicon.py} (the susceptibility, Sec.~\ref{sec:perc-chi}),
+\texttt{module\_L\_perceptron\_finiteT.py} (the positive-definite $(\beta,\eps)$ curvature, Sec.~\ref{sec:perc-R}),
+and the indefinite-metric first pass \texttt{module\_L\_perceptron\_curvature.py} (the cautionary
+$(\alpha,\eps)$ intermediate). The anchors $\alpha_c(0)=2$ and $s(0)=\log2$ are exact to machine precision,
+the $(\beta,\eps)$ replicon is anchored to Gardner ($\beta\!\to\!\infty$) and the engine to $\Ric=-1$.
+
+\paragraph{Reproducibility.} All receipts are CPU-only Python (\texttt{numpy}/\texttt{scipy}; \texttt{mpmath}
+at 40 decimal places where cancellation requires it, e.g.\ the rank-1 ridge metric). Gaussian integrals use
+$200$-node Gauss--Hermite quadrature; saddles are solved by \texttt{brentq}/\texttt{fsolve} to tolerance
+$10^{-13}$; finite differences for $\Ric$ are used only where Remark~\ref{rem:fd} certifies them, with the
+load-bearing components obtained by closed form or implicit-differentiation linear response. The receipts and
+the gate document \texttt{T1\_moduleL\_perceptron\_gate} are archived with this work \cite{repo}.
+
+% =====================================================================
+\begin{thebibliography}{99}
+\bibitem{ruppeiner1995} G.~Ruppeiner, \emph{Riemannian geometry in thermodynamic fluctuation theory},
+  Rev.\ Mod.\ Phys.\ \textbf{67}, 605 (1995); erratum \emph{ibid.} \textbf{68}, 313 (1996).
+\bibitem{janyszek1990} H.~Janyszek and R.~Mruga\l a, \emph{Riemannian geometry and the stability of ideal
+  quantum gases}, J.\ Phys.\ A \textbf{23}, 467 (1990).
+\bibitem{belkin2019} M.~Belkin, D.~Hsu, S.~Ma, S.~Mandal, \emph{Reconciling modern machine-learning practice
+  and the classical bias--variance trade-off}, PNAS \textbf{116}, 15849 (2019).
+\bibitem{sk1975} D.~Sherrington and S.~Kirkpatrick, \emph{Solvable model of a spin-glass}, Phys.\ Rev.\
+  Lett.\ \textbf{35}, 1792 (1975).
+\bibitem{at1978} J.~R.~L.~de Almeida and D.~J.~Thouless, \emph{Stability of the Sherrington--Kirkpatrick
+  solution of a spin glass model}, J.\ Phys.\ A \textbf{11}, 983 (1978).
+\bibitem{gardner1988} E.~Gardner, \emph{The space of interactions in neural network models}, J.\ Phys.\ A
+  \textbf{21}, 257 (1988).
+\bibitem{gardnerderrida1988} E.~Gardner and B.~Derrida, \emph{Optimal storage properties of neural network
+  models}, J.\ Phys.\ A \textbf{21}, 271 (1988).
+\bibitem{krauthmezard1989} W.~Krauth and M.~M\'ezard, \emph{Storage capacity of memory networks with binary
+  couplings}, J.\ Phys.\ France \textbf{50}, 3057 (1989).
+\bibitem{gyorgyi1990} G.~Gy\"orgyi, \emph{First-order transition to perfect generalization in a neural
+  network with binary synapses}, Phys.\ Rev.\ A \textbf{41}, 7097 (1990).
+\bibitem{repo} IG-PRIMON-T1 computational receipts (this work);
+  \texttt{module\_L\_*.py}, gate document \texttt{T1\_moduleL\_perceptron\_gate\_v0\_1.md}.
+\end{thebibliography}
+
+\end{document}
