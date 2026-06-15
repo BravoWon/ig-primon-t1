@@ -1,0 +1,267 @@
+% =====================================================================
+%  PAPER 2  —  A Ruppeiner Curvature Dichotomy for Generalized Prime Gases
+%  IG-PRIMON-T1.  Skeleton v0.1 (2026-06-14).
+%  Status convention in margins: [V] verified, [E] extrapolation, [C] conjecture.
+%  Locked math is filled in; prose marked  %TODO  is to be written.
+%  For J. Phys. A submission, swap \documentclass to {iopart} and adjust.
+% =====================================================================
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\Ric}{R}                 % scalar curvature
+\newcommand{\Li}{\operatorname{Li}}
+\newcommand{\Hess}{\operatorname{Hess}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\detg}{\det g}
+
+\title{A Ruppeiner curvature dichotomy for generalized prime gases:\\
+       asymptotic flatness at limiting-temperature transitions}
+\author{Aaron Jones\\ \small JtechAI LLC}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+%TODO prose. Target content:
+We study the thermodynamic (Ruppeiner) geometry of grand-canonical
+\emph{generalized prime gases}, whose partition functions are Dirichlet series
+$\log\Xi(\beta,z)=\sum_{k\ge1}(z^k/k)\,\mathcal P(k\beta)$. We prove that the
+scalar curvature at a phase transition is governed by \emph{where the singularity
+lives}: a \emph{temperature-driven} (Hagedorn / limiting-temperature) transition
+forces the curvature to vanish asymptotically, $\Ric\to0$, while a
+\emph{fugacity-driven} (condensation) transition makes it diverge, $|\Ric|\to\infty$.
+The discriminating mechanism is a single algebraic condition on the singular sector
+of $\log\Xi$ --- it is curvature-flat precisely when that sector factorizes as
+$e^{y}\varphi(x)$ in the natural coordinates, i.e.\ when fugacity and temperature do
+not couple. The result is established by an explicit cancellation lemma together with
+an analyticity argument, and is bracketed by four exactly-computable instances: the
+classical ideal gas ($\Ric=0$), the Riemann primon gas and an all-integer Bose gas
+(both Hagedorn, $\Ric\to0$), and the ideal Bose gas at condensation
+($|\Ric|\to\infty$). Two of the four contain no primes; the statement is one of
+statistical mechanics.
+\end{abstract}
+
+% =====================================================================
+\section{Introduction}\label{sec:intro}
+%TODO prose. Beats to hit:
+% - Ruppeiner geometry: metric = -Hessian of entropy; |R| ~ correlation volume;
+%   R -> infinity at ordinary critical points; R = 0 for the classical ideal gas
+%   (no interactions). Cite Ruppeiner RMP [1]; Janyszek-Mrugala [2].
+% - The primon / Riemann gas: a gas whose modes are the primes, energies log p,
+%   partition function zeta(beta), with a Hagedorn (limiting) temperature at beta=1.
+%   Cite Julia [3], Spector [4], Bost-Connes [5], Hagedorn [6].
+% - The question: a Hagedorn transition has NO diverging correlation length (it is a
+%   density-of-states wall, not fluctuation-driven). What does Ruppeiner curvature do
+%   there? Folklore vs. fact.
+% - This paper's answer: a clean dichotomy with an algebraic discriminant. State it.
+% - Emphasize: no number theory enters the theorem; the primon gas is one example.
+
+% =====================================================================
+\section{Setup}\label{sec:setup}
+
+\begin{definition}[generalized prime gas]\label{def:gas}
+%TODO prose framing. The object:
+A grand-canonical gas with
+\begin{equation}\label{eq:logXi}
+   \log\Xi(\beta,z)=\sum_{k\ge1}\frac{z^k}{k}\,\mathcal P(k\beta),
+\end{equation}
+where $\mathcal P$ is the spectral (prime) zeta of the mode spectrum, $\beta$ the
+inverse temperature and $z$ the fugacity.
+\end{definition}
+
+Natural coordinates $(x,y)=(-\beta,\log z)$. The family is exponential with sufficient
+statistics $(E,N)$, so the Ruppeiner/Fisher metric is the Hessian of the potential
+$\psi:=\log\Xi$,
+\begin{equation}\label{eq:metric}
+   g=\Hess_{(x,y)}\psi,\qquad
+   \partial_x^{a}\partial_y^{b}\psi=(-1)^{a}\sum_{k\ge1}k^{\,a+b-1}z^{k}\,\mathcal P^{(a)}(k\beta).
+\end{equation}
+For a two-dimensional Hessian metric the scalar curvature is
+\begin{equation}\label{eq:R}
+   \Ric=-\frac{N}{2(\detg)^{2}},\qquad
+   N=\det\!\begin{pmatrix}
+       \psi_{xx} & \psi_{xy} & \psi_{yy}\\
+       \psi_{xxx}& \psi_{xxy}& \psi_{xyy}\\
+       \psi_{xxy}& \psi_{xyy}& \psi_{yyy}
+     \end{pmatrix}.
+\end{equation}
+%TODO remark: formula+sign certified against the normal-family closed form (R=-1) and a
+%flat product control (R=0); sphere-positive convention. (Companion: moduleC_certify.py.)
+
+\paragraph{Hypotheses.}
+\begin{itemize}
+\item[\textbf{(H1)}] \emph{Temperature-driven singularity.} $\mathcal P(s)$ is real-analytic
+on $(1,\infty)$ with an isolated singularity at its abscissa $s=1$ and no other singularity
+on the real axis $s\ge1$. (The transition is a singularity in $\beta$ at the limiting
+temperature $\beta=1$.)
+\item[\textbf{(H2)}] \emph{Finite background.} $\sum_{k\ge2}k(k-1)\mathcal P^{(j)}(k)<\infty$
+for $j=0,1,2$ (automatic when $\mathcal P(k)\to0$ geometrically).
+\end{itemize}
+
+% =====================================================================
+\section{The product-form criterion}\label{sec:lemmas}
+
+\begin{lemma}[product form annihilates the curvature numerator]\label{lem:C1}
+If $\psi_{\mathrm{sing}}=e^{y}\varphi(x)$ for a smooth $\varphi$, then the third row of $N$
+in \eqref{eq:R}, $(\psi_{xxy},\psi_{xyy},\psi_{yyy})$, equals the first row
+$(\psi_{xx},\psi_{xy},\psi_{yy})$ identically and at all orders; hence the contribution of
+$\psi_{\mathrm{sing}}$ to $N$ is $\equiv0$.
+\end{lemma}
+\begin{proof}
+$\partial_y\!\big(e^{y}\varphi^{(j)}(x)\big)=e^{y}\varphi^{(j)}(x)$, so each entry of row three
+equals the corresponding entry of row one. A determinant with two equal rows vanishes. The
+identity is exact in $\eps$, so it holds order by order. %TODO: one line on "all orders".
+\end{proof}
+
+\begin{lemma}[only the single-particle term is singular]\label{lem:k1}
+Under \textnormal{(H1)}, every $k\ge2$ term of \eqref{eq:logXi} is real-analytic at
+$(\beta,z)=(1,1)$, and the unique singular term is
+\[
+   \psi_1=z\,\mathcal P(\beta)=e^{y}\varphi(x),\qquad \varphi(x):=\mathcal P(-x).
+\]
+\end{lemma}
+\begin{proof}
+For $k\ge2$ and $\beta$ near $1$, $\mathcal P(k\beta)$ is evaluated at $k\beta\approx k\ge2$,
+inside the analytic region by (H1); the term is analytic. Only $k=1$ probes the abscissa,
+and it is linear in $z$. The product form is forced by the singularity living in temperature
+and being sampled at the integer multiples $k\beta$. %TODO: prose on why this is generic.
+\end{proof}
+
+% =====================================================================
+\section{The dichotomy theorem}\label{sec:thm}
+
+\begin{theorem}[temperature-driven $\Rightarrow$ asymptotically flat]\label{thm:flat}
+Under \textnormal{(H1)--(H2)}, as $(\beta,z)\to(1,1)$ along $z=1$,
+\[
+   \Ric\longrightarrow 0 .
+\]
+Explicitly, with $L=\log(1/\eps)$, $\eps=\beta-1$, and background amplitude
+$\Delta_3:=\sum_{k\ge2}k(k-1)z^{k}\mathcal P(k)$:
+\[
+   \mathcal P(1+\eps)=\log(1/\eps)+O(1)\ \Rightarrow\ \Ric\sim\frac{\Delta_3}{2z^{2}(L+\kappa)^{2}},
+   \qquad
+   \mathcal P(1+\eps)=c/\eps+O(1)\ \Rightarrow\ \Ric\sim \frac{\Delta_3\,\eps^{2}}{z^{2}} .
+\]
+\end{theorem}
+\begin{proof}
+By Lemma~\ref{lem:k1} the singular sector is $\psi_1=e^{y}\varphi(x)$; by Lemma~\ref{lem:C1}
+it contributes $0$ to $N$. Thus $N$ is sourced entirely by the analytic $k\ge2$ background.
+Row-reduce $N$ by $\text{Row}_3\to\text{Row}_3-\text{Row}_1=(\Delta_1,\Delta_2,\Delta_3)+O(\eps)$
+(finite by (H2)). The metric determinant is dominated by the singular sector and diverges; the
+singular powers of $\eps$ cancel between $N$ and $(\detg)^2$, leaving a residual factor that
+tends to zero --- $1/(L+\kappa)^2$ in the log case (full computation in
+Appendix~\ref{app:rates}), $\eps^2$ in the simple-pole case. %TODO: fold the explicit
+% cofactor computation; cite the C-derivation for the log case.
+\end{proof}
+
+\begin{proposition}[fugacity-driven $\Rightarrow$ divergent]\label{prop:div}
+If the transition is at $z\to z_c$ with the singularity carried by the full fugacity series,
+$\log\Xi_{\mathrm{sing}}=\varphi(\beta)\,\Li_a(z)$, then the singular sector
+$\varphi(\beta)\,\Li_a(e^{y})$ is not of the form $e^{y}\varphi(x)$; Lemma~\ref{lem:C1} does
+not apply, $\text{Row}_3\ne\text{Row}_1$, and $|\Ric|\to\infty$.
+\end{proposition}
+%TODO proof/sketch: the standard |R| ~ correlation-volume divergence, recovered as the complement.
+
+\begin{remark}\label{rem:criterion}
+Theorem~\ref{thm:flat} and Proposition~\ref{prop:div} together give the discriminant in one line:
+\[
+   \boxed{\ \Ric\to0 \iff \text{the singular sector of }\log\Xi\text{ factorizes as } e^{y}\varphi(x).\ }
+\]
+%TODO prose: physical reading -- product form = a single dominant mode drives the transition,
+% fugacity factors out as a bare z, no diverging correlation length; broken product form =
+% fluctuation-driven criticality with field/temperature coupled through a scaling function.
+\end{remark}
+
+% =====================================================================
+\section{Instances}\label{sec:instances}
+%TODO prose intro: all four run through the same engine \eqref{eq:R}; the classical case
+% validates it (R=0 is forced and obtained).
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+gas & singular structure & type & curvature (rate / amplitude)\\
+\midrule
+classical ideal gas        & $u^{-3/2}e^{y}\ (\varphi\cdot e^{y})$ & product form     & $\Ric=0$ (to $10^{-31}$)\\
+Riemann primon gas         & $z\,P(\beta),\ P\sim\log(1/\eps)$    & temp-driven, log & $\Ric\to0^{+}$, $\sim1/(L+\kappa)^2$, $\Delta_3=5.0451882$\\
+all-integer Bose gas       & $z(\zeta(\beta)-1)\sim1/\eps$        & temp-driven, pole& $\Ric\to0^{+}$, $\Ric/\eps^2\to\Delta_3=5.693982$\\
+ideal Bose gas (BEC)       & $u^{-3/2}\Li_{5/2}(e^{y})$           & fugacity-driven  & $|\Ric|\to\infty$, $\sim\tau^{-1/2}$\\
+\bottomrule
+\end{tabular}
+\caption{The dichotomy, bracketed. $u=\beta$; $\tau=-\log z\to0^{+}$ at condensation;
+$\kappa=0.832503$ for the primon gas. The two flat instances differ in spectrum (primes vs.\
+all integers) and in singularity type (log vs.\ pole); two of the four contain no primes.}
+\label{tab:instances}
+\end{table}
+
+\paragraph{All-integer Bose gas.} $\prod_{n\ge2}(1-z\,n^{-\beta})^{-1}$, i.e.\ $\mathcal P=\zeta-1$,
+along $z=1$:
+\[
+\begin{array}{r|cccc}
+\eps      & 10^{-2}      & 10^{-3}      & 10^{-4}      & \to0\\\hline
+\Ric/\eps^2 & 4.95\!\dots & 5.61\!\dots & 5.69\!\dots & \Delta_3^{\mathrm{int}}=5.693982
+\end{array}
+\]
+%TODO: ideal-Bose-gas table (R climbing 0.33->3.59 as tau:0.3->0.001, R*sqrt(tau)->~0.11).
+
+\begin{remark}[a geometric invariant of the primon gas]\label{rem:Cconst}
+The renormalized information length of the Riemann primon gas from the Hagedorn point to
+$\beta=2$,
+\[
+   C=\int_{1}^{2}\!\Big[\sqrt{\partial_\beta^2\log\zeta(\beta)}-\tfrac{1}{\beta-1}\Big]\,d\beta
+    =-0.0343561541791219860831108814584476\ldots,
+\]
+is, to $90$ digits, not an integer combination of $\{\pi,\log2,\log3,\gamma,\gamma_1,\zeta(3),
+\zeta(5),G,\log A,\dots\}$ at coefficient height $\le10^{6}$ (PSLQ); we register it as a new
+constant of the gas. %TODO: decide whether this belongs here or is deferred to Paper 1.
+\end{remark}
+
+% =====================================================================
+\section{Discussion}\label{sec:disc}
+%TODO prose. Beats:
+% - The criterion as physics: flatness <-> no diverging correlation length.
+% - Scope: theorem for the class \eqref{eq:logXi} under (H1)-(H2); NOT all limiting-temperature
+%   transitions in nature. State this plainly.
+% - The general-rate gap (arbitrary analytic singularity profile): CLOSED. Appendix A's cofactor
+%   reduction derives the general pole-order rate R ~ Delta_3(alpha+1)/(2 A^2) eps^{2 alpha} (and the
+%   log case); no longer an open item. [Superseded by paper2_curvature_dichotomy_FULL_v0_1.tex.]
+% - No bearing on zeros / RH; deliberately a stat-mech statement.
+
+% =====================================================================
+\appendix
+\section{Curvature rates: the cofactor computation}\label{app:rates}
+%TODO: the explicit Row3-Row1 reduction and cofactor orders giving 1/(L+kappa)^2 (log) and
+% eps^2 (pole). Numerics reproduced from the contrast runs.
+
+% =====================================================================
+\begin{thebibliography}{9}
+%TODO verify exact pagination on all entries.
+\bibitem{ruppeiner} G.~Ruppeiner, \emph{Riemannian geometry in thermodynamic fluctuation theory},
+   Rev.\ Mod.\ Phys.\ \textbf{67}, 605 (1995).
+\bibitem{janyszek} H.~Janyszek and R.~Mrug{\l}a, \emph{Riemannian geometry and stability of ideal
+   quantum gases}, J.\ Phys.\ A \textbf{23}, 467 (1990).
+\bibitem{julia} B.~L.~Julia, \emph{Statistical theory of numbers}, in \emph{Number Theory and
+   Physics}, eds.\ J.-M.~Luck et al.\ (Springer, 1990).
+\bibitem{spector} D.~Spector, \emph{Supersymmetry and the M\"obius inversion function},
+   Commun.\ Math.\ Phys.\ \textbf{127}, 239 (1990).
+\bibitem{bostconnes} J.-B.~Bost and A.~Connes, \emph{Hecke algebras, type III factors and phase
+   transitions with spontaneous symmetry breaking in number theory}, Selecta Math.\ \textbf{1}, 411 (1995).
+\bibitem{hagedorn} R.~Hagedorn, \emph{Statistical thermodynamics of strong interactions at high
+   energies}, Nuovo Cimento Suppl.\ \textbf{3}, 147 (1965).
+\end{thebibliography}
+
+\end{document}

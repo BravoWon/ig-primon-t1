@@ -1,0 +1,162 @@
+% =====================================================================
+%  Appendix A  —  Curvature rates: the cofactor reduction
+%  For Paper 2 (A Ruppeiner curvature dichotomy for generalized prime gases).
+%  Self-contained; merge into paper2_curvature_dichotomy_skeleton_v0_1.tex,
+%  replacing the Appendix A stub.  v0.1 (2026-06-14).
+%
+%  Result: the general temperature-driven rate
+%      R ~ [Delta3 (alpha+1)/(2 A^2)] eps^{2 alpha}   (pole order alpha > 0)
+%      R ~ Delta3 / (2 (L+kappa)^2)                   (logarithmic, alpha -> 0)
+%  Both -> 0.  This closes the [E] of Theorem (flat) to [V]: flatness is
+%  unconditional within the class; only the rate AMPLITUDE needs Delta3 != 0
+%  (generic, guaranteed whenever the spectral coefficients are positive).
+% =====================================================================
+\appendix
+\section{Curvature rates: the cofactor reduction}\label{app:rates}
+
+Throughout, evaluate on the locking ray $z=1$ ($y=0$), $\beta=1+\eps$, $\eps\to0^{+}$, and
+abbreviate the singular (single-particle) derivatives
+\[
+   p_j:=\mathcal P^{(j)}(1+\eps),\qquad j=0,1,2,3 .
+\]
+
+\subsection*{A.1 Singular/background split and the row reduction}
+
+By Lemma~\ref{lem:k1} the $k=1$ term is the only singular one; write each partial as its
+$k=1$ (singular) part plus the finite $k\ge2$ background. From \eqref{eq:metric} at $z=1$,
+the singular parts are
+\[
+\renewcommand{\arraystretch}{1.2}
+\begin{array}{llll}
+\psi_{xx}^{s}=p_2, & \psi_{xy}^{s}=-p_1, & \psi_{yy}^{s}=p_0, &\\
+\psi_{xxx}^{s}=-p_3, & \psi_{xxy}^{s}=p_2, & \psi_{xyy}^{s}=-p_1, & \psi_{yyy}^{s}=p_0,
+\end{array}
+\]
+so the three rows of $N$ in \eqref{eq:R} have singular parts
+\[
+   \mathrm{Row}_1^{s}=(p_2,-p_1,p_0),\quad
+   \mathrm{Row}_2^{s}=(-p_3,p_2,-p_1),\quad
+   \mathrm{Row}_3^{s}=(p_2,-p_1,p_0)=\mathrm{Row}_1^{s}.
+\]
+The equality $\mathrm{Row}_3^{s}=\mathrm{Row}_1^{s}$ is Lemma~\ref{lem:C1} in coordinates: the
+$k=1$ weight $k^{a+b-1}=1$ is independent of $b$, so raising the $y$-order leaves the entry
+unchanged. Subtracting Row~1 from Row~3 therefore \emph{annihilates the divergent singular part}
+and leaves only the background differences:
+\begin{equation}\label{eq:rowdiff}
+   \mathrm{Row}_3-\mathrm{Row}_1=(\Delta_{xx},\,\Delta_{xy},\,\Delta_3),\qquad
+   \begin{aligned}
+   \Delta_{xx}&=\textstyle\sum_{k\ge2}k(k-1)\,\mathcal P''(k),\\
+   \Delta_{xy}&=-\textstyle\sum_{k\ge2}k(k-1)\,\mathcal P'(k),\\
+   \Delta_3&=\textstyle\sum_{k\ge2}k(k-1)\,\mathcal P(k),
+   \end{aligned}
+\end{equation}
+all finite by (H2). Since a determinant is invariant under $\mathrm{Row}_3\to\mathrm{Row}_3-\mathrm{Row}_1$,
+\begin{equation}\label{eq:Ncofactor}
+   N=\Delta_{xx}\,M_{31}-\Delta_{xy}\,M_{32}+\Delta_3\,M_{33},
+\end{equation}
+where $M_{3c}$ are the $2\times2$ minors on rows $1,2$:
+\[
+   M_{31}=\psi_{xy}\psi_{xyy}-\psi_{yy}\psi_{xxy},\quad
+   M_{32}=\psi_{xx}\psi_{xyy}-\psi_{yy}\psi_{xxx},\quad
+   M_{33}=\psi_{xx}\psi_{xxy}-\psi_{xy}\psi_{xxx}.
+\]
+The minors still contain the divergent singular parts; their leading (singular$\times$singular)
+behaviour is
+\begin{equation}\label{eq:minorlead}
+   M_{31}\sim p_1^2-p_0p_2,\qquad
+   M_{32}\sim p_0p_3-p_1p_2,\qquad
+   M_{33}\sim p_2^2-p_1p_3 .
+\end{equation}
+Likewise the metric determinant is dominated by its singular part,
+$\detg\sim p_0p_2-p_1^2=-(M_{31}\text{ lead})$.
+
+\subsection*{A.2 Pole singularity of order $\alpha$}
+
+Let the leading singularity be $\mathcal P(1+\eps)\sim A\,\eps^{-\alpha}$, $\alpha>0$, $A\ne0$. Then
+\[
+   p_0\sim A\eps^{-\alpha},\quad p_1\sim-A\alpha\eps^{-\alpha-1},\quad
+   p_2\sim A\alpha(\alpha+1)\eps^{-\alpha-2},\quad p_3\sim-A\alpha(\alpha+1)(\alpha+2)\eps^{-\alpha-3}.
+\]
+Substituting into \eqref{eq:minorlead} and into $\detg$, the leading powers in each
+combination partially cancel:
+\begin{align*}
+   \detg &\sim p_0p_2-p_1^2=A^2\big[\alpha(\alpha+1)-\alpha^2\big]\eps^{-2\alpha-2}
+          =A^2\alpha\,\eps^{-2\alpha-2},\\[2pt]
+   M_{33}&\sim p_2^2-p_1p_3=A^2\alpha^2(\alpha+1)\big[(\alpha+1)-(\alpha+2)\big]\eps^{-2\alpha-4}
+          =-A^2\alpha^2(\alpha+1)\,\eps^{-2\alpha-4}.
+\end{align*}
+The minor orders are $M_{31}\sim\eps^{-2\alpha-2}$, $M_{32}\sim\eps^{-2\alpha-3}$,
+$M_{33}\sim\eps^{-2\alpha-4}$, so $M_{33}$ dominates \eqref{eq:Ncofactor} and
+\[
+   N\sim\Delta_3\,M_{33}=-\Delta_3A^2\alpha^2(\alpha+1)\,\eps^{-2\alpha-4}.
+\]
+Therefore
+\begin{equation}\label{eq:poleRate}
+   \boxed{\;\Ric=-\frac{N}{2(\detg)^2}
+   \sim\frac{\Delta_3\,A^2\alpha^2(\alpha+1)\,\eps^{-2\alpha-4}}{2\,A^4\alpha^2\,\eps^{-4\alpha-4}}
+   =\frac{\Delta_3(\alpha+1)}{2A^2}\,\eps^{2\alpha}\;\xrightarrow[\eps\to0]{}\;0.\;}
+\end{equation}
+The singular powers cancel completely between $N$ and $(\detg)^2$; the surviving factor
+$\eps^{2\alpha}$ forces flatness, faster for higher-order poles.
+
+\subsection*{A.3 Logarithmic singularity (the marginal case $\alpha\to0$)}
+
+For $\mathcal P(1+\eps)=\log(1/\eps)+a_0+a_1\eps+\cdots$ put $L=\log(1/\eps)$. Now
+$p_0\sim L$, $p_1\sim-\eps^{-1}$, $p_2\sim\eps^{-2}$, $p_3\sim-2\eps^{-3}$, and the cancellations
+in A.2 are replaced by logarithmically-enhanced leading terms:
+\[
+   \detg\sim\frac{L+\kappa}{\eps^{2}},\qquad M_{33}\sim-\frac{1}{\eps^{4}},\qquad
+   N\sim-\frac{\Delta_3}{\eps^{4}},
+\]
+where $\kappa$ collects the $O(1)$ singular-subleading \emph{and} singular$\times$background
+contributions (for the Riemann primon gas $\kappa=0.832503$). Hence
+\begin{equation}\label{eq:logRate}
+   \Ric\sim\frac{\Delta_3}{2(L+\kappa)^2}\xrightarrow[\eps\to0]{}0,
+\end{equation}
+the slowest (logarithmic) approach. This is the $\alpha\to0^{+}$ boundary of \eqref{eq:poleRate}:
+the power $\eps^{2\alpha}\to1$ ceases to vanish, and the logarithmic growth of $\detg$ supplies
+the vanishing instead.
+
+\subsection*{A.4 Conditions, and resolution of the rate claim}
+
+Two hypotheses were used, both surfaced by the reduction:
+\begin{itemize}
+\item[(C1)] \emph{Definite leading order.} $\mathcal P$ has a leading singularity of pole type
+$A\eps^{-\alpha}$ ($\alpha>0$) or logarithmic type. This holds for the abscissa singularity of any
+Beurling/prime-gas spectral zeta.
+\item[(C2)] \emph{Nonvanishing background amplitude $\Delta_3\ne0$,} needed only for the explicit
+\emph{amplitude} in \eqref{eq:poleRate}--\eqref{eq:logRate}. Since
+$\Delta_3=\sum_{k\ge2}k(k-1)\mathcal P(k)$ and $\mathcal P(k)=\sum_q q^{-k}>0$ for any positive
+prime spectrum, $\Delta_3>0$ \textbf{automatically} for every physical gas in the class.
+\end{itemize}
+
+\begin{remark}[flatness is unconditional]\label{rem:uncond}
+If $\Delta_3=0$ (a non-physical fine-tuning), the $M_{33}$ term in \eqref{eq:Ncofactor} drops and
+$N$ is led by $\Delta_{xy}M_{32}\sim\eps^{-2\alpha-3}$, giving $\Ric\sim\eps^{2\alpha+1}\to0$ --- one
+power faster. Thus $\Ric\to0$ holds for \emph{every} temperature-driven singularity in the class,
+independent of (C2); only the rate amplitude depends on $\Delta_3$.
+\end{remark}
+
+Consequently Theorem~\ref{thm:flat} upgrades from a per-singularity-type statement to a general
+one: under (H1)--(H2) and (C1), $\Ric\to0$ at the temperature-driven transition, with the explicit
+rate \eqref{eq:poleRate}/\eqref{eq:logRate} whenever $\Delta_3\ne0$. The dichotomy
+(Theorem~\ref{thm:flat} $+$ Proposition~\ref{prop:div}) is established without a residual
+extrapolation.
+
+\subsection*{A.5 Numerical confirmation of the general rate}
+
+Eq.~\eqref{eq:poleRate} predicts $\Ric/\eps^{2\alpha}\to\Delta_3(\alpha+1)/(2A^2)$. Tested on the
+consistent tunable-order family $\mathcal P(s)=(s-1)^{-\alpha}\,2^{1-s}$ ($A=1$), the limit is
+reproduced for $\alpha=1,2,3$:
+\[
+\renewcommand{\arraystretch}{1.15}
+\begin{array}{c|ccc|c}
+\alpha & \eps=10^{-2} & 10^{-3} & 10^{-4} & \text{predicted }\Delta_3(\alpha+1)/2\\\hline
+1 & 2.708 & 2.968 & 2.997 & 3.000\\
+2 & 2.402 & 2.526 & 2.538 & 2.540\\
+3 & 2.366 & 2.531 & 2.549 & 2.551
+\end{array}
+\]
+The marginal case \eqref{eq:logRate} is confirmed independently by the Riemann primon gas
+($\Ric(L+\kappa)^2\to\Delta_3/2=2.5226$) and the simple-pole ($\alpha=1$) case by the all-integer
+Bose gas ($\Ric/\eps^2\to\Delta_3=5.6940$). Derivation and numerics agree across orders.
