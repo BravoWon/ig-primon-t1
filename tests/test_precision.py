@@ -7,8 +7,11 @@ since precision error is portable -- the hw:sw boundary the matrix is built to e
 
 import math
 
+import pytest
+
 from ig_primon import backends as B
-from ig_primon.precision import build_matrix, sweep_reduction
+from ig_primon import torch_precision as TP
+from ig_primon.precision import build_matrix, sweep_reduction, sweep_softmax_peakedness
 
 
 def test_matrix_runs_with_tier_c_and_safe_gemm():
@@ -22,14 +25,35 @@ def test_matrix_runs_with_tier_c_and_safe_gemm():
     assert g32 and all(c.floor_err < 1e-3 for c in g32)
 
 
-def test_layernorm_fp16_accumulate_overflows_at_width():
-    # the sharp finding: fp32-accumulate stays flat-safe at large width; fp16-accumulate
-    # overflows. This is exactly why production kernels accumulate fp16 reductions in fp32.
+def test_layernorm_fp16_accumulate_overflows_at_synthetic_width():
+    # NB: this is a SYNTHETIC reduction-width stress -- LayerNorm reduces over the hidden dim
+    # (d_model <= ~16k), so real models never hit this. It demonstrates the mechanism: fp32-
+    # accumulate stays flat-safe at large width; fp16-accumulate overflows (an fp16 RANGE artifact).
     be, data, crossover = sweep_reduction("layernorm", [256, 131072], budget=1e-3)
     (w_small, faith_small, naive_small), (w_big, faith_big, naive_big) = data
     assert math.isfinite(faith_big) and faith_big < 1e-2, "fp32-accumulate must stay bounded at large width"
     assert not math.isfinite(naive_big), "fp16-accumulate layernorm must overflow at 131072 width"
-    assert crossover is not None, "the firewall must flag the fp16-accumulate failure"
+    assert crossover is not None
+
+
+def test_softmax_fp16_error_rises_with_peakedness():
+    # corrected finding: fp16 softmax error RISES with peakedness/logit-magnitude (sharp heads),
+    # NOT with diffuseness -- the opposite of the 'tails carry the error' intuition.
+    be, data = sweep_softmax_peakedness([0.25, 8.0], width=2048)
+    (s_lo, ent_lo, err_lo), (s_hi, ent_hi, err_hi) = data
+    assert ent_hi < ent_lo, "scale 8 must be peakier (lower entropy) than scale 0.25"
+    assert err_hi > err_lo, "peaked softmax must have higher fp16 error than diffuse"
+
+
+@pytest.mark.skipif(not TP.available(), reason="bf16 pass needs torch + CUDA")
+def test_bf16_is_coarser_but_avoids_layernorm_overflow():
+    cells = TP.bf16_matrix(ops=("gemm",), dtypes=("fp16", "bf16"), size=512, budget=1e-3, iters=2)
+    by = {c.dtype: c for c in cells}
+    assert by["bf16"].floor_err > by["fp16"].floor_err, "bf16 (7 mantissa bits) must be coarser than fp16"
+    rows = TP.layernorm_range_check(widths=(16384, 131072))
+    (_, _, _), (_, e16_big, ebf_big) = rows
+    assert e16_big > 0.1, "fp16-accumulate layernorm must break at 131072 width (range overflow)"
+    assert ebf_big < 1e-2, "bf16-accumulate (fp32 range) must stay bounded -- the inversion"
 
 
 def test_attention_is_most_fragile():

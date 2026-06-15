@@ -54,6 +54,7 @@ igprimon hwscan                  # scan the device; print the Tier-C / Tier-E ma
 igprimon firewall                # Precision–Certification Firewall (CUDA Tier-E if available)
 igprimon precision-matrix        # certify inference primitives (GEMM/softmax/norm/attention) × {device}×{precision}
 igprimon precision-matrix --sweep  # reduction-width / context-length precision fragility
+igprimon precision-bf16          # bf16 pass (torch): real-inference map + the LayerNorm range inversion
 ```
 
 **Anchors.** `igprimon verify` re-checks, programmatically, every exact reference value the receipts pin —
@@ -72,11 +73,13 @@ reference (whose own error is ~1 eps), yet Tier-C **rejects** it because its dev
 roundoff can explain. An honest kernel (within the FP32 noise floor) certifies; a gross kernel fails outright.
 A GPU number is `[E-hw]` (exploratory); only a Tier-C reproduction within the noise floor licenses `[V]`.
 
-**Precision-certification matrix** (`ig_primon.precision` / `igprimon precision-matrix`). The firewall
-applied to the numerical primitives of LLM inference (GEMM, softmax, LayerNorm, attention) across
-`{RTX 5070, GTX 1660 Ti, CPU} × {fp64, fp32, fp16}`, each certified against an fp64 reference. The
-finding: GEMM is the easy primitive (fp16 safe), but the reduction ops need **fp32-accumulate**, and that
-becomes mandatory with context length — fp16-accumulate LayerNorm *overflows* past ~64k, attention breaks
-the budget by ~256. Scope is the numerical precision of inference primitives only. Whether locally-safe
-ops compose to globally bounded output through N layers is the named open frontier
-(`T1_precision_map_v0_1.md`), deliberately not built.
+**Precision-certification matrix** (`ig_primon.precision` / `igprimon precision-matrix`, plus
+`igprimon precision-bf16` via torch). The firewall applied to the inference primitives (GEMM, softmax,
+LayerNorm, attention) across `{RTX 5070, GTX 1660 Ti, CPU} × {fp64, fp32, tf32, fp16, bf16}`, each
+certified against an fp64 reference. Findings: GEMM is the easy primitive (fp16 safe; tf32 the sweet
+spot); **bf16 — the deployed format — is ~8× coarser than fp16** uniformly, so fp16-safe ≠ bf16-safe.
+Attention is the most fragile primitive and the one whose fragility genuinely scales with **context**
+(fp16 breaks by ~256). LayerNorm reduces over the **hidden dim, not context**, and its fp16 sum-of-squares
+overflow is a *range artifact* that **bf16 avoids entirely**. Sharp-logit (peaked) softmax — not diffuse —
+is the fp16 soft spot. Scope: inference numerics only. Whether locally-safe ops compose to globally bounded
+output through N layers is the named open frontier (`T1_precision_map_v0_1.md`), not built.
