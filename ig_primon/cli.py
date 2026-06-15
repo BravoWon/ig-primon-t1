@@ -26,6 +26,7 @@ RECEIPTS = {
     "perceptron-finiteT": "module_L_perceptron_finiteT",
     "hw-firewall": "module_hw_firewall",
     "ridge-transfer": "module_L_ridge_transfer",
+    "perceptron-mcmc-control": "module_L_perceptron_mcmc_control",
 }
 
 
