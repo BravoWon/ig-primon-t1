@@ -1,0 +1,233 @@
+% =====================================================================
+%  PAPER 1  —  A real-axis spectral dictionary for the arithmetic of number fields
+%  IG-PRIMON-T1.  Draft v0.1 (2026-06-14).
+%  Compilable: pdflatex twice (refs/labels).
+%  STATUS (HONEST_CLAIMS):
+%    - dictionary (4 entries) ......... [V] for tested fields (Sec.4); [E] general under ZFD(K)
+%    - Lemma E.1 (rank-reading law) ... [V] proof (T1_lemma_E1_proof_v0_2.md); equality iff ZFD(K)
+%    - hR/w, discriminant readings .... [V], 13 digits / exact (Sec.4)
+%  Contribution CLASS: framing. Every arithmetic fact used is classical; the contribution is the
+%  *reading* (real-axis, no complex continuation, simultaneous). NO-RH-CLAIM (Sec.1).
+%  Citations verified against sources 2026-06-14 (Julia, Spector, Bost-Connes, Neukirch,
+%  Iwaniec-Kowalski, Ihara).
+%  For SIGMA / J. Number Theory submission, adjust \documentclass accordingly.
+% =====================================================================
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\ord}{\operatorname{ord}}
+\DeclareMathOperator{\zetaK}{\zeta_K}
+
+\title{A real-axis spectral dictionary for the arithmetic of number fields}
+\author{Aaron Jones\\ \small JtechAI LLC}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Dedekind zeta function $\zeta_K$ of a number field $K$, read as the grand partition function of a
+``$K$-primon gas'' (a Gibbs family $p_\mathfrak{n}\propto N\mathfrak{n}^{-\beta}$ over integral ideals), has
+a Fisher information $I_K(\beta)=\partial_\beta^2\log\zeta_K(\beta)$ whose expansion about the Hagedorn point
+$\beta=1$ is governed by the nearest singularity of $\zeta_K$; under a per-field hypothesis $\mathrm{ZFD}(K)$
+this is a trivial zero on the real axis. We show that this single expansion simultaneously encodes the
+leading arithmetic of $K$: its \emph{unit rank} $\rho=r_1+r_2-1$ (from the radius of convergence and a
+distance-aware amplitude law), its \emph{signature} $(r_1,r_2)$ (from the orders of the next trivial zeros
+together with the degree), the product $hR/w$ of class number, regulator, and roots of unity (from a
+sub-leading log-singularity amplitude), and the \emph{discriminant} $|d_K|$ (from the constant term). Each
+reading is a corollary of classical facts---the order of $\zeta_K$ at $s=0$, the class-number formula, and
+the residue at $s=1$---so the contribution is not new arithmetic but a \emph{reading}: the real-axis
+thermodynamics of the prime gas carries this data with no analytic continuation into the complex plane and
+no use of zero locations beyond $\mathrm{ZFD}(K)$. We prove the rank-reading law (Lemma~\ref{lem:rank}) and
+exhibit it numerically for $\Q$, $\Q(\sqrt{-3})$, $\Q(\sqrt5)$, $\Q(\sqrt2)$, a cyclic cubic field, and the
+mixed cubic $\Q(\sqrt[3]2)$ (the last requiring a non-abelian Artin $L$-function). The general statement is
+conditional on $\mathrm{ZFD}(K)$ excluding a Siegel-type zero inside the relevant disk; we are explicit
+about this wall.
+\end{abstract}
+
+% =====================================================================
+\section{Introduction and scope}\label{sec:intro}
+Reading $\zeta(s)=\sum_n n^{-s}$ as the grand partition function of a gas of ``primons''---bosonic quanta
+labelled by primes, with energies $\log p$---is by now classical \cite{julia1994,spector1990,bost1995}. In
+this picture the temperature axis $\beta=\Re s>1$ is physical and the Hagedorn point $\beta=1$ is a
+limiting-temperature singularity. The object of this paper is the \emph{Fisher information} of the Gibbs
+family, $I_K(\beta)=\mathrm{Var}_\beta(\log N\mathfrak n)=\partial_\beta^2\log\zeta_K(\beta)$, for the
+generalization in which $\zeta$ is replaced by the Dedekind zeta function $\zeta_K$ of a number field $K$
+(the $K$-primon gas, with states the integral ideals $\mathfrak n$ weighted by $N\mathfrak n^{-\beta}$).
+
+Our claim is a \emph{dictionary}: the Taylor expansion of $I_K$ about the Hagedorn point reads off the
+leading arithmetic invariants of $K$. The mechanism is elementary---the expansion is singular at the zeros
+and pole of $\zeta_K$ shifted to the origin, so its radius and amplitudes are determined by the nearest such
+singularities---but the reading is, to our knowledge, not assembled elsewhere, and it has two features worth
+stating at the outset.
+
+\paragraph{Real axis, no continuation.} Every quantity below is computed from $\zeta_K(\beta)$ for real
+$\beta$ near $1$. We never continue into the critical strip; the nontrivial zeros enter only as the abstract
+``next singularity'' whose \emph{distance} bounds a radius of convergence, never as objects whose location
+is asserted or used. \textbf{NO-RH-CLAIM:} nothing here bears on the location of any zero of any $L$-function.
+
+\paragraph{Contribution class: framing.} The arithmetic inputs---$\ord_{s=0}\zeta_K=\rho$, the analytic
+class-number formula $\zeta_K^*(0)=-hR/w$, and $\Res_{s=1}\zeta_K=2^{r_1}(2\pi)^{r_2}hR/(w\sqrt{|d_K|})$
+\cite{neukirch,iwaniec-kowalski}---are all classical. The contribution is that one real-axis Fisher
+expansion encodes signature, $hR/w$, and discriminant \emph{simultaneously}. We label this honestly as a
+framing-class result, not a new theorem of arithmetic.
+
+% =====================================================================
+\section{The Fisher expansion and the dictionary}\label{sec:dict}
+Write $\eps=\beta-1$ and $G(\eps)=\log\big[\eps\,\zeta_K(1+\eps)\big]$. Since $(s-1)\zeta_K(s)$ is entire of
+order one (Hecke), $G$ is analytic at $\eps=0$; let $b_k=[\eps^k]G$. The Fisher information is
+$I_K(1+\eps)=\partial_\eps^2\log\zeta_K(1+\eps)=\eps^{-2}+\partial_\eps^2 G(\eps)$, so the regularized part
+$G$ carries all field-dependent information. The four readings (Table~\ref{tab:dict}) follow from the
+singularity structure of $\zeta_K$ on the real axis.
+
+\begin{table}[h]\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+invariant & read from & classical mechanism & status\\
+\midrule
+unit rank $\rho=r_1+r_2-1$ & radius of $\{b_k\}$ / amplitude $|b_k|\,k\,R_c^{\,k}\to m$ & $\ord_{s=0}\zeta_K=\rho$ & [V] tested; [E] under ZFD\\
+signature $(r_1,r_2)$ & orders at distances $2,3$ (give $r_2,\ r_1{+}r_2$) & $\ord_{s=-(2j-1)}\zeta_K=r_2$ & [V] ($\Q(\sqrt[3]2)$ residual)\\
+$hR/w$ & sub-leading log-amplitude $A=e^{H(-1)}$ & $\zeta_K^*(0)=-hR/w$ & [V], 13 digits\\
+$|d_K|$ & constant term $\div$ amplitude, $\Res/A$ & residue formula at $s=1$ & [V], exact\\
+\bottomrule
+\end{tabular}
+\caption{The dictionary. $H(\eps)=G(\eps)-m\log(1+\eps)$ removes the binding-zero contribution of order
+$m$; $A=e^{H(-1)}$. All four are read off one expansion about $\beta=1$.}\label{tab:dict}
+\end{table}
+
+% =====================================================================
+\section{The rank-reading law}\label{sec:rank}
+The trivial-zero structure of $\zeta_K$ is fixed by the signature through the $\Gamma$-factors of the
+completed function $\Lambda_K(s)=|d_K|^{s/2}\,\Gamma_\R(s)^{r_1}\Gamma_\C(s)^{r_2}\,\zeta_K(s)$
+(with $\Gamma_\R(s)=\pi^{-s/2}\Gamma(s/2)$, $\Gamma_\C(s)=2(2\pi)^{-s}\Gamma(s)$). $\Lambda_K$ is meromorphic
+with simple poles only at $s=0$ and $s=1$, and $\Lambda_K(s)=\Lambda_K(1-s)$ \cite{neukirch}. Since
+$\Gamma_\R$ and $\Gamma_\C$ together contribute poles of total order $r_1+r_2$ at $s=0$ while $\Lambda_K$ has
+only a simple pole there, $\zeta_K$ must vanish to order $(r_1+r_2)-1=\rho$; likewise (no $\Lambda_K$ pole at
+negative integers) $\ord_{s=-(2j-1)}\zeta_K=r_2$ and $\ord_{s=-2j}\zeta_K=r_1+r_2$ for $j\ge1$. The nearest
+zero of $\zeta_K$ to $s=1$ thus sits at distance $1$ (the $s=0$ zero, order $\rho$) when $\rho\ge1$, and at
+distance $2$ (resp.\ $3$) for an imaginary quadratic field (resp.\ $\Q$).
+
+\begin{lemma}[Rank-reading law]\label{lem:rank}
+Let $R_c$ be the radius of convergence of $\{b_k\}$ (we reserve $R$ for the regulator) and $m$ the order of
+the binding zero at distance $R_c$. Assume $\mathrm{ZFD}(K)$: $\zeta_K$ has no nontrivial zero in the
+punctured disk $0<|s-1|<R_{\mathrm{triv}}$, where $R_{\mathrm{triv}}\in\{1,2,3\}$ is the distance to the
+nearest trivial zero ($1$ if $\rho\ge1$; $2$ for imaginary quadratic; $3$ for $\Q$). Then
+\begin{equation}
+|b_k|\,k\,R_c^{\,k}\xrightarrow{k\to\infty} m,\qquad R_c=R_{\mathrm{triv}} .
+\label{eq:rank}
+\end{equation}
+In particular $\rho\ge1\Rightarrow R_c=1$ and $|b_k|\,k\to m=\rho$: the expansion reads the exact unit rank.
+The spine is unconditional: $\rho\ge1\Rightarrow R_c\le1$, equivalently $R_c\ge2\Rightarrow\rho=0$; the
+equality $R_c=R_{\mathrm{triv}}$ is what requires $\mathrm{ZFD}(K)$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+The Hadamard factorization of the order-one entire function $(s-1)\zeta_K(s)$ writes $G(\eps)$ as a sum of
+terms $m_0\log(1-\eps/\eps_0)$ over the zeros $\eps_0=\rho_0-1$ of $\zeta_K$ (the $(s-1)$ factor removes the
+pole), with Taylor coefficients $-m_0/(k\,\eps_0^{\,k})$. The radius $R_c$ is the distance to the nearest
+$\eps_0$. Under $\mathrm{ZFD}(K)$ that nearest singularity is the \emph{real} trivial zero---for $\rho\ge1$
+the $s=0$ zero, at $\eps_0=-1$ (whence the $H(\eps)=G(\eps)-m\log(1+\eps)$ of Table~\ref{tab:dict})---so a
+single real term dominates and $|b_k|\,k\,R_c^{\,k}\to m$. Were the nearest zeros a non-real conjugate pair
+(the low-lying-zero scenario $\mathrm{ZFD}(K)$ excludes) the coefficients would oscillate and only
+$\limsup=m$ would survive; the convergence of $|b_k|\,k\,R_c^{\,k}$ is thus itself a (weak) consequence of
+$\mathrm{ZFD}(K)$. Full proof: \cite[$T1\_lemma\_E1\_proof\_v0\_2$]{repo}.
+\end{proof}
+
+\begin{remark}[The Siegel wall, stated plainly]\label{rem:zfd}
+$\mathrm{ZFD}(K)$ is \emph{not} implied by GRH: a zero at $\tfrac12+it$ lies inside the disk $|s-1|<1$
+whenever $|t|<\sqrt3/2\approx0.866$. If $\mathrm{ZFD}(K)$ fails through a Siegel real zero
+$\beta_0\in(0,1)$, the binding singularity moves to distance $1-\beta_0<1$: the amplitude law still returns
+the multiplicity ($|b_k|\,k\,R_c^{\,k}\to1$, the Siegel zero being simple), but the \emph{radius} is misread
+as $1-\beta_0$ rather than $1$, so the inference $R_c=1\Rightarrow\rho\ge1$ silently fails---most insidiously
+for a rank-$1$ field, where the amplitude is also $1$ and only the shrunken radius betrays the contamination.
+The general rank-reading is therefore $[E]$, conditional on $\mathrm{ZFD}(K)$ per field; an unconditional
+statement would require a no-Siegel-zero theorem plus a uniform low-lying-zero bound, neither available. We
+do not move this wall.
+\end{remark}
+
+% =====================================================================
+\section{Verified instances}\label{sec:instances}
+For each field we compute $\{b_k\}$ to high precision and read $|b_k|\,k\,R_c^{\,k}\to m$ (to 6--13
+significant figures), cross-checking the order by $\zeta_K(2\eps)/\zeta_K(\eps)\to2^m$. For the three fields
+of rank $\ge1$ we verify $\mathrm{ZFD}(K)$ directly by an argument-principle integral
+$(2\pi i)^{-1}\oint_{|s-1|=r}\zeta_K'/\zeta_K\,ds$, which counts (zeros $-$ poles) enclosed. At $r=0.90$
+(and, for $\Q(\sqrt5)$, refined to $10^{-12}$ at $r=0.98$) it returns $-1$---the simple pole at $s=1$, with
+\emph{no} enclosed zero---certifying $\mathrm{ZFD}(K)$ on $0<|s-1|<r$. The binding trivial zero at distance
+$1$ lies just outside these contours and is detected instead by the $b_k$ tail, which pins $R_c=1$ to seven
+figures; the two methods bracket the hypothesis.
+
+\begin{table}[h]\centering
+\begin{tabular}{@{}lllll@{}}
+\toprule
+field $K$ & signature & rank $\rho$ & $(R_c,m)$ read & route\\
+\midrule
+$\Q$ & $(1,0)$ & 0 & $R_c=3$, $m=1$ & $\zeta$\\
+$\Q(\sqrt{-3})$ & $(0,1)$ & 0 & $R_c=2$, $m=1$ & $\zeta\cdot L(\chi_{-3})$\\
+$\Q(\sqrt5),\ \Q(\sqrt2)$ & $(2,0)$ & 1 & $R_c=1$, $m\to1$ & $\zeta\cdot L(\chi)$, Hurwitz\\
+cyclic cubic, cond.\ 7 & $(3,0)$ & 2 & $R_c=1$, $m\to2$ & $\zeta\cdot L(\chi)L(\chi^2)$\\
+$\Q(\sqrt[3]2)$ & $(1,1)$ & 1 & $R_c=1$, $m\to1$ & degree-2 $S_3$ Artin $L$ (AFE)\\
+\bottomrule
+\end{tabular}
+\caption{Rank-reading verified across abelian and non-abelian routes.}\label{tab:inst}
+\end{table}
+
+The mixed cubic $\Q(\sqrt[3]2)$ is the most stringent instance: signature $(1,1)$, so $\zeta_K$ factors as
+$\zeta\cdot L(\sigma,\,\cdot)$ with $\sigma$ the non-abelian degree-two Artin representation of the $S_3$
+Galois closure, outside the Dirichlet/Hurwitz route. We construct $L(\sigma)$ from $d_K=-108$, resolvent
+$\Q(\sqrt{-3})$, conductor $\mathfrak f=(6)$ with $N\mathfrak f=36$ (conductor--discriminant), and the cubic
+residue symbol as the prime seed (verified at all $20$ primes below $80$ against root counts of $x^3-2$
+mod $p$). The Artin root number is $W(\sigma)=+1$, whence $W(\zeta_K)=W(\zeta)\,W(\sigma)=+1$ (Hecke); its
+approximate functional equation is validated by the theta/functional-equation identity to $10^{-31}$, with a
+wrong-root-number control failing by $O(1)$. Result: $|b_k|\,k\to1$ ($1.00012507$ by $k=13$), with residual
+$r_2\,2^{-k}$, here $2^{-13}$ at $k=13$---the next trivial zero ($\ord_{s=-1}=r_2=1$, distance $2$) bleeding
+in, confirming the signature reading.
+
+\paragraph{$hR/w$ and discriminant.} With $H(\eps)=G(\eps)-m\log(1+\eps)$ and $A=e^{H(-1)}$:
+\[
+\Q(\sqrt5):\ A=0.24060591253=\tfrac12\log\!\big(\tfrac{1+\sqrt5}{2}\big);\qquad
+\Q(\sqrt2):\ A=0.44068679351=\tfrac12\log(1+\sqrt2)\quad(\text{13 digits}),
+\]
+and $|d_K|=\big(2^{r_1}(2\pi)^{r_2}A/\Res\big)^2$ returns $5.0$ and $8.0$ exactly. Thus signature, $hR/w$,
+and $|d_K|$ are all recovered from the single expansion about $\beta=1$.
+
+% =====================================================================
+\section{Discussion}\label{sec:discussion}
+The dictionary is a reading, not a theorem of arithmetic, and it is honest to say so: each entry is a
+corollary of a classical special-value identity, repackaged as a feature of the prime gas's real-axis
+thermodynamics. Its value is the \emph{simultaneity}---one Fisher expansion, four invariants, no continuation
+and no appeal to the nontrivial zeros---and the clean separation it forces between what the real axis can
+report (distances, orders, special values) and what it cannot (zero locations; the Siegel wall of
+Remark~\ref{rem:zfd}). Further sub-leading coefficients read only higher derivatives of the same special
+values, of diminishing arithmetic interest. A natural next object, left open here, is the Euler--Kronecker
+constant $\gamma_K$ \cite{ihara} as the constant term's generalization.
+
+% =====================================================================
+\begin{thebibliography}{99}
+\bibitem{julia1994} B.~L.~Julia, \emph{Statistical theory of numbers}, in \emph{Number Theory and Physics},
+  Springer Proc.\ in Physics \textbf{47} (1990); and \emph{Thermodynamic limit in number theory:
+  Riemann--Beurling gases}, Physica A \textbf{203}, 425 (1994).
+\bibitem{spector1990} D.~Spector, \emph{Supersymmetry and the M\"obius inversion function},
+  Commun.\ Math.\ Phys.\ \textbf{127}, 239 (1990).\bibitem{bost1995} J.-B.~Bost and A.~Connes, \emph{Hecke algebras, type III factors and phase transitions
+  with spontaneous symmetry breaking in number theory}, Selecta Math.\ (N.S.) \textbf{1}, 411 (1995).\bibitem{neukirch} J.~Neukirch, \emph{Algebraic Number Theory}, Grundlehren \textbf{322}, Springer (1999)
+  (functional equation of $\Lambda_K$, $\Gamma$-factors, class-number formula).\bibitem{iwaniec-kowalski} H.~Iwaniec and E.~Kowalski, \emph{Analytic Number Theory}, AMS Colloq.\ Publ.\
+  \textbf{53} (2004) (approximate functional equation, Artin $L$-functions).\bibitem{ihara} Y.~Ihara, \emph{On the Euler--Kronecker constants of global fields and primes with small
+  norms}, in \emph{Algebraic Geometry and Number Theory}, Progr.\ Math.\ \textbf{253}, Birkh\"auser (2006).\bibitem{repo} IG-PRIMON-T1 receipts (this work): \texttt{module\_e\_radius\_finding.py},
+  \texttt{T1\_lemma\_E1\_proof\_v0\_2.md}, \texttt{T1\_adversarial\_audit\_v0\_1.md}.
+\end{thebibliography}
+
+\end{document}
