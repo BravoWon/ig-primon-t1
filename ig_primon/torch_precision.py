@@ -169,6 +169,87 @@ def format_bf16_matrix(cells, size, budget):
     return "\n".join(lines)
 
 
+_FP8 = {"e4m3": ("float8_e4m3fn", 448.0), "e5m2": ("float8_e5m2", 57344.0)}
+
+
+def fp8_gemm(size=4096, device=0, iters=20):
+    """Real fp8 GEMM on Blackwell fp8 tensor cores via torch._scaled_mm (plain a@b is unsupported
+    for fp8). Per-tensor max-scaling into fp8 range. Returns rows (dtype, GFLOP/s, rel_err vs fp64)."""
+    import torch
+    torch.cuda.set_device(device)
+    dev = f"cuda:{device}"
+    a = torch.randn(size, size, device=dev); b = torch.randn(size, size, device=dev)
+    ref = a.double() @ b.double()
+    rows = []
+    for name, (dt8, maxv) in _FP8.items():
+        try:
+            fdt = getattr(torch, dt8)
+            sa = (a.abs().max() / maxv).to(torch.float32)
+            sb = (b.abs().max() / maxv).to(torch.float32)
+            a8 = (a / sa).to(fdt)
+            b8 = (b / sb).to(fdt).t().contiguous().t()   # _scaled_mm wants col-major rhs
+            fn = lambda: torch._scaled_mm(a8, b8, scale_a=sa, scale_b=sb, out_dtype=torch.bfloat16)
+            fn(); torch.cuda.synchronize()
+            t0 = time.perf_counter()
+            for _ in range(iters):
+                out = fn()
+            torch.cuda.synchronize()
+            dt_s = (time.perf_counter() - t0) / iters
+            err = float((out.double() - ref).norm() / ref.norm())
+            rows.append((name, 2 * size ** 3 / dt_s / 1e9, err))
+        except Exception as exc:
+            rows.append((name, float("nan"), float("nan")))
+    return rows
+
+
+def fp8_range_tradeoff(mags=(1, 10, 100, 1000, 5000), device=0):
+    """The range-vs-mantissa tradeoff head-on: quant-dequant rel_err vs input magnitude. E4M3
+    (range +-448) is finer at normal scale but SATURATES on outliers; E5M2 (range +-57344) keeps
+    bf16-like range but is mantissa-starved. Returns (mag, (e4m3_err, e4m3_sat), (e5m2_err, e5m2_sat))."""
+    import torch
+    torch.cuda.set_device(device)
+    dev = f"cuda:{device}"
+    out = []
+    for m in mags:
+        x = torch.randn(512, 512, device=dev) * m
+        row = [m]
+        for name, (dt8, maxv) in _FP8.items():
+            fdt = getattr(torch, dt8)
+            xb = x.to(fdt).to(torch.float32)
+            err = float((xb - x).norm() / x.norm())
+            sat = bool(torch.isinf(xb).any() or (xb.abs() >= maxv * 0.999).any())
+            row.append((err, sat))
+        out.append(tuple(row))
+    return out
+
+
+def format_fp8(gemm_rows, range_rows):
+    lines = []
+    lines.append("=" * 80)
+    lines.append("IG-PRIMON-T1 - fp8 pass (torch _scaled_mm, RTX 5070 Blackwell fp8 tensor cores)")
+    lines.append("  E4M3: 3 mantissa, range +-448 (finer, narrow). E5M2: 2 mantissa, range +-57344 (coarse, wide).")
+    lines.append("=" * 80)
+    lines.append("\n[fp8 GEMM, per-tensor scaled]")
+    lines.append(f"  {'dtype':>6} {'GFLOP/s':>9} {'rel_err':>10}")
+    for name, gf, err in gemm_rows:
+        g = f"{gf:9.0f}" if math.isfinite(gf) else f"{'-':>9}"
+        e = f"{err:.2e}" if math.isfinite(err) else "unsupported"
+        lines.append(f"  {name:>6} {g} {e:>10}")
+    lines.append("  (E5M2xE5M2 GEMM is unsupported by cublas: 'Multiplication of two Float8_e5m2 matrices is")
+    lines.append("   not supported'. Forward fp8 GEMM is E4M3; mixed E4M3xE5M2 is allowed -- E5M2 is for gradients.)")
+    lines.append("\n[range-vs-mantissa tradeoff: quant-dequant rel_err vs input magnitude]")
+    lines.append(f"  {'magnitude':>9} {'E4M3 (+-448)':>18} {'E5M2 (+-57344)':>18}")
+    for row in range_rows:
+        m = row[0]; (e4, s4) = row[1]; (e5, s5) = row[2]
+        a = f"{e4:.2e}{' SAT' if s4 else ''}"
+        b = f"{e5:.2e}{' SAT' if s5 else ''}"
+        lines.append(f"  {m:>9} {a:>18} {b:>18}")
+    lines.append("  => E4M3 is finer at normal scale but SATURATES past +-448 (LLM activation outliers are")
+    lines.append("     exactly this regime); E5M2 keeps bf16-like range but is mantissa-starved. That tension")
+    lines.append("     -- not raw mantissa count -- is why fp8 inference needs per-tensor/-channel scaling.")
+    return "\n".join(lines)
+
+
 def format_range_check(rows):
     lines = []
     lines.append("\n[layernorm range check] in-dtype-accumulate sum-of-squares (the fp16 overflow, inverted)")

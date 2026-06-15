@@ -56,6 +56,16 @@ def test_bf16_is_coarser_but_avoids_layernorm_overflow():
     assert ebf_big < 1e-2, "bf16-accumulate (fp32 range) must stay bounded -- the inversion"
 
 
+@pytest.mark.skipif(not TP.available(), reason="fp8 pass needs torch + CUDA")
+def test_fp8_e4m3_finer_but_saturates_while_e5m2_holds():
+    rows = TP.fp8_range_tradeoff(mags=(1, 1000))
+    (_, (e4_lo, s4_lo), (e5_lo, _)), (_, (_, s4_hi), (_, s5_hi)) = rows
+    assert e4_lo < e5_lo, "E4M3 (3 mantissa) must be finer than E5M2 (2 mantissa) at normal scale"
+    assert s4_hi and not s5_hi, "E4M3 must saturate past its +-448 range while E5M2 (+-57344) holds"
+    gemm = {n: err for n, gf, err in TP.fp8_gemm(size=512, iters=2)}
+    assert math.isfinite(gemm["e4m3"]), "real E4M3 fp8 tensor-core GEMM must run"
+
+
 def test_attention_is_most_fragile():
     # attention compounds two matmuls + a softmax reduction; its fp16-accumulate near-miss
     # crosses the budget at a much smaller context than softmax/layernorm.

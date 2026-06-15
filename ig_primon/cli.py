@@ -101,6 +101,18 @@ def _cmd_precision_bf16(args):
     return 0
 
 
+def _cmd_precision_fp8(args):
+    from . import torch_precision as T
+    if not T.available():
+        print("fp8 pass needs torch+CUDA (Blackwell fp8 tensor cores). Install: "
+              "pip install torch --index-url https://download.pytorch.org/whl/cu128")
+        return 2
+    gemm = T.fp8_gemm(size=args.size)
+    rng = T.fp8_range_tradeoff()
+    print(T.format_fp8(gemm, rng))
+    return 0
+
+
 def build_parser():
     p = argparse.ArgumentParser(prog="igprimon",
                                 description="Operational layer over the IG-PRIMON-T1 research receipts.")
@@ -144,6 +156,11 @@ def build_parser():
     bf.add_argument("--size", type=int, default=1024)
     bf.add_argument("--budget", type=float, default=1e-3)
     bf.set_defaults(func=_cmd_precision_bf16)
+
+    f8 = sub.add_parser("precision-fp8",
+                        help="fp8 pass (torch _scaled_mm): real Blackwell fp8 GEMM + the range-vs-mantissa tradeoff")
+    f8.add_argument("--size", type=int, default=4096)
+    f8.set_defaults(func=_cmd_precision_fp8)
     return p
 
 

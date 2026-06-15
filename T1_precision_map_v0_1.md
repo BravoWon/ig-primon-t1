@@ -1,4 +1,4 @@
-# IG-PRIMON-T1 — Precision-Certification Map for Inference Primitives (v0.2, 2026-06-15)
+# IG-PRIMON-T1 — Precision-Certification Map for Inference Primitives (v0.3, 2026-06-15)
 
 **Track.** Hardware-execution / operationalization. Extends the Precision–Certification Firewall
 (`ig_primon.firewall`) to the numerical primitives that dominate LLM inference: GEMM, softmax, LayerNorm,
@@ -10,6 +10,9 @@ bf16, not fp16) and corrects two fp16-era findings, both surfaced by measurement
 (1) the LayerNorm fp16→overflow is a **range artifact** that bf16 (fp32 range) avoids, and its reduced
 axis is the **hidden dim, not context**; (2) softmax fp16 error **rises with peakedness**, not with
 diffuseness — the opposite of the first intuition. Recorded, not smoothed.
+
+**v0.3 (this revision).** Adds the **fp8 pass** (`igprimon precision-fp8`): real Blackwell fp8 tensor-core
+GEMM via `torch._scaled_mm`, and the range-vs-mantissa tradeoff that actually defines fp8 (§2b).
 
 **Discipline.** **[V]** verified by a reproducible run, **[open]** named not built. **Scope wall:** every
 claim is about the **numerical precision of inference primitives** — not speculative decoding (acceptance
@@ -76,6 +79,21 @@ error of fp16; reductions still want fp32-accumulate for the floor; attention is
 and the one whose fragility is genuinely context-scaling; sharp-logit softmax is the fp16 (and bf16) soft
 spot. Per-op, per-precision, per-axis — not "we made LLMs better."
 
+## 2b. fp8 — the range-vs-mantissa frontier [V]
+
+fp8 is a storage / tensor-core-GEMM format, not a compute format (no `exp` in fp8); `igprimon
+precision-fp8` measures it via `torch._scaled_mm` on the RTX 5070's fp8 tensor cores.
+
+- **fp8 GEMM is fast and coarse.** E4M3 (3 mantissa, range ±448): **134 TFLOP/s** (2× bf16, ~280× the
+  crippled fp64), rel err 3.8e-2 (~13× bf16). E5M2×E5M2 GEMM is *unsupported* by cublas ("Multiplication of
+  two Float8_e5m2 matrices is not supported") — E5M2 is the gradient format; forward fp8 is E4M3, with
+  mixed E4M3×E5M2 allowed.
+- **The binding constraint is range, not mantissa.** E4M3 is finer at normal scale (2.7e-2 vs E5M2 5.3e-2)
+  but **saturates to nan past magnitude ~100** (its ±448 ceiling) — precisely the LLM activation-outlier
+  regime; E5M2 keeps bf16-like range (±57344) at every magnitude but is mantissa-starved. The fp8 lesson is
+  that *range/outliers*, not raw mantissa count, is what binds — which is why fp8 inference lives or dies on
+  per-tensor / per-channel scaling.
+
 ---
 
 ## 3. The open frontier [open] — NOT built
@@ -95,5 +113,6 @@ pip install torch --index-url https://download.pytorch.org/whl/cu128   # + tf32/
 igprimon precision-matrix --op all --size 1024     # the fp16/fp32 map
 igprimon precision-matrix --op attention --sweep   # the genuine context-axis fragility
 igprimon precision-bf16                            # the real-inference map + LayerNorm range inversion
+igprimon precision-fp8                             # Blackwell fp8 GEMM + the range-vs-mantissa tradeoff
 ```
 Tests: `pytest tests/test_precision.py` (CPU-portable; bf16 tests skip without torch+CUDA).

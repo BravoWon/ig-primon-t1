@@ -55,6 +55,7 @@ igprimon firewall                # Precision–Certification Firewall (CUDA Tier
 igprimon precision-matrix        # certify inference primitives (GEMM/softmax/norm/attention) × {device}×{precision}
 igprimon precision-matrix --sweep  # reduction-width / context-length precision fragility
 igprimon precision-bf16          # bf16 pass (torch): real-inference map + the LayerNorm range inversion
+igprimon precision-fp8           # fp8 pass (torch): Blackwell fp8 GEMM + the range-vs-mantissa tradeoff
 ```
 
 **Anchors.** `igprimon verify` re-checks, programmatically, every exact reference value the receipts pin —
@@ -81,5 +82,8 @@ spot); **bf16 — the deployed format — is ~8× coarser than fp16** uniformly,
 Attention is the most fragile primitive and the one whose fragility genuinely scales with **context**
 (fp16 breaks by ~256). LayerNorm reduces over the **hidden dim, not context**, and its fp16 sum-of-squares
 overflow is a *range artifact* that **bf16 avoids entirely**. Sharp-logit (peaked) softmax — not diffuse —
-is the fp16 soft spot. Scope: inference numerics only. Whether locally-safe ops compose to globally bounded
-output through N layers is the named open frontier (`T1_precision_map_v0_1.md`), not built.
+is the fp16 soft spot. **fp8** (`precision-fp8`) runs real Blackwell tensor-core GEMM (E4M3 at 134 TFLOP/s,
+2× bf16) and shows the defining fp8 tension: E4M3 is finer but *saturates* past its ±448 range (the LLM
+activation-outlier regime), E5M2 holds bf16-range but is mantissa-starved — so range, not mantissa, is what
+binds. Scope: inference numerics only. Whether locally-safe ops compose to globally bounded output through N
+layers is the named open frontier (`T1_precision_map_v0_1.md`), not built.
