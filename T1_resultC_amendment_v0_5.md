@@ -82,3 +82,12 @@ scope statement the singularity gate supplies: **the curvature diagnostic classi
 archetypes; the singular real-net case is a decidable rate competition that, where it closes, hands off to
 the LLC.** That is the program's true, falsifiable "novel for AI" claim — sharper than any inference-time
 curvature gadget.
+
+## E. Record note — V/E/C on the maker-catches (both halves of the loop)
+Four times the loop corrected its own maker, but they are not one species. **Three were errors overturned
+by the data** — the precision expectation (`σ=0` would contaminate float64; it did not), the F-genuine
+false positive (refuted by the FSS refinement), and `g_βε=0 "by symmetry"` (refuted by `⟨q⟩=q*`). **The
+fourth was an overclaim hedged by the verify-half, not the data** — the *unconditional* singularity closure
+was not wrong so much as overstated, and the toy-`det g` calculation (verification, no sampler) downgraded
+it to the rate conditional. So the honest tally is **three data-caught errors + one verification-hedged
+overclaim** — generate *and* verify each doing their job, which is the more accurate (and better) record.

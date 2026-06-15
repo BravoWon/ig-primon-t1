@@ -1,9 +1,14 @@
-# IG-PRIMON-T1 — Genuine-Side Singularity Gate (analysis, v0.1, 2026-06-15)
+# IG-PRIMON-T1 — Genuine-Side Singularity Gate (analysis, v0.2, 2026-06-15)
 
 **Status:** `[GATE-ANALYSIS]` — pencil, no sampler. Decides *on paper* whether the genuine-side
 metric-curvature diagnostic (Result C, `|R|→∞` on a positive-definite metric) survives the **singular**
 (real-net) case, before any SGLD/MCMC effort. Companion to the partial control
 `module_L_perceptron_mcmc_control.py`. No silent edits; amendments are versioned diffs.
+
+**v0.2 (this revision).** §9 locates the `χ`-divergence and finds the §5 rate competition is a **special
+case (branch 2) only** — generically the singular suppression and the genuine divergence are not
+co-located, so the gate's real content is a **trichotomy on the net posterior's RSB structure**, not a
+rate. v0.1 (§§1–8) stands as the `det g`-race setup it was.
 
 **Verdict (honest, conditional — NOT a closure):** the genuine signature is **not** unconditionally
 killed by singularity. It **survives** at any finite-temperature transition, and the singular structure
@@ -85,5 +90,42 @@ competition that — where it closes — hands off to the LLC.
 **Footnote (weaker, not load-bearing).** There is a prior question of whether a real net's posterior even
 *has* the continuous-RSB/replicon transition the genuine signature detects. If it does not, `χ` never
 diverges and the genuine side is vacuous for real nets regardless of `det g` — a cleaner closure, but one
-that cannot be asserted without evidence (some work argues nets are glassy; unsettled). Kept out of the
-load-bearing argument.
+that cannot be asserted without evidence (some work argues nets are glassy; unsettled). [v0.2: this
+footnote is **promoted to load-bearing** — see §9.]
+
+---
+
+## 9. Pencil pass 2 (v0.2) — locating the χ-divergence: the rate competition is branch-2-only
+
+The §5 race tacitly assumed the singular suppression (`g_ββ ~ λ/β²`, a **β→∞** effect) and the genuine
+divergence (`χ → ∞`) compete at the *same* `β`. **They generically do not.** `χ = N·Var(q)` diverges
+**only at a continuous-RSB (de Almeida–Thouless) transition**; everywhere else it is finite. So the gate is
+decided not by a rate but by **where that transition sits relative to the β→∞ singular limit** — the
+co-location question. Three branches:
+
+1. **Finite-β RSB transition** (`β_AT < ∞`; the spherical-perceptron `[V]` case). There `g_ββ = O(1)` is
+   finite while `χ → ∞`, so `det g → +∞` — the **genuine signature SURVIVES, gate OPEN.** The singular
+   suppression is a β→∞ effect and **never reaches a finite-β transition**; the §5 race does not apply.
+   (Cost: the sampler is then needed after all — the equilibration wall returns.)
+2. **Zero-temperature (β→∞) RSB transition** — a genuine glass transition *co-located* with the singular
+   limit, `χ ~ β^p`. **This is the only branch where the §5 race bites:** CLOSED (`det g → 0`/indefinite,
+   F-spurious) iff `p ≤ 2`, OPEN iff `p > 2`.
+3. **No RSB transition** (the minima form a connected manifold; mode connectivity, single state). Two
+   replicas spread over the manifold, so `χ` saturates to a finite, β-independent constant (the manifold's
+   overlap variance) — **never diverges.** The genuine signal is **VACUOUS**; the gate is closed for
+   *absence of criticality*, not by suppression.
+
+**Refined verdict.** The v0.1 rate conditional is the **branch-2 special case.** For a general singular
+posterior the binding question is not a rate but a **LOCATION/STRUCTURE**: does it have a finite-β RSB
+transition (branch 1 → open, signature survives), a zero-T glass transition (branch 2 → the `p` vs `2`
+race), or no RSB at all (branch 3 → vacuous)? The spherical perceptron is **branch 1** — which is exactly
+why its genuine result is `[V]` and a control was even conceivable. Whether a real net's posterior is
+branch 1, 2, or 3 is the **spin-glass-of-nets** question: mode-connectivity evidence leans **branch 3**
+(vacuous), some glassiness work leans 1/2 — **UNSETTLED**, and decidable only with evidence on net-posterior
+*structure*, not with a curvature computation and not with a sampler for this program's object.
+
+**Net.** The singular suppression is generically the **wrong tool** to close the gate — it lives at β→∞,
+where (branches 1 and 3) there is no divergence to suppress. The gate's real content is **which branch** —
+i.e. the RSB structure of the net posterior — a sharper, more falsifiable terminus than the rate
+conditional alone, and one that routes the genuine side to an *empirical* question about loss landscapes
+rather than to any sampler this program would build.
