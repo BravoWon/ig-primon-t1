@@ -80,6 +80,8 @@ class Op:
     run: object         # (xp, *inputs_in_dtype, acc) -> result
     flops: object       # (size) -> float
     reduces: bool       # True if it has a controllable reduction accumulator (=> near-miss teeth)
+    axis_name: str = "reduced axis"   # what the swept dimension MEANS (load-bearing: it is NOT
+                                      # "context" for LayerNorm -- LayerNorm reduces over hidden dim)
 
 
 def _mk_gemm(rng, n):
@@ -99,11 +101,14 @@ def _mk_attn(rng, n, d=64):
 
 
 OPS = {
-    "gemm":      Op("gemm", _mk_gemm, lambda xp, a, b, acc: _gemm(xp, a, b), lambda n: 2 * n ** 3, False),
-    "softmax":   Op("softmax", _mk_mat, lambda xp, x, acc: _softmax(xp, x, acc), lambda n: 5 * n * n, True),
-    "layernorm": Op("layernorm", _mk_ln, lambda xp, x, g, b, acc: _layernorm(xp, x, g, b, acc), lambda n: 8 * n * n, True),
+    "gemm":      Op("gemm", _mk_gemm, lambda xp, a, b, acc: _gemm(xp, a, b), lambda n: 2 * n ** 3, False,
+                    axis_name="n/a"),
+    "softmax":   Op("softmax", _mk_mat, lambda xp, x, acc: _softmax(xp, x, acc), lambda n: 5 * n * n, True,
+                    axis_name="sequence / context length"),
+    "layernorm": Op("layernorm", _mk_ln, lambda xp, x, g, b, acc: _layernorm(xp, x, g, b, acc), lambda n: 8 * n * n, True,
+                    axis_name="hidden dim d_model (realistic <= ~16k, NOT context)"),
     "attention": Op("attention", _mk_attn, lambda xp, q, k, v, acc: _attention(xp, q, k, v, acc),
-                    lambda n: 4 * n * n * 64, True),
+                    lambda n: 4 * n * n * 64, True, axis_name="sequence / context length"),
 }
 
 
@@ -301,16 +306,54 @@ def format_matrix(cells, size, budget):
 
 
 def format_sweep(be, data, crossover, op_name, budget):
+    axis = OPS[op_name].axis_name
     lines = []
-    lines.append(f"\n[sweep] {op_name} on {be.name}: reduction-width / context-length dependence of fp16 "
-                 f"(budget {budget:g})")
+    lines.append(f"\n[sweep] {op_name} on {be.name}: fp16 error vs reduced axis = {axis}  (budget {budget:g})")
     lines.append(f"  {'width':>7} {'fp32-acc (faithful)':>20} {'fp16-acc (near-miss)':>21}")
     for n, faithful, naive in data:
         nm = "OVERFLOW(nan)" if not math.isfinite(naive) else f"{naive:.2e}"
         lines.append(f"  {n:>7} {faithful:>20.2e} {nm:>21}")
     if crossover is not None:
-        lines.append(f"  => fp16-accumulate FAILS (exceeds {budget:g} or overflows) at width ~{crossover}: "
-                     f"this reduction needs fp32 accumulate past that context length.")
+        lines.append(f"  => fp16-accumulate FAILS (exceeds {budget:g} or overflows) at width ~{crossover}; "
+                     f"fp32-accumulate fixes it.")
     else:
         lines.append("  => fp16-accumulate stayed within budget across the swept widths.")
+    if op_name == "layernorm":
+        lines.append("  NOTE: this axis is the HIDDEN dim, not context. Real d_model <= ~16k never reaches the")
+        lines.append("  ~64k fp16 sum-of-squares overflow -- the overflow is a synthetic reduction-width stress.")
+    return "\n".join(lines)
+
+
+def sweep_softmax_peakedness(scales, width=4096, budget=1e-3):
+    """Softmax fp16 error vs logit peakedness. MEASURED RESULT (refutes the 'tails carry the
+    error' intuition, in both directions it was guessed): error RISES with peakedness, because
+    peaked attention needs large-magnitude logits, fp16 stores those coarsely, and exp amplifies
+    it. Returns (logit_scale, entropy_nats, fp16 rel_err). NB: scaling logits confounds magnitude
+    and entropy; the magnitude effect dominates."""
+    backends = [b for b in B.discover() if b.kind == "cuda"] or B.discover()
+    be = backends[0]
+    xp = B.get_xp(be)
+    base = np.random.default_rng(0).standard_normal((64, width))
+    data = []
+    for s in scales:
+        x64 = base * s
+        p = np.asarray(_to_host(_softmax(np, x64.astype(np.float64), np.float64)), dtype=np.float64)
+        ent = float(-(p * np.log(p + 1e-300)).sum(axis=-1).mean())
+        with B.on_device(be), np.errstate(all="ignore"):
+            x16 = _to(xp, x64, np.float16, be)
+            err = _relerr(_to_host(_softmax(xp, x16, np.float32)), p)
+        data.append((s, ent, err))
+    return be, data
+
+
+def format_peakedness(be, data, width):
+    lines = []
+    lines.append(f"\n[peakedness] softmax fp16 error vs entropy on {be.name} (width={width}, faithful fp32-acc)")
+    lines.append(f"  {'logit_scale':>11} {'entropy(nats)':>13} {'fp16 rel_err':>13}")
+    for s, ent, err in data:
+        lines.append(f"  {s:>11.2f} {ent:>13.3f} {err:>13.2e}")
+    lines.append("  => MEASURED (refutes the 'tails carry the error' intuition): fp16 softmax error RISES")
+    lines.append("     with peakedness/logit-scale. Mechanism: peaked attention needs large-magnitude logits,")
+    lines.append("     fp16 stores those coarsely and exp amplifies it -- so SHARP heads (attention sinks),")
+    lines.append("     not diffuse ones, are where fp16 softmax degrades. (scale confounds magnitude+entropy.)")
     return "\n".join(lines)

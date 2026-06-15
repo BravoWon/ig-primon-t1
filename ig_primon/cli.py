@@ -89,6 +89,18 @@ def _cmd_precision_matrix(args):
     return 0
 
 
+def _cmd_precision_bf16(args):
+    from . import torch_precision as T
+    if not T.available():
+        print("bf16 pass needs torch+CUDA. Install: "
+              "pip install torch --index-url https://download.pytorch.org/whl/cu128")
+        return 2
+    cells = T.bf16_matrix(size=args.size, budget=args.budget)
+    print(T.format_bf16_matrix(cells, args.size, args.budget))
+    print(T.format_range_check(T.layernorm_range_check()))
+    return 0
+
+
 def build_parser():
     p = argparse.ArgumentParser(prog="igprimon",
                                 description="Operational layer over the IG-PRIMON-T1 research receipts.")
@@ -126,6 +138,12 @@ def build_parser():
     pm.add_argument("--sweep", action="store_true", help="reduction-width dependence for reduction ops")
     pm.add_argument("--json", action="store_true")
     pm.set_defaults(func=_cmd_precision_matrix)
+
+    bf = sub.add_parser("precision-bf16",
+                        help="bf16 pass (torch): real-inference precision map + the LayerNorm range inversion")
+    bf.add_argument("--size", type=int, default=1024)
+    bf.add_argument("--budget", type=float, default=1e-3)
+    bf.set_defaults(func=_cmd_precision_bf16)
     return p
 
 

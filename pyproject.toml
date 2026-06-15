@@ -24,6 +24,9 @@ dependencies = [
 # CUDA 12.x runtime is bundled in the wheel; needs an NVIDIA driver new enough for the device.
 # (RTX 5070 / Blackwell sm_120 needs a 12.8+-class runtime; install verified at packaging time.)
 gpu = ["cupy-cuda12x"]
+# bf16/tf32 pass for the precision matrix (cupy has no bf16). Install from the CUDA-12.8 index for
+# Blackwell sm_120: pip install torch --index-url https://download.pytorch.org/whl/cu128
+torch = ["torch"]
 dev = ["pytest>=7"]
 
 [project.scripts]
