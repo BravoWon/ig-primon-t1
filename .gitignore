@@ -2,6 +2,11 @@
 __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
+.venv/
+*.egg-info/
+.pytest_cache/
+build/
+dist/
 
 # LaTeX build artifacts (keep .tex and the compiled paper2 .pdf)
 *.aux

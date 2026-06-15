@@ -32,5 +32,40 @@ engine `R=−1` pin) and reproduces every numerical claim it backs.
 
 ## Reproducibility
 
-Python 3 with `numpy`, `scipy`, `mpmath` (40-dps where cancellation requires it). Run any receipt directly,
-e.g. `python module_L_perceptron_finiteT.py`. No GPU/accelerator is used; all certification is CPU-side.
+Python 3.11+ with `numpy`, `scipy`, `mpmath` (40-dps where cancellation requires it). Run any receipt
+directly, e.g. `python module_L_perceptron_finiteT.py`. All **certification** is CPU-side.
+
+## Operational layer (`ig_primon`, v0.4)
+
+The experimental receipts are packaged as installable software **without editing the `[V]` artifacts**
+(the program's no-silent-edit discipline). The `ig_primon` package wraps them with a machine-checkable
+anchor suite, a hardware scan, and the doctrine's Precision–Certification Firewall.
+
+```bash
+pip install -e ".[dev]"          # certification stack (numpy/scipy/mpmath) + pytest
+pip install -e ".[dev,gpu]"      # also CuPy; then: pip install "cupy-cuda12x[ctk]" for the CUDA headers
+
+igprimon verify                  # run every anchor (the operational acceptance gate); exit 0 = all reproduced
+igprimon verify --quick          # skip the slow high-precision anchors
+igprimon verify --json           # machine-readable report
+igprimon list                    # list anchors, groups, and receipts
+igprimon run <receipt>           # run a receipt's full certification output (e.g. perceptron-finiteT)
+igprimon hwscan                  # scan the device; print the Tier-C / Tier-E map
+igprimon firewall                # Precision–Certification Firewall (CUDA Tier-E if available)
+```
+
+**Anchors.** `igprimon verify` re-checks, programmatically, every exact reference value the receipts pin —
+the engine `R=-1` pin, the flat-product `R=0` control, Gardner `α_c(0)=2`, Ising `s(0)=ln2`, Krauth–Mézard
+`α_RS≈0.833`, the replicon→Gardner limit, the perceptron `χ·(α_AT−α)→3.22` and positive-definite
+`|R|·(β_AT−β)²→11.8`, the SK `h=0` closed form and dAT `χ_SG·λ_AT→const`, the ridge validation and
+double-descent dichotomy, the radius/unit-rank dictionary, and the registered `C` constant within its
+`6e-31` budget. A drift (a dependency bump, a precision regression) now fails CI instead of going unnoticed.
+
+**Precision–Certification Firewall** (`module_hw_firewall.py` / `ig_primon.firewall`). The hardware track's
+H1 flagship, realized around its real thesis — *agreement is not verification*. A fast FP32 **Tier-E**
+explorer (a CUDA GPU when present, else vectorised CPU FP32) proposes candidates; the slow exact **Tier-C**
+authority (mpmath, dps≥50) adjudicates. The load-bearing case is a **near-miss** kernel wrong by only ~3–4×
+the float32 epsilon: it passes an FP32-grade tolerance *and* would fool an FP32 "certify-by-agreement"
+reference (whose own error is ~1 eps), yet Tier-C **rejects** it because its deviation exceeds what FP32
+roundoff can explain. An honest kernel (within the FP32 noise floor) certifies; a gross kernel fails outright.
+A GPU number is `[E-hw]` (exploratory); only a Tier-C reproduction within the noise floor licenses `[V]`.
