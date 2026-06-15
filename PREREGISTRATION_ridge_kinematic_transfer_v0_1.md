@@ -81,3 +81,31 @@ proving the certification guard bites.
 
 ## 10. Freeze date & changelog
 **Frozen 2026-06-15** (pre-data). v0.1 initial registration. Amendments require a versioned diff.
+
+## 11. Amendment A1 (2026-06-15, post-data) — kinematic verdict logged + B clarification
+Per no-silent-edit, §6's frozen values are retained; this records the result and clarifies B.
+
+**VERDICT: PASS (kinematic).** Receipt `module_L_ridge_transfer.py`:
+- **Phase 1** (Gaussian control) reproduced the frozen signature out-of-sample (seed 7): `max|R|=1.17e-3`
+  = ref, `det g` spans `6.3e8`, `R<0`. Control valid.
+- **Phase 1b** — the frozen expectation (noiseless `σ=0` contaminates float64 near `α=1`) was
+  **FALSIFIED**: float64 is precision-robust via the analytic route (disagreement `~6e-9`). The
+  documented breakdown is at *single* precision, not double. Logged, not buried.
+- **Phase 2 / 2r (binding criterion).** At `H=64` the single-point `max|R|=1.08e-2` nudged 8% over
+  `B=1e-2` and mechanically tripped F-genuine. The **S1 finite-size-scaling refinement refutes it**:
+  `max|R|` near `α=1` = `1.01e-2 (H=64) → 3.22e-3 (128) → 2.32e-3 (256) → 1.10e-3 (512)` — it
+  **shrinks** toward the Gaussian `~1e-3` scale, `det g>0` throughout. **F-genuine refuted; kinematic.**
+
+**B-clarification (amendment, not silent edit).** Frozen `B=1e-2` was calibrated from the Gaussian curve
+(`max|R|~1.17e-3`). Finite-`H` inflation in the feature-learning regime can transiently exceed `B` at
+small `H`; therefore the **binding** kinematic adjudicator is the S1 FSS trend (does `max|R|` grow or
+shrink as `H→∞`), **not** a single-point `B`-crossing at one `H`. `B` is retained as the Gaussian-scale
+reference. The verdict rests on the FSS trend.
+
+**Residual (honest).** The curvature *scale* is `~10×` larger in the small-`H` feature-learning regime
+than the Gaussian, shrinking toward it as `H→∞`; consistent with finite-`H`, a clean finite-size-vs-
+feature-learning separation would need a fixed-`H` multi-seed study. The verdict (kinematic, not genuine)
+is robust regardless: bounded + `det g>0` at every `H`, `|R|` non-growing.
+
+**Boundary.** This is the **kinematic** side only. The genuine-side gate (§6.7 weight-replica geometry)
+stays a derivation-first `[GATE]`; the kinematic PASS does not bear on it. **This test is now CLOSED.**
