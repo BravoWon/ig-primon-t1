@@ -63,7 +63,12 @@ def coupled(beta, h, eps, guess):
         p, q = pq; qq = max(q, 1e-14); a = beta*(np.sqrt(qq)*nodes + h); b = beta**2*(p - q) + beta*eps
         c2 = np.cosh(2*a); s2 = np.sinh(2*a); eb = np.exp(b); emb = np.exp(-b); xi = 2*eb*c2 + 2*emb
         return [p - Dz((2*eb*c2 - 2*emb)/xi), q - 0.25*Dz((4*eb*s2/xi)**2)]
-    return fsolve(F, guess, xtol=1e-13)
+    sol, info, ier, _ = fsolve(F, guess, xtol=1e-13, full_output=True)
+    if ier != 1:                              # near the dAT edge fsolve can stall; flag, don't swallow
+        import warnings
+        warnings.warn(f"coupled() did not converge (ier={ier}) at beta={beta:.4f},h={h},eps={eps}; "
+                      f"residual~{np.max(np.abs(info['fvec'])):.1e} -- gee_fd here is unreliable (see Remark).")
+    return sol
 def psi2(beta, h, eps, guess):
     p, q = coupled(beta, h, eps, guess); qq = max(q, 1e-14)
     a = beta*(np.sqrt(qq)*nodes + h); b = beta**2*(p - q) + beta*eps

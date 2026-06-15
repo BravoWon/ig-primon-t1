@@ -46,7 +46,9 @@ def U(q, kappa):
     return (kappa - np.sqrt(q) * _n) / np.sqrt(1.0 - q)
 
 def rs_q(alpha, kappa):
-    # q/(1-q) = alpha * E[G1^2]
+    # q/(1-q) = alpha * E[G1^2].  NOTE: F(q) -> +inf as q->1 for any alpha, so brentq always returns an
+    # interior root; this assumes alpha < Gardner capacity (where a finite RS overlap exists). Above
+    # capacity the true solution is q=1 and the returned value is unphysical -- callers must stay below.
     F = lambda q: q / (1 - q) - alpha * EDt(G1(U(q, kappa))**2)
     return brentq(F, 1e-10, 1 - 1e-10, xtol=1e-13)
 
@@ -96,6 +98,8 @@ if __name__ == "__main__":
     print("\n[C] SG susceptibility chi = 1/lambda_repl DIVERGES continuously as alpha -> alpha_AT^- :")
     print("    (the perceptron twin of SK's g_eps-eps ~ chi_SG ~ 1/lambda_AT; genuine continuous replicon)")
     k = -0.5; aAT = ats[k]
+    if aAT is None:                           # guard: section [C] needs a real AT crossing for this kappa
+        raise SystemExit(f"[C] aborted: kappa={k} has no replicon (AT) crossing in the search bracket.")
     print(f"     kappa={k}, alpha_AT={aAT:.5f}:")
     print(f"     {'alpha_AT-alpha':>14} {'lambda_repl':>13} {'chi=1/lam':>12} {'chi*(aAT-a)':>12}")
     for d in [0.20, 0.10, 0.05, 0.02, 0.01, 0.005]:

@@ -104,7 +104,7 @@ for k in range(0, 5):
     # density tail: 2*int_T^inf t^-m (1/2pi) log(t/2pi) dt, times (k+1)
     budget = (k + 1) * (1 / pi) * tJ ** (-(m - 1)) * (log(tJ / (2 * pi)) / (m - 1) + 1 / mpf((m - 1) ** 2))
     print(f"  {k:>2} {mp.nstr(pred, 14):>22} {mp.nstr(LOCKED_c[k], 14):>22} "
-          f"{mp.nstr(diff, 3):>10} {mp.nstr(budget, 3):>12} {'YES' if diff < 2*budget else 'NO'}")
+          f"{mp.nstr(diff, 3):>10} {mp.nstr(budget, 3):>12} {'YES' if diff < budget else 'NO'}")
 
 # ---------------- PART 3 ----------------
 print("\n== PART 3: Module C constants, independent primezeta route ==")

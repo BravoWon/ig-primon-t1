@@ -95,7 +95,8 @@ if __name__ == "__main__":
         a = aAT - d
         R, detg, chi, pxx, Ran = curvature_at(a, kappa)
         print(f"     {d:>10.3f} {chi:>12.3f} {abs(detg):>11.2f} {R:>14.4e} {abs(R)*d*d:>14.4f} {Ran:>14.4e}")
-    print("     -> |R| diverges; |R|*(aAT-a)^2 -> const  =>  |R| ~ 1/(aAT-a)^2 ~ chi^2.  Engine == analytic.")
+    print("     -> |R| diverges; |R|*(aAT-a)^2 -> const  =>  |R| ~ 1/(aAT-a)^2 ~ chi^2.  engine ~ analytic")
+    print("        (leading order; R_analytic omits a subleading term, ~2.5% gap at the closest point).")
     print("        |det g| -> inf (the eps soft mode DIVERGES; NOT a det g->0 collapse, so NOT the")
     print("        spurious Curie-Weiss degeneracy).  Driven entirely by chi->inf ([A] confirms).")
 

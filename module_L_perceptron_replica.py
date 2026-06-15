@@ -50,6 +50,11 @@ def G_E_spherical(q, kappa):
     u = (kappa - np.sqrt(q) * _n) / np.sqrt(1.0 - q)
     return EDt(np.log(np.clip(Hf(u), 1e-300, None)))
 def dGE_dq_spherical(q, kappa, h=1e-6):
+    # KNOWN LIMITATION: this fixed-step central difference loses accuracy as q->1 (dG_E/dq diverges
+    # there), so the section-[B] saddle q*(alpha) is only approximate near the Gardner capacity
+    # (off ~0.6% by alpha=1.99). Qualitative claim (q rises smoothly to 1, no jump) is unaffected, and
+    # no [V] anchor is touched (Ising/alpha_c anchors stay at q<=0.83). For exact q*, use the erfcx-based
+    # analytic rs_q in module_L_perceptron_replicon.py.
     qp, qm = min(q + h, 1 - 1e-12), max(q - h, 1e-12)
     return (G_E_spherical(qp, kappa) - G_E_spherical(qm, kappa)) / (qp - qm)
 def rs_saddle_spherical(alpha, kappa):

@@ -1,4 +1,4 @@
-# IG-PRIMON-T1 — Result C Amendment (v0.4 proposal, 2026-06-14)
+# IG-PRIMON-T1 — Result C Amendment (v0.4, signed & applied 2026-06-14)
 
 **Status: REGISTRATION ACT — SIGNED & APPLIED 2026-06-14 (folded into `T1_consolidated_results_ledger_v0_4.md`).**
 This is the versioned diff that carries the trunk v0.3 → v0.4 for **Result C only**. It records a *relabel*

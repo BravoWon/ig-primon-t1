@@ -1,6 +1,8 @@
 # IG-PRIMON-T1 — Hardware-Optimization Doctrine (v0.2, 2026-06-14)
 
 **Program ID:** IG-PRIMON-T1 (hardware-execution track)
+**Versioning.** The `_v0_1` filename is the stable document identifier (referenced across the trunk); the
+current version is in the title and the §7 changelog (in-file versioning, as with `T1_moduleL_perceptron_gate_v0_1.md`).
 **Status:** [GATE] — this document is the gate. It supersedes the *Hardware doctrine* section of
 `T1_preregistration_v0_6.md` (which scoped FP64 CUDA / consumer-Blackwell / H100–H200 — hardware this
 program does not run on) and re-targets the entire compute plan to the **real device**. No

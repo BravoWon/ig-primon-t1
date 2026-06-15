@@ -18,6 +18,11 @@ mp.dps = 40
 def Lfun(q, chi):
     def L(s):
         s = mpc(s)
+        # The Hurwitz-zeta terms each have a pole at s=1; summing them numerically returns nan there
+        # (the L-function's analytic finiteness at s=1 is never realized). Fail loud instead of
+        # silently poisoning a[0]/logcoeffs. Live code samples at |eps|=0.5, never s=1.
+        if abs(s - 1) < mpf('1e-9'):
+            raise ValueError("Lfun: Hurwitz representation has a pole at s=1; sample away from s=1.")
         return sum(ch*zeta(s, mpf(a)/q) for a, ch in chi.items() if ch) * q**(-s)
     return L
 
