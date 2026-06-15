@@ -3,7 +3,9 @@
 A disciplined, computationally-assisted research program on the **Fisher / Ruppeiner information geometry**
 of prime (primon / Riemann-gas) and related disordered systems. The canonical state of the program lives in
 the **consolidated results ledger** (`T1_consolidated_results_ledger_v0_4.md`); the frozen predictions are in
-the **pre-registration** (`T1_preregistration_v0_6.md`).
+the **pre-registration** (`T1_preregistration_v0_6.md`). The **operationalization session** — installable
+package, hardware-execution track, Result-C kinematic transfer `[V]`, and the genuine-side singularity-gate
+analysis — is registered in `T1_resultC_amendment_v0_5.md`.
 
 ## Discipline
 
