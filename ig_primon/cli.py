@@ -25,6 +25,7 @@ RECEIPTS = {
     "perceptron-curvature": "module_L_perceptron_curvature",
     "perceptron-finiteT": "module_L_perceptron_finiteT",
     "hw-firewall": "module_hw_firewall",
+    "ridge-transfer": "module_L_ridge_transfer",
 }
 
 
