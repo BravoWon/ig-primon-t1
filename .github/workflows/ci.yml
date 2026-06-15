@@ -1,0 +1,26 @@
+name: verify
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  anchors:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install (certification stack only — no GPU on CI runners)
+        run: python -m pip install -e ".[dev]"
+      - name: Quick anchor suite (must reproduce on every push)
+        run: python -m ig_primon.cli verify --quick
+      - name: Full anchor suite + tests (incl. slow high-precision anchors)
+        run: |
+          python -m ig_primon.cli verify
+          python -m pytest -q

@@ -321,6 +321,16 @@ Both results sit on the Module A/C/D core, adversarially audited and certified
   Christoffels (Gaussian closed-form, R = −1, 12 digits).
 - Errata logged: E1–E5 (audit §). The corrected Δ₃(1) full-precision value is in audit erratum E3;
   the v0.4 print 5.0451881850144243171 was the k≤59 truncation (right to 14 s.f.).
+- **Erratum E6 (2026-06-15, operational-layer amendment).** The parenthetical above —
+  "*(The prior 31-digit registration's trailing "…470" was beyond its ±6e−31 budget; superseded by
+  the 90-digit value.)*" — is **incorrect**, and is retained (no-silent-edit) with this correction.
+  The independent dps=56 reproduction in `audit_independent.py` PART 4 gives
+  `|C_ind − C_reg| = 2.24e−32`, **inside** the ±6e−31 budget: the 31-digit value
+  `C = −0.034356154179121986083110881458470` agrees with the registered 90-digit value to 2.24e−32,
+  i.e. it was **never out of budget**. The "beyond budget" remark was itself the dps=15 parse artifact
+  that the audit's own A1 note documents and corrects. The 90-digit value still stands as the registered
+  constant; only the budget claim about the 31-digit value was wrong. This bound is now machine-checked
+  by `igprimon verify` (anchor `c-constant`, which runs `audit_independent.py` and asserts `< 6e−31`).
 
 ---
 
