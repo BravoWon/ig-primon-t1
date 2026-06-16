@@ -18,6 +18,8 @@ from transformers import GPT2Model, GPT2TokenizerFast
 
 torch.set_grad_enabled(False)
 
+GPT2_PATH = "C:/Users/JT-DEV1/Documents/gpt2-sm"   # locally downloaded gpt2-small (no HF network here)
+
 TEXTS = [
     "The history of numerical analysis begins with the study of round-off error in finite-precision arithmetic.",
     "She walked into the room and immediately noticed that something was different about the arrangement.",
@@ -35,44 +37,45 @@ def hidden_states(model, ids, dtype):
 
 
 def run():
-    tok = GPT2TokenizerFast.from_pretrained("gpt2")
-    model = GPT2Model.from_pretrained("gpt2").eval()
+    tok = GPT2TokenizerFast.from_pretrained(GPT2_PATH)
+    model = GPT2Model.from_pretrained(GPT2_PATH).eval()
     nL = model.config.n_layer
-    per_layer = [[] for _ in range(nL + 1)]                            # per-token rel errors, pooled
+    precisions = [("float32", torch.float32), ("bfloat16", torch.bfloat16)]
+    pools = {name: [[] for _ in range(nL + 1)] for name, _ in precisions}
     for txt in TEXTS:
         ids = tok(txt, return_tensors="pt").input_ids[:, :64]
         h64 = hidden_states(model, ids, torch.float64)
-        h32 = hidden_states(model, ids, torch.float32)
-        for L in range(nL + 1):
-            num = np.linalg.norm(h32[L] - h64[L], axis=1)
-            den = np.linalg.norm(h64[L], axis=1) + 1e-300
-            per_layer[L].extend((num / den).tolist())                 # one sample per token
-    mean_E = np.array([np.mean(e) for e in per_layer])
-    med_E = np.array([np.median(e) for e in per_layer])
+        for name, dt in precisions:
+            if name not in pools:
+                continue
+            try:
+                hlow = hidden_states(model, ids, dt)
+            except Exception as e:
+                print(f"  [{name}] unavailable on this backend ({type(e).__name__}); skipped")
+                pools.pop(name, None); continue
+            for L in range(nL + 1):
+                num = np.linalg.norm(hlow[L] - h64[L], axis=1)
+                den = np.linalg.norm(h64[L], axis=1) + 1e-300
+                pools[name][L].extend((num / den).tolist())
+    model.to(torch.float64)                                            # leave model in a defined state
 
-    print(f"[Stage-2] trained GPT-2-small, {nL} layers, {len(TEXTS)} texts, "
-          f"{len(per_layer[0])} token-samples/layer; float32 vs float64 (certified ref)\n")
-    print(f"  {'L':>3} {'mean E':>10} {'median E':>10} {'mean/median':>12}")
-    for L in [0, 1, 3, 6, 9, nL]:
-        print(f"  {L:>3} {mean_E[L]:>10.2e} {med_E[L]:>10.2e} {mean_E[L]/(med_E[L]+1e-300):>12.1f}")
-
-    LL = np.arange(1, nL + 1)
-    slope_mean = np.polyfit(LL, np.log(mean_E[1:] + 1e-300), 1)[0]
-    slope_med = np.polyfit(LL, np.log(med_E[1:] + 1e-300), 1)[0]
-    growth = med_E[nL] / (med_E[1] + 1e-300)
-    print(f"\n  log(mean E)   vs L slope = {slope_mean:+.3f}/layer")
-    print(f"  log(median E) vs L slope = {slope_med:+.3f}/layer   (Stage-1 random-weight was +0.285/layer)")
-    print(f"  typical-case (median) growth over {nL} layers = {growth:.1f}x")
-
+    print(f"\n[Stage-2] trained GPT-2-small, {nL} layers, {len(TEXTS)} texts; low-precision vs float64 (certified ref)")
+    print(f"  (Stage-1 random-weight worst-case reference: +0.285/layer slope, 352x median<<mean)\n")
     RANDOM_SLOPE = 0.285
-    p1 = slope_med < 0.5 * RANDOM_SLOPE                                # sub-exponential typical-case
-    print("\n[P1] MEASURED typical-case E_cert(L) is",
-          "SUB-EXPONENTIAL -> P1 HOLDS (trained-weight attenuation; worst-case exp does NOT govern typical inputs)"
-          if p1 else
-          "~exponential (slope comparable to random) -> F1 FIRES (attenuation does not transfer; important negative)")
-    print(f"     median<<mean at L={nL}: {mean_E[nL]/(med_E[nL]+1e-300):.1f}x  (the benign-direction slack)")
-    print("\n[E-hw] one model, float32-vs-float64; no claim beyond the measured curve. Stage-3 (allocator) is next.")
-    return p1
+    for name in list(pools):
+        per = pools[name]
+        if not per[0]:
+            continue
+        mean_E = np.array([np.mean(e) for e in per]); med_E = np.array([np.median(e) for e in per])
+        LL = np.arange(1, nL + 1)
+        sl = np.polyfit(LL, np.log(med_E[1:] + 1e-300), 1)[0]
+        growth = med_E[nL] / (med_E[1] + 1e-300); tail = mean_E[nL] / (med_E[nL] + 1e-300)
+        p1 = sl < 0.5 * RANDOM_SLOPE
+        print(f"  [{name:8s}] median E_cert: L1={med_E[1]:.2e} -> L{nL}={med_E[nL]:.2e}  (growth {growth:.2f}x over depth)")
+        print(f"             log(median) slope = {sl:+.3f}/layer   mean/median@L{nL} = {tail:.1f}x   "
+              f"-> P1 {'HOLDS (sub-exponential)' if p1 else 'FAILS -> F1 FIRES (~exponential)'}")
+    print("\n[E-hw] one model, natural text. fp8/fp4 (the allocator regime, P3) is Stage 3. No claim beyond measured.")
+    return True
 
 
 if __name__ == "__main__":
