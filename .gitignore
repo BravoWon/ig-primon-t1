@@ -27,3 +27,4 @@ Thumbs.db
 phase2_mapping_results.jsonl
 phase2_ckpts/
 genuine_tempered_results.jsonl
+genuine_v3_results.jsonl
