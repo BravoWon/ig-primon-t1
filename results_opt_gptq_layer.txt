@@ -1,0 +1,16 @@
+[OPT-2.7B GPTQ layer probe]  is use-aware (Hessian) quantization better? relative output error, W4
+
+         layer   shape (out,in)       RTN  SmoothQuant      GPTQ  GPTQ/RTN
+    L00.q_proj     (2560, 2560)    0.1185       0.1091    0.0247     0.21x
+       L00.fc1    (10240, 2560)    0.1712       0.0488    0.0082     0.05x
+       L02.fc2    (2560, 10240)    0.0839       0.0960    0.0237     0.28x
+       L08.fc1    (10240, 2560)    0.0641       0.0386    0.0062     0.10x
+    L15.q_proj     (2560, 2560)    0.1118       0.0911    0.0168     0.15x
+       L30.fc2    (2560, 10240)    0.1710       0.1667    0.0190     0.11x
+
+[READ] mean GPTQ/RTN output-error ratio = 0.15x  (<<1 -> use-aware quantization is dramatically better at W4)
+  If GPTQ collapses the output error vs RTN/SmoothQuant, the intuition holds: weights must be analyzed
+  by their activation USE (the Hessian), not isolated per-tensor. Value is in the QUANTIZER, not the
+  allocator -- the next test is whether GPTQ-W4 makes the full-model regime near-lossless (-> allocation moot).
+
+[V-hw] RTX 5070 sm_120, OPT-2.7B, fp32 layers, WikiText-2 calibration. Per-layer W4 output error.
