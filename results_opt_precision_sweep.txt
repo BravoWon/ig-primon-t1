@@ -1,0 +1,14 @@
+[OPT-2.7B precision sweep]  does the cert edge cross structural->operational as precision drops? k=48
+
+  fp32 gold PPL = 54.251
+
+  regime  all-low dPPL  cert KL edge          cert PPL edge    verdict
+    W8A8        +0.52%        +30.8%   +0.077% [-0.24,+0.40]        ns
+    W4A8      +461.34%         +1.6%   +1.802% [+0.91,+2.76]       SIG
+    W4A4    +35320.69%         +0.0%   +0.000% [+0.00,+0.00]        ns
+
+[VERDICT] If the PPL edge becomes significant (CI>0) as precision drops, the operational value lives in
+  the harsh regime (P3 confirmed). If it stays ns even at W4A4, the certification edge is structurally
+  real but operationally vacuous across the deployable precision range. [V-hw]
+
+[V-hw] RTX 5070 sm_120, OPT-2.7B, SmoothQuant, WikiText-2, fp32 gold. Held-out, paired bootstrap.
