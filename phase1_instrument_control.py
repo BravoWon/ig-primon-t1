@@ -86,7 +86,6 @@ def align(a, b):
     Wbn = Wb / (np.linalg.norm(Wb, axis=1, keepdims=True) + 1e-12)
     cost = -(Wan @ Wbn.T)                          # maximize similarity = minimize -sim
     _, col = linear_sum_assignment(cost)            # a-row i <- b-row col[i]
-    inv = np.empty_like(col); inv[col] = np.arange(len(col))
     return permute(b, col)                          # b reordered to a's unit order
 
 

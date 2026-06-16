@@ -17,7 +17,7 @@ chain-endpoint weights to a checkpoint for the connectivity cross-check (s.3) do
 
 [E-hw] exploratory. Torch/CUDA. Incremental + interruption-safe. NO verdicts.
 """
-import json, os, math, torch
+import json, os, torch
 import phase2_posterior_sampler as S
 
 OUT = "phase2_mapping_results.jsonl"
