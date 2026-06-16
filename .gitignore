@@ -22,3 +22,7 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# Phase-1/2 empirical run outputs (regenerable)
+phase2_mapping_results.jsonl
+phase2_ckpts/
