@@ -1,0 +1,15 @@
+[OPT-2.7B statistical robustness]  WikiText-2, 64 held-out seqs x 64 tok, paired bootstrap
+
+  corpus: 6 calibration + 64 eval sequences
+
+     k   edge %               95% CI  win rate significant?
+    16    -2.3% [  -9.7,   +5.1]        55% no -- CI spans 0
+    32   +18.7% [ +13.4,  +23.9]        86%          YES
+    48   +30.2% [ +24.3,  +35.1]        97%          YES
+
+[VERDICT]
+  certification edge is STATISTICALLY SIGNIFICANT at budgets [32, 48] (95% CI excludes 0) on
+  64 held-out WikiText sequences. The +8% was a finding, not 6-sentence noise. [V-hw]
+
+[V-hw] RTX 5070 sm_120, OPT-2.7B, SmoothQuant configs, WikiText-2 test. 1 calibration set, paired bootstrap.
+       Caveats remaining: 1 calibration seed, alpha=0.5 fixed, fp8 fake-quant, KL metric. Not yet 'done'.
