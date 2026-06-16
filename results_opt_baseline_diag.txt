@@ -1,0 +1,13 @@
+[OPT-2.7B baseline diagnostic]  why are cheap allocators worse than random?
+
+  ground truth = certified leave-one-low KL sensitivity (192 units)
+
+       cheap score   Spearman vs cert  top-48 overlap   max/median
+         magnitude            -0.239            25%          1.0
+   activation(AWQ)            +0.017            23%          2.4
+       first-order            -0.195            27%          1.8
+
+[READ]
+  MIXED: report per-score Spearman as-is; do not generalize.
+
+[V-hw] RTX 5070 sm_120, OPT-2.7B, SmoothQuant, WikiText-2 calibration. Scoring-only diagnostic.
