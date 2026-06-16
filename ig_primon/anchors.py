@@ -38,6 +38,12 @@ def _capture_receipt(modname: str) -> str:
     """
     proc = subprocess.run([sys.executable, "-m", modname],
                           capture_output=True, text=True, timeout=900)
+    if proc.returncode != 0:
+        # Operational CI gate: a receipt that exited non-zero (even after printing a
+        # partial/plausible value) must fail the anchor, not be regex-parsed as if it ran
+        # clean. AnchorSpec.run catches this and marks the anchor failed with the message.
+        tail = (proc.stderr or proc.stdout or "")[-500:]
+        raise RuntimeError(f"receipt '{modname}' exited {proc.returncode}: ...{tail}")
     return proc.stdout + "\n" + proc.stderr
 
 
