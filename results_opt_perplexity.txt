@@ -1,0 +1,21 @@
+[OPT-2.7B perplexity/flip]  does the KL edge translate to deployment metrics? k=48, 64 seqs
+
+  fp32 gold perplexity = 54.251
+
+        allocation       PPL  dPPL vs gold  flip vs fp32     mean KL
+        bf16-floor   54.1308        -0.22%        2.32%   4.777e-04
+   all-SmoothQuant   54.6019        +0.65%        6.84%   1.297e-02
+   practical(bf16)   54.2503        -0.00%        4.57%   3.728e-03
+   certified(fp32)   54.1339        -0.21%        4.30%   2.601e-03
+
+  certified vs practical (the edge in each currency):
+    KL:    +30.2%   (the established structural edge)
+    PPL:   +0.215%  95% CI [-0.135, +0.593]   NOT significant
+    flip:  +0.27 pts  95% CI [-0.27, +0.83]   NOT significant
+
+[VERDICT]
+  the +30% KL edge does NOT translate to a meaningful deployment metric (PPL +0.215%,
+  flip +0.27 pts, CIs span 0). As pre-registered: structurally real, operationally marginal
+  at W8A8 fidelity on OPT-2.7B. The KL tournament was, at this fidelity, angels on a pin.
+
+[V-hw] RTX 5070 sm_120, OPT-2.7B, SmoothQuant, WikiText-2. fp32 gold. Held-out, paired bootstrap.
