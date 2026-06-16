@@ -62,7 +62,9 @@ non-convex (negative-margin) storage is a continuous replicon at which $|\Ric|\s
 positive-definite finite-temperature metric, a signature the natural (structural) coordinate fails to
 reveal. The phases are classical; the contribution is their uniform curvature \emph{classification} across
 venues---learning, spin glasses, and constraint satisfaction---of one subject: continuous-RSB criticality
-versus kinematic volume-divergence in disordered systems.
+versus kinematic volume-divergence in disordered systems. We further establish a topological trichotomy for
+the genuine signature and argue that for connected, over-parametrized network posteriors it is
+vacuous---routing such architectures from the curvature diagnostic to the local learning coefficient.
 \end{abstract}
 
 % =====================================================================
@@ -454,7 +456,8 @@ most direct dynamical comparison finds true glassiness only in the under-paramet
 \cite{baityjesi2018}. We therefore \emph{argue} --- not prove --- that for over-parametrized networks the
 genuine-criticality construction is vacuous; whether any real posterior instead realizes a finite-$\beta$
 (Branch~1) or zero-$T$ (Branch~2) transition remains open. Where the signature is vacuous, the appropriate
-invariant is the singularity order --- the RLCT, estimated as the LLC. Two distinct facts co-locate on one
+invariant is the singularity order --- the RLCT \cite{watanabe2009}, estimated as the LLC \cite{lau2024}. Two
+distinct facts co-locate on one
 object: the connected singular set is where the Ruppeiner signature goes vacuous (no RSB) and,
 simultaneously, where the Fisher information degenerates ($\det I\to0$); it is the latter that makes the LLC
 the natural measurement there. Two facts, one object, not one mechanism --- which is why singular learning
@@ -598,6 +601,10 @@ the gate document \texttt{T1\_moduleL\_perceptron\_gate} are archived with this 
 \bibitem{baityjesi2018} M.~Baity-Jesi, L.~Sagun, M.~Geiger, S.~Spigler, G.~Ben~Arous, C.~Cammarota, Y.~LeCun,
   M.~Wyart, G.~Biroli, \emph{Comparing dynamics: deep neural networks versus glassy systems}, Proc.\ 35th
   ICML, PMLR \textbf{80}, 324 (2018); arXiv:1803.06969.
+\bibitem{watanabe2009} S.~Watanabe, \emph{Algebraic Geometry and Statistical Learning Theory}, Cambridge
+  Univ.\ Press (2009).
+\bibitem{lau2024} E.~Lau, Z.~Furman, G.~Wang, D.~Murfet, S.~Wei, \emph{The local learning coefficient: a
+  singularity-aware complexity measure}, arXiv:2308.12108 (2024).
 \bibitem{repo} IG-PRIMON-T1 computational receipts (this work);
   \texttt{module\_L\_*.py}, gate document \texttt{T1\_moduleL\_perceptron\_gate\_v0\_1.md}.
 \end{thebibliography}
