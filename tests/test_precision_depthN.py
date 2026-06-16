@@ -12,3 +12,9 @@ def test_block_error_recursion():
     result = compute_block_error(prev, J, delta)
     expected = prev + J @ prev + delta
     np.testing.assert_allclose(result, expected)
+
+
+def test_depth_map_uses_firewall():
+    from module_T1_precision_depthN import run_depth_error_map
+    result = run_depth_error_map()
+    assert "firewall" in result
