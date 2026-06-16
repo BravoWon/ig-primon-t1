@@ -26,6 +26,14 @@ import sys
 from dataclasses import dataclass, field
 from typing import Callable
 
+# precision-depth group stub (added for T1 experiment skeleton)
+def _a_depth_skeleton():
+    import numpy as np
+    import module_T1_precision_depthN as m
+    val = m.compute_block_error(np.zeros(2), np.eye(2), np.zeros(2))
+    ok = np.allclose(val, 0)
+    return ok, str(val), "0", "C1 skeleton identity"
+
 
 @functools.lru_cache(maxsize=None)
 def _capture_receipt(modname: str) -> str:
@@ -310,6 +318,10 @@ ANCHORS: list[AnchorSpec] = [
                "zeta_K(0) reads the Dirichlet unit rank (radius dictionary)", _a_module_e_radius, slow=True),
     AnchorSpec("c-constant", "number-theory", "[V]",
                "registered geometric constant C reproduced within 6e-31", _a_c_constant, slow=True),
+
+    # precision-depth group for T1 experiment (skeleton for now, per plan)
+    AnchorSpec("depth-skeleton", "precision-depth", "[infra]",
+               "skeleton depth map / recursion identity for C1 stub", _a_depth_skeleton),
 ]
 
 

@@ -46,6 +46,7 @@ py-modules = [
     "module_L_perceptron_curvature",
     "module_L_perceptron_finiteT",
     "module_hw_firewall",
+    "module_T1_precision_depthN",
 ]
 
 [tool.pytest.ini_options]
