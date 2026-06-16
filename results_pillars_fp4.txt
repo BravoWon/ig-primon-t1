@@ -1,0 +1,54 @@
+# RECEIPT -- Driftwave grounding: the FP4 per-tensor sensitivity ranking on trained GPT-2-small
+# Banked to close the driftwave round-trip residual (verifier drift_score 0.93): the pillar figures
+# (h0.mlp.c_proj ~2.5, 10/12 MLP, 965x spread) were from an uncommitted run. This file IS that run.
+#
+# PROVENANCE
+#   script   : pillars_fp4.py   run via: uv run python pillars_fp4.py  (repo .venv)
+#   repo HEAD: 252b5a4e483142e641a13fbc091c25d1cbfe78ac
+#   env      : numpy 2.4.6 ; torch 2.11.0+cu128 ; transformers 5.12.1 ; python 3.11.15 ; device CPU
+#   model    : GPT-2-small (OpenAI 124M), C:/Users/JT-DEV1/Documents/gpt2-sm
+#              model.safetensors sha256 = 248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707
+#   method   : importance(i) = KL(float64_ref || [tensor i -> FP4, rest bf16]) - KL(float64_ref || [all bf16])
+#              over 48 weight tensors, 6 texts x 32 tokens. Exact leave-one-low marginal. [E-sim]
+#   stdout   : captured 2>/dev/null (loader chatter dropped; below is byte-exact)
+#
+# READ HONESTLY:
+#   - This is which tensors are REFUSED to FP4 (highest marginal damage), NOT a catalog of "survivors":
+#     all-FP4 weight-only is catastrophic (KL 3.73 here / 4.49 in the alt-env run; ~87-90% flip).
+#   - The certified (float64) reference gives the IDENTICAL ranking as an FP32 reference in this sim
+#     (results_fapp_reference_swap.txt: Spearman +1.0): the ranking is NOT a certified-reference exclusive.
+#   - Sparse-importance structure is real (965x max/min spread) but the "certified allocation" operational
+#     edge is NULL in sim (a hardware claim). This receipt grounds the STRUCTURE, not the certification thesis.
+# ============================================================================================
+
+[FP4 sensitivity ranking]  trained GPT-2-small, 48 weight tensors, exact leave-one-FP4 KL marginal
+
+  PILLARS (highest sensitivity -> the allocator keeps these OUT of FP4):
+       h0.mlp.c_proj   leave-one-FP4 KL marginal = 2.499e+00
+         h2.mlp.c_fc   leave-one-FP4 KL marginal = 1.387e+00
+         h0.mlp.c_fc   leave-one-FP4 KL marginal = 2.078e-01
+         h3.mlp.c_fc   leave-one-FP4 KL marginal = 1.508e-01
+      h0.attn.c_attn   leave-one-FP4 KL marginal = 1.363e-01
+         h4.mlp.c_fc   leave-one-FP4 KL marginal = 1.148e-01
+      h11.mlp.c_proj   leave-one-FP4 KL marginal = 1.139e-01
+      h0.attn.c_proj   leave-one-FP4 KL marginal = 1.045e-01
+         h5.mlp.c_fc   leave-one-FP4 KL marginal = 9.413e-02
+      h10.mlp.c_proj   leave-one-FP4 KL marginal = 9.180e-02
+
+  FP4-SAFE (lowest sensitivity -> the redundant interpolation, cheapest to crush):
+      h9.attn.c_proj   leave-one-FP4 KL marginal = 2.590e-03
+      h7.attn.c_proj   leave-one-FP4 KL marginal = 4.462e-03
+      h6.attn.c_proj   leave-one-FP4 KL marginal = 4.953e-03
+      h1.attn.c_attn   leave-one-FP4 KL marginal = 6.983e-03
+     h10.attn.c_attn   leave-one-FP4 KL marginal = 7.588e-03
+      h5.attn.c_attn   leave-one-FP4 KL marginal = 8.557e-03
+      h4.attn.c_proj   leave-one-FP4 KL marginal = 8.622e-03
+     h10.attn.c_proj   leave-one-FP4 KL marginal = 8.820e-03
+      h8.attn.c_proj   leave-one-FP4 KL marginal = 1.033e-02
+      h7.attn.c_attn   leave-one-FP4 KL marginal = 1.267e-02
+
+  structure of the top-12 pillars: attn=2/12  mlp=10/12   layer depths=[0, 0, 0, 0, 2, 3, 4, 4, 5, 6, 10, 11]
+  ratio max/min sensitivity = 965.0x  (spread of importance across tensors)
+
+[caveat] FP32 reference gives the SAME ranking (F-app Spearman +1.0); all-FP4 is catastrophic
+         (KL ~3.7-4.5). This is which tensors are REFUSED to FP4, not 'survivors'. [E-sim]

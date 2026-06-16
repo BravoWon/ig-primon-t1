@@ -1,0 +1,60 @@
+[Stage-3 bake-off] running the gate first (control-before-scan)...
+
+[GATE precision_allocator] derive-before-numerics: certify the quantizers + the linear scorer
+
+(Q1) FP4 E2M1 grid == {0,.5,1,1.5,2,3,4,6}: True
+     FP8 E4M3 grid: max=448 (spec 448), min subnormal=1.953e-03 (spec 2^-9=1.953e-03), 1.0/2.0/256/448 present: True
+(Q2) fp4: ||quantizer - brute-force nearest|| = 0.0e+00 (round-to-nearest certified); idempotent residual = 0.0e+00; max |W-q| = 6.18e-01 <= half-ulp 6.50e-01
+(Q2) fp8: ||quantizer - brute-force nearest|| = 0.0e+00 (round-to-nearest certified); idempotent residual = 0.0e+00; max |W-q| = 1.43e-01 <= half-ulp 1.45e-01
+(Q3) tier ordering on a trained weight: fp4=4.00e-01 >= fp8=2.65e-02 >= bf16=1.69e-03  -> True
+(C1) reference identity: self-KL=0.0e+00, all-'ref' allocation KL=0.0e+00 (both must be 0)
+(GATE-L) FP32-linear scorer is first-order (fp64-certified):
+   fp8: quad remainder b=1.0e-02:rem=7.3e-05 b=5.0e-03:rem=1.8e-05(x0.25) b=2.5e-03:rem=4.6e-06(x0.25)  |  full-step linear-vs-true rel err = 0.11
+   fp4: quad remainder b=1.0e-02:rem=7.6e-05 b=5.0e-03:rem=1.9e-05(x0.25) b=2.5e-03:rem=4.8e-06(x0.25)  |  full-step linear-vs-true rel err = 0.49
+   => soundness: b/2 -> remainder ~/4 (genuine first-order). preview: fp8 full-step rel err << fp4's,
+      so the linear scorer is faithful at fp8 and degrades at fp4. Whether that flips the RANKING is P3.
+
+[FROZEN PREDICTION Stage-3]  P2: certified allocation meets a fixed KL/flip budget at <= recompute
+  cost of uniform AND of the FP32-linear (LAMP-style) allocator at matched budget. P3/F-app: the
+  certified top-k op-set EQUALS the FP32-linear op-set at FP8 (F-app fires = redundancy control) and
+  DIFFERS at FP4 (F-app does NOT fire; P3 holds), with the certified pick achieving lower true KL.
+
+ALLOCATOR-GATE: quantizers + linear scorer CERTIFIED; bake-off admissible
+
+================================================================================================
+[Stage-3 bake-off] gate passed; weight-only mixed precision on trained GPT-2-small
+
+
+---------- base precision = FP8 ----------
+  k=0 (all-fp8, no recompute): KL=5.173e-03  flip=0.072   [the uniform-precision baseline]
+    k  tens%  param%   random_KL     lamp_KL     cert_KL  cert<=lamp  cert<=rand  top-k Jacc
+    1     2%    2.1%   5.191e-03   5.255e-03   5.255e-03        True       False        1.00
+    2     4%    4.2%   5.078e-03   4.772e-03   4.772e-03        True        True        1.00
+    4     8%    9.0%   5.008e-03   3.670e-03   3.670e-03        True        True        1.00
+    8    17%   18.8%   4.409e-03   2.698e-03   2.698e-03        True        True        1.00
+   16    33%   38.9%   3.403e-03   1.754e-03   1.754e-03        True        True        1.00
+   24    50%   56.9%   2.333e-03   1.090e-03   1.090e-03        True        True        1.00
+  P2(FP8): cert<=lamp at 6/6 budgets, cert<=random at 5/6
+  scorer agreement: Spearman(cert,linear)=+0.999 over all 48 tensors; top-8 sets IDENTICAL (Jaccard=1.00)
+
+---------- base precision = FP4 ----------
+  k=0 (all-fp4, no recompute): KL=3.731e+00  flip=0.874   [the uniform-precision baseline]
+    k  tens%  param%   random_KL     lamp_KL     cert_KL  cert<=lamp  cert<=rand  top-k Jacc
+    1     2%    2.8%   3.740e+00   3.390e+00   3.390e+00        True        True        1.00
+    2     4%    5.6%   3.620e+00   3.281e+00   3.281e+00        True        True        1.00
+    4     8%   11.1%   3.658e+00   2.977e+00   2.999e+00       False        True        0.60
+    8    17%   19.4%   3.290e+00   2.444e+00   2.391e+00        True        True        0.78
+   16    33%   41.7%   2.991e+00   1.616e+00   1.574e+00        True        True        0.88
+   24    50%   63.2%   3.564e+00   3.848e-01   3.848e-01        True        True        1.00
+  P2(FP4): cert<=lamp at 5/6 budgets, cert<=random at 6/6
+  scorer agreement: Spearman(cert,linear)=+0.980 over all 48 tensors; top-8 sets DIFFER (Jaccard=0.78)
+
+================================================================================================
+[VERDICTS]
+P2 (allocator wins): certified KL <= LAMP-linear and <= random at matched budget, both bases -> PARTIAL/FAILS (see table)
+P3 (cert differs at FP4, agrees at FP8): Spearman FP8=+0.999 (high=agree) vs FP4=+0.980 (lower=diverge) -> HOLDS
+F-app (op-set identical -> certification adds nothing): FP8 fires=True (predicted True=redundancy control), FP4 fires=False (predicted False=the claim)
+   -> F-app fires ONLY at FP8: certification has an operational edge exactly at FP4 (the build target).
+
+[E-hw] one model, 6 natural-text inputs, per-tensor weight-only fake-quant, float64 certified ref.
+       Not the kappa_softmax/F2 arm, not hardware kernels, not >355M. No claim beyond measured.

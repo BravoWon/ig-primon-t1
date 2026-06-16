@@ -1,0 +1,61 @@
+# RECEIPT -- T1_precision_map v0.2 Stage 3 (sim): the LITERAL F-app / P3 (reference swap)
+#
+# WHAT THIS SUPERSEDES (no silent edit):
+#   The earlier bake-off (allocator_bakeoff.py / _bakeoff_stdout.txt) tested exact-vs-LINEAR *scoring*,
+#   both against a float64 reference. That is ORTHOGONAL to the registered P3/F-app, which (pre-reg
+#   T1_precision_map_v0_2.md s.5/s.6) is a REFERENCE swap: certified float64 reference vs FP32 reference,
+#   scoring method held fixed. The earlier run's "F-app fires only at FP8 / certification edge at FP4"
+#   conclusion was drawn from the wrong comparison and is WITHDRAWN. The earlier P2 arm (allocator beats
+#   uniform + linear) is on-target and stands [E-sim]. This file is the corrected P3/F-app receipt.
+#
+# PROVENANCE
+#   script   : fapp_reference_swap.py   run via: uv run python fapp_reference_swap.py  (repo .venv)
+#   repo HEAD: 252b5a4e483142e641a13fbc091c25d1cbfe78ac
+#   env      : numpy 2.4.6 ; torch 2.11.0+cu128 ; transformers 5.12.1 ; python 3.11.15 ; device CPU
+#   model    : GPT-2-small (OpenAI 124M), C:/Users/JT-DEV1/Documents/gpt2-sm
+#              model.safetensors sha256 = 248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707
+#   test     : exact leave-one-low importance over 48 weight tensors; scored once vs a float64 reference
+#              (certified) and once vs an FP32 reference (LAMP-style); top-B picks compared. 6 texts, 32 tok.
+#   stdout   : captured 2>/dev/null (loader chatter dropped; below is byte-exact)
+#
+# HEADLINE: F-app FIRES at BOTH FP8 and FP4. The fp32-vs-fp64 full-model reference gap (2.4e-7) is dwarfed
+#   by the quant signal, so the two references pick IDENTICAL op-sets at every budget -> P3 NOT supported
+#   in weight-only sim. The certified-reference OPERATIONAL edge is a HARDWARE (FP32-accumulation) claim
+#   this sim cannot establish. Pre-registered branch (s.7): retreat to the certified depth-law science.
+# ============================================================================================
+
+[F-app reference swap]  literal test: exact importance, float64-ref vs FP32-ref, picks compared
+  full-model reference logit gap ||ref_fp32 - ref_fp64|| / ||ref_fp64|| = 2.39e-07
+  (the question: is this gap big enough to change which of 48 weight tensors get promoted?)
+
+---- base = FP8 ----
+  importance rank corr (float64-ref vs FP32-ref): Spearman = +1.0000
+    B  cert==fp32 set?   overlap
+    4             True     100%
+    8             True     100%
+   12             True     100%
+   16             True     100%
+   24             True     100%
+  F-app at FP8: op-sets identical at every budget = True -> FIRES (certification adds no allocation edge here)
+
+---- base = FP4 ----
+  importance rank corr (float64-ref vs FP32-ref): Spearman = +1.0000
+    B  cert==fp32 set?   overlap
+    4             True     100%
+    8             True     100%
+   12             True     100%
+   16             True     100%
+   24             True     100%
+  F-app at FP4: op-sets identical at every budget = True -> FIRES (certification adds no allocation edge here)
+
+========================================================================================
+[VERDICT -- literal F-app / P3]
+  F-app fires (identical picks) at FP8=True  FP4=True
+  => F-app FIRES at BOTH. In this weight-only fake-quant sim the FP32 reference is ~indistinguishable
+     from the certified float64 reference (gap above << quant signal), so it picks the SAME ops.
+     P3 NOT supported in sim. The certified-reference operational edge is a HARDWARE claim
+     (FP32 accumulation error, real tensor cores) that THIS sim cannot establish. Honest, pre-registered
+     branch (pre-reg s.7): retreat to the certified depth-law science; the allocator edge is unproven in sim.
+
+[E-sim] CPU, 48 weight tensors, weight-only fake-quant, exact leave-one-low importance.
+        Swaps ONLY the reference precision (float64 vs fp32). No hardware accumulation modeled.
