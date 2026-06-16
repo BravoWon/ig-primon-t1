@@ -1,0 +1,17 @@
+[SmoothQuant diagnostic]  is GPT-2-small's activation-outlier pathology even present?
+
+(1) per-channel activation outlier ratio (max/median) across 48 inputs:
+    median ratio = 9.7   mean = 14.3   max = 118.6
+    worst units: h2.mlp.c_proj=119x, h2.mlp.c_fc=44x, h1.mlp.c_proj=35x, h5.mlp.c_fc=22x, h11.attn.c_proj=22x
+    (SmoothQuant/LLM.int8 'severe outlier' regime is ~20-100x, emerging ~6.7B params)
+
+(2) all-W8A8 KL: plain per-channel FP8 (no smooth) = 2.459e-02; SmoothQuant by alpha:
+    alpha=0.00: 2.390e-02 <- beats per-channel
+    alpha=0.25: 2.450e-02 <- beats per-channel
+    alpha=0.50: 2.857e-02
+    alpha=0.75: 2.525e-02
+    alpha=0.90: 2.437e-02 <- beats per-channel
+
+=> best SmoothQuant (alpha=0.0) = 2.390e-02 < per-channel 2.459e-02: it CAN help with tuning.
+
+[V-hw] RTX 5070 sm_120. Diagnosis: the SmoothQuant re-test is not runnable at this scale (no pathology).

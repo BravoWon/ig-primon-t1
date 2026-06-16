@@ -1,0 +1,22 @@
+[SmoothQuant hardware]  alpha=0.5, RTX 5070 sm_120, crush the activation floor then re-test P3
+
+(C-exact) migration identity (X/s)(sW)=XW : max abs err = 2.7e-15  (must be ~0)
+
+(C-floor) all-W8A8 KL vs float64 (held-out B):
+   bf16 floor = 1.624e-02   per-channel (no smooth) = 2.459e-02   SmoothQuant = 2.857e-02
+   -> SmoothQuant cuts W8A8 error 0.86x vs per-channel; gap above bf16 floor: 8.35e-03 -> 1.23e-02
+   floor NOT reduced -- premise fails
+
+Part 2 -- certification P2 on the SmoothQuant baseline (held-out B): certified vs practical-bf16
+   k(bf16)  certified KL  practical KL cert<=prac?
+         4    2.3835e-02    2.2290e-02       False
+         8    2.0586e-02    2.3420e-02        True
+        12    2.1121e-02    2.2401e-02        True
+        16    2.0546e-02    2.1298e-02        True
+        24    1.9479e-02    1.7906e-02       False
+
+[VERDICT] SmoothQuant baseline: certified <= practical 3/5; mean certified gain = +1.1% KL.
+  (per-tensor gave +6.1%/5-of-5; naive per-channel +4.0%/3-of-5.)
+  -> premise failed (floor not reduced); the certification re-test is not interpretable.
+
+[V-hw] RTX 5070 sm_120, SmoothQuant FP8 fake-quant. float64 ref. score A, eval disjoint B. No timing claim.
