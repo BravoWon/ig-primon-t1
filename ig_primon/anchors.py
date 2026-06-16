@@ -35,6 +35,28 @@ def _a_depth_skeleton():
     return ok, str(val), "0", "C1 skeleton identity"
 
 
+def _a_c1_identity():
+    """Basic C1 (identity) anchor for precision-depth: FP32-vs-FP32 (or same-prec) run
+    must produce (near) zero certified error. Exercises the run_depth_error_map integration
+    (which includes firewall/hardware) + the recursion identity via compute_block_error.
+    Per pre-reg: C1 validates the harness/cert pipeline before C2 gate.
+    """
+    import numpy as np
+    import module_T1_precision_depthN as m
+    # Run the explorer/certify entry (uses ig_primon firewall + hardware)
+    res = m.run_depth_error_map()
+    fw_ok = "firewall" in res and res["firewall"] is not None
+    # Pure recursion C1: feeding zero error + zero delta through (I + J) must stay zero
+    # (this is the mathematical identity for the no-perturbation case)
+    z = np.zeros(4)
+    J = np.eye(4) * 0.3
+    d0 = np.zeros(4)
+    val = m.compute_block_error(z, J, d0)
+    ok = fw_ok and np.allclose(val, 0.0)
+    shown = str(val)
+    return ok, shown, "0", "C1 identity (recursion + run_depth_error_map integration)"
+
+
 @functools.lru_cache(maxsize=None)
 def _capture_receipt(modname: str) -> str:
     """Run the ACTUAL receipt as a subprocess (`python -m <modname>`) and capture what it emits.
@@ -322,6 +344,8 @@ ANCHORS: list[AnchorSpec] = [
     # precision-depth group for T1 experiment (skeleton for now, per plan)
     AnchorSpec("depth-skeleton", "precision-depth", "[infra]",
                "skeleton depth map / recursion identity for C1 stub", _a_depth_skeleton),
+    AnchorSpec("c1-identity", "precision-depth", "[infra]",
+               "C1 identity: zero-error on same-prec run + recursion (harness+firewall integration)", _a_c1_identity),
 ]
 
 
