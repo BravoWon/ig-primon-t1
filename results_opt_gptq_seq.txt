@@ -1,0 +1,19 @@
+[OPT-2.7B SEQUENTIAL GPTQ-W4]  layer-wise reconstruction against full precision (vision + the fix)
+
+  fp32 gold PPL = 55.962   (reconstructing against this, layer by layer)
+
+    block  0/31 reconstructed
+    block  8/31 reconstructed
+    block 16/31 reconstructed
+    block 24/31 reconstructed
+    block 31/31 reconstructed
+
+                      config       PPL  dPPL vs gold
+                   fp32 gold    55.962            --
+    parallel GPTQ-W4 (prior)     139.5 +150.7% (artifact)
+          SEQUENTIAL GPTQ-W4    88.451       +58.05%
+
+[VERDICT]
+  sequential GPTQ-W4 = +58.1%; better than parallel but FP4 weights still cost. Report as measured.
+
+[V-hw] RTX 5070 sm_120, OPT-2.7B, sequential block-wise GPTQ, WikiText-2, fp32 gold. Held-out.
