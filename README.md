@@ -58,6 +58,7 @@ igprimon precision-matrix        # certify inference primitives (GEMM/softmax/no
 igprimon precision-matrix --sweep  # reduction-width / context-length precision fragility
 igprimon precision-bf16          # bf16 pass (torch): real-inference map + the LayerNorm range inversion
 igprimon precision-fp8           # fp8 pass (torch): Blackwell fp8 GEMM + the range-vs-mantissa tradeoff
+igprimon run depth-map           # T1 precision depth-N error map receipt (for precision-composition experiment)
 ```
 
 **Anchors.** `igprimon verify` re-checks, programmatically, every exact reference value the receipts pin —

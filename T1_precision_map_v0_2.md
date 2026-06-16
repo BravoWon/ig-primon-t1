@@ -105,6 +105,10 @@ If F1 fires, the residual-attenuation comfort (theoretical, ViT-only) does not e
 
 **Source-quality flags (from compass artifact).** Baek and LAMP are preprints; Budzinskiy is journal-published. FP4 tooling on Blackwell is under-documented; budget kernel/format friction and extra certification care.
 
+## Software Availability Note (post-lock)
+
+A skeleton implementation of the receipt (`module_T1_precision_depthN.py`) and supporting harness/anchors/CLI registration is available to execute the controls (C1–C4) and basic depth map simulations as per this pre-registration. The `igprimon run depth-map` and `igprimon verify --group precision-depth` commands provide the entry points. Full implementation of trained-model depth maps, real error accumulation, and certification loops to follow per the stages in the implementation plan. See `docs/superpowers/plans/2026-06-16-t1-precision-map-v0-2-implementation.md` for details. This enables the operationalization of the experiment without altering existing [V] receipts.
+
 ---
 
 *This pre-registration (T1_precision_map_v0_2) supersedes the primitives-focused T1_precision_map_v0_1.md. It registers the full depth-N composition experiment under the IG-PRIMON-T1 discipline.*
