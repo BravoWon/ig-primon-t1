@@ -1,0 +1,16 @@
+[HARDWARE P2] certified vs practical-bf16 allocation, true-KL at matched budget (W8A8 regime)
+
+  bf16 reference error (floor) = 1.500e-02   all-W8A8 KL = 2.824e-02
+
+  k(bf16)  certified KL  practical KL   random KL cert<=prac? set overlap
+        4    2.3927e-02    2.6542e-02  2.6857e-02        True        50%
+        8    2.2307e-02    2.5989e-02  2.5233e-02        True        62%
+       12    2.1028e-02    2.1938e-02  2.5363e-02        True        58%
+       16    2.0673e-02    2.0742e-02  2.6203e-02        True        56%
+       24    1.7798e-02    1.8633e-02  2.0829e-02        True        71%
+
+[VERDICT] certified-allocation true-KL <= practical-bf16-allocation at 5/5 budgets.
+  -> CERTIFICATION HAS AN OPERATIONAL EDGE on hardware: scoring against the cheap bf16 reference picks
+     measurably worse units than the float64 reference, in the activation-dominated W8A8 regime. P3 holds [V-hw].
+
+[V-hw] RTX 5070 sm_120, W8A8 FP8 (_scaled_mm). float64 CPU reference. 6 texts. No timing claim.

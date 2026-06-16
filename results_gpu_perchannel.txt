@@ -1,0 +1,19 @@
+[per-channel hardware] does the certification edge survive proper (per-channel) FP8?
+
+(1) all-W8A8 deployment KL vs float64 (held-out B):
+    bf16 floor = 1.624e-02   per-tensor FP8 = 2.705e-02 (real _scaled_mm gave 2.82e-2)   per-channel FP8 = 2.459e-02
+    -> per-channel scaling cuts W8A8 error 1.10x; gap above the bf16 floor = 8.347e-03
+
+(2) certification P2 (per-channel configs, held-out B): certified vs practical-bf16 allocation
+    k(bf16)  certified KL  practical KL cert<=prac?
+          4    2.2873e-02    2.1738e-02       False
+          8    2.1730e-02    2.2562e-02        True
+         12    1.8944e-02    2.1821e-02        True
+         16    2.1001e-02    2.0313e-02       False
+         24    1.8493e-02    2.0905e-02        True
+
+[VERDICT] per-channel: certified <= practical at 3/5 budgets; mean certified gain = +4.0% KL.
+  (naive per-tensor gave +6.1% on held-out.)
+  -> the edge shrinks but persists; report as-is.
+
+[V-hw] RTX 5070 sm_120, FP8 per-channel fake-quant (rowwise kernel unsupported here). float64 ref. A->B held-out.
