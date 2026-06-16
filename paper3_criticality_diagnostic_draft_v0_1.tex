@@ -123,7 +123,8 @@ $\detg$ produces a genuine divergence.
 A divergence is a \emph{genuine continuous transition} iff $|\Ric|\to\infty$ is produced by a diverging
 metric \emph{component} $g_{\eps\eps}\to\infty$ on a metric that remains \emph{non-degenerate and
 positive-definite} ($\detg>0$, well-conditioned), where $\eps$ is the natural field conjugate to the order
-parameter. Two failure modes are disqualified:
+parameter. Three configurations fail the criterion --- the first two are disqualified divergences, the
+third sees no transition at all:
 \begin{itemize}
 \item \emph{Kinematic (volume).} $\detg\to\infty$ while $|\Ric|$ stays bounded: the metric volume explodes,
       the intrinsic curvature does not. (Double descent, Sec.~\ref{sec:ridge}.)
@@ -374,6 +375,92 @@ $[V]$ \cite[receipt \texttt{module\_L\_perceptron\_finiteT.py}; the indefinite $
 \texttt{module\_L\_perceptron\_curvature.py}]{repo}.
 
 % =====================================================================
+\section{The genuine gate and the topological trichotomy}\label{sec:gate}
+The three archetypes of Secs.~\ref{sec:ridge}--\ref{sec:perceptron} are \emph{non-singular}: their Fisher
+metrics are non-degenerate away from the transition, and the diagnostic classifies them cleanly. Real
+overparametrized networks are the \emph{singular} case --- non-identifiable, with positive-dimensional
+degeneracies on which $\det I(w)\to0$ --- so whether the genuine-side construction survives there is a
+separate question, decided on paper before any sampler (the analysis is archived with the receipts
+\cite{repo}). This section states the gate, refutes an unconditional closure, and reduces the genuine side to
+a structural trichotomy.
+
+\subsection{From kinematic to genuine}\label{sec:gate-criterion}
+Section~\ref{sec:ridge} established that double descent is kinematic: a covariance degeneracy under which the
+scalar curvature stays bounded despite a diverging volume. We ask the converse --- under what conditions is a
+curvature divergence \emph{genuine}, a signature of interacting criticality rather than a coordinate or
+volume artifact? For the solvable archetypes the criterion is sharp (Definition~\ref{def:diag}): genuine
+criticality requires a diverging metric \emph{component} on a non-degenerate, positive-definite thermodynamic
+metric. Closing the genuine side for a \emph{singular} posterior therefore means showing the singular
+structure forces $\detg\to0$ at the transition.
+
+\subsection{Refutation of unconditional closure}\label{sec:gate-race}
+It does not, in general. A singular minimum has density of states $\rho(E)\sim E^{\lambda-1}$, with $\lambda$
+the RLCT --- the same exponent that governs the Bayes free energy $F_n\approx\lambda\log n$. Then
+$Z(\beta)=\Gamma(\lambda)\,\beta^{-\lambda}$, so $\mathrm{Var}(E)=\lambda/\beta^2$ and the energy-fluctuation
+component is suppressed, $g_{\beta\beta}\sim\lambda/\beta^2\to0$ --- but only in the singular
+($\beta\to\infty$) limit. The curvature is then governed by the competition
+\begin{equation}
+\detg=g_{\beta\beta}\,g_{\eps\eps}-g_{\beta\eps}^2\ \sim\ \frac{\lambda}{\beta^2}\,\chi-g_{\beta\eps}^2,
+\label{eq:detg-race}
+\end{equation}
+between this singular suppression and the overlap susceptibility $\chi=g_{\eps\eps}$ that drives genuine
+criticality at the de Almeida--Thouless line. At a \emph{finite}-$\beta$ transition $g_{\beta\beta}=O(1)$
+while $\chi\to\infty$, so $\detg\to+\infty$ and the genuine signature survives; the suppression, a
+$\beta\to\infty$ effect, never reaches it. The closure can bite only where the criticality \emph{co-locates}
+with the singular limit, $\chi\sim\beta^{p}$: then $\detg\sim\lambda\,\beta^{p-2}-g_{\beta\eps}^2$, and the
+threshold is $p=2$ --- $p<2$ closes the gate ($\detg\to0$, F-spurious), $p>2$ leaves it open, $p=2$ is
+borderline. Here $p$ is the \emph{susceptibility exponent} in $\beta$, not the order of any $p$-spin
+interaction. (This corrects a first pass that claimed unconditional closure; the finite-$\beta$ case refutes
+it.)
+
+\subsection{The topological trichotomy}\label{sec:gate-trichotomy}
+Because $\chi=N\,\mathrm{Var}(q)$ diverges \emph{only} at a continuous-RSB transition, the genuine side is
+decided not by a rate but by \emph{where} that transition sits relative to the singular limit --- a
+structural question with exactly three branches (Table~\ref{tab:trichotomy}).
+
+\begin{table}[h]\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+branch & RSB structure & $\detg$ as critical & verdict\\
+\midrule
+1 & finite-$\beta$ RSB ($\beta_{AT}<\infty$) & $\to+\infty$ ($g_{\beta\beta}=O(1)$, $\chi\to\infty$) & genuine survives; gate OPEN\\
+2 & zero-$T$ RSB ($\beta\to\infty$), $\chi\sim\beta^{p}$ & $\sim\lambda\,\beta^{p-2}-g_{\beta\eps}^2$ & $p<2$ CLOSED / $p>2$ OPEN / $p=2$ borderline\\
+3 & no RSB (connected manifold) & --- ($\chi$ saturates, finite) & vacuous; closed for \emph{absence} of criticality\\
+\bottomrule
+\end{tabular}
+\caption{The genuine-side trichotomy for a singular posterior. Branch~1 is realized by the spherical
+perceptron (Sec.~\ref{sec:perceptron}) and SK at the dAT line (Sec.~\ref{sec:sk}) --- which is exactly why
+their genuine results are $[V]$ and a control was even conceivable. Branch~2 has no exactly-solvable
+archetype here, and the model for $\chi(\beta)$ that would fix $p$ is left open. Branch~3 is the
+mode-connected case of \S\ref{sec:gate-handoff}.}\label{tab:trichotomy}
+\end{table}
+
+In Branch~1 the singular suppression is irrelevant --- it lives at $\beta\to\infty$, the transition is at
+finite $\beta$ --- so the genuine signature is intact, at the cost that an equilibrium sampler is then needed
+after all. Branch~2 is the only branch where the \eqref{eq:detg-race} race is decisive. In Branch~3 two
+replicas spread over a connected manifold, so $\chi$ saturates to a finite, $\beta$-independent constant and
+never diverges: the genuine signal is vacuous, the gate closed not by suppression but by the \emph{absence}
+of a transition to detect. Whether a real network's posterior is Branch~1, 2, or 3 is the spin-glass-of-nets
+question, addressed empirically next.
+
+\subsection{The handoff (conditional)}\label{sec:gate-handoff}
+Empirically and, for wide networks, provably, trained-network solution sets are connected --- by low-loss
+curves \cite{garipov2018,draxler2018}, as connected sublevel sets under over-parametrization
+\cite{nguyen2019}, and linearly once permutation symmetry is quotiented \cite{entezari2022,ainsworth2023}.
+Connectivity is the geometric signature of absent ergodicity breaking, placing such posteriors in Branch~3,
+where the overlap susceptibility does not diverge and the genuine Ruppeiner signature is vacuous. The
+spin-glass picture of network landscapes \cite{choromanska2015} is an analogy under strong assumptions; the
+most direct dynamical comparison finds true glassiness only in the under-parametrized regime
+\cite{baityjesi2018}. We therefore \emph{argue} --- not prove --- that for over-parametrized networks the
+genuine-criticality construction is vacuous; whether any real posterior instead realizes a finite-$\beta$
+(Branch~1) or zero-$T$ (Branch~2) transition remains open. Where the signature is vacuous, the appropriate
+invariant is the singularity order --- the RLCT, estimated as the LLC. Two distinct facts co-locate on one
+object: the connected singular set is where the Ruppeiner signature goes vacuous (no RSB) and,
+simultaneously, where the Fisher information degenerates ($\det I\to0$); it is the latter that makes the LLC
+the natural measurement there. Two facts, one object, not one mechanism --- which is why singular learning
+theory measures the LLC in exactly this regime.
+
+% =====================================================================
 \section{Discussion}\label{sec:discussion}
 The four-tier picture (Table~\ref{tab:tax}) is uniform across venues. A divergence earns ``genuine'' only as
 a positive-definite component blow-up; the metric-volume explosion of double descent, the
@@ -494,6 +581,23 @@ the gate document \texttt{T1\_moduleL\_perceptron\_gate} are archived with this 
   deep neural networks}, Phys.\ Rev.\ Research \textbf{5}, 043243 (2023).
 \bibitem{ersoy2025} I.~T.~Ersoy and K.~Wiesner, \emph{Phase Transitions between Accuracy Regimes in $L_2$
   regularized Deep Neural Networks}, arXiv:2505.06597 (2025).
+\bibitem{garipov2018} T.~Garipov, P.~Izmailov, D.~Podoprikhin, D.~Vetrov, A.~G.~Wilson, \emph{Loss surfaces,
+  mode connectivity, and fast ensembling of DNNs}, Adv.\ Neural Inf.\ Process.\ Syst.\ (NeurIPS) \textbf{31},
+  8803 (2018); arXiv:1802.10026.
+\bibitem{draxler2018} F.~Draxler, K.~Veschgini, M.~Salmhofer, F.~A.~Hamprecht, \emph{Essentially no barriers
+  in neural network energy landscape}, Proc.\ 35th ICML, PMLR \textbf{80}, 1308 (2018); arXiv:1803.00885.
+\bibitem{nguyen2019} Q.~Nguyen, \emph{On connected sublevel sets in deep learning}, Proc.\ 36th ICML, PMLR
+  \textbf{97}, 4790 (2019); arXiv:1901.07417.
+\bibitem{entezari2022} R.~Entezari, H.~Sedghi, O.~Saukh, B.~Neyshabur, \emph{The role of permutation
+  invariance in linear mode connectivity of neural networks}, Int.\ Conf.\ Learning Representations (ICLR)
+  (2022); arXiv:2110.06296.
+\bibitem{ainsworth2023} S.~K.~Ainsworth, J.~Hayase, S.~Srinivasa, \emph{Git Re-Basin: merging models modulo
+  permutation symmetries}, Int.\ Conf.\ Learning Representations (ICLR) (2023); arXiv:2209.04836.
+\bibitem{choromanska2015} A.~Choromanska, M.~Henaff, M.~Mathieu, G.~Ben~Arous, Y.~LeCun, \emph{The loss
+  surfaces of multilayer networks}, Proc.\ 18th AISTATS, PMLR \textbf{38}, 192 (2015); arXiv:1412.0233.
+\bibitem{baityjesi2018} M.~Baity-Jesi, L.~Sagun, M.~Geiger, S.~Spigler, G.~Ben~Arous, C.~Cammarota, Y.~LeCun,
+  M.~Wyart, G.~Biroli, \emph{Comparing dynamics: deep neural networks versus glassy systems}, Proc.\ 35th
+  ICML, PMLR \textbf{80}, 324 (2018); arXiv:1803.06969.
 \bibitem{repo} IG-PRIMON-T1 computational receipts (this work);
   \texttt{module\_L\_*.py}, gate document \texttt{T1\_moduleL\_perceptron\_gate\_v0\_1.md}.
 \end{thebibliography}
