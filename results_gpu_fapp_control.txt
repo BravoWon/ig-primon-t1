@@ -1,0 +1,12 @@
+[control] is the hardware P3 divergence real signal or GPU noise?
+
+(1) DETERMINISM: all-bf16 forward run-twice  mean KL = 0.00e+00  max abs logit diff = 0.00e+00
+    median FP8 demotion marginal = 1.93e-02   top marginal = 2.23e-02
+    noise floor / median marginal = 0.00   (<<1 needed: marginals must dominate noise)
+
+(2) REPRODUCIBILITY of impP ranking across two identical passes: Spearman = +1.0000
+    top-4 self-overlap = 100%
+    top-8 self-overlap = 100%
+    top-16 self-overlap = 100%
+
+[CONTROL VERDICT] PASS -- noise floor << marginals AND impP ranking reproducible; the impC-vs-impP divergence is REAL.
