@@ -1,0 +1,35 @@
+# RECEIPT -- T1_precision_map v0.2 Stage 2: typical-case depth-error map on trained GPT-2-small
+# Banked to close driftwave Drift-1: the P1 measurement was previously commit-asserted (6cd22c1)
+# with no committed result artifact. This file IS that artifact. Reproducible, not asserted.
+#
+# PROVENANCE
+#   script        : precision_gpt2_scan.py  (unchanged; see git for content at this HEAD)
+#   repo HEAD     : 6cd22c1af65e43b8705cb1a813eb48467ab92148  (main)
+#   run via       : uv run python precision_gpt2_scan.py   (repo .venv)
+#   env           : numpy 2.4.6 ; torch 2.11.0+cu128 ; transformers 5.12.1 ; python 3.11.15
+#   device        : CPU (torch float64 reference; [E-hw])
+#   model         : GPT-2-small (OpenAI 124M), local copy C:/Users/JT-DEV1/Documents/gpt2-sm
+#   model config  : model_type=gpt2 n_layer=12 n_embd=768 n_head=12 vocab=50257 act=gelu_new
+#   model weights : model.safetensors
+#                   sha256 = 248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707
+#   stdout        : captured 2>/dev/null (tqdm loader chatter dropped; stdout below is byte-exact)
+#
+# WHAT THIS LICENSES (and what it does NOT)
+#   The float64 reference is licensed by the Stage-1 mpmath dps>=50 spot-cert on the same op
+#   types (see precision_depth_map.py / results in repo) -- NOT by float32 agreement.
+#   This receipt reports the MEASURED typical-case E_cert(L) on ONE trained model + 6 natural-text
+#   inputs. P1 = "trained-weight typical-case slope is sub-exponential vs the Stage-1 random-weight
+#   worst-case +0.285/layer." It HOLDS here at float32 and bfloat16. It is NOT a proof, NOT a
+#   width/depth sweep, NOT the fp8/fp4 allocator regime (that is Stage 3). [E-hw] one model. No
+#   claim beyond what is printed.
+# ============================================================================================
+
+[Stage-2] trained GPT-2-small, 12 layers, 6 texts; low-precision vs float64 (certified ref)
+  (Stage-1 random-weight worst-case reference: +0.285/layer slope, 352x median<<mean)
+
+  [float32 ] median E_cert: L1=2.66e-07 -> L12=1.83e-07  (growth 0.69x over depth)
+             log(median) slope = +0.005/layer   mean/median@L12 = 1.8x   -> P1 HOLDS (sub-exponential)
+  [bfloat16] median E_cert: L1=3.78e-03 -> L12=3.62e-03  (growth 0.96x over depth)
+             log(median) slope = +0.036/layer   mean/median@L12 = 1.5x   -> P1 HOLDS (sub-exponential)
+
+[E-hw] one model, natural text. fp8/fp4 (the allocator regime, P3) is Stage 3. No claim beyond measured.
