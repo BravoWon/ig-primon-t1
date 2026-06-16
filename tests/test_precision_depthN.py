@@ -27,3 +27,18 @@ def test_c2_random_weight_growth():
     logs = np.log(np.array(norms) + 1e-20)
     slope = (logs[-1] - logs[0]) / (len(logs) - 1)
     assert slope > 0, f"No positive slope in log-error: {slope}"
+
+def test_c3_shuffle():
+    ok, msg = module_T1_precision_depthN.c3_shuffle_control([], [])
+    assert ok
+
+def test_c4_primitive():
+    ok, _ = module_T1_precision_depthN.c4_primitive_isolation(np.zeros(2))
+    assert ok
+
+def test_trained_stub_curve():
+    curve = module_T1_precision_depthN.run_depth_map_on_trained_stub()
+    assert len(curve) == 12
+    assert curve[0] < 1e-9  # starts small
+    # sub-exp growth
+    assert curve[-1] < curve[0] * 2  # near linear-ish for stub
