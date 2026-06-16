@@ -259,6 +259,20 @@
 - [ ] Final commit
 - [ ] Announce plan complete
 
+### Execution Notes — Task 1 Skeleton Phase (added for historical accuracy)
+
+The mechanical steps of Task 1 were executed as specified: pre-reg and design verified present and committed; existing patterns inspected (precision.py, module_hw_firewall.py, ig_primon/*.py layout) via the listed commands (and close adaptations); plans/ directory confirmed; no large binaries tracked in .gitignore; and the plan skeleton was committed in isolation with `git add docs/superpowers/plans/` and the exact message "docs: add implementation plan skeleton for T1_precision_map_v0_2".
+
+However, the *order* of work in the commit history did not adhere to the plan's task-by-task TDD discipline or the "receipts only after pre-reg locked" / "Stage 0 lock first" rule (see design doc Approach 1 and pre-reg §10 Execution order, §12, and "No silent edits" discipline):
+
+- Content originally described under Tasks 2–7 (module_T1_precision_depthN.py with recursion stub + run_depth_error_map using ig_primon.firewall/hardware, tests/test_precision_depthN.py with import + block error + C2/C3/C4 tests, ig_primon/cli.py registration for depth-map + anchors + pyproject updates) was introduced in commits that precede the plan skeleton commit in the ancestry (e.g. 1ebf894 feat: add compute_block_error and TDD test; 6b8b8d3 feat: stub run_depth_error_map...; fda679d infra: register depth-map receipt in cli...; b9bedb0 feat: add C2...; 7206ec8 test: add tests for C3...). These files (and the CLI/anchor changes) were already present in the tree at the plan commit (54d07a3). The plan commit itself changed only the new plan file (verified `git show --stat 54d07a3`).
+
+- An edit was made to the locked pre-registration in commit caaf4d0 (the direct parent of 54d07a3; message: "docs: add software availability note to pre-reg; update README with depth-map command"). This inserted a "## Software Availability Note (post-lock)" section describing the skeleton receipt, harness/CLI integration, `igprimon run depth-map` / verify entry points, and a forward reference to the implementation plan (plus one line in README.md). At the time of that commit the plan file did not yet exist.
+
+The plan *content* (including the skeleton code sketches, file lists, and forward-looking TDD steps) is accurate and matches the request. The note above renders this document descriptive of the actual state of the skeleton phase at Task 1 close-out, rather than purely forward/prescriptive. No core ig_primon/ files were edited (all changes were top-level receipt wrappers following the module_hw_firewall.py pattern). Other Task 1 receipts (pre-reg/design presence, pattern match, 7+ tests green in relevant runs, no stray artifacts) held. The pre-reg note addition itself was beneficial for visibility but its timing (and early reference to the plan) violated the freeze rules; amendments are to be versioned diffs.
+
+The checkboxes and TDD sequencing for Tasks 2–9 are preserved unchanged. Any remaining or backfill work on the receipt/harness must still follow them, the locked pre-reg as immutable spec, and the design. Task 9 self-review should cross-check the documented history against actual commit ancestry.
+
 **Plan complete and saved to `docs/superpowers/plans/2026-06-16-t1-precision-map-v0-2-implementation.md`.**
 
 Two execution options:
