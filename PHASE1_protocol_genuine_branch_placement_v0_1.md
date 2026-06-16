@@ -93,3 +93,21 @@ with no right to be trusted.
 - **Sampler.** SGLD vs full-batch Langevin vs HMC; the equilibration budget that makes §2 satisfiable at the
   smallest useful width.
 These are pinned in a v0.2 of this protocol *before* a real-net chain runs, not during.
+
+## 7. Adjudication plan (when back, fresh head) — the run-length settler
+The mapping sweep (§4 grid) varies `H, n_data, β, seed` at a **single fixed chain length**. That can
+*map* where the stuck-vs-glassy entanglement is severe (large `q_within − q_between`, high `fs_R̂`), but it
+**cannot settle stuck-vs-glassy on its own**: broken ergodicity (genuine RSB) and a merely stuck sampler look
+*identical at any finite time*. A fixed length maps the problem; it does not decide it.
+
+The settler is **run-length dependence**. For the handful of grid points where the entanglement is severe,
+re-run at **2–3× the chain length** and watch `(q_within − q_between)`:
+- gap **shrinks** with run length → *slow-but-ergodic* (the sampler was just slow; not genuine RSB).
+- gap **stays fixed** with run length → *stuck OR truly broken ergodicity* — the genuinely hard pair, which
+  then needs the §3 connectivity cross-check + independent longer chains to push on, and `INCONCLUSIVE` where
+  it still can't be separated.
+
+Adjudication order: (a) read the grid → locate severe-entanglement points; (b) run-length sweep those points
+(2–3×) → shrink vs fixed; (c) where fixed, bring the §3 connectivity 2×2 to bear; (d) only then a branch read,
+region by region, `INCONCLUSIVE` logged wherever stuck-vs-glassy cannot be separated. Fresh head, not the tail
+of a long day.
