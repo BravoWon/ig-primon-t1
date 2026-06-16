@@ -60,13 +60,18 @@ def auto_beta_hot(X, y, H, d_in, nd, dev, gen, b0=0.02, floor=2e-5):
 
 
 def lik_tempered(X, y, D, H, nd, ladder, dev, gen, init_scale, init_seed,
+                 W_init=None, init_noise=0.02,
                  E=24, n_adapt=2000, n_burn=5000, n_meas=9000, swap_every=6, meas_every=25):
     d_in = 8; P = sum(G.mlp_dims(H, d_in)); L = len(ladder)
     rung = torch.arange(E * L, device=dev) % L; blad = torch.tensor(ladder, device=dev); bch = blad[rung]
     Lk = lambda W: LT.lik(W, X, y, H, d_in, nd)
     Vb = lambda W: PRIOR * (W ** 2).sum(1) + bch * Lk(W)
     gi = torch.Generator(device=dev); gi.manual_seed(init_seed)
-    W = init_scale * torch.randn(E * L, P, generator=gi, device=dev); ones = torch.ones(E * L, device=dev)
+    if W_init is None:                                   # original: random init at a scale
+        W = init_scale * torch.randn(E * L, P, generator=gi, device=dev)
+    else:                                                # v4: warm-start near a given solution (adversarial sep.)
+        W = W_init.expand(E * L, P) + init_noise * torch.randn(E * L, P, generator=gi, device=dev)
+    ones = torch.ones(E * L, device=dev)
     da = G.DualAvg(torch.log(2e-3 / blad), 0.574); tau_r = 2e-3 / blad
     for _ in range(n_adapt):
         W, acc = G.mala_step(W, Vb, ones, tau_r[rung], gen); tau_r = da.update(acc.float().view(E, L).mean(0))
