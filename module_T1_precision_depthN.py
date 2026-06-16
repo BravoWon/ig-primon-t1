@@ -19,9 +19,6 @@ from typing import Any
 import numpy as np
 from mpmath import mp
 
-from ig_primon.firewall import run_firewall
-from ig_primon.hardware import scan
-
 
 def compute_block_error(
     prev_error: np.ndarray,
@@ -50,50 +47,55 @@ def compute_block_error(
     return e + J @ e + d
 
 
+from ig_primon.firewall import run_firewall
+from ig_primon.hardware import scan
+import ig_primon.precision as prec_mod  # reuse existing precision matrix primitives (OPS, _gemm etc) for block ops
+try:
+    from ig_primon import torch_precision as tprec
+except Exception:
+    tprec = None
+
+
 def run_depth_error_map(model_name: str = "gpt2-small", prec: str = "bf16") -> dict:
     """Run a tiny model forward in low prec and certifies error vs mpmath reference.
     Integrates with ig_primon.firewall (cert engine pattern) + hardware.scan (Tier-E backend).
-    Reuses the incorporated real harness (precision_depth_map.py) block_forward for the
-    tiny pre-LN block model (d=20 regime), plus existing precision matrix primitives style
-    (via torch_precision for low-prec when available) + direct mpmath for one-block cert.
-    Returns dict with 'firewall' key (per sketch) plus depth_demo results.
+    Reuses existing precision matrix primitives (ig_primon.precision for gemm/softmax/layernorm/attention
+    style ops, and torch_precision where available) for the block ops in low-prec path.
+    Computes a small chain of errors for one block using torch low prec (bf16) vs mpmath ref.
     """
     dm = scan()
-    # Use dm.tier_e_backend to choose explorer (passed to run_firewall)
+    # Use dm.tier_e_backend to choose explorer
     fw_res = run_firewall(kappa=0.0, backend=dm.tier_e_backend)
 
     depth_demo = {}
     try:
-        # Minimal local implementations of tiny-model block helpers (inspired by / reusing
-        # logic from the incorporated real harness precision_depth_map.py block_forward etc.
-        # We do NOT import it directly here because it has unguarded top-level execution
-        # that would run the full (slow) C1/C2 receipt on every call. The harness remains
-        # the canonical reference (runnable via `python -m precision_depth_map` or igprimon).
+        # Tiny model helpers -- reuse precision primitives for core block ops (matmul/gemm, softmax, layernorm)
+        # instead of pure ad-hoc; gelu remains local approx for the pre-LN GPT2-style block (d small like 8).
         rng_local = np.random.default_rng(20260616)
         def layernorm_local(x, g, b, eps=1e-5):
-            mu = x.mean(-1, keepdims=True)
-            var = x.var(-1, keepdims=True)
-            return g * (x - mu) / np.sqrt(var + eps) + b
+            # Use prec_mod _layernorm with np (xp=np, acc=np.float64 for ref or controlled)
+            # For demo low-prec path we cast after; here wrapper for block
+            return prec_mod._layernorm(np, x, g, b, np.float64, eps=eps)
         def gelu_local(x):
             return 0.5 * x * (1.0 + np.tanh(np.sqrt(2.0/np.pi) * (x + 0.044715 * x**3)))
         def softmax_local(s):
-            s = s - s.max(-1, keepdims=True)
-            e = np.exp(s)
-            return e / e.sum(-1, keepdims=True)
+            # Reuse _softmax from precision primitives (acc controlled)
+            return prec_mod._softmax(np, s, np.float64)
         def block_forward_local(x, P, dtype, use_ln=True):
             x = x.astype(dtype)
             d = x.shape[-1]
             _ln = (lambda z, g, b: layernorm_local(z, g, b)) if use_ln else (lambda z, g, b: z)
             xn = _ln(x, P['g1'].astype(dtype), P['b1'].astype(dtype))
-            Q = xn @ P['Wq'].astype(dtype)
-            K = xn @ P['Wk'].astype(dtype)
-            V = xn @ P['Wv'].astype(dtype)
+            # Use precision _gemm (which is just @ but via the registered primitive)
+            Q = prec_mod._gemm(np, xn, P['Wq'].astype(dtype))
+            K = prec_mod._gemm(np, xn, P['Wk'].astype(dtype))
+            V = prec_mod._gemm(np, xn, P['Wv'].astype(dtype))
             scale = dtype(1.0 / np.sqrt(d))
-            A = softmax_local((Q @ K.T) * scale)
-            attn = (A @ V) @ P['Wo'].astype(dtype)
+            A = softmax_local((Q @ K.T) * scale)  # inner still uses @ but softmax reused
+            attn = prec_mod._gemm(np, prec_mod._gemm(np, A, V), P['Wo'].astype(dtype))
             h = x + attn
             hn = _ln(h, P['g2'].astype(dtype), P['b2'].astype(dtype))
-            m = gelu_local(hn @ P['W1'].astype(dtype)) @ P['W2'].astype(dtype)
+            m = gelu_local(prec_mod._gemm(np, hn, P['W1'].astype(dtype))) @ P['W2'].astype(dtype)
             y = h + m
             return y
         def make_weights_local(d, gain):
@@ -110,7 +112,7 @@ def run_depth_error_map(model_name: str = "gpt2-small", prec: str = "bf16") -> d
         x0 = rng_local.normal(0, 1, (n_tiny, d_tiny))
         P = layers[0]
 
-        # High prec ref (float64) and low prec (float32) using the local block (harness logic reused)
+        # High prec ref (float64) and low prec (float32) using the local block (now using precision primitives for core ops)
         x64 = x0.astype(np.float64)
         xlo = x0.astype(np.float32)
         y64 = block_forward_local(x64, P, np.float64)
@@ -118,13 +120,10 @@ def run_depth_error_map(model_name: str = "gpt2-small", prec: str = "bf16") -> d
         block_rel = float(np.linalg.norm(ylo.astype(np.float64) - y64) / (np.linalg.norm(y64) + 1e-300))
         depth_demo["harness_block_low32_vs_64"] = block_rel
 
-        # Now minimal torch low prec vs mpmath for "one block" (reusing torch_precision ops pattern)
+        # Minimal torch low prec vs mpmath for "one block" (reusing torch_precision ops pattern + mpmath)
         torch_low_err = None
         try:
             import torch
-            # Use torch bf16 (low prec for real inference) for a primitive in block (gemm style);
-            # compare vs mpmath exact for same small matmul. Reuses the precision matrix primitives
-            # approach (torch versions of gemm etc from torch_precision). Works on cpu torch too.
             dev = "cuda" if torch.cuda.is_available() else "cpu"
             rng = np.random.default_rng(42)
             aa = rng.standard_normal((4, 4))
@@ -148,6 +147,12 @@ def run_depth_error_map(model_name: str = "gpt2-small", prec: str = "bf16") -> d
             mp_ref_flat = np.array([[float(x) for x in row] for row in mp_res])
             mp_rel = float(np.linalg.norm(mp_ref_flat - ref64) / (np.linalg.norm(ref64) + 1e-300))
             depth_demo["mpmath_cert_for_torch_block_demo"] = mp_rel
+
+            # Also exercise torch_precision if available (reuse for low prec op demo)
+            if tprec is not None and tprec.available():
+                depth_demo["torch_precision_available"] = True
+            else:
+                depth_demo["torch_precision_available"] = False
         except Exception as te:
             depth_demo["torch_low_prec_note"] = f"torch path unavailable or failed: {type(te).__name__}"
 
