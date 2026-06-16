@@ -111,3 +111,16 @@ Adjudication order: (a) read the grid → locate severe-entanglement points; (b)
 (2–3×) → shrink vs fixed; (c) where fixed, bring the §3 connectivity 2×2 to bear; (d) only then a branch read,
 region by region, `INCONCLUSIVE` logged wherever stuck-vs-glassy cannot be separated. Fresh head, not the tail
 of a long day.
+
+## 8. Next-pass methods (deliberate, separate; none required for the v4 bound in Paper 3 §5.5)
+The v4 rigorous read is done and written up (certified `χ_F` growth H32→H64, H128 INCONCLUSIVE with a
+quantitative budget floor, specific heat broad / no corroboration). Recorded so the follow-ons survive:
+- **Rank-normalized R̂** (Vehtari et al. 2021) replaces the basic Gelman–Rubin at every *future* sampler run —
+  robust to heavy tails / non-normal `q`-statistics. The basic R̂ floor was validated (shuffle = 1.000), but
+  rank-R̂ is the standard and the default from here. (Source-verify the cite before it enters a manuscript.)
+- **Ensemble comparison** — the one cheap, reachable extension worth running, **iff** it inherits the
+  single-regime framing (under-determined only) **and** clears a fairness gate (matched compute and matched
+  certification across the compared ensembles). Not a multi-regime framing.
+- **H128 via a stronger glassy-regime sampler** + a **denser width sweep** (H48, H96, H256-if-reachable) to
+  separate a true divergence from sub-critical growth. Expensive; a deliberate separate pass. Until then the
+  v4 K/budget floor at H128 *is* the quantitative bound.

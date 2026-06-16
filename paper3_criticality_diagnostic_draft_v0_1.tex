@@ -464,6 +464,49 @@ the natural measurement there. Two facts, one object, not one mechanism --- whic
 theory measures the LLC in exactly this regime.
 
 % =====================================================================
+\subsection{An empirical probe: the branch placement, bounded by measurement}\label{sec:gate-empirical}
+The handoff of \S\ref{sec:gate-handoff} is argued. We close with a first \emph{empirical} probe of the branch
+placement on a samplable surrogate --- not a settlement, but a measured bound where the posterior is reachable.
+
+\paragraph{Setup.} A two-layer $\tanh$ network (width $H$, scalar output) on an under-determined
+teacher--student task ($n=24\ll$ parameters) --- the regime where the question is non-trivial, since a
+realizable, identifiable task collapses to a unique solution and a vacuous $q\to1$. The tempered posterior
+$\pi_\beta\propto\pi_0(w)\,e^{-\beta nL(w)}$ (prior $\pi_0$ as base measure, likelihood tempered, so
+$\beta\to0$ is a proper melt) is sampled by Metropolis-adjusted Langevin with parallel tempering on a ladder
+spaced equally in thermodynamic length $\mathcal L=\int\sqrt{C(\beta)}\,d\ln\beta$, $C=\beta^2\mathrm{Var}(E)$;
+the rung count is thereby an \emph{output}, not a guess. The order parameter is the \emph{function-space}
+overlap $q$ of two posterior replicas on a fixed holdout probe --- permutation-invariant by construction, so
+weight-space symmetry cannot counterfeit it --- with susceptibility $\chi_F=N\,\mathrm{Var}(q)$.
+
+\paragraph{Certification.} A width is admitted only on evidence that the sampler sees the whole posterior, not
+a sub-region: (i)~two replicas \emph{warm-started from independently-trained solutions}, verified separated
+($q_{\mathrm{init}}<0.9$), must converge to a common cold-$q$ distribution --- init-independence read as a
+direct connectivity test; (ii)~tempering round-trip flow exceeding one per replica with the inter-init flow
+spread closed; (iii)~function-space $\hat R<1.1$. Widths failing any gate are recorded \texttt{INCONCLUSIVE}
+and not read.
+
+\paragraph{Result.} Across the reachable widths the susceptibility \emph{grows}:
+$\chi_F=0.54\,(H{=}32)\to0.99\,(H{=}64)$, both certified (separated replicas converged, $dq\sim10^{-3}$; flow
+spread $\le0.03$). At $H{=}128$ the machinery \emph{cannot certify} --- round-trip flow stalls below one per
+replica even on the thermodynamic-length ladder --- so $\chi_F\approx2.2$ there is inadmissible. This is a
+\emph{bound}, not a null: the budget at which $H{=}128$ stalls is a quantitative floor on the mixing barrier,
+the genuinely-glassy corner where the branch-2/branch-3 distinction would be decided. Two controls discipline
+the read. An earlier, \emph{un}separated-init certification of $H{=}128$ was \emph{refuted} by the adversarial
+test (its flow was init-dependent), confirming that the basin door must be shut before any growth is read.
+And the energy-side specific heat stays \emph{broad} at every width (no sharpening peak), so the overlap-side
+growth is \emph{not} corroborated by a thermodynamic-transition signature.
+
+\paragraph{What it bounds.} The branch question is now bounded by measurement rather than argument: a
+certified, basin-verified $\chi_F$ growth where the posterior is reachable; provably \emph{un}reachable at the
+width where branch~2 and branch~3 would separate; and \emph{uncorroborated} by the specific heat. The
+reachable evidence is ambiguous between sub-critical growth without a transition and a transition that cannot
+be sampled --- the absent specific-heat peak leans the former, mildly consistent with the mode-connectivity
+(branch~3) reading of \S\ref{sec:gate-handoff}, but as a lean, not a settlement. Status \texttt{[E-hw]}: one
+task and architecture family, two certified widths; the receipts and the adversarial-certification protocol
+are archived with this work \cite{repo}. A stronger glassy-regime sampler for $H\ge128$ and a denser width
+sweep are the deliberate next passes, neither required for the bound stated here.
+
+% =====================================================================
 \section{Discussion}\label{sec:discussion}
 The four-tier picture (Table~\ref{tab:tax}) is uniform across venues. A divergence earns ``genuine'' only as
 a positive-definite component blow-up; the metric-volume explosion of double descent, the
