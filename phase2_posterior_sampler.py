@@ -138,7 +138,7 @@ def sample(H, beta, device, gen, K=8, d_in=8, n_data=512, n_probe=256,
     rhat = gelman_rubin(L)
     tau = tau_int(L.mean(dim=0))
     halves_ok = abs(chi_1 - chi_2) <= 0.25 * max(chi_full, 1e-9)
-    equil = (rhat <= 1.1) and (M >= 50 * tau / meas_every) and halves_ok
+    equil = (rhat <= 1.1) and (M >= 50 * tau) and halves_ok   # tau is in measurement-index units, as is M
     verdict = "ok" if equil else "INCONCLUSIVE"
     return dict(H=H, beta=float(beta), chi_F=chi_full, q_mean=float(Q.mean()),
                 chi_halves=(chi_1, chi_2), rhat=rhat, tau=tau, M=M,

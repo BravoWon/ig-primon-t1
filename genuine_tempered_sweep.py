@@ -191,16 +191,17 @@ def full(probe=512, points=None, E=16, L=8, beta_hot=1.0):
     with open(out, "a") as fout:
         for (H, nd, bt) in points:
             P = sum(mlp_dims(H, d_in))
+            g.manual_seed(0)                       # SAME data/teacher for both inits -- the two-init gate must
+            Xtr = torch.randn(nd, d_in, generator=g, device=dev)   # vary the INIT, not the posterior (else dq
+            D = torch.randn(probe, d_in, generator=g, device=dev)  # conflates init- with data-dependence). v3/v4
+            tW1 = 1.5 * torch.randn(H, d_in, generator=g, device=dev) / d_in ** 0.5   # carry the fixed version.
+            tW2 = 1.5 * torch.randn(H, generator=g, device=dev) / H ** 0.5
+            ytr = torch.tanh(Xtr @ tW1.t()) @ tW2
+            U = mlp_energy_fn(Xtr, ytr, H, d_in, nd, 1e-2)
+            ladder = [beta_hot * (bt / beta_hot) ** (r / (L - 1)) for r in range(L)]
             recs = {}
-            for tag, scale, seed in [("A", 0.1, 0), ("B", 1.0, 13)]:
-                g.manual_seed(seed)
-                Xtr = torch.randn(nd, d_in, generator=g, device=dev)
-                D = torch.randn(probe, d_in, generator=g, device=dev)
-                tW1 = 1.5 * torch.randn(H, d_in, generator=g, device=dev) / d_in ** 0.5
-                tW2 = 1.5 * torch.randn(H, generator=g, device=dev) / H ** 0.5
-                ytr = torch.tanh(Xtr @ tW1.t()) @ tW2
-                U = mlp_energy_fn(Xtr, ytr, H, d_in, nd, 1e-2)
-                ladder = [beta_hot * (bt / beta_hot) ** (r / (L - 1)) for r in range(L)]
+            for tag, scale, seed in [("A", 0.1, 1), ("B", 1.0, 13)]:
+                g.manual_seed(seed)                # vary only the init / sampling RNG; data above is shared
                 _, snaps, info = run_tempered(U, P, E, ladder, dev, g, n_adapt=2000, n_burn=5000, n_meas=6000,
                                               swap_every=10, meas_every=25, init_scale=scale,
                                               readout=lambda c: phi_flat(c, D, H, d_in))
