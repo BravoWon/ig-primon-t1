@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ig-primon-t1"
+version = "0.4.0"
+description = "Information Geometry of Arithmetic Gases (IG-PRIMON-T1) — the experimental research receipts, packaged as installable, anchor-verified software with a Precision–Certification Firewall."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary — research artifact (IG-PRIMON-T1)" }
+authors = [{ name = "IG-PRIMON-T1" }]
+keywords = ["information-geometry", "Ruppeiner-curvature", "primon-gas", "replica", "spin-glass", "perceptron"]
+
+# The receipts certify at 40–90 decimal places; mpmath is load-bearing, not optional.
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "mpmath>=1.3",
+]
+
+[project.optional-dependencies]
+# Tier-E (Explore) accelerator for the Precision–Certification Firewall.
+# CUDA 12.x runtime is bundled in the wheel; needs an NVIDIA driver new enough for the device.
+# (RTX 5070 / Blackwell sm_120 needs a 12.8+-class runtime; install verified at packaging time.)
+gpu = ["cupy-cuda12x"]
+# bf16/tf32 pass for the precision matrix (cupy has no bf16). Install from the CUDA-12.8 index for
+# Blackwell sm_120: pip install torch --index-url https://download.pytorch.org/whl/cu128
+torch = ["torch"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+igprimon = "ig_primon.cli:main"
+
+[tool.setuptools]
+# Flat layout: the [V] receipts stay top-level and UNCHANGED (no-silent-edit discipline);
+# the ig_primon package wraps them with the harness / CLI / firewall.
+packages = ["ig_primon"]
+py-modules = [
+    "module_e_radius_finding",
+    "audit_independent",
+    "module_L_ridge_curvature",
+    "module_L_SK_converse",
+    "module_L_perceptron_replica",
+    "module_L_perceptron_replicon",
+    "module_L_perceptron_curvature",
+    "module_L_perceptron_finiteT",
+    "module_hw_firewall",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: high-precision anchors that take seconds (deselect with -m 'not slow')"]

@@ -1,4 +1,4 @@
-# IG-PRIMON-T1 — Hardware-Optimization Doctrine (v0.2, 2026-06-14)
+# IG-PRIMON-T1 — Hardware-Optimization Doctrine (v0.3, 2026-06-15)
 
 **Program ID:** IG-PRIMON-T1 (hardware-execution track)
 **Versioning.** The `_v0_1` filename is the stable document identifier (referenced across the trunk); the
@@ -17,6 +17,38 @@ as a **local-model-as-verifier** harness (real value, runs today, needs none of 
 objects relocate to the **learning posterior over weights** = the program's parked §6.7. See §4, §6, and
 the Changelog. v0.1 (prior): initial re-target; PCF; three Walls; toolchain gates; per-module map with
 §4 as flagship.
+
+**v0.3 (2026-06-15) — DEVICE CHANGED; H1 firewall REALIZED.** The machine this program runs on is **no
+longer the Snapdragon X Plus** of §0/§2. The real device (runtime scan, `igprimon hwscan`) is an **x86-64
+NVIDIA CUDA workstation**:
+
+| component | spec | precision | program role |
+|---|---|---|---|
+| **CPU** | Intel Core i9-9900K, x86-64, 8c/16t, AVX2 | FP64 + arbitrary (`mpmath`) | **Tier-C, sole `[V]`** |
+| **GPU 0** | NVIDIA GeForce RTX 5070 (**Blackwell, sm_120**), 12 GB | FP64/FP32/TF32/BF16/FP16 | **Tier-E — live (CUDA/CuPy)** |
+| **GPU 1** | NVIDIA GeForce GTX 1660 Ti (Turing, sm_75), 6 GB | FP32/FP16 | Tier-E (secondary) |
+| **OS / Py** | Windows 11 Pro 26200, Python 3.12 x86-64 | — | venv: `numpy/scipy/mpmath` + `cupy-cuda12x[ctk]` (NVRTC 12.9) |
+
+**Consequences (honest, no-silent-edit — the §0/§2 Snapdragon map is *superseded but retained* as the
+historical target):**
+- **`NO-FP64-ACCEL` (§0) is OBSOLETE on this device.** NVIDIA GPUs provide FP64 (throughput-reduced on
+  consumer parts) and full FP32/TF32. The firewall is retargeted: **Tier-E is now a CUDA GPU**, not a
+  sub-FP32 NPU. The firewall *logic* is unchanged — GPU proposes (`[E-hw]`), CPU/`mpmath` certifies (`[V]`).
+- **`NPU-FORMAT` / `[BLOCKED] H-NPU` (§0/§2) is MOOT.** There is no Hexagon NPU; the QNN sub-project is
+  dropped. CuPy on CUDA needs no model conversion; the `H-NPU` gate is closed-by-irrelevance.
+- **H1 flagship REALIZED** (was the v0.2 honest near-term flagship; now built), around the doctrine's
+  actual thesis — *agreement is not verification*. `module_hw_firewall.py` (+ `ig_primon.firewall`) runs the
+  Precision–Certification Firewall on the **RTX 5070 (sm_120)** with three FP32 candidates for `α_c(0)=2`:
+  an **honest** kernel (rel-err ≈ 6e-8 = 0.5× float32-eps → within the FP32 noise floor → Tier-C
+  **certifies**); a **near-miss** kernel wrong only ~3–4× float32-eps (rel-err ≈ 4e-7) that **passes** an
+  FP32-grade tolerance and would fool an FP32 "certify-by-agreement" reference (its own error ~1 eps), yet
+  Tier-C (`mpmath` dps=50) **REJECTS** it because the deviation exceeds what FP32 roundoff can explain —
+  *this* is the precision teeth; and a **gross** kernel (rel-err 0.35) rejected by everything. **`[E-hw]`
+  semantics unchanged**: a GPU number is exploratory; only a Tier-C reproduction within the noise floor
+  licenses `[V]`.
+- **Operational packaging.** The whole program is now `pip install -e .` with `igprimon verify` re-checking
+  all 14 receipt anchors at Tier-C (CPU) as the acceptance gate (CI-wired). No `[V]` of the trunk ledger is
+  altered; this track still adds an execution layer beneath the existing results.
 
 **Discipline carried throughout (unchanged from the trunk).** HONEST_CLAIMS: **[V]** verified,
 **[E]** defensible extrapolation, **[C]** conjecture, **[GATE]** derive/spec before numerics,
@@ -272,4 +304,18 @@ Stack verified 2026-06-14: `trl`/`peft`/`accelerate`/`datasets` absent; `transfo
 numpy/scipy/mpmath present. No claim of the trunk ledger altered. The error this records is precisely the
 inversion the program's `[GATE]` rule exists to prevent — gate caught it; logged, not smoothed.
 
-— End of Hardware-Optimization Doctrine v0.2. Amendments require a versioned diff; silent edits void the registration.
+**v0.3 (2026-06-15).** **Device changed; H1 firewall realized; program packaged.** The Snapdragon X Plus
+of §0/§2 is gone; the real device is an x86-64 NVIDIA CUDA workstation (i9-9900K + RTX 5070 Blackwell sm_120
++ GTX 1660 Ti), scanned at runtime via `igprimon hwscan`. Changes: the device map is **superseded but
+retained** (no-silent-edit); **`NO-FP64-ACCEL` obsolete** and **`NPU-FORMAT` / `H-NPU` moot** on this device
+(stated, old walls kept as historical record); **Tier-E retargeted to CUDA/CuPy FP32** (RTX 5070), firewall
+logic unchanged; the **H1 firewall flagship is built** (`module_hw_firewall.py` + `ig_primon.firewall`) and
+verified around the *agreement-is-not-verification* thesis — an honest FP32 kernel certifies (rel-err ≈ 6e-8,
+within the float32 noise floor), a **near-miss** kernel wrong ~3–4× float32-eps passes an FP32-grade tolerance
+but is REJECTed by Tier-C `mpmath` dps=50 (precision teeth: FP32 agreement cannot catch it), a gross kernel
+rejected outright; the whole program is **`pip install`-able** with `igprimon
+verify` re-checking all receipt anchors at Tier-C as a CI acceptance gate (14/14 reproduced). No trunk-ledger
+`[V]` altered. The `[E-hw]` tag and the firewall rule (no Tier-E number carries `[V]` until Tier-C reproduces
+it within budget) are unchanged — only the silicon under Tier-E changed.
+
+— End of Hardware-Optimization Doctrine v0.3. Amendments require a versioned diff; silent edits void the registration.
