@@ -11,6 +11,9 @@ from typing import Any
 
 import numpy as np
 
+from ig_primon.firewall import run_firewall
+from ig_primon.hardware import scan
+
 def compute_block_error(
     prev_error: np.ndarray,
     block_jacobian_approx: np.ndarray,
@@ -18,6 +21,12 @@ def compute_block_error(
 ) -> np.ndarray:
     """Implements ε_{l+1} = (I + J_f) ε_l + δ_l per the locked pre-reg."""
     return prev_error + block_jacobian_approx @ prev_error + local_delta
+
+def run_depth_error_map(model_name: str = "gpt2-small", prec: str = "bf16") -> dict:
+    """Stub for depth error map using firewall/hardware per plan Task 3."""
+    dm = scan()
+    res = run_firewall(kappa=0.0, backend=dm.tier_e_backend)
+    return {"firewall": res, "device": dm}
 
 def main() -> int:
     """Entry point when run as `python -m module_T1_precision_depthN`."""
