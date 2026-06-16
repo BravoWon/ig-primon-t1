@@ -1,4 +1,4 @@
-# IG-PRIMON-T1 — Genuine-Side Singularity Gate (analysis, v0.2, 2026-06-15)
+# IG-PRIMON-T1 — Genuine-Side Singularity Gate (analysis, v0.3, 2026-06-16)
 
 **Status:** `[GATE-ANALYSIS]` — pencil, no sampler. Decides *on paper* whether the genuine-side
 metric-curvature diagnostic (Result C, `|R|→∞` on a positive-definite metric) survives the **singular**
@@ -9,6 +9,12 @@ metric-curvature diagnostic (Result C, `|R|→∞` on a positive-definite metric
 case (branch 2) only** — generically the singular suppression and the genuine divergence are not
 co-located, so the gate's real content is a **trichotomy on the net posterior's RSB structure**, not a
 rate. v0.1 (§§1–8) stands as the `det g`-race setup it was.
+
+**v0.3 (this revision).** §10 source-verifies the branch-placement literature (mode-connectivity vs.
+glassiness, 11 papers checked at arXiv/published for Paper 3 §5.4) and finds §9's *symmetric* "leans
+branch 3, some glassiness work leans 1/2 — UNSETTLED" too generous to the glassy side. Corrected to an
+**asymmetric** verdict: the evidence **leans branch 3 (vacuous)**, still not settled. §9's framing stands
+above as the v0.2 record; §10 is the versioned correction.
 
 **Verdict (honest, conditional — NOT a closure):** the genuine signature is **not** unconditionally
 killed by singularity. It **survives** at any finite-temperature transition, and the singular structure
@@ -129,3 +135,47 @@ where (branches 1 and 3) there is no divergence to suppress. The gate's real con
 i.e. the RSB structure of the net posterior — a sharper, more falsifiable terminus than the rate
 conditional alone, and one that routes the genuine side to an *empirical* question about loss landscapes
 rather than to any sampler this program would build.
+
+---
+
+## 10. Pencil pass 3 (v0.3) — source-verifying the branch placement; the uncertainty is asymmetric
+
+§9 left the branch placement of real nets `UNSETTLED`, framed symmetrically: *"mode-connectivity evidence
+leans branch 3, some glassiness work leans 1/2."* A source-verification pass — 11 papers, every field
+confirmed at arXiv/published (the same discipline that corrected the Ersoy–Wiesner citation), run to stock
+Paper 3 §5.4 — shows that symmetry **overstates the glassy (branch-1/2) side.**
+
+**Connectivity side (branch 3, vacuous) — substantial and direct, but conditional.**
+- Independent-minima low-loss paths: Garipov et al. 2018 (arXiv:1802.10026); Draxler et al. 2018
+  (arXiv:1803.00885).
+- Connected sublevel sets of wide nets — a **theorem**: Nguyen 2019 (arXiv:1901.07417).
+- Linear connectivity modulo permutation: Entezari et al. 2022 (arXiv:2110.06296, a **conjecture**);
+  Ainsworth et al. 2023 (arXiv:2209.04836, empirical, **with its own single-basin counterexample**).
+- Each carries a condition (width / modulo-permutation / post-stability). Strong, not unconditional.
+
+**Glassy side (branch 1/2) — weaker at the source than as commonly cited.**
+- **Choromanska et al. 2015** (arXiv:1412.0233) — the canonical "nets *are* spin glasses" — maps to a
+  spherical spin glass only under assumptions (variable independence, parametrization redundancy,
+  uniformity) its own authors call unrealistic. `ANALOGY-ONLY`.
+- **Baity-Jesi et al. 2018** (arXiv:1803.06969) — the most direct dynamical comparison — finds
+  over-parametrized DNN dynamics **differ** from glassy; true glassiness only in the *under*-parametrized
+  regime. `REFUTES` for the regime modern nets occupy.
+- **Geiger/Spigler et al. 2019** (PRE 100, 012115; J. Phys. A 52, 474001) — borrows **jamming /
+  constraint-satisfaction, not RSB**; the over-parametrized landscape is described as *benign*.
+  `ANALOGY-ONLY`, partly refutes.
+- **Folena–Franz–Ricci-Tersenghi 2020** (PRX 10, 031045) — pure spin-glass result; **warns** the
+  landscape⇒RSB-dynamics inference fails even in a canonical glass. `CAUTION`, not support.
+
+**Corrected verdict (the asymmetry).** Branch placement is **not** a symmetric toss-up. The evidence
+**leans branch 3 (vacuous)**: connectivity is direct, while the over-parametrized glassy claim is
+analogy-grade or actively negative. It **remains `UNSETTLED`** — connectivity results are conditional, and
+absence of demonstrated glassiness is not proof of branch 3 — but the *character* of the uncertainty is
+"leans branch 3, not settled," **not** "two strong opposing camps."
+
+**Discipline note.** This is the **third time this session the source moved the claim** (Ersoy–Wiesner moved
+the facts; the §9 gate check caught the scaffold; this pass sharpened §9's own framing). The lean toward
+branch 3 is itself something not to overclaim — which is exactly why Paper 3 §5.4 states the handoff as
+**argued, not proved**, **vacuous *conditional* on branch-3 placement**, with branches 1/2 named as open.
+
+**No silent edit.** §9's symmetric framing stands above as the v0.2 record; this section is the versioned
+correction.
