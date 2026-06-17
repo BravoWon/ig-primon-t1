@@ -1,0 +1,42 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[DEPTH SWEEP: cross-lingual sentence alignment]  where does the universal manifold live?
+
+  700 OPUS-100 en-zh sentence pairs; depths [0.0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1.0]
+
+  embedding OPT-2.7B (all depths) ...
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|██████████| 517/517 [00:00<00:00, 16433.17it/s]
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\nn\modules\module.py:1370: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  return t.to(
+  embedding Qwen2.5-1.5B EN ...
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights: 100%|██████████| 338/338 [00:00<00:00, 5313.17it/s]
+  embedding Qwen2.5-1.5B ZH ...
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights: 100%|██████████| 338/338 [00:00<00:00, 7012.22it/s]
+  embedded.
+
+  Qwen-EN <-> Qwen-ZH (language invariance) across depth:
+     depth     P@1     kNN  procr-R2
+      0.00   0.576   0.162    -0.223
+      0.15   0.316   0.161     0.177
+      0.30   0.431   0.174     0.179
+      0.45   0.476   0.187     0.178
+      0.60   0.474   0.191     0.179
+      0.75   0.491   0.192     0.176
+      0.90   0.446   0.179     0.199
+      1.00   0.274   0.156     0.116
+
+  OPT-EN <-> Qwen-EN (model invariance) across depth:
+     depth     P@1     kNN  procr-R2
+      0.00   0.911   0.399     0.529
+      0.15   0.180   0.307     0.627
+      0.30   0.157   0.400     0.511
+      0.45   0.149   0.458     0.400
+      0.60   0.126   0.409     0.219
+      0.75   0.131   0.332     0.117
+      0.90   0.189   0.272     0.065
+      1.00   0.933   0.399     0.671
+
+[VERDICT]  cross-lingual (Qwen EN<->ZH) P@1 peaks at relative depth 0.00
+  -> if peak is mid-to-upper and depth-0 is low, the universal manifold lives where meaning abstracts
+     from surface tokens -- NOT at the token surface (which can't align across different vocabularies).
+
+[V] OPT-2.7B + Qwen2.5-1.5B, mean-pooled at 8 depths, N=700 OPUS-100 en-zh, fp32.
