@@ -1,0 +1,31 @@
+[VOCAB-CONFOUND CONTROL]  does deep cross-model alignment survive partialling out the surface?
+
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 4716.78it/s]
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\nn\modules\module.py:1370: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  return t.to(
+Loading weights:   0%|          | 0/580 [00:00<?, ?it/s]Loading weights: 100%|##########| 580/580 [00:00<00:00, 7021.44it/s]
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 33008.42it/s]
+  embedded 600 words in 3 models
+
+  [gpt2-xl <-> opt-2.7b]
+    depth 0.75      metric      raw  freq-part  surf-part  shuffled
+                mutual-kNN    0.342      0.329      0.119     0.019
+                 linear-R2    0.451      0.435      0.055    -0.170
+    depth  1.0      metric      raw  freq-part  surf-part  shuffled
+                mutual-kNN    0.429      0.420      0.168     0.016
+                 linear-R2    0.548      0.514      0.095    -0.171
+
+  [gpt2-small <-> opt-2.7b]
+    depth 0.75      metric      raw  freq-part  surf-part  shuffled
+                mutual-kNN    0.274      0.255      0.077     0.018
+                 linear-R2    0.408      0.393      0.001    -0.178
+    depth  1.0      metric      raw  freq-part  surf-part  shuffled
+                mutual-kNN    0.189      0.186      0.056     0.016
+                 linear-R2    0.478      0.439      0.013    -0.158
+
+[READING]
+  surf-part = deep alignment with each model's OWN input-embedding subspace removed. If it stays well
+  above shuffled, the deep layers converge in MEANING beyond shared tokenizer. If it collapses toward
+  shuffled, the cross-model alignment was propagated vocab structure, not semantics.
+
+[V] gpt2-small/xl + opt-2.7b, depths {0.75,1.0}, partial-out surface(PCA-64)+frequency, fp32.
