@@ -29,3 +29,6 @@ phase2_ckpts/
 genuine_tempered_results.jsonl
 genuine_v3_results.jsonl
 genuine_v4_results.jsonl
+
+# downloaded datasets (reproducible)
+muse_en_zh.txt

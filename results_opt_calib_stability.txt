@@ -1,0 +1,23 @@
+[OPT-2.7B calibration-seed stability]  3 disjoint calibration sets, 48 shared eval seqs
+
+   budget  seed   edge %             95% CI    win   sig?
+       16     0    -1.5% [ -11.4,  +7.4]   54%     no
+       16     1    +6.0% [  +1.0, +11.1]   65%    YES
+       16     2    +4.5% [  +0.6,  +8.4]   65%    YES
+          -> certified top-16 set overlap across the 3 seeds (mean Jaccard) = 0.61
+
+       32     0   +18.2% [ +12.1, +23.7]   85%    YES
+       32     1   +19.3% [ +13.4, +25.9]   90%    YES
+       32     2   +19.4% [ +13.4, +25.9]   85%    YES
+          -> certified top-32 set overlap across the 3 seeds (mean Jaccard) = 0.63
+
+       48     0   +29.7% [ +22.6, +35.3]   98%    YES
+       48     1   +30.3% [ +25.2, +34.9]   96%    YES
+       48     2   +27.0% [ +23.1, +30.4]   98%    YES
+          -> certified top-48 set overlap across the 3 seeds (mean Jaccard) = 0.53
+
+[VERDICT]
+  the edge is significant in ALL 3 calibration draws at budgets [32, 48]: the +30% is
+  NOT a calibration artifact -- it holds across disjoint calibration sets. Allocation is real. [V-hw]
+
+[V-hw] RTX 5070 sm_120, OPT-2.7B, SmoothQuant, WikiText-2. 3 disjoint calibration sets, paired bootstrap.

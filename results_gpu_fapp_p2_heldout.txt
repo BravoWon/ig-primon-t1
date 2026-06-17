@@ -1,0 +1,14 @@
+[HARDWARE P2 held-out] allocation scored on A, true-KL measured on disjoint B (kills leakage)
+
+  k(bf16)  certified KL_B  practical KL_B  random KL_B cert<=prac?
+        4      2.4626e-02      2.6441e-02   2.8639e-02        True
+        8      2.2777e-02      2.5870e-02   2.7305e-02        True
+       12      2.0567e-02      2.1657e-02   2.5303e-02        True
+       16      2.1012e-02      2.1409e-02   2.2486e-02        True
+       24      1.9365e-02      2.0365e-02   2.2043e-02        True
+
+[VERDICT -- held-out] certified <= practical on disjoint B at 5/5 budgets; mean certified gain = +6.1% KL.
+  -> the certification edge GENERALIZES to held-out text: it is a real (if modest) operational
+     advantage, not leakage. P3 holds ON HARDWARE [V-hw], in the on-device-bf16-reference regime.
+
+[V-hw] RTX 5070 sm_120, W8A8 FP8. float64 reference. score on A, eval on disjoint B. No timing claim.

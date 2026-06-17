@@ -1,0 +1,20 @@
+[floor sweep] crush the activation floor via reference precision; does the +6% cert edge survive?
+
+   practical ref  floor(vs f64)   cert edge   wins  (config = per-tensor FP8, fixed)
+            bf16       1.50e-02       +2.3%    4/5
+            fp16       1.76e-04       +2.2%    5/5
+            fp32       6.73e-10       +0.0%    5/5
+
+[VERDICT -- what crushing the floor actually does to the edge]
+  bf16 floor 1.5e-02 -> edge +2.3% ;  fp16 floor 1.8e-04 -> edge +2.2% ;  fp32 floor 6.7e-10 -> edge +0.0%
+  The edge is gated by REFERENCE EXACTNESS, not floor magnitude (NOT a clean monotone):
+   - it VANISHES (+0.0%) only at fp32, where the practical reference IS ~the certified one (= the sim null).
+   - it PERSISTS (~+2%) at BOTH bf16 and fp16 despite fp16's floor being ~85x smaller.
+     So partially crushing the floor does NOT kill the edge; only making the reference (near-)exact does.
+  => 'vanish or dominate?' -> NEITHER. The edge is the worth of an EXACT reference over any CHEAP one; it
+     persists small (~2-6%; config-sensitive: real-tensor-core W8A8 gave +6.1%, this fake-quant +2.3%)
+     wherever the reference is cheaper than exact -- i.e. always, at scale. It does not scale with the floor.
+  This UNIFIES the arc: the sim null (exact fp32 ref) and the hardware edge (cheap bf16 ref) are one
+  phenomenon -- certification's value = the inexactness of the reference you would otherwise have trusted.
+
+[V-hw] RTX 5070 sm_120, per-tensor FP8 configs, reference precision swept. float64 truth, held-out B.

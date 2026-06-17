@@ -1,0 +1,28 @@
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\opt_throughput.py:46: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  a = torch.randn(M, K, device=DEV, dtype=torch.bfloat16)
+[OPT-2.7B THROUGHPUT + MEMORY]  what the 5070 actually delivers from the fidelity
+
+[1] FP8 e4m3 _scaled_mm vs bf16 GEMM (real OPT-2.7B shapes, M=2048 tokens)
+
+      linear        shape (M,K,N)   bf16 ms    fp8 ms  speedup  fp8 TFLOP/s
+   q/k/v/out       2048,2560,2560     0.419     0.209    2.01x       128.5
+         fc1      2048,2560,10240     1.646     0.799    2.06x       134.3
+         fc2      2048,10240,2560     1.873     0.838    2.24x       128.2
+
+[2] 4-bit weight memory: FP4-g128 packed vs fp16 (real OPT-2.7B decoder-linear weights)
+
+  decoder-linear weights only (32 layers, q/k/v/out/fc1/fc2):
+    fp16            :   5.033 GB
+    FP4-g128 packed :   1.298 GB   (3.88x smaller)
+    (4-bit codes + fp16 group-128 block scales; packing verified two-codes-per-byte)
+    effective bits/weight (incl. scale overhead): 4.125
+
+[VERDICT]
+  FP8 compute speedup is REAL and measured on sm_120 (native _scaled_mm). The 4-bit WEIGHT path's
+  memory reduction is real and measured (~3.9x on decoder-linear weights, effective ~4.1 bits/weight).
+  HONEST GAP: native INT4/FP4 rowwise GEMM is absent in this build, so the 4-bit weight path's
+  decode-time wall-clock speedup is NOT measured here -- it needs a kernel (e.g. Marlin/MXFP4) this
+  Blackwell+Windows torch build lacks. The fidelity (+0.70%) and the memory win are banked; the 4-bit
+  compute speedup is named as future work, not asserted.
+
+[V-hw] RTX 5070 sm_120, real OPT-2.7B shapes, CUDA-event timing.

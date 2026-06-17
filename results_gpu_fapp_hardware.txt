@@ -1,0 +1,19 @@
+[GPU F-app / P3 hardware test]  RTX 5070 sm_120, W8A8 regime, float64 vs bf16 reference
+
+  bf16 practical-reference error vs float64 certified (the floor) = 1.500e-02
+  importance rank corr (certified vs practical-bf16 reference): Spearman = +0.3904
+
+  protected-set agreement (top-k units kept bf16 under each reference):
+    k cert==practical?   overlap
+    4            False      50%
+    8            False      62%
+   12            False      58%
+   16            False      56%
+   24            False      71%
+
+[VERDICT -- does certification matter when the on-device reference is bf16-inexact?]
+  F-app does NOT fire at budgets [4, 8, 12, 16, 24]: the certified (float64) reference protects DIFFERENT units
+  than the cheap bf16 reference (Spearman +0.390). -> P3 REVIVES ON HARDWARE: when you calibrate
+     allocation on-device against bf16, certification changes the decision. The thesis has teeth here.
+
+[V-hw] RTX 5070 sm_120, FP8 W8A8 (_scaled_mm). float64 CPU vs bf16 GPU reference. No timing claim.

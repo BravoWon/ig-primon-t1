@@ -1,0 +1,61 @@
+# RECEIPT -- T1_precision_map v0.2 maxop: the operationalization config (GPT-2-small, weight-only).
+# Derived on corpus A, fidelity validated OUT OF SAMPLE on disjoint corpus B. No certification dependence.
+#
+# PROVENANCE
+#   script   : operational_recipe.py   run via: uv run python operational_recipe.py  (repo .venv)
+#   repo HEAD: 252b5a4e483142e641a13fbc091c25d1cbfe78ac
+#   env      : numpy 2.4.6 ; torch 2.11.0+cu128 ; transformers 5.12.1 ; python 3.11.15 ; device CPU
+#   model    : GPT-2-small (OpenAI 124M), sha256 248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707
+#   method   : sensitivity rank from corpus A (leave-one-FP4 KL marginal, float64 ref); fidelity KL/flip
+#              measured on disjoint corpus B (held-out). bits over allocatable matmul weights only. [E-sim]
+#
+# HEADLINE (honest, out-of-sample):
+#   - The sensitivity ranking is STABLE across disjoint corpora (Spearman +0.972, 83% top-12 overlap) ->
+#     a STATIC mixed-precision recipe generalizes; the pillars are not just-these-sentences noise.
+#   - FP8 weight-only is the VIABLE operating regime: ~8 bits/wt, held-out KL 4.4e-3, 5.2% flip; promoting
+#     the bf16 pillars improves it smoothly (24 pillars -> 13.1 bits, KL 2.9e-3, 1.0% flip).
+#   - FP4 weight-only is NOT viable on this 124M model even with pillar protection: all-FP4 KL 4.28 (90% flip);
+#     the best 3-tier config (bf16 top-4 / fp8 / fp4 bottom-16, 7.9 bits) is KL 0.195, 34% flip -- unshippable.
+#     => CONFIG: ship the FP8-based recipe; do NOT use weight-only FP4 at GPT-2-small scale. (FP4 weight-only
+#        is known to work on larger, more-redundant models; this is a small-model result, pre-reg scope <=355M.)
+#   - The FP32 reference yields the same ranking (F-app Spearman +1.0): this recipe is NOT certification-exclusive.
+# ============================================================================================
+
+[maxop operational recipe]  GPT-2-small weight-only mixed precision, derived on A, validated on B
+
+(1) STABILITY (recipe must generalize): Spearman(s_A, s_B) = +0.972, top-12 overlap = 83%
+    -> STABLE: a static recipe is justified
+
+(2) base=FP8 + bf16 pillars (recipe from A, fidelity on held-out B):
+     #bf16 avg_bits/wt  KL(heldout)    flip
+         0        8.0b    4.379e-03   5.2%
+         2        8.4b    4.316e-03   5.2%
+         4        8.9b    4.177e-03   5.2%
+         8        9.6b    3.931e-03   5.2%
+        16       11.3b    3.354e-03   4.1%
+        24       13.1b    2.878e-03   1.0%
+        48       16.0b    1.711e-05   0.0%
+
+(2) base=FP4 + bf16 pillars (recipe from A, fidelity on held-out B):
+     #bf16 avg_bits/wt  KL(heldout)    flip
+         0        4.0b    4.276e+00  89.7%
+         2        4.7b    3.559e+00  88.7%
+         4        5.3b    3.229e+00  84.5%
+         8        6.3b    2.616e+00  73.2%
+        16        9.0b    1.673e+00  72.2%
+        24       11.6b    3.887e-01  42.3%
+        48       16.0b    1.711e-05   0.0%
+
+(3) recommended 3-tier config (sensitivity-ordered): bf16 top-T pillars / fp8 middle / fp4 tail
+     T(bf16)  fp4 tail avg_bits/wt  KL(heldout)    flip
+           4        16        7.9b    1.946e-01  34.0%
+           8        16        8.6b    1.956e-01  34.0%
+           8        24        8.1b    3.875e-01  41.2%
+          12        24        9.0b    3.874e-01  42.3%
+           8        32        7.2b    1.668e+00  71.1%
+
+[CONFIG]
+  no 3-tier config met KL<=1e-2 on held-out: weight-only FP4 too costly here; ship FP8-based recipe.
+
+[E-sim] held-out fidelity, weight-only fake-quant, bits over allocatable matmul weights only.
+        FP32 reference gives the same ranking (certification adds no edge in sim). No hardware timing.
