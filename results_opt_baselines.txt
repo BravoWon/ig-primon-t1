@@ -1,0 +1,24 @@
+[OPT-2.7B gap-5 baselines]  certified vs cheap real allocators, WikiText-2, 48 held-out
+
+  ---- budget k=32 (units kept bf16) ----
+     certified(fp32)  mean KL = 3.3872e-03
+     practical(bf16)  mean KL = 4.2302e-03
+              random  mean KL = 9.2661e-03
+     activation(AWQ)  mean KL = 1.1696e-02
+           magnitude  mean KL = 1.2483e-02
+         first-order  mean KL = 1.2612e-02
+    => certified vs BEST non-certified (practical(bf16)): +19.9% [+14.8,+24.9]  SIGNIFICANT
+
+  ---- budget k=48 (units kept bf16) ----
+     certified(fp32)  mean KL = 2.6002e-03
+     practical(bf16)  mean KL = 3.7658e-03
+              random  mean KL = 9.8126e-03
+           magnitude  mean KL = 1.0589e-02
+     activation(AWQ)  mean KL = 1.1332e-02
+         first-order  mean KL = 1.2373e-02
+    => certified vs BEST non-certified (practical(bf16)): +31.0% [+23.0,+37.1]  SIGNIFICANT
+
+[VERDICT] If certified significantly beats the best cheap allocator, the expensive fp32 reference earns
+  its cost (operational edge over practice). If not, the edge was mostly 'beats bf16-reference-scoring'.
+
+[V-hw] RTX 5070 sm_120, OPT-2.7B, SmoothQuant, WikiText-2. fp32 anchor. Held-out, paired bootstrap.

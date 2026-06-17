@@ -1,0 +1,14 @@
+[OPT-2.7B probe] validity gates (CPU fp32 anchor + GPU bf16 deployment)
+
+(L) fp32 anchor license: per-op fp32-vs-fp64 rel err = 2.6e-07 (<= ~1e-5 -> fp32 licensed)
+  loaded: 32 layers, d=2560, 192 matmul units
+
+(O) outlier ratio (max/median per channel): median=25.0  mean=420084644547.3  max=9562500366336.0   (GPT-2 was median ~9-10)
+(S) all-W8A8 KL vs fp32 anchor: bf16=4.177e-04  per-channel=1.008e-02  SmoothQuant=8.399e-03
+    SmoothQuant CRUSHES the floor (1.20x) vs per-channel
+
+[VALIDITY]
+  (L) fp32 licensed: True   (O) outliers (median>15): True   (S) SmoothQuant helps: True
+  -> OPT-2.7B is a VALID testbed: fp32 anchor trustworthy, REAL pathology. Proceed to certification re-test.
+
+[V-hw] RTX 5070 sm_120 (bf16 GPU) + CPU fp32 anchor. OPT-2.7B. Validity gates only.

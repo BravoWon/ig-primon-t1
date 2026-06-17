@@ -1,0 +1,18 @@
+[OPT-2.7B certification] does the edge survive REAL SmoothQuant on a real-outlier model?
+
+  bf16 floor (B) = 3.032e-04   all-SmoothQuant-W8A8 (B) = 4.552e-03
+
+  certified (fp32-ref) vs practical (bf16-ref) allocation, true KL vs fp32 anchor on held-out B:
+  k(bf16)  certified KL  practical KL cert<=prac?  overlap
+        8    3.2731e-03    3.1606e-03       False     75%
+       16    2.6850e-03    2.7358e-03        True     69%
+       24    2.9479e-03    3.0295e-03        True     67%
+       32    2.5009e-03    2.9456e-03        True     56%
+       48    2.0833e-03    2.7317e-03        True     54%
+
+[VERDICT] OPT-2.7B + real SmoothQuant: certified <= practical 4/5; mean certified gain = +8.0% KL.
+  (GPT-2-small per-tensor +6.1%; per-channel +4.0%; fp32-anchor floor sweep ~+2%.)
+  -> the certification edge SURVIVES real SmoothQuant on a real-outlier model: even with proper
+     activation mitigation, scoring against fp32 beats scoring against the cheap bf16 reference. [V-hw]
+
+[V-hw] RTX 5070 sm_120 (bf16) + CPU fp32 anchor. OPT-2.7B, real SmoothQuant configs. score A, eval B.

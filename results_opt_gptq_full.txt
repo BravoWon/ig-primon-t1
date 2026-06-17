@@ -1,0 +1,14 @@
+[OPT-2.7B full-model GPTQ-W4]  does use-aware quantization make the regime near-lossless?
+
+  fp32 gold PPL = 55.630
+
+                  config       PPL  dPPL vs gold
+               fp32 gold    55.630            --
+    RTN+SmoothQuant W4A8   (prior) +461% (broken)
+              GPTQ-W4A16   139.461      +150.70%
+               GPTQ-W4A8   144.811      +160.31%
+
+[VERDICT]
+  GPTQ-W4 still degrades +150.7% -- report as measured.
+
+[V-hw] RTX 5070 sm_120, OPT-2.7B, parallel GPTQ, WikiText-2, fp32 gold. Held-out.

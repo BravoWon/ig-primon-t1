@@ -1,0 +1,44 @@
+# RECEIPT -- T1_precision_map v0.2 HARDWARE: sim-vs-silicon FP8 bridge on the RTX 5070 (sm_120, Blackwell).
+# First real-hardware contact of the precision arc. Tests whether the CPU weight-only sim's fidelity
+# prediction survives native FP8 tensor cores -- and decomposes where deployment error actually lives.
+#
+# PROVENANCE
+#   script   : gpu_fp8_bridge.py   run via: uv run python gpu_fp8_bridge.py  (repo .venv)
+#   repo HEAD: 252b5a4e483142e641a13fbc091c25d1cbfe78ac
+#   hardware : NVIDIA GeForce RTX 5070, sm_120 (Blackwell), native FP8 e4m3 via torch._scaled_mm
+#   env      : torch 2.11.0+cu128 ; transformers 5.12.1 ; python 3.11.15 ; cuda:0
+#   model    : GPT-2-small (OpenAI 124M), C:/Users/JT-DEV1/Documents/gpt2-sm
+#              sha256 248dfc3911869ec493c76e65bf2fcf7f615828b0254c12b473182f0f81d3a707
+#   reference: float64 forward on CPU (the Stage-1 mpmath-licensed anchor). 6 texts x 32 tokens.
+#   regimes  : R0 bf16-everything | R1 weights FP8 + bf16 activations | R2 full W8A8 FP8 (_scaled_mm)
+#
+# HEADLINE: the weight-only sim was FAITHFUL on its object but measured a SUB-DOMINANT term.
+#   - weight-FP8 marginal on metal (R1-R0 = 5.66e-3) ~= CPU sim weight-only FP8 (5.17e-3): sim faithful (1.1x).
+#   - bf16 ACTIVATION floor (R0 = 1.50e-2) is ~877x the CPU sim's bf16-weights-only (1.7e-5): the sim held
+#     activations at float64 and never saw the activation/residual-stream cost -- which DOMINATES real error.
+#   => the weight-only precision-allocation arc optimized ~5e-3 while the dominant ~1.5e-2 deployment error
+#      lives in ACTIVATION precision, which weight allocation cannot touch. The F-app null's "hardware gap", measured.
+# ============================================================================================
+
+[GPU FP8 bridge]  NVIDIA GeForce RTX 5070 sm_120  torch 2.11.0+cu128
+
+  vs float64 CPU reference, 6 texts x 32 tokens   (CPU sim predicted all-FP8 ~ 5.2e-3 KL)
+
+                  regime      mean KL  mean flip
+                 R0 bf16    1.500e-02      9.5%
+      R1 weight-only FP8    2.066e-02      9.4%
+        R2 full W8A8 FP8    2.824e-02     13.0%
+
+[VERDICT -- what the weight-only sim measured vs what deployment actually costs]
+  (A) bf16 ACTIVATION floor (R0=1.50e-02) vs the CPU sim's bf16 weights-only (1.7e-05):
+      ~877x larger. The sim held activations at float64, so it never saw the
+      activation/residual-stream precision cost -- which DOMINATES real error.
+  (B) weight-FP8 MARGINAL on metal (R1-R0=5.66e-03) vs the CPU sim's weight-only FP8 (5.2e-03):
+      ~1.1x  -> the sim was FAITHFUL on its own object (weight quant); that object is just SUB-DOMINANT.
+  (C) activation-FP8 marginal (R2-R1=7.58e-03): the W8A8 step the weight-only sim could not model.
+
+  => HARDWARE VERDICT: the weight-only precision-allocation arc optimized a ~5e-3 term while the
+     dominant ~1.5e-2 deployment error lives in ACTIVATION precision, which weight allocation cannot touch.
+     The sim's number is real but second-order. This is the gap the F-app null pointed at, now measured.
+
+[V-hw] RTX 5070 sm_120, native FP8 e4m3 (_scaled_mm). float64 CPU reference. No timing/throughput claim.

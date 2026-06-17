@@ -1,0 +1,30 @@
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 9415.68it/s]
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\nn\modules\module.py:1370: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  return t.to(
+[TOKENIZATION CONTROL]  semantic-prime projection on CONTEXTUAL hidden states (vs wte)
+
+  targets T=1200, primes nP=61; comparing layers [4, 8, 11]
+
+  layer  prime R2        random R2   PCA R2  prime vs rand (z)   %opt
+      4    0.7501      0.7721+/-0.0020   0.8530             -11.26    88%
+      8    0.8305      0.8453+/-0.0015   0.9001              -9.92    92%
+     11    0.8387      0.8527+/-0.0013   0.9053             -10.89    93%
+
+  [composition @ layer 8, contextual]
+         kill -> ['die', 'move', 'bad', 'inside', 'see', 'after']   exp-mass 0.35 (chance 0.06) hits:['die']
+      destroy -> ['die', 'want', 'know', 'live', 'near', 'inside']   exp-mass 0.12 (chance 0.00) hits:[]
+        happy -> ['bad', 'good', 'live', 'want', 'far', 'something']   exp-mass 0.18 (chance 0.03) hits:['good']
+          sad -> ['bad', 'moment', 'kind', 'true', 'small', 'same']   exp-mass 0.35 (chance 0.05) hits:['bad']
+     remember -> ['know', 'after', 'moment', 'say', 'hear', 'like']   exp-mass 0.41 (chance 0.00) hits:['know']
+         love -> ['like', 'want', 'touch', 'words', 'know', 'good']   exp-mass 0.24 (chance 0.05) hits:['want', 'good']
+         fear -> ['part', 'words', 'think', 'moment', 'touch', 'bad']   exp-mass 0.09 (chance 0.23) hits:['bad']
+       murder -> ['die', 'body', 'bad', 'people', 'moment', 'words']   exp-mass 0.38 (chance 0.00) hits:['die', 'bad']
+    mean exp-mass 0.264 vs chance 0.052
+
+[VERDICT]
+  Compare the prime-vs-random z here to the wte probe's z=-13.5. If z moved up toward/above 0, the wte
+  'primes span worse than random' was substantially a TOKENIZATION/frequency artifact. If primes still
+  under-span the optimal subspace (%opt < ~80), meaning stays distributed regardless -- the strong
+  'small discrete basis' thesis fails on a FAIR representation too, while composition (weak form) holds.
+
+[V] gpt2-small contextual hidden states (isolation, last token), fp32.

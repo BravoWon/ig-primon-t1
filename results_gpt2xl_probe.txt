@@ -1,0 +1,15 @@
+[GPT-2-XL probe] validity gates before any certification re-test
+
+  loaded: 48 layers, d=1600, 192 matmul units
+
+(L) fp32 anchor license: per-op fp32-vs-fp64 rel err = 3.7e-07 (<= ~1e-5 -> fp32 licensed)
+(O) outlier ratio (max/median per channel): median=8.9  mean=12.1  max=131.5   (gpt2-small was median 9.7 / max 119)
+(S) all-W8A8 KL vs fp32 anchor: bf16=2.528e-04  per-channel=3.701e-03  SmoothQuant=3.864e-03
+    SmoothQuant does NOT help vs per-channel
+
+[VALIDITY]
+  (L) fp32 licensed: True   (O) outliers stronger than 124M: False   (S) SmoothQuant helps: False
+  -> fp32 licensed but the outlier pathology is STILL mild at 1.5B (same-family GPT-2). Honest finding:
+     a meaningful SmoothQuant test needs OPT-class outliers; GPT-2 lacks them even at 1.5B.
+
+[V-hw] RTX 5070 sm_120, fp32 anchor (op-licensed vs fp64). GPT-2-XL 1.5B. Validity gates only.

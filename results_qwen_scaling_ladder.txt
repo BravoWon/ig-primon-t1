@@ -1,0 +1,30 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[SCALING LADDER]  does the cross-lingual manifold strengthen with model scale?
+
+  N=400; loading OPT-2.7B for cross-model arm ...
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|██████████| 517/517 [00:00<00:00, 16188.18it/s]
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\nn\modules\module.py:1370: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  return t.to(
+  embedding Qwen2.5-0.5B ...
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights:  80%|████████  | 232/290 [00:00<00:00, 2088.64it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 2283.77it/s]
+  embedding Qwen2.5-1.5B ...
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights:  73%|███████▎  | 248/338 [00:00<00:00, 2458.26it/s]Loading weights: 100%|██████████| 338/338 [00:00<00:00, 2545.47it/s]
+  embedding Qwen2.5-3B ...
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files:  50%|█████     | 1/2 [00:55<00:55, 55.41s/it]Fetching 2 files: 100%|██████████| 2/2 [00:55<00:00, 27.71s/it]
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]Loading weights: 100%|██████████| 434/434 [00:00<00:00, 6920.27it/s]
+
+     model  EN<->ZH peak  EN<->ES peak  OPT<->Qwen(EN) peak
+  Qwen-0.5B         0.164         0.133                0.693
+  Qwen-1.5B         0.092         0.113                0.666
+  Qwen-  3B         0.138         0.241                0.669
+
+  EN<->ZH Procrustes by depth [0.3, 0.5, 0.7, 0.85, 1.0]:
+    Qwen-0.5B:  0.079  0.082  0.107  0.164  0.143
+    Qwen-1.5B:  0.060  0.061  0.065  0.092  0.077
+    Qwen-  3B:  0.055  0.107  0.138  0.068  0.125
+
+[VERDICT -- PRH scaling]
+  cross-lingual EN<->ZH peak: 0.164 -> 0.092 -> 0.138  (flat/scale-robust)
+  cross-model OPT<->Qwen peak: 0.693 -> 0.666 -> 0.669  (flat/scale-robust)
+
+[V] Qwen2.5-0.5/1.5/3B fp16 + OPT-2.7B, mean-pooled, N=400 OPUS-100, fp32 metrics.
