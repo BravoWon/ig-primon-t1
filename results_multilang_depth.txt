@@ -1,0 +1,48 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[MULTI-LANGUAGE DEPTH SWEEP]  is the upper-middle manifold placement universal across families?
+
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights: 100%|██████████| 338/338 [00:00<00:00, 7113.73it/s]
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\nn\modules\module.py:1370: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  return t.to(
+  embedded en-es: 400 pairs
+  embedded en-ru: 400 pairs
+  embedded en-zh: 400 pairs
+Generating test split:   0%|          | 0/2000 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 2000/2000 [00:00<00:00, 173000.23 examples/s]
+Generating train split:   0%|          | 0/1000000 [00:00<?, ? examples/s]Generating train split:  24%|██▍       | 240000/1000000 [00:00<00:00, 1892160.10 examples/s]Generating train split:  53%|█████▎    | 531000/1000000 [00:00<00:00, 2135485.12 examples/s]Generating train split:  82%|████████▏ | 824000/1000000 [00:00<00:00, 2220013.50 examples/s]Generating train split: 100%|██████████| 1000000/1000000 [00:00<00:00, 2258497.97 examples/s]
+Generating validation split:   0%|          | 0/2000 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 2000/2000 [00:00<00:00, 123160.84 examples/s]
+  embedded en-ar: 400 pairs
+
+  Procrustes-R2 (EN <-> X geometric alignment) across depth:
+     depth        es       ru       zh       ar
+      0.00    -0.237   -0.012   -0.036   -0.647
+      0.15     0.312   -0.028    0.255    0.328
+      0.30     0.317   -0.017    0.261    0.323
+      0.45     0.333   -0.008    0.271    0.321
+      0.60     0.338   -0.002    0.277    0.320
+      0.75     0.362    0.012    0.295    0.316
+      0.90     0.408    0.045    0.340    0.278
+      1.00    -0.053    0.097    0.224   -0.309
+
+  P@1 (direct EN->X retrieval) across depth:
+     depth        es       ru       zh       ar
+      0.00     0.390    0.415    0.630    0.230
+      0.15     0.198    0.243    0.395    0.090
+      0.30     0.315    0.335    0.500    0.207
+      0.45     0.385    0.368    0.550    0.303
+      0.60     0.403    0.368    0.558    0.312
+      0.75     0.428    0.377    0.565    0.333
+      0.90     0.382    0.310    0.507    0.245
+      1.00     0.327    0.192    0.343    0.233
+
+[VERDICT]
+      lang  peak-depth  peak-Procr
+        es        0.90       0.408
+        ru        1.00       0.097
+        zh        0.90       0.340
+        ar        0.15       0.328
+
+  peak-depth spread across languages = 0.85
+  -> small spread => the upper-middle placement is UNIVERSAL across families (location is a real property).
+  -> magnitude ordering reveals whether alignment tracks typological distance or training representation.
+
+[V] Qwen2.5-1.5B, mean-pooled at 8 depths, ~400 OPUS-100 pairs/lang, PCA-32, fp32.
