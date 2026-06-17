@@ -89,8 +89,12 @@ def test_c4_primitive_isolation():
     res = run_c4_primitive_isolation(primitive="softmax", d=6, L=4, n_samples=2, seed=20260616)
     assert "full_depth_err" in res and "composition_ratio" in res
     assert "beyond_single_op" in res
-    assert res.get("beyond_single_op", False) or res.get("composition_ratio", 0) > 1.0, \
-        f"C4 failed: no composition effect beyond single primitive (ratio={res.get('composition_ratio')})"
+    assert "isolated_primitive_err_proxy" in res
+    # TDD-extended: require demonstrable composition effect (ratio from depth vs matrix-isolated)
+    ratio = res.get("composition_ratio", 0)
+    assert res.get("beyond_single_op", False) or ratio > 1.5, \
+        f"C4 failed: no composition effect beyond single primitive (ratio={ratio})"
+    assert ratio > 1.0, f"C4 composition_ratio must exceed linear isolated baseline (got {ratio})"
 
 
 def test_trained_depth_curve_tiny_and_f3():
