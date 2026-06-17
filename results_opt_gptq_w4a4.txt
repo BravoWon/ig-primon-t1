@@ -1,0 +1,23 @@
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\opt_gptq_w4a4.py:30: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  FP8 = torch.tensor(sorted({0.0, *[(m / 8 if e == 0 else (1 + m / 8)) * 2.0 ** (e - 7 if e else -6)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[OPT-2.7B W4A4]  activation-precision cost on the best W4 model (FP4-g128 + act-order, +0.70%)
+
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 33037.09it/s]
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 16344.11it/s]
+          config       PPL  dPPL vs gold
+       fp32 gold    52.668            --
+           W4A16    53.038        +0.70%
+            W4A8    53.198        +1.01%
+            W4A4 19714.782    +37331.98%
+
+  marginal activation-precision cost (paired bootstrap, log-PPL):
+    A16->A8 : mean +0.00300  95% CI [+0.00052, +0.00548]  (== +0.300% PPL)
+    A8 ->A4 : mean +5.91511  95% CI [+5.82921, +6.00379]  (== +36959.447% PPL)
+
+[VERDICT]
+  W4A8 = +1.01% (per-token FP8 activations on near-lossless W4).
+  W4A4 = +37331.98% -- per-token activation quant collapses at 4-bit. Diagnosis: per-CHANNEL outliers,
+  which per-token scaling cannot reach. This is the re-entry point for SmoothQuant/rotation (Layer 3b).
+
+[V-hw] RTX 5070 sm_120 + GTX 1660 Ti, OPT-2.7B, fp32 master, sequential GPTQ FP4-g128+act-order, WikiText-2.
