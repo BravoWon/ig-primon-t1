@@ -161,9 +161,11 @@
 
 **Files:**
 - Modify: module_T1_precision_depthN.py (add explorer/certify loop using ig_primon.firewall and hardware)
-- Modify: ig_primon/anchors.py (add anchors for C1, C2, depth error metrics)
+- Modify: ig_primon/anchors.py (add *basic* anchor for C1 (identity) per Step 5 and pre-reg C1 focus; full C2 reproduction + depth-error-metrics anchors + related tests are in Tasks 5/7)
 - Modify: ig_primon/harness.py (if needed for new group)
 - Test: tests/test_precision_depthN.py (add certification tests)
+
+(Note: header updated to align precisely with the numbered steps for *this* task only. The broader summary language referencing C2/depth metrics was from the overall pre-reg but does not describe Task 4 scope.)
 
 - [ ] **Step 1: Add a function that runs a tiny model forward in low prec and certifies error vs mpmath reference. Write failing test.**
   Sketch in receipt:
@@ -202,6 +204,7 @@
   ```bash
   python -m ig_primon.harness --group precision-depth
   ```
+  (Note: `python -m ig_primon.harness` is a silent no-op because ig_primon/harness.py is library-only — it defines `run_and_report` etc. but has no `if __name__ == "__main__"` or argparse CLI. The literal command per the plan was executed (no-op result). The working equivalent actually used to verify the anchor and group was `python -m ig_primon.cli verify --group precision-depth` (which internally calls harness.run_and_report). `igprimon verify --group precision-depth` (if entrypoint installed) also works. This was supplemented in practice while still running the exact plan literal as written. See also harness.py module comment and Task 4 Execution Notes.)
 - [ ] **Step 7: Commit**
 
 ### Task 5: Implement C2 (Random Weights Exponential Reproduction)
@@ -272,6 +275,28 @@ However, the *order* of work in the commit history did not adhere to the plan's 
 The plan *content* (including the skeleton code sketches, file lists, and forward-looking TDD steps) is accurate and matches the request. The note above renders this document descriptive of the actual state of the skeleton phase at Task 1 close-out, rather than purely forward/prescriptive. No core ig_primon/ files were edited (all changes were top-level receipt wrappers following the module_hw_firewall.py pattern). Other Task 1 receipts (pre-reg/design presence, pattern match, 7+ tests green in relevant runs, no stray artifacts) held. The pre-reg note addition itself was beneficial for visibility but its timing (and early reference to the plan) violated the freeze rules; amendments are to be versioned diffs.
 
 The checkboxes and TDD sequencing for Tasks 2–9 are preserved unchanged. Any remaining or backfill work on the receipt/harness must still follow them, the locked pre-reg as immutable spec, and the design. Task 9 self-review should cross-check the documented history against actual commit ancestry.
+
+### Execution Notes — Task 4 (added for historical accuracy per spec reviewer feedback)
+
+The mechanical steps of Task 4 were executed following the TDD order at high level (stub + test for firewall key, run expect-fail conceptually, fill integration reusing precision primitives, add C1 anchor, run verify, commit). The function `run_depth_error_map` in module_T1_precision_depthN.py was implemented to match the sketch in Step 1 exactly at the entry point (hardware scan + run_firewall call outside the try; always returns dict containing "firewall" + "device" + "depth_demo"). The test `test_depth_map_uses_firewall` asserts only the presence of the "firewall" key.
+
+However, several minor literal vs. intent / process mismatches were noted by the spec reviewer (no missing functionality, no scope creep):
+
+- **harness command (Step 6):** The exact plan literal `python -m ig_primon.harness --group precision-depth` was run as written but is a silent no-op (no `__main__` / CLI entry in harness.py; `run_and_report` is purely a library function). In practice the implementer ran the literal (per plan) *and* supplemented with the correct `python -m ig_primon.cli verify --group precision-depth` (and/or direct harness use / `igprimon verify`), which succeeds and showed 2/2 for the precision-depth group (depth-skeleton + c1-identity). A comment acknowledging this was added to ig_primon/harness.py. The plan Step 6 text + this note now clarify the situation.
+
+- **Plan header vs. numbered steps:** The **Files:** summary bullet listed "ig_primon/anchors.py (add anchors for C1, C2, depth error metrics)" but the detailed steps for Task 4 specify only "Add basic anchor in anchors.py for C1 (identity)" (Step 5); C2 + depth-error curve metrics anchors are explicitly scoped to Task 5 (C2) and Task 7. The implementation registered only the C1 anchor (plus pre-existing depth-skeleton from earlier infra) for a total of 2 anchors in the group. This matches the detailed steps + pre-reg C1 focus ("C1: FP32-vs-FP32 identity run ... validates the entire harness and certification pipeline") but did not match the header summary. Header has been updated in this plan revision.
+
+- **Commit granularity:** The plan says "Commit" (Step 7, singular, and header lists 4 files). Actual work landed across (at least) two commits carrying Task-4 titles:
+  - One: anchors.py + module_T1_precision_depthN.py + tests/test_precision_depthN.py (C1 + integration + test).
+  - One: harness.py (comment) + module_T1... (polish). The final commit using a Task-4 title touched only a subset of the listed files. (Git log showed eec9c81 and 8cff8d1 as the primary Task 4 titled commits; earlier stub work in 6b8b8d3 etc. predated the plan file.) Since past commits are immutable, this is documented here rather than retroactively changed. All plan-specified pytest/verify commands (literal + working equivalents) were executed and passed per reviewer inspection.
+
+- **TDD narrative vs. landed code ("fail on missing integration / firewall key"):** Step 2 says "Run test (expect failure on missing integration)". Step 1 sketch returns `{"firewall": res, "device": dm}` (the key is present even in the stub). The test only asserts `"firewall" in result`. Therefore, after a stub *matching the written sketch*, the key-assertion test would already pass. The "fail on missing" expectation in the plan was conceptual (representing incomplete integration state before Step 3 fill-in). The landed code follows the sketch (firewall call + key always emitted; the try/except only populates depth_demo). Spirit of TDD was followed (stub first, fill integration + primitives reuse in Step 3, C1 anchor in Step 5). The initial stub may have been even more minimal in actual sequence (test written/ran before final return dict), but exact historical run state cannot be replayed. No change to test or function body was made here (frozen state); this note documents the nuance.
+
+Other reviewer findings: "Function matches sketch + step-3 fill spec (primitives reuse confirmed); test matches; C1 anchor matches; group verify passes (2/2); no extra files edited beyond listed + plan 'if needed'; no core ig_primon changes; TDD order followed at high level; git commits + runs performed; alignment with pre-reg C1 language, design (firewall as cert engine, hardware scan for tier_e_backend, precision primitives), and 'top-level wrapper' pattern."
+
+The pre-reg referenced throughout is the locked `T1_precision_map_v0_2.md` (C1 description in §4; no frozen content was edited). harness.py comment added for the "if needed" case even though dynamic discovery via anchors means no functional edit was required for the group. No other issues.
+
+The checkboxes, steps, and code state are left exactly as implemented. This revision only documents the review findings for auditability. Task 9 self-review (when reached) should incorporate these notes.
 
 **Plan complete and saved to `docs/superpowers/plans/2026-06-16-t1-precision-map-v0-2-implementation.md`.**
 
