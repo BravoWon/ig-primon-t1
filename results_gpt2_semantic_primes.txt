@@ -1,0 +1,39 @@
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 9434.43it/s]
+[META-THESIS PROBE]  does meaning project onto the NSM semantic-prime basis?
+
+  GPT-2 token-embedding geometry: V=50257, D=768; prime basis nP=61; targets T=2000
+
+[1] SPANNING (variance of 2000 words captured by a size-61 subspace):
+    prime-61      R^2 = 0.2117
+    random-61     R^2 = 0.2436 +/- 0.0024  (30 seeds)
+    PCA-61 (best) R^2 = 0.3873   <- optimal upper bound
+    prime vs random: z = -13.51  (prime BELOW random)
+    prime captures 54.7% of the optimal-65 subspace's variance
+
+[2] SCALING (R^2 vs basis size):  how big must a discrete basis grow to span?
+     size  prime-seeded    random  PCA(opt)
+       16        0.1135    0.1155    0.2245
+       32        0.1561    0.1697    0.2930
+       61        0.2117    0.2433    0.3873
+      128        0.3547    0.3798    0.5477
+      256        0.5632    0.5799    0.7467
+      512        0.8411    0.8547    0.9445
+
+[3] COMPOSITION (NNLS onto prime basis; does it load the NSM-intuitive primes?)
+         kill -> top: ['die', 'move', 'do', 'bad', 'be', 'see']   | expected-prime mass 0.50 (chance 0.16)  hits:['die', 'do']
+      destroy -> top: ['die', 'be', 'do', 'mine', 'bad', 'see']   | expected-prime mass 0.26 (chance 0.00)  hits:['do', 'bad']
+        happy -> top: ['good', 'want', 'feel', 'live', 'very', 'moment']   | expected-prime mass 0.42 (chance 0.00)  hits:['good', 'feel']
+          sad -> top: ['bad', 'very', 'feel', 'words', 'die', 'moment']   | expected-prime mass 0.40 (chance 0.00)  hits:['bad', 'feel']
+     remember -> top: ['know', 'think', 'hear', 'after', 'see', 'feel']   | expected-prime mass 0.53 (chance 0.00)  hits:['know', 'think']
+         love -> top: ['want', 'like', 'live', 'know', 'touch', 'true']   | expected-prime mass 0.35 (chance 0.05)  hits:['want']
+         fear -> top: ['feel', 'want', 'bad', 'think', 'words', 'place']   | expected-prime mass 0.38 (chance 0.00)  hits:['feel', 'bad']
+       murder -> top: ['die', 'live', 'bad', 'want', 'words', 'body']   | expected-prime mass 0.40 (chance 0.10)  hits:['die', 'bad']
+    mean expected-prime mass 0.406  vs chance 0.039  -> ALIGNED above chance
+
+[VERDICT -- scored against pre-registration]
+  prime basis privileged over random: False (z=-13.51)
+  prime-65 spans (>80% of optimal-65): False (55%)
+  -> THESIS NOT SUPPORTED in this geometry: prime basis is not privileged over random words; meaning
+     is distributed, not projectable onto NSM primes. The elegance is ours to describe, not the model's.
+
+[V] gpt2-small token embeddings, fp32. Proxy = input-embedding geometry (noted scope, not hidden states).

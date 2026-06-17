@@ -1,0 +1,33 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\gpt2_allocation.py:34: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  eval_ids = ids[:8192].to(DEV)
+[GPT-2 small use-aware ALLOCATION]  bits by activation-sensitivity vs uniform, matched avg-4 budget
+
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 9458.72it/s]
+  gold PPL = 40.081
+
+  measuring per-matrix sensitivity (GPTQ 2-bit, one matrix at a time)...
+    most sensitive: [('1.c_fc', np.float64(1.312)), ('2.c_fc', np.float64(0.356)), ('0.c_proj', np.float64(0.318)), ('0.c_attn', np.float64(0.278)), ('0.c_fc', np.float64(0.238))]
+    least sensitive:[('6.c_proj', np.float64(0.019)), ('3.c_proj', np.float64(0.017)), ('7.c_proj', np.float64(0.016)), ('1.c_proj', np.float64(0.014)), ('11.c_proj', np.float64(0.013))]
+
+  [avg-4 {2,4,6}]  allocation  avg bits       PPL  dPPL vs gold
+                    uniform     4.000    44.616       +11.32%
+                  use-aware     4.000   923.267     +2203.51%
+                    reverse     4.000  2842.243     +6991.28%
+     -> use-aware vs uniform +1969.36%; reverse vs uniform +6270.45%
+
+  [avg-6 {4,6,8} (cliff-safe)]  allocation  avg bits       PPL  dPPL vs gold
+                    uniform     6.000    40.301        +0.55%
+                  use-aware     6.000    40.820        +1.84%
+                    reverse     6.000    41.700        +4.04%
+     -> use-aware vs uniform +1.29%; reverse vs uniform +3.47%
+
+[VERDICT -- scored against pre-registration]
+  avg-4 {2,4,6}: use-aware<uniform=False (+1969.36%); reverse>uniform=True (signal real)
+  avg-6 {4,6,8} (cliff-safe): use-aware<uniform=False (+1.29%); reverse>uniform=True (signal real)
+  -> Even with a CLIFF-SAFE menu, use-aware allocation does NOT beat uniform. Allocation is inert as a
+     GAINER (the signal is real -- reverse hurts -- but you cannot cash it): the quantizer is the lever,
+     allocation only redistributes a loss. Confirms the arc's 'no room for allocation', with mechanism:
+     a sharp bit-cliff means trading bits across layers can only fall off it, never climb.
+
+[V] gpt2-small, WikiText-2 held-out, strided PPL, fp32, GPTQ, two matched-budget menus.
