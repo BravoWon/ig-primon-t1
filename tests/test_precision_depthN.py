@@ -62,12 +62,19 @@ def test_cli_run_depth_map_direct_or_help():
 def test_c3_shuffle_control():
     """C3: Shuffle-control for κ_softmax attribution.
     Per pre-reg §4 and Task 7: randomize high-κ_softmax flags; κ-correlation
-    with error must vanish (permutation test). Test written first (TDD).
+    with error must vanish (permutation test significance required).
+    Test written/extended first (TDD).
     """
     from module_T1_precision_depthN import run_c3_shuffle_control
-    res = run_c3_shuffle_control(d=6, L=2, n_samples=2, n_shuffles=5, seed=20260616)
+    res = run_c3_shuffle_control(d=6, L=2, n_samples=2, n_shuffles=20, seed=20260616)
     assert "real_corr" in res and "shuffle_mean" in res
     assert "control_passed" in res or "vanishes_on_shuffle" in res
+    # Require permutation significance: p_value must be present and low, or strict vanish
+    assert "p_value" in res, "C3 must report permutation p_value per pre-reg significance req"
+    p = res.get("p_value", 1.0)
+    vanishes = res.get("control_passed", False) or res.get("vanishes_on_shuffle", False)
+    assert p < 0.25 or vanishes, \
+        f"C3 failed permutation significance: p={p} not low and no vanish (real={res.get('real_corr')}, shuf_mean={res.get('shuffle_mean')})"
     assert res.get("control_passed", False) or res.get("vanishes_on_shuffle", False), \
         f"C3 failed: corr did not vanish on shuffle (real={res.get('real_corr')}, shuf={res.get('shuffle_mean')})"
 
