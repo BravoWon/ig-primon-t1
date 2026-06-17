@@ -252,4 +252,20 @@ Net: the **science arm is `[V]`** (certified typical-case depth law + sparse, st
 - **Cross-check:** consistent with the control (tiny instrument shift → sub-noise downstream). And the fp32-master certified arm (+2.51%) reproduces the v0.2.9 bf16-master near-lossless number (+2.81%) — the pipeline cross-validates.
 - **Verdict:** certification has **no operational payoff on *either* lever** — allocation *refuted* (v0.2.7), Hessian *null* (here). The GPTQ Hessian's **use-aware structure** is the lever; its **precision** is not. The certified reference is operationally inert for deployment quality; its only defensible use remains faithful replication of a reference. The novel question is closed honestly as a null — predicted by the control, confirmed by the scan.
 
+**Amendment v0.2.11 (2026-06-17 — forward optimization sequence, merit-attributed in full context; versioned).** With the certification thesis closed (both levers), the forward layers were run *in sequence*, each as an A/B with one knob changed on the same fp32 master (full-rank H, WikiText-2 held-out, **N_EVAL widened 64→256** for paired-bootstrap power — so absolute ΔPPL re-baselines vs v0.2.9/10; the paired *marginals* are the attributed quantities). Receipts: `results_opt_gptq_{actorder,fp4mx,w4a4,smoothquant,throughput}.txt`.
+
+| layer | knob | attributed marginal (paired) | best config after | sig |
+|---|---|---|---|---|
+| 1 act-order (`opt_gptq_actorder.py`) | column order by diag(H) | **−1.44% PPL** [−2.05,−0.88] | INT4-g128+AO **+2.05%** | yes |
+| 2 FP4 MXFP4 (`opt_gptq_fp4mx.py`) | grid INT4→FP4 E2M1 +block scale | **−1.32% PPL** [−1.83,−0.83] | FP4-g128+AO **+0.70%** | yes |
+| 3 W4A8 (`opt_gptq_w4a4.py`) | + per-token FP8 acts | +0.30% (A16→A8, tiny) | W4A8 **+1.01%** | yes |
+| 3 W4A4 naive | + per-token INT4 acts | **collapse +37,332%** | — (broken) | — |
+| 3b SmoothQuant (`opt_gptq_smoothquant.py`) | outlier migration s=a^½/w^½ | A4 +37,332%→+33,232% (negligible); A8 +1.01%→**+0.76%** | W4A8 **+0.76%** | yes/ns* |
+| 4 throughput (`opt_throughput.py`) | FP8 GEMM / 4-bit packing | FP8 **2.0–2.24×**; mem **3.88×** (4.125 bits/wt) | — | measured |
+
+- **Two significant wins, both physically grounded.** Act-order: compensating the highest-energy columns first against the largest remaining budget (−1.44%). **FP4 E2M1 *beats* INT4 (−1.32%)** — the nonuniform grid is denser near zero where weights concentrate, fitting the bulk better at matched 4-bit budget (the NF4/FP4-vs-INT4 result). The program's original FP4 hardware-native direction is *vindicated as superior*, not merely viable — block scaling was the missing engineering piece. **Best weight-only config: FP4-g128 + act-order = +0.70% (near-lossless), 3.88× smaller.**
+- **Activation axis has a sharp cliff.** FP8 acts are nearly free (W4A8 deployable, +0.76% with smoothing, compressing *both* axes); naive 4-bit acts collapse (+37,332%) on OPT's per-channel outliers. **SmoothQuant is necessary-but-insufficient for W4A4** — a significant but operationally negligible recovery (both ~330× gold); the 4-bit-activation frontier needs **rotation** (QuaRot/SpinQuant), *named not faked*. Control held throughout: smooth-A16 = +0.67% verified the fold is identity before trusting A4.
+- **Hardware value is real and measured** (FP8 ~2× compute, 4-bit weights 3.88× memory on the 5070); the one unmeasured axis (native INT4/FP4 GEMM decode speedup) is named — absent kernel in this Blackwell+Windows build.
+- **Net value genesis:** the certified-reference *thesis* was refuted/null, but the relocated lever (use-aware quantization) — pushed through five attributed layers — delivered a **near-lossless 4-bit OPT-2.7B (+0.70%, FP4+act-order, 3.88× memory)** and a **deployable both-axes W4A8 (+0.76%, ~2× FP8 compute)**. Each gain is measured against a controlled baseline, not asserted.
+
 — End of `T1_precision_map` v0.2. Amendments require a versioned diff; silent edits void the registration.
