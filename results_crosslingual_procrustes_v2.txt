@@ -1,0 +1,23 @@
+[CROSS-LINGUAL PROCRUSTES v2]  powered up: Qwen2.5-1.5B + N=700 MUSE pairs
+
+  700 MUSE en-zh pairs (sample en: ['double', 'temple', 'claims', 'parish', 'israel', 'actors', 'sister', 'nine'])
+  embedding OPT-2.7B (local) ...
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 32721.52it/s]
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\nn\modules\module.py:1370: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  return t.to(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+  embedding Qwen2.5-1.5B (downloading if needed) ...
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights: 100%|##########| 338/338 [00:00<00:00, 7042.07it/s]
+  embedded.
+
+                                 arm  mutual-kNN   shuf  procrustes-R2  linear-R2
+     Qwen-EN <-> Qwen-ZH  (language)       0.111  0.017         -0.373     -0.442
+        OPT-EN  <-> Qwen-EN  (model)       0.240  0.014         -0.178      0.603
+         OPT-EN  <-> Qwen-ZH  (full)       0.159  0.016         -0.369      0.050
+
+[VERDICT -- powered, map metrics now well-posed]
+  chance kNN ~ 0.0143
+  -> LOCAL-NOT-GLOBAL (confirmed under power): cross-language kNN >> chance but Procrustes ~0 -> shared
+     neighbor structure transcends language, but it is NOT a clean global rotation. Same shape as the arc.
+
+[V] OPT-2.7B + Qwen2.5-1.5B, contextual ~2/3 depth, N=700 MUSE en-zh pairs, PCA-64, fp32.
