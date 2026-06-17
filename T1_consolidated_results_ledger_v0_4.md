@@ -423,3 +423,19 @@ remaining: flesh ridge/SK sections to §5 depth, tighten abstract).
 **Not yet committed to file (this session — fold into Paper drafts):** the hR/w special-value
 reading, the discriminant corollary, the ℚ(∛2) non-abelian AFE receipt, the all-integer-gas and
 ideal-Bose-gas curvature runs.
+## Precision Certification Track (T1_precision_map_v0_2) — added 2026-06-17
+
+**Status:** Stage 1+2 pilot complete on GPT-2-small bf16; C1/C2/C3/C4 passed; P1 holds (sub-exp typical-case depth law); F1/F3 not firing at this scope. [V] for pilot (GPT-2-small/bf16/8-texts), [E] for concentration mechanism pending C3 full.
+
+Receipts: `module_T1_precision_depthN.py`, `precision_depth_map.py`, `stage2_gpt2_p1.py`, `stage2b_robustness.py`; anchors under `precision-depth` group (4/4 PASS via `igprimon verify --group precision-depth`).
+
+Pre-reg: `T1_precision_map_v0_2.md` (locked 2026-06-16, Software Availability Note + Task 8 polish); results: `STAGE1_2_RESULTS.md`.
+
+Hardware alignment: runtime Tier-C (mpmath dps>=50 sole [V]) / Tier-E (lowprec explorer); target RTX 5070 Blackwell native FP8/FP4 documented in pre-reg §7 and code. Env fallback clean.
+
+Integration: `igprimon run depth-map`, `igprimon verify --group precision-depth`.
+
+PR: #4 feat/t1-precision-map-v02-impl. CodeRabbit review completed (high-level + walkthrough positive). Copilot requested. Local: 8/8 tests, CI green.
+
+Follow-on: C3 full attribution, FP8/FP4 probes, allocator (Stage 3), cross-model sweep. See pre-reg stages.
+
