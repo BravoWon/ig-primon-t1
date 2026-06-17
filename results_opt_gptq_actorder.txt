@@ -1,0 +1,21 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[OPT-2.7B act-order]  marginal merit of activation-ordered GPTQ (the <2% refinement)
+
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 32863.85it/s]
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\nn\modules\module.py:1370: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  return t.to(
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 16360.02it/s]
+                      config       PPL  dPPL vs gold
+                   fp32 gold    52.668            --
+    INT4-g128 (no act-order)    54.534        +3.54%
+       INT4-g128 + act-order    53.748        +2.05%
+
+  marginal (act-order - baseline), log-PPL paired bootstrap:
+    mean -0.01451   95% CI [-0.02048, -0.00877]   (== -1.441% PPL)
+    significant at 95%: True  (act-order improves)
+
+[VERDICT]
+  ACT-ORDER ATTRIBUTED: marginal -1.44% PPL, significant. Closes +3.54%
+  -> +2.05% toward the literature <2%. The refinement's merit is measured, not assumed.
+
+[V-hw] RTX 5070 sm_120 + GTX 1660 Ti, OPT-2.7B, fp32 master, sequential INT4-g128 GPTQ, WikiText-2. Held-out.
