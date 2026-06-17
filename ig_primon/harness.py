@@ -7,6 +7,10 @@ import time
 
 from .anchors import AnchorResult, get_anchors, all_groups
 
+# Note: no hardcoded groups needed; precision-depth (and others) are discovered
+# dynamically via anchors.py ANCHORS list (filter in get_anchors). Per plan Task 4,
+# no edit required for the new group -- "if needed" does not apply.
+
 
 def run(groups=None, include_slow=True):
     """Run the selected anchors, return a list of AnchorResult."""
