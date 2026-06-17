@@ -58,7 +58,10 @@ igprimon precision-matrix        # certify inference primitives (GEMM/softmax/no
 igprimon precision-matrix --sweep  # reduction-width / context-length precision fragility
 igprimon precision-bf16          # bf16 pass (torch): real-inference map + the LayerNorm range inversion
 igprimon precision-fp8           # fp8 pass (torch): Blackwell fp8 GEMM + the range-vs-mantissa tradeoff
+igprimon run depth-map           # T1 precision depth-N error map receipt (for precision-composition experiment)
 ```
+
+The `depth-map` receipt and `precision-depth` anchor group implement the locked `T1_precision_map_v0_2.md` pre-registration (certified depth-N error composition, C1–C4 controls, F3 instrumentation). `igprimon verify --group precision-depth` (and full `igprimon verify`) now cover it.
 
 **Anchors.** `igprimon verify` re-checks, programmatically, every exact reference value the receipts pin —
 the engine `R=-1` pin, the flat-product `R=0` control, Gardner `α_c(0)=2`, Ising `s(0)=ln2`, Krauth–Mézard
