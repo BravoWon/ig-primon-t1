@@ -1,0 +1,15 @@
+[OPT-2.7B GPTQ grid completion]  sequential reconstruction + finer grid -> near-lossless?
+
+  fp32 gold PPL = 55.962
+
+          config       PPL  dPPL vs gold
+            gold    55.962            --
+     FP4-perchan    88.450 +58.1% (prior)
+       INT4-g128    86.837       +55.17%
+        FP4-g128    89.216       +59.42%
+
+[VERDICT] If INT4-g128 is single-digit %, the redirection closes: sequential reconstruction (the vision)
+  + an adequate grid = a near-lossless 4-bit model, and FP4-per-channel was just too coarse. If FP4-g128
+  also lands low, the hardware-native FP4 path is viable WITH block scaling -- the missing piece, not the method.
+
+[V-hw] RTX 5070 sm_120, OPT-2.7B, sequential block-wise GPTQ, WikiText-2, fp32 gold. Held-out.
