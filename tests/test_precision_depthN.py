@@ -84,3 +84,19 @@ def test_c4_primitive_isolation():
     assert "beyond_single_op" in res
     assert res.get("beyond_single_op", False) or res.get("composition_ratio", 0) > 1.0, \
         f"C4 failed: no composition effect beyond single primitive (ratio={res.get('composition_ratio')})"
+
+
+def test_trained_depth_curve_tiny_and_f3():
+    """Basic depth map on trained weights (tiny) + F3 (range vs mantissa) instrumentation.
+    Per Task 7: first trained-weight (tiny) depth curve. F3 path ensures error not
+    dominated by range artifact. TDD: test first.
+    """
+    from module_T1_precision_depthN import run_trained_depth_curve_tiny
+    res = run_trained_depth_curve_tiny(d=8, L=4, n_samples=2, seed=20260616)
+    assert "slope" in res and "growth" in res and "f3" in res
+    assert "p1_holds_tiny" in res
+    f3 = res["f3"]
+    assert "corr_abs" in f3 and "corr_rel" in f3 and "range_dominated" in f3
+    # Basic trained (LN+well cond) should be sub-exp (P1); tiny skeleton allows higher var than real GPT2
+    assert res["p1_holds_tiny"] or res["slope"] < 0.30
+    assert not f3.get("range_dominated", True), "F3 path: range should not dominate in trained regime"
