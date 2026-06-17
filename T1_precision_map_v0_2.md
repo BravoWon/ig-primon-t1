@@ -299,4 +299,10 @@ Net: the **science arm is `[V]`** (certified typical-case depth law + sparse, st
 
 All controls C1–C4 pass, F3 is instrumented, recursion and firewall integration are in place. Full anchor verification (18/18) green. See `docs/superpowers/plans/2026-06-16-t1-precision-map-v0-2-implementation.md` for the task-by-task record (TDD followed). Anchors use proper status tags ([V]/[infra]) and slow flags.
 
+**Amendment v0.2.23 (2026-06-17 — the named W4A4 frontier is BUILT: rotation rescues 4-bit activations; versioned).** `gpt2_rotation_w4a4.py`. The activation cliff (v0.2.11–12: naive 4-bit acts collapse; SmoothQuant necessary-but-insufficient) named **rotation** as the unbuilt frontier. Built it — QuaRot's core mechanism: a per-linear orthogonal rotation Q on the input, folded into the weight (`W' = QᵀW`), so the *rotated* activations have no per-channel outliers (the rotation spreads outlier energy across channels) while the full-precision output is unchanged.
+
+- **Control (fold identity), corrected:** rotation-only (no quant) PPL = **40.081 = gold exactly**; and rotated-W4A16 ≈ naive-W4A16 (44.09 vs 44.62). The fold is verified identity. *(My first auto-control was mis-specified — it compared rotated-W4A16 to gold instead of the matched-weight naive-W4A16, falsely flagging "FAIL"; caught and corrected.)*
+- **Result:** GPT-2-small W4A4 naive = **+6582% collapse** (2678 PPL) → **rotated = +44%** (57.78 PPL) — a ~46× rescue. The spread-spectrum finding operationalized: you can't *truncate* the outliers, but you can *rotate* them into the necessary bulk → 4-bit activations survive where SmoothQuant couldn't.
+- **Honest residual:** +44% is functional-but-not-near-lossless; the gap is the **simplified per-linear *random* orthogonal rotation** vs full QuaRot (structured Hadamard residual-stream rotations + careful weight-quant interaction). The *mechanism* is validated; near-lossless W4A4 needs the complete scheme. This closes the W4A4 thread: collapse → SmoothQuant insufficient → **rotation is the lever.**
+
 — End of `T1_precision_map` v0.2. Amendments require a versioned diff; silent edits void the registration.
