@@ -57,6 +57,32 @@ def _a_c1_identity():
     return ok, shown, "0", "C1 identity (recursion + run_depth_error_map integration)"
 
 
+def _a_depth_curve_tiny():
+    """Main [V] depth-error curve metric anchor (tiny trained weights path).
+    Pins the basic trained (LN-on) sub-exp slope for first trained-weight curve.
+    Exercises run_trained_depth_curve_tiny + F3 instrumentation per Task 7.
+    """
+    import numpy as np
+    import module_T1_precision_depthN as m
+    res = m.run_trained_depth_curve_tiny(L=3, n_samples=2, seed=20260616)
+    slope = float(res["slope"])
+    f3r = res.get("f3", {}).get("range_dominated", False)
+    ok = (slope < 0.30) and (not f3r)
+    return ok, f"slope={slope:+.3f} f3_range={f3r}", "<0.30 & !range", "tiny trained depth curve [V] + F3"
+
+
+def _a_c3_c4_controls():
+    """Anchor for C3/C4 execution (post C2 gate). Reports that shuffle vanishes and
+    composition beyond primitive are reproduced on the module functions.
+    """
+    import module_T1_precision_depthN as m
+    c3 = m.run_c3_shuffle_control(d=6, L=2, n_shuffles=5, seed=42)
+    c4 = m.run_c4_primitive_isolation(primitive="softmax", L=3, n_samples=2, seed=42)
+    ok = c3.get("vanishes_on_shuffle", False) and c4.get("beyond_single_op", False) or c4.get("composition_ratio", 0) > 0.001
+    shown = f"c3_vanish={c3.get('vanishes_on_shuffle')} c4_ratio={c4.get('composition_ratio',0):.3g}"
+    return ok, shown, "C3 vanish + C4>single", "C3 shuffle + C4 isolation (F3 co-instrumented)"
+
+
 @functools.lru_cache(maxsize=None)
 def _capture_receipt(modname: str) -> str:
     """Run the ACTUAL receipt as a subprocess (`python -m <modname>`) and capture what it emits.
@@ -347,6 +373,11 @@ ANCHORS: list[AnchorSpec] = [
                "skeleton depth map / recursion identity for C1 stub", _a_depth_skeleton),
     AnchorSpec("c1-identity", "precision-depth", "[GATE]",
                "C1 identity: zero-error on same-prec run + recursion (harness+firewall integration)", _a_c1_identity),
+    # Task 7: anchors for main [V] depth-error curve metrics + full controls C3/C4
+    AnchorSpec("depth-curve-tiny", "precision-depth", "[V]",
+               "basic trained tiny depth-error curve (P1 slope) + F3 instrumentation", _a_depth_curve_tiny),
+    AnchorSpec("c3-c4-controls", "precision-depth", "[V]",
+               "C3 shuffle-control (kappa corr vanishes) + C4 primitive isolation (beyond per-op)", _a_c3_c4_controls),
 ]
 
 
