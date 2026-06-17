@@ -1,0 +1,26 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[SENTENCE-LEVEL CROSS-LINGUAL]  does contextualized meaning align globally cross-language?
+
+  700 OPUS-100 en-zh sentence pairs
+  sample EN: The forum produced business contracts amounting to more than $24 milli
+  sample ZH: 该论坛达成的亚洲和非洲国家私营公司间的商业合同超过了2,40
+
+  embedding OPT-2.7B ...
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|██████████| 517/517 [00:00<00:00, 32958.75it/s]
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\nn\modules\module.py:1370: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  return t.to(
+  embedding Qwen2.5-1.5B ...
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights: 100%|██████████| 338/338 [00:00<00:00, 5329.06it/s]
+  embedded.
+
+                               arm     kNN   shuf    P@1  procr-R2   lin-R2
+    Qwen-EN <-> Qwen-ZH (language)   0.191  0.015  0.473     0.177   -0.691
+       OPT-EN  <-> Qwen-EN (model)   0.374  0.016  0.121     0.168    0.628
+        OPT-EN  <-> Qwen-ZH (full)   0.171  0.015  0.069    -0.032    0.433
+
+[VERDICT]
+  chance kNN ~ 0.0143, chance P@1 ~ 0.0014
+  -> CONTEXT RESCUES IT: sentence-level cross-language aligns globally (positive Procrustes and/or high
+     retrieval) where isolated words were local-only. Contextualized meaning is the universal manifold.
+
+[V] OPT-2.7B + Qwen2.5-1.5B, mean-pooled contextual ~2/3 depth, N=700 OPUS-100 en-zh, PCA-64, fp32.

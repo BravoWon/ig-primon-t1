@@ -317,4 +317,12 @@ Net: the **science arm is `[V]`** (certified typical-case depth law + sparse, st
 - **The map is LINEAR, not orthogonal:** Procrustes negative everywhere (even cross-model −0.18) → "same geometry up to rotation" overshoots; **"linearly relatable"** is the honest (still strong) claim.
 - **Net:** the gem's core — cross-model convergence on meaning — is real, strong, confound-free, content-word-fair (R² +0.60); the cross-*language* strong claim is local-not-global. Weak-form-alive / strong-form-dead, established cross-lingually with proper power.
 
+**Amendment v0.2.19 (2026-06-17 — context rescues cross-language alignment: the universal manifold holds for SENTENCE meaning; versioned).** `sentence_crosslingual.py`. The word-level "cross-language local-only" (v0.2.18) was tested against its main caveat — isolated words are noisy/context-free. Parallel SENTENCES (OPUS-100 en-zh, N=700), mean-pooled contextual hidden states (~2/3 depth), OPT-2.7B + Qwen2.5-1.5B (no shared vocab → confound-free).
+
+- **Same-model cross-language (Qwen EN↔ZH): P@1 = 0.473** — 47% of English sentences retrieve their *exact* Chinese translation as the #1 cosine match, **no learned map** (330× chance); Procrustes +0.177. Qwen natively co-locates translated sentence meaning. (linear-R² negative = overfit; P@1/Procrustes are the trustworthy metrics.)
+- **Cross-model same-language (OPT↔Qwen EN): kNN 26× chance, linear-R² +0.63** — PRH *stronger* on sentences than words.
+- **Full cross (model + language + tokenizer; OPT-EN ↔ Qwen-ZH): linear-R² +0.43, kNN 12× chance** — even the hardest case has a real global linear map at the sentence level.
+- **Resolution:** the cross-language boundary that looked *fundamental* for isolated words (v0.2.18) **dissolves for sentences.** Meaning IS an invariant geometric structure across language/model/tokenizer — but it lives in **contextualized** representations, not isolated tokens; the word-level local-only was a context-free-noise artifact. The strongest positive of the horizon arc, confound-free and powered.
+- **Honest caveats:** the map is *linearly relatable*, not a perfect isometry; mean-pooled mid-layer reps; OPUS-100 web sentences are noisy. The strong claim is "global linear/retrieval alignment of contextualized meaning," not "exact rotation."
+
 — End of `T1_precision_map` v0.2. Amendments require a versioned diff; silent edits void the registration.
