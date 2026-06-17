@@ -57,3 +57,16 @@ def test_cli_run_depth_map_direct_or_help():
     # direct call: should succeed (return 0) once registered; will raise/return 2 on unknown now
     rc = main(["run", "depth-map"])
     assert rc == 0, f"igprimon run depth-map via direct call should exit 0, got {rc}"
+
+
+def test_c3_shuffle_control():
+    """C3: Shuffle-control for κ_softmax attribution.
+    Per pre-reg §4 and Task 7: randomize high-κ_softmax flags; κ-correlation
+    with error must vanish (permutation test). Test written first (TDD).
+    """
+    from module_T1_precision_depthN import run_c3_shuffle_control
+    res = run_c3_shuffle_control(d=6, L=2, n_samples=2, n_shuffles=5, seed=20260616)
+    assert "real_corr" in res and "shuffle_mean" in res
+    assert "control_passed" in res or "vanishes_on_shuffle" in res
+    assert res.get("control_passed", False) or res.get("vanishes_on_shuffle", False), \
+        f"C3 failed: corr did not vanish on shuffle (real={res.get('real_corr')}, shuf={res.get('shuffle_mean')})"
