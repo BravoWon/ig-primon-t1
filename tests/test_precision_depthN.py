@@ -111,3 +111,7 @@ def test_trained_depth_curve_tiny_and_f3():
     # Basic trained (LN+well cond) should be sub-exp (P1); tiny skeleton allows higher var than real GPT2
     assert res["p1_holds_tiny"] or res["slope"] < 0.30
     assert not f3.get("range_dominated", True), "F3 path: range should not dominate in trained regime"
+    # TDD extension: confirm harness logic used (LN on + gain=1 contractive per incorporated precision_depth_map)
+    # and F3 explicitly present for range-vs-mantissa
+    assert res.get("note", "").find("F3") >= 0 or "f3" in res
+    assert res["slope"] < 0.5, "tiny contractive (LN+gain1) slope must stay modest"
