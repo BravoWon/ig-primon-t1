@@ -42,7 +42,7 @@ C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\
         ar        0.15       0.328
 
   peak-depth spread across languages = 0.85
-  -> small spread => the upper-middle placement is UNIVERSAL across families (location is a real property).
+  -> spread = 0.85: peak-depth varies across language families; placement is not fully universal.
   -> magnitude ordering reveals whether alignment tracks typological distance or training representation.
 
 [V] Qwen2.5-1.5B, mean-pooled at 8 depths, ~400 OPUS-100 pairs/lang, PCA-32, fp32.

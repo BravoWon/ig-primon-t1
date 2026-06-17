@@ -101,7 +101,10 @@ def run():
         print(f"    {lg:>6} {DEPTHS[i]:>11.2f} {pr[lg][i]:>11.3f}")
     spread = max(peaks) - min(peaks)
     print(f"\n  peak-depth spread across languages = {spread:.2f}")
-    print("  -> small spread => the upper-middle placement is UNIVERSAL across families (location is a real property).")
+    if spread <= 0.3:
+        print("  -> small spread => the upper-middle placement is UNIVERSAL across families (location is a real property).")
+    else:
+        print(f"  -> spread = {spread:.2f}: peak-depth varies across language families; placement is not fully universal.")
     print("  -> magnitude ordering reveals whether alignment tracks typological distance or training representation.")
     print("\n[V] Qwen2.5-1.5B, mean-pooled at 8 depths, ~400 OPUS-100 pairs/lang, PCA-32, fp32.")
 

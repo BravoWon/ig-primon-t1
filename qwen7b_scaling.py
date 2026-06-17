@@ -75,7 +75,7 @@ def run():
     en_zh, zh = load_pairs("zh", N); en_es, es = load_pairs("es", N)
     print(f"  N={N} per language\n  loading Qwen2.5-7B (fp16, device_map auto)...")
     tok = AutoTokenizer.from_pretrained(QWEN7)
-    m = AutoModelForCausalLM.from_pretrained(QWEN7, dtype=torch.float16, device_map="auto")
+    m = AutoModelForCausalLM.from_pretrained(QWEN7, torch_dtype=torch.float16, device_map="auto")
     dev_in = m.get_input_embeddings().weight.device
     t0 = time.time()
     q_en_zh = embed_depths(m, tok, en_zh, dev_in); q_zh = embed_depths(m, tok, zh, dev_in)
