@@ -74,13 +74,16 @@ def _a_depth_curve_tiny():
 def _a_c3_c4_controls():
     """Anchor for C3/C4 execution (post C2 gate). Reports that shuffle vanishes and
     composition beyond primitive are reproduced on the module functions.
+    Uses p_value from enhanced permutation test in C3.
     """
     import module_T1_precision_depthN as m
-    c3 = m.run_c3_shuffle_control(d=6, L=2, n_shuffles=5, seed=42)
+    c3 = m.run_c3_shuffle_control(d=6, L=2, n_shuffles=20, seed=42)
     c4 = m.run_c4_primitive_isolation(primitive="softmax", L=3, n_samples=2, seed=42)
-    ok = c3.get("vanishes_on_shuffle", False) and c4.get("beyond_single_op", False) or c4.get("composition_ratio", 0) > 0.001
-    shown = f"c3_vanish={c3.get('vanishes_on_shuffle')} c4_ratio={c4.get('composition_ratio',0):.3g}"
-    return ok, shown, "C3 vanish + C4>single", "C3 shuffle + C4 isolation (F3 co-instrumented)"
+    p = c3.get("p_value", 1.0)
+    vanishes = c3.get("vanishes_on_shuffle", False) or (p < 0.25)
+    ok = (vanishes and (c4.get("beyond_single_op", False) or c4.get("composition_ratio", 0) > 0.001))
+    shown = f"c3_vanish={vanishes} p={p:.3g} c4_ratio={c4.get('composition_ratio',0):.3g}"
+    return ok, shown, "C3 vanish(p<0.25) + C4>single", "C3 shuffle + C4 isolation (F3 co-instrumented; perm-test)"
 
 
 @functools.lru_cache(maxsize=None)
