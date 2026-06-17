@@ -1,0 +1,20 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[OPT-2.7B FP4 MXFP4]  hardware-native FP4 grid vs INT4 at matched g128 (act_order=True)
+
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 32365.00it/s]
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\nn\modules\module.py:1370: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  return t.to(
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 33044.64it/s]
+                  config       PPL  dPPL vs gold
+               fp32 gold    52.668            --
+               INT4-g128    53.748        +2.05%
+        FP4-g128 (MXFP4)    53.038        +0.70%
+
+  grid cost (FP4 - INT4), log-PPL paired bootstrap:
+    mean -0.01329   95% CI [-0.01827, -0.00829]   (== -1.320% PPL)
+    significant at 95%: True
+
+[VERDICT]
+  FP4 BEATS INT4 (-1.32%) -- the E2M1 grid's nonuniform levels fit the weights better.
+
+[V-hw] RTX 5070 sm_120 + GTX 1660 Ti, OPT-2.7B, fp32 master, sequential GPTQ, WikiText-2. Held-out.
