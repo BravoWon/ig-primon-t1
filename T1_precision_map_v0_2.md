@@ -303,4 +303,11 @@ Net: the **science arm is `[V]`** (certified typical-case depth law + sparse, st
 - **Confound flagged:** OPT & GPT-2 share the GPT-2 BPE vocab → depth-0 alignment inflated by shared token statistics, not semantics; the honest cross-model signal is the (weaker, non-rigid) deeper layers.
 - **Net:** the gem holds but is *localized and limited* — strong at the shared-vocab surface and shared-task output, only loosely-linear in the private interior. Honest refinement: real, not total; linear, not isomorphic.
 
+**Amendment v0.2.17 (2026-06-17 — vocab-confound control: the gem deflated to its genuine-semantic core; versioned).** `gpt2_vocab_control.py`, receipt `results_gpt2_vocab_control.txt`. The v0.2.16 confound flag (OPT & GPT-2 share GPT-2 BPE) was quantified: from each model's deep representation, partial out (a) token frequency/length, (b) the model's own surface (input-embedding) subspace; re-measure cross-model alignment on residuals.
+
+- **Frequency is NOT the confound:** freq-partial ≈ raw (0.342→0.329 kNN). Not a "common-words-cluster" effect.
+- **Shared token-identity IS most of the signal:** surface-partial guts it — xl↔opt depth-0.75 kNN 0.34→0.12, linear-R² 0.45→0.055. The v0.2.15/16 headline (~0.4) was **substantially shared-tokenizer, not shared meaning**; "simple map R²~0.5" was mostly vocab. Honest correction of the earlier framing.
+- **A real but modest semantic convergence survives — local, not global:** residual kNN stays **6–10× chance** for the capable pair (xl↔opt 0.12–0.17 vs shuffled ~0.017), but residual linear-R² collapses to ~0.05–0.1 (≈0 for small↔opt). Beyond vocab, models agree on *nearest-neighbor structure* (topological) but are NOT globally linearly relatable. **Scales with capability:** xl↔opt keeps a residual, small↔opt barely (R² 0.001).
+- **Net (pre-reg confirmed: drop-but-survive):** independently-trained models converge in meaning beyond their shared tokenizer, but the genuine signal is **local neighbor-agreement at ~6–10× chance, strongest at the output and for capable models — not a global isomorphism.** The gem is real, much smaller than its surface numbers, and capability-gated. The whole horizon arc's honest endpoint: one survivable idea, measured to its true (modest) size.
+
 — End of `T1_precision_map` v0.2. Amendments require a versioned diff; silent edits void the registration.
