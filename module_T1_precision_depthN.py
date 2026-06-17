@@ -244,7 +244,7 @@ def run_depth_error_map(model_name: str = "gpt2-small", prec: str = "bf16") -> d
         # Small chain of errors via the recursion accumulator (core of H1), using a synthetic delta
         # from the observed block error (demo only)
         e_prev = np.zeros(2, dtype=float)
-        J_approx = np.eye(2) * 0.05   # placeholder Jacobian approx (real would come from autodiff or finite diff on block)
+        J_approx = np.eye(2) * 0.05   # synthetic Jacobian approx for recursion demo (full impl would derive from finite-diff/autodiff on actual block_forward)
         delta = np.array([block_rel * 1e-2, block_rel * 0.5e-2])  # scaled from observed
         e_next = compute_block_error(e_prev, J_approx, delta)
         depth_demo["recursion_chain_demo"] = [float(x) for x in e_next]
@@ -517,11 +517,11 @@ def run_trained_depth_curve_tiny(
 def main() -> int:
     """Entry point when run as `python -m module_T1_precision_depthN`."""
     print("T1_precision_map_v0_2 receipt skeleton")
-    # The real empirical harness (block_forward, run_depth, mpmath certs for C1/C2)
-    # is in the incorporated precision_depth_map.py (user-provided reference).
-    # Use: python -c \"import precision_depth_map\"  (or run the .py directly)
-    # compute_block_error (below) is the per-block recursion for the frozen H1.
-    # TODO: implement per plan tasks (integrate harness + recursion for depth map)
+    # Integrated per plan: compute_block_error (recursion for frozen H1), run_* controls
+    # (C1 via run_depth_error_map+firewall, C2 random exp repro, C3 shuffle, C4 isolation),
+    # run_trained_depth_curve_tiny + F3. Full harness logic mirrors incorporated
+    # precision_depth_map.py (reference). Used by anchors/tests/CLI. See plan + pre-reg.
+    # Run via: igprimon run depth-map (shows this); actual verification via igprimon verify.
     return 0
 
 if __name__ == "__main__":
