@@ -1,0 +1,25 @@
+[CROSS-LINGUAL PROCRUSTES]  is meaning an invariant geometry across language/model/tokenizer?
+
+  128 EN/ZH translation pairs
+  embedding (OPT local + Qwen2.5-0.5B download)...
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 20178.25it/s]
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\nn\modules\module.py:1370: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  return t.to(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights: 100%|##########| 290/290 [00:00<00:00, 9084.14it/s]
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights: 100%|##########| 290/290 [00:00<00:00, 6180.76it/s]
+  embedded.
+
+                                 arm  mutual-kNN   shuf  procrustes-R2  linear-R2
+     Qwen-EN <-> Qwen-ZH  (language)       0.201  0.074         -0.859     -1.035
+        OPT-EN  <-> Qwen-EN  (model)       0.262  0.074          0.168     -0.520
+         OPT-EN  <-> Qwen-ZH  (full)       0.209  0.066         -0.074     -0.444
+
+[READING]
+  arm (1) = does ONE multilingual model place translations in the same geometry? (language invariance)
+  arm (2) = do two DIFFERENT models with DIFFERENT tokenizers agree in English? (confound-free PRH)
+  arm (3) = the full test: shared meaning across model + language + tokenizer.
+  procrustes-R2 > 0 and >> shuffled kNN  =>  meaning is invariant geometry up to ROTATION.
+  (chance kNN ~ 0.062)
+
+[V] OPT-2.7B + Qwen2.5-0.5B, contextual ~2/3 depth, ~100 EN/ZH pairs, PCA-64, fp32.
