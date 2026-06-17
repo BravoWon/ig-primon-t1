@@ -1,14 +1,17 @@
 """DEPTH SWEEP of cross-lingual sentence alignment: WHERE in the network does the universal manifold live?
 
-v0.2.19 showed contextualized sentence meaning aligns cross-language. This maps it across depth. Cross-lingual is
-the clean probe: OPT & Qwen share NO vocab, so surface (token-embedding) alignment is impossible -- alignment can
-only emerge where meaning abstracts away from surface tokens. Mean-pool parallel sentences at 8 relative depths;
-track Qwen-EN<->Qwen-ZH (language invariance) and OPT-EN<->Qwen-EN (model invariance) per depth.
+v0.2.19 showed contextualized sentence meaning aligns cross-language. This maps it across depth. Two arms:
+  - Qwen-EN<->Qwen-ZH (language invariance): Qwen shares a tokenizer/embedding matrix across languages, so
+    depth-0 alignment CAN occur for surface/vocabulary reasons in this arm.
+  - OPT-EN<->Qwen-EN (model invariance): OPT & Qwen share NO vocab, so surface alignment is impossible here;
+    alignment can only emerge where meaning abstracts away from surface tokens.
+Mean-pool parallel sentences at 8 relative depths.
 
-PRE-REG: cross-lingual alignment LOW at depth 0 (different vocab -> token embeddings can't align), PEAKS mid-to-
-upper (~0.6-0.8, meaning abstracted), possibly dips at the last layer (specializes to next-token in each language).
-This locates the universal manifold in the upper-middle. Falsifier: flat, or surface-peaked (would contradict the
-meaning-abstraction picture).
+PRE-REG: for the cross-model arm (OPT<->Qwen), alignment expected LOW at depth 0 (different vocab), PEAKS
+mid-to-upper (~0.6-0.8, meaning abstracted), possibly dips at the last layer. For the cross-lingual arm
+(Qwen EN<->ZH), depth-0 alignment is possible due to shared tokenizer; the interesting question is whether
+alignment further *strengthens* at mid-to-upper depth beyond any surface baseline.
+Falsifier: flat profile on cross-model arm, or no mid-layer peak above depth-0 baseline on cross-lingual arm.
 [V] OPT-2.7B + Qwen2.5-1.5B, mean-pooled hidden states at 8 depths, N=700 OPUS-100 en-zh, fp32.
 """
 import gc
@@ -97,8 +100,12 @@ def run():
 
     peak = max(DEPTHS, key=lambda d: p_at1(qwen_en[d], qwen_zh[d]))
     print(f"\n[VERDICT]  cross-lingual (Qwen EN<->ZH) P@1 peaks at relative depth {peak:.2f}")
-    print("  -> if peak is mid-to-upper and depth-0 is low, the universal manifold lives where meaning abstracts")
-    print("     from surface tokens -- NOT at the token surface (which can't align across different vocabularies).")
+    if peak <= 0.2:
+        print("  -> peak near depth 0: alignment is surface-driven (Qwen EN<->ZH shares tokenizer/embeddings).")
+    elif peak >= 0.5:
+        print("  -> peak is mid-to-upper: alignment strengthens where meaning abstracts from surface tokens.")
+    else:
+        print("  -> peak is at shallow-to-intermediate depth; see cross-model arm (OPT<->Qwen) for vocab-confound-free signal.")
     print("\n[V] OPT-2.7B + Qwen2.5-1.5B, mean-pooled at 8 depths, N=700 OPUS-100 en-zh, fp32.")
 
 

@@ -36,7 +36,6 @@ C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\
       1.00   0.933   0.399     0.671
 
 [VERDICT]  cross-lingual (Qwen EN<->ZH) P@1 peaks at relative depth 0.00
-  -> if peak is mid-to-upper and depth-0 is low, the universal manifold lives where meaning abstracts
-     from surface tokens -- NOT at the token surface (which can't align across different vocabularies).
+  -> peak near depth 0: alignment is surface-driven (Qwen EN<->ZH shares tokenizer/embeddings).
 
 [V] OPT-2.7B + Qwen2.5-1.5B, mean-pooled at 8 depths, N=700 OPUS-100 en-zh, fp32.
