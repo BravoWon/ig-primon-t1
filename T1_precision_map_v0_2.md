@@ -295,4 +295,12 @@ Net: the **science arm is `[V]`** (certified typical-case depth law + sparse, st
 - **Self-catch:** first linear-R² was −1.6 (N_train=480 words < d≤2560 → underdetermined overfit); PCA-to-64 fixed it to +0.59. Would have shipped a false "map isn't simple."
 - **Net / the method's payoff:** across the whole horizon thread (prime grid null, allocation inert, low-rank dead, semantic-prime privilege refuted, Hangul invisible) the ONE idea that survived the teardown is the one that measures POSITIVE. Drop the dressing, the real intuition survives and runs — that separation is the value.
 
+**Amendment v0.2.16 (2026-06-17 — the gem deepened: per-layer alignment + Procrustes refines v0.2.15; two predictions falsified; versioned).** `gpt2_alignment_layers.py`, receipt `results_gpt2_alignment_layers.txt`. The validated representation-alignment gem (v0.2.15) was resolved across depth and tested for rigidity (orthogonal Procrustes vs free linear), three model pairs, 5 relative depths.
+
+- **Depth curve is U-shaped, NOT a mid-network peak (prediction falsified):** alignment highest at the token-surface (depth 0: kNN 0.63–0.74) and rising again at the output (depth 1.0, capable pair kNN 0.429), lowest in the private interior (0.25–0.34). Shared at the ends (vocab + task), private in the middle.
+- **The map is a rotation only at the surface; the interior needs anisotropic linear distortion (strong "isomorphic up to rotation" claim falsified):** Procrustes-R² ≈ linear-R² at depth 0 (rotation suffices) but goes **negative** in the interior (−0.07 to −0.54) while linear-R² stays ~0.5. Interior reps are *linearly* relatable, not *orthogonally*. v0.2.15's "simple map ~0.5" was the linear (not rotational) relatability of a single mid-layer — corrected here.
+- **Convergence (PRH) localizes at the output and scales with capability:** xl↔opt depth-1.0 kNN 0.429 vs small↔opt 0.189 — the capable pair converges most where both face the same next-token objective. Cleanest convergence signal in the run.
+- **Confound flagged:** OPT & GPT-2 share the GPT-2 BPE vocab → depth-0 alignment inflated by shared token statistics, not semantics; the honest cross-model signal is the (weaker, non-rigid) deeper layers.
+- **Net:** the gem holds but is *localized and limited* — strong at the shared-vocab surface and shared-task output, only loosely-linear in the private interior. Honest refinement: real, not total; linear, not isomorphic.
+
 — End of `T1_precision_map` v0.2. Amendments require a versioned diff; silent edits void the registration.
