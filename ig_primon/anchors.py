@@ -26,7 +26,7 @@ import sys
 from dataclasses import dataclass, field
 from typing import Callable
 
-# precision-depth group stub (added for T1 experiment skeleton)
+# precision-depth group (T1_precision_map_v0_2; C1/C2/C3/C4 + depth curve per plan)
 def _a_depth_skeleton():
     import numpy as np
     import module_T1_precision_depthN as m
@@ -374,7 +374,7 @@ ANCHORS: list[AnchorSpec] = [
     # per pre-reg tagging convention + slow flag for verify --quick filtering.
     # depth-skeleton is [infra] tooling; c1-identity / depth-curve / c3-c4 are [V] (post C2/C3/C4).
     AnchorSpec("depth-skeleton", "precision-depth", "[infra]",
-               "skeleton depth map / recursion identity for C1 stub", _a_depth_skeleton, slow=False),
+               "depth map recursion identity + C1 skeleton (precision-depth group)", _a_depth_skeleton, slow=False),
     AnchorSpec("c1-identity", "precision-depth", "[V]",
                "C1 identity: zero-error on same-prec run + recursion (harness+firewall integration)", _a_c1_identity, slow=False),
     # Task 7: anchors for main [V] depth-error curve metrics + full controls C3/C4
