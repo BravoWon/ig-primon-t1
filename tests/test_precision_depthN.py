@@ -70,3 +70,17 @@ def test_c3_shuffle_control():
     assert "control_passed" in res or "vanishes_on_shuffle" in res
     assert res.get("control_passed", False) or res.get("vanishes_on_shuffle", False), \
         f"C3 failed: corr did not vanish on shuffle (real={res.get('real_corr')}, shuf={res.get('shuffle_mean')})"
+
+
+def test_c4_primitive_isolation():
+    """C4: Single primitive in isolation using precision matrix entries.
+    Per pre-reg §4/Task7: run depth-N with composition vs isolated primitive error
+    (from existing ig_primon.precision matrix) to confirm depth composition does
+    more than per-op error. Written first per TDD.
+    """
+    from module_T1_precision_depthN import run_c4_primitive_isolation
+    res = run_c4_primitive_isolation(primitive="softmax", d=6, L=4, n_samples=2, seed=20260616)
+    assert "full_depth_err" in res and "composition_ratio" in res
+    assert "beyond_single_op" in res
+    assert res.get("beyond_single_op", False) or res.get("composition_ratio", 0) > 1.0, \
+        f"C4 failed: no composition effect beyond single primitive (ratio={res.get('composition_ratio')})"
