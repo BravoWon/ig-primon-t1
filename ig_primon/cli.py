@@ -27,6 +27,7 @@ RECEIPTS = {
     "hw-firewall": "module_hw_firewall",
     "ridge-transfer": "module_L_ridge_transfer",
     "perceptron-mcmc-control": "module_L_perceptron_mcmc_control",
+    # Task 6: depth-map registered for igprimon run + harness verify integration
     "depth-map": "module_T1_precision_depthN",
 }
 

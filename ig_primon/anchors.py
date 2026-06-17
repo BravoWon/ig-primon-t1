@@ -341,10 +341,11 @@ ANCHORS: list[AnchorSpec] = [
     AnchorSpec("c-constant", "number-theory", "[V]",
                "registered geometric constant C reproduced within 6e-31", _a_c_constant, slow=True),
 
-    # precision-depth group for T1 experiment (skeleton for now, per plan)
-    AnchorSpec("depth-skeleton", "precision-depth", "[infra]",
+    # precision-depth group (Task 6 CLI/harness integration): new anchors with [GATE] status
+    # per plan until C2 passes (hard gate per pre-reg Stage 1). C1 is identity; C2 in Task 5.
+    AnchorSpec("depth-skeleton", "precision-depth", "[GATE]",
                "skeleton depth map / recursion identity for C1 stub", _a_depth_skeleton),
-    AnchorSpec("c1-identity", "precision-depth", "[infra]",
+    AnchorSpec("c1-identity", "precision-depth", "[GATE]",
                "C1 identity: zero-error on same-prec run + recursion (harness+firewall integration)", _a_c1_identity),
 ]
 
