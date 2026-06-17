@@ -1,0 +1,25 @@
+'[Errno 11001] getaddrinfo failed' thrown while requesting HEAD https://huggingface.co/datasets/Salesforce/wikitext/resolve/b08601e04326c79dfdd32d625aee71d232d685c3/wikitext.py
+Retrying in 1s [Retry 1/5].
+Using the latest cached version of the dataset since Salesforce/wikitext couldn't be found on the Hugging Face Hub
+Found the latest cached dataset configuration 'wikitext-2-raw-v1' at C:\Users\JT-DEV1\.cache\huggingface\datasets\Salesforce___wikitext\wikitext-2-raw-v1\0.0.0\b08601e04326c79dfdd32d625aee71d232d685c3 (last modified on Tue Jun 16 15:52:04 2026).
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\gpt2_prime_grid.py:60: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  eval_ids = ids[:8192].to(DEV)
+[GPT-2 small PRIME-GRID]  prime {0,1,2,3,5,7,11,13} vs FP4 vs INT4 at 4-bit (GPTQ act-order g128)
+
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 9778.01it/s]
+  gold PPL = 40.081
+
+              grid  levels       PPL  dPPL vs gold
+    INT4 (uniform)      15    44.314       +10.56%
+        FP4 (E2M1)      15    42.754        +6.67%
+             PRIME      15    42.788        +6.75%
+
+[VERDICT -- scored against pre-registration]
+  PRIME vs FP4: +0.08%   PRIME vs INT4: -3.44%
+  -> PRIME ~ FP4 (within noise): prime grid is just another denser-near-zero grid, NO special advantage.
+     Weak form null. Does NOT touch the STRONG form (factorization-as-role-code in routing).
+
+  NOTE: this tests the GRID only. The compositional claim (0=pathway, 1=coherence, primes=decodable
+  amplification roles via unique factorization) is a routing/gating experiment, not a weight grid.
+
+[V] gpt2-small, WikiText-2 held-out, strided PPL, fp32, GPTQ act-order g128, matched 4-bit.
