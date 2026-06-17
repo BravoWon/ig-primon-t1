@@ -370,17 +370,18 @@ ANCHORS: list[AnchorSpec] = [
     AnchorSpec("c-constant", "number-theory", "[V]",
                "registered geometric constant C reproduced within 6e-31", _a_c_constant, slow=True),
 
-    # precision-depth group (Task 6 CLI/harness integration): new anchors with [GATE] status
-    # per plan until C2 passes (hard gate per pre-reg Stage 1). C1 is identity; C2 in Task 5.
-    AnchorSpec("depth-skeleton", "precision-depth", "[GATE]",
-               "skeleton depth map / recursion identity for C1 stub", _a_depth_skeleton),
-    AnchorSpec("c1-identity", "precision-depth", "[GATE]",
-               "C1 identity: zero-error on same-prec run + recursion (harness+firewall integration)", _a_c1_identity),
+    # precision-depth group (Task 6+ CLI/harness integration): anchors use proper status tags
+    # per pre-reg tagging convention + slow flag for verify --quick filtering.
+    # depth-skeleton is [infra] tooling; c1-identity / depth-curve / c3-c4 are [V] (post C2/C3/C4).
+    AnchorSpec("depth-skeleton", "precision-depth", "[infra]",
+               "skeleton depth map / recursion identity for C1 stub", _a_depth_skeleton, slow=False),
+    AnchorSpec("c1-identity", "precision-depth", "[V]",
+               "C1 identity: zero-error on same-prec run + recursion (harness+firewall integration)", _a_c1_identity, slow=False),
     # Task 7: anchors for main [V] depth-error curve metrics + full controls C3/C4
     AnchorSpec("depth-curve-tiny", "precision-depth", "[V]",
-               "basic trained tiny depth-error curve (P1 slope) + F3 instrumentation", _a_depth_curve_tiny),
+               "basic trained tiny depth-error curve (P1 slope) + F3 instrumentation", _a_depth_curve_tiny, slow=False),
     AnchorSpec("c3-c4-controls", "precision-depth", "[V]",
-               "C3 shuffle-control (kappa corr vanishes) + C4 primitive isolation (beyond per-op)", _a_c3_c4_controls),
+               "C3 shuffle-control (kappa corr vanishes) + C4 primitive isolation (beyond per-op)", _a_c3_c4_controls, slow=False),
 ]
 
 
