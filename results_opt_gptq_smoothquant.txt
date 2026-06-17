@@ -1,0 +1,23 @@
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\opt_gptq_smoothquant.py:32: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  FP8 = torch.tensor(sorted({0.0, *[(m / 8 if e == 0 else (1 + m / 8)) * 2.0 ** (e - 7 if e else -6)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[OPT-2.7B SmoothQuant W4A4]  does outlier migration recover the naive 4-bit-activation collapse?
+
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 33050.18it/s]
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 15977.54it/s]
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 32518.86it/s]
+                config         PPL  dPPL vs gold
+             fp32 gold      52.668            --
+  smooth-A16 (control)      53.020        +0.67%   [identity check: OK]
+             smooth-A8      53.069        +0.76%
+    naive-A4 (Layer 3)   19714.782    +37331.98%
+             smooth-A4   17555.303    +33231.83%
+
+  recovery (smooth-A4 - naive-A4), log-PPL paired bootstrap:
+    mean -0.1160   95% CI [-0.1656, -0.0655]   (smooth < naive)
+
+[VERDICT]
+  CONTROL OK (smooth-A16 = +0.67%, fold verified identity).
+  SmoothQuant only partially helps W4A4 (+33231.8%) -- report straight; 4-bit acts need rotation.
+
+[V-hw] RTX 5070 sm_120 + GTX 1660 Ti, OPT-2.7B, fp32 master, sequential GPTQ FP4-g128+act-order, WikiText-2.
