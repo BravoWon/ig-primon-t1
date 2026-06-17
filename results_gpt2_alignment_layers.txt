@@ -1,0 +1,39 @@
+[DEEPEN THE GEM]  per-layer alignment + orthogonal Procrustes (strict isomorphism test)
+
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 5041.56it/s]
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\nn\modules\module.py:1370: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  return t.to(
+  embedded 600 words x 5 depths in gpt2-small
+Loading weights:   0%|          | 0/580 [00:00<?, ?it/s]Loading weights: 100%|##########| 580/580 [00:00<00:00, 7361.61it/s]
+  embedded 600 words x 5 depths in gpt2-xl
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|##########| 517/517 [00:00<00:00, 32609.82it/s]
+  embedded 600 words x 5 depths in opt-2.7b
+
+  [gpt2-small <-> gpt2-xl]    depth  mutual-kNN  linear-R2  procrustes-R2
+                                0.00       0.735      0.769          0.674
+                                0.25       0.312      0.660          0.282
+                                0.50       0.256      0.595          0.075
+                                0.75       0.247      0.584          0.047
+                                1.00       0.250      0.562          0.061
+
+  [gpt2-small <-> opt-2.7b]    depth  mutual-kNN  linear-R2  procrustes-R2
+                                 0.00       0.627      0.684          0.482
+                                 0.25       0.334      0.521         -0.135
+                                 0.50       0.278      0.427         -0.538
+                                 0.75       0.274      0.412         -0.512
+                                 1.00       0.189      0.517         -0.036
+
+  [gpt2-xl <-> opt-2.7b]    depth  mutual-kNN  linear-R2  procrustes-R2
+                              0.00       0.668      0.776          0.700
+                              0.25       0.347      0.535          0.051
+                              0.50       0.339      0.490         -0.071
+                              0.75       0.342      0.489         -0.023
+                              1.00       0.429      0.639          0.390
+
+[READING]
+  - depth of PEAK alignment = where the shared 'platonic' structure concentrates (expect mid-network).
+  - procrustes-R2 vs linear-R2: if procrustes stays close to linear, the map is ~a ROTATION -> the
+    spaces are isomorphic up to orthogonal transform (the strongest form). A big gap = the map needs
+    real linear freedom (stretch/shear), weaker claim.
+
+[V] gpt2-small/xl + opt-2.7b, contextual hidden states at 5 depths, shared word set, fp32.
