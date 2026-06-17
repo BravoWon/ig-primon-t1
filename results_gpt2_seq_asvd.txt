@@ -1,0 +1,20 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\gpt2_seq_asvd.py:89: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  eval_ids = ids[:8192].to(DEV)
+[GPT-2 small SEQUENTIAL ASVD]  does propagated calibration close the low-rank catastrophe?
+
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|##########| 148/148 [00:00<00:00, 9456.70it/s]
+  gold PPL = 40.081
+
+   ratio bits  par-plain   par-actW  seq-plain   seq-actW  quant-GPTQ
+   0.500    8    6664.81    8337.26    6664.81    7171.28       40.09
+   0.250    4    6351.67   18244.72    6351.67   25056.01       44.31
+
+[VERDICT -- scored against pre-registration]
+  r=0.5 (8-bit): seq-ASVD 7171.3 vs parallel-ASVD 8337.3 -> staleness was the cause: True (1.2x better); act-weighting helps (seq): False; beats quant (40.1): False
+  r=0.25 (4-bit): seq-ASVD 25056.0 vs parallel-ASVD 18244.7 -> staleness was the cause: False (0.7x better); act-weighting helps (seq): False; beats quant (44.3): False
+
+  Reading: if seq>>parallel but seq-ASVD still > quant, the sequential FRAME is right for low-rank too,
+  yet the strong eigenweight form stays dead -- quantization-in-the-use-metric remains the frontier.
+
+[V] gpt2-small, WikiText-2 held-out, strided PPL, fp32, matched stored-bits, sequential propagation.
