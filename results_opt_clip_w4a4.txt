@@ -1,0 +1,24 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[OPT-2.7B rotation + CLIPPING W4A4]  best storage-free W4A4 on the flagship outlier model
+
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|██████████| 517/517 [00:00<00:00, 16252.48it/s]
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\.venv\Lib\site-packages\torch\nn\modules\module.py:1370: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  return t.to(
+  bf16 gold PPL = 49.764
+
+Loading weights:   0%|          | 0/517 [00:00<?, ?it/s]Loading weights: 100%|██████████| 517/517 [00:00<00:00, 32553.03it/s]
+  rotated W4A16 (control): 49.713 (-0.10%)
+
+  rotated W4A4 -- clip sweep:
+     clip a    W4A4 PPL  dPPL vs gold
+       1.00      65.526        +31.7%
+       0.85      59.352        +19.3%
+       0.70      58.172        +16.9%
+       0.60      55.159        +10.8%
+       0.50      57.773        +16.1%
+
+[VERDICT]
+  OPT-2.7B W4A4: naive +37,843% (v0.2.24) -> rotation +24% (clip=1.0) -> rotation+clip BEST +10.8% (a=0.60)
+  Complete storage-free W4A4 recipe on the real outlier model: rotation + clipping, all 4-bit, no padding.
+
+[V-hw] OPT-2.7B, WikiText-2, bf16 master, sequential GPTQ FP4-g128+act-order + clipped per-token INT4 acts.
