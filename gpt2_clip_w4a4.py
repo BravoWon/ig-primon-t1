@@ -12,7 +12,6 @@ limited gains -- I expect it shaves the residual modestly (maybe +44% -> ~+25-35
 [V] gpt2-small, WikiText-2 held-out, strided PPL, fp32, FP4-g128+act-order wt + per-token INT4 acts, random rotation.
 """
 import torch
-import torch.nn.functional as Fn
 import gpt2_eigensweep as E
 
 torch.set_grad_enabled(False)
@@ -86,7 +85,6 @@ def run():
         mod.weight.data = orig[n].to(DEV)
 
     print(f"\n[VERDICT]")
-    no_clip = None
     print(f"  best clip a={best[0]:.2f}: W4A4 +{100*(best[1]/gold-1):.1f}%  (no-clip a=1.0 was the first row)")
     print(f"  reference: padded rotation (1.33x storage) was +20%; near-lossless would be sub-few-%.")
     print("  -> if best-clip is well below +44% and approaching the padded +20% FOR FREE, clipping is the cheap")
