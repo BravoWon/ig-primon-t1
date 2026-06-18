@@ -1,0 +1,21 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\gpt2_hadamard_w4a4.py:90: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  ids = E.corpus_ids(tok); eval_ids = ids[:8192].to(DEV)
+[GPT-2 HADAMARD vs random rotation, W4A4]  is the residual the BASIS or the SCHEME?
+
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 7027.15it/s]
+  gold PPL = 40.081
+
+             naive (Q=I): W4A16    44.616 (+11.32%)   W4A4    2678.240 (+6582.10%)
+    random-ortho (unpad): W4A16    44.091 (+10.00%)   W4A4      57.779 (+44.16%)
+   random-ortho (padded): W4A16    41.438 (+3.39%)   W4A4      48.272 (+20.44%)
+  rand-Hadamard (padded): W4A16    41.429 (+3.36%)   W4A4      47.542 (+18.62%)
+
+[VERDICT -- scored against pre-registration]
+  W4A4: naive +6582%  |  ortho-unpad +44%  |  ortho-PADDED +20%  |  Hadamard +19%
+  padding effect (ortho-pad vs ortho-unpad): -16.5%
+  Hadamard-structure effect (Hadamard vs ortho-PADDED, matched dims): -1.5%
+  -> Hadamard ~ padded-random (prediction HOLDS): the win is the PADDING (more channels to smear into),
+     not the Hadamard structure. The basis isn't the lever; near-lossless needs the full scheme.
+
+[V] gpt2-small, WikiText-2 held-out, strided PPL, fp32, FP4-g128+act-order weights + per-token INT4 acts.
