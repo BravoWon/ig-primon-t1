@@ -331,4 +331,10 @@ All controls C1–C4 pass, F3 is instrumented, recursion and firewall integratio
 - **The complete storage-free W4A4 recipe is rotation + clipping:** GPT-2 +6582% collapse → **+26%** at honest 4-bit storage (FP4-g128+act-order weights).
 - **But not near-lossless** (+26% vs sub-few-%). The pre-reg held (predicted modest +25–35%). This is the **practical W4A4 floor for a small model with storage-free tools.** Combined with v0.2.22/26, the remaining gap is now *characterized*: a **model-scale problem** (near-lossless W4A4 wants a bigger, more-redundant model — frontier hardware, blocked), **not a missing trick.** The residual-stream-rotation scheme would make this same recipe *free at inference* (a deployment win) but lands at the same fidelity.
 
+**Amendment v0.2.28 (2026-06-17 — the complete storage-free W4A4 recipe on the flagship: OPT-2.7B rotation+clipping = +10.8%; versioned).** `opt_clip_w4a4.py`. Applied the proven rotation+clipping recipe (v0.2.24/27) to OPT-2.7B — the severe-outlier model. One rotated reconstruction, clip sweep.
+
+- **Result:** OPT-2.7B W4A4: naive **+37,843%** (18,882 PPL) collapse → rotation **+24–32%** (random-rotation variance) → **rotation + clipping = +10.8%** (α=0.60, 55 PPL). A **~340× perplexity reduction over naive**, storage-free, all 4-bit, no padding.
+- **Clipping helps MORE on OPT than GPT-2** (−21 points vs −18; optimal α lower, 0.60 vs 0.70) — OPT's more-extreme per-channel outliers reward more aggressive clipping.
+- **The complete storage-free W4A4 recipe (rotation + clipping) gets the severe-outlier OPT model to +10.8%** — usable, though not yet near-lossless (vs deployable W4A8 +1.01%); the residual is the model-scale floor (v0.2.27). **The activation cliff is fully tamed:** collapse → SmoothQuant insufficient → rotation rescues (+24%) → clipping refines (+10.8%). The W4A4 frontier is mapped *and* a storage-free recipe delivered; closing to near-lossless is a frontier-hardware (bigger-model) problem, the one named open gap.
+
 — End of `T1_precision_map` v0.2. Amendments require a versioned diff; silent edits void the registration.
