@@ -1,0 +1,23 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\gpt2_dimension_w4a4.py:71: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  ids = E.corpus_ids(tok); eval_ids = ids[:8192].to(DEV)
+[GPT-2 DIMENSION sweep for W4A4]  over-dimensioned rotation: real lever or storage trade?
+
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 4700.85it/s]
+  gold PPL = 40.081
+
+      rotation dim  storage x   W4A4 PPL  dPPL vs gold
+    naive (no rot)      1.00x    2678.24      +6582.1%
+       1x nextpow2      1.33x      48.53        +21.1%
+       2x nextpow2      2.67x      43.54         +8.6%
+       4x nextpow2      5.33x      41.25         +2.9%
+
+[VERDICT -- driftwave round-trip: re-derive from the PPL-vs-storage curve]
+  PPL by storage: 1.3x->+21% | 2.7x->+9% | 5.3x->+3%
+  diminishing returns (4x vs 2x): -5.2%  ->  SATURATED
+  BUT storage cost at the best point (5.3x weights) is the catch: W4A4 at 5.3x
+  4-bit storage = 21.3 effective bits/orig-weight -- comparable to just using higher precision.
+  HONEST READ: over-dimensioned rotation lowers PPL but TRADES STORAGE; it is not a free efficiency lever.
+  The storage-free path to near-lossless W4A4 is the SCHEME (residual-stream rotation), not dimension/basis.
+
+[V] gpt2-small, WikiText-2 held-out, strided PPL, fp32, FP4-g128+act-order wt + per-token INT4 acts.
