@@ -1,0 +1,27 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+C:\Users\JT-DEV1\Desktop\development\ig-primon-t1\gpt2_clip_w4a4.py:61: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  ids = E.corpus_ids(tok); eval_ids = ids[:8192].to(DEV)
+[GPT-2 CLIPPING for rotated W4A4]  can a storage-free clip close the +44% residual?
+
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 4706.81it/s]
+  gold PPL = 40.081
+
+  naive W4A4 (no rotation, no clip): 2678.2 (+6582%)
+
+  rotated (random-ortho, unpadded) W4A4 -- clip sweep:
+     clip a   W4A4 PPL  dPPL vs gold
+       1.00     57.779        +44.2%
+       0.90     53.583        +33.7%
+       0.80     51.743        +29.1%
+       0.70     50.675        +26.4%
+       0.60     53.284        +32.9%
+       0.50     67.863        +69.3%
+
+[VERDICT]
+  best clip a=0.70: W4A4 +26.4%  (no-clip a=1.0 was the first row)
+  reference: padded rotation (1.33x storage) was +20%; near-lossless would be sub-few-%.
+  -> if best-clip is well below +44% and approaching the padded +20% FOR FREE, clipping is the cheap
+     storage-free fidelity knob. If it barely moves, +44% is the per-token-INT4 floor on this small model
+     and near-lossless W4A4 needs a bigger model / the full residual-stream scheme.
+
+[V] gpt2-small, WikiText-2 held-out, strided PPL, fp32, FP4-g128+act-order wt + per-token INT4 acts.
