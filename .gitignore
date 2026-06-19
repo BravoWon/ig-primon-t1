@@ -32,3 +32,6 @@ genuine_v4_results.jsonl
 
 # downloaded datasets (reproducible)
 muse_en_zh.txt
+
+# CBP drilling pipeline data (downloaded RRC bulk + large outputs, all reproducible)
+cbp_wolfcamp/data/
