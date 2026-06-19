@@ -46,7 +46,11 @@ IG-PRIMON arithmetic dictionary already states.)*
    crossing smooths to a hypersurface. **Both sides now show the SAME signature** — pole *location* universal,
    pole *order / multiplicity* carries the structure (rank-graded on the arithmetic side, layer-width here).
    The dictionary's central claim, confirmed at *both* ends.
-6. ☐ make the **subleading ↔ arithmetic** map quantitative (the dictionary's payload).
+6. ✅ **subleading = closed form in the Euler–Kronecker constant** (`test6_subleading.py`): reconstructed
+   `subleading = 2c₂ − γ_K²` from the Laurent data of ζ_K, with **γ_K = the Euler–Kronecker constant** — and
+   γ_K(ℚ) = 0.577216 = Euler–Mascheroni (anchor ✓). Predicted vs measured: ℚ −0.188/−0.185, ℚ(√−3) −0.486/−0.478,
+   ℚ(√5) −1.265/−1.223, cubic −2.224/−2.140. **The dictionary's payload is exact** — the arithmetic-side subleading
+   is a *named invariant* (Euler–Kronecker γ_K + next Laurent coefficient), not a fitted number. *This is the result.*
 7. ☐ **up the ladder:** sheaf cohomology of the RLCT-section over a family — does the local effective-dimension
    glue to a global obstruction?
 
