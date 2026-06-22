@@ -1,0 +1,22 @@
+======================================================================== 
+BUTLER ARBUCKLE  (carbonate / structural -- our verified play type)
+ ========================================================================
+  ARBUCKLE      structure -> log best12:  n=  31  rho=+0.300  p=1.0e-01
+  MISSISSIPPIAN structure -> log best12:  n=  76  rho=+0.063  p=5.9e-01
+
+  FOOTPRINT (T28S R5-6E box): 53 leases / 140 wells; median best12=2082 bbl
+  footprint Arbuckle structure: median subsea=-1610 = 26th pct of county (higher pct = structurally higher = better)
+
+======================================================================== 
+OLD PAINT / ALGRIM  (Morrow SANDSTONE -- value = sand fairway, NOT structure)
+ ========================================================================
+  Morrow tops in county set: 318 wells; with interval thickness (BASE): 20
+  Morrow interval thickness ft (sand-fairway proxy): p10=8 p50=17 p90=22
+  Morrow thickness -> log best12 (OIL leases only, n=20): rho=-0.318 p=1.7e-01
+
+  FOOTPRINT (T23-24S R29-30W box): 53 oil leases / 92 wells
+  footprint oil productivity: median best12=4153 median cum=19996 bbl
+  FINNEY: 397 oil leases / 874 wells  (development density -> developed)
+  GRAY: 78 oil leases / 90 wells  (development density -> OPEN)
+
+  NOTE: oil-only record. SW-Kansas Morrow is gas-prone -> these oil numbers are a FLOOR.
