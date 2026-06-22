@@ -1,0 +1,24 @@
+[value_geometry on KGS]  n=3421 CKU single-well leases, 23 geometric features
+  feature coverage (non-NaN %): subsea_KANS=100, thk_KANS_MISS=33, thk_KANS_ARBU=61
+
+[VERIFY gate]  within-county leave-one-out rank-IC (mean over counties, n>=30):
+  baseline structure(subsea KC)   IC=+0.212  (12/14 counties +)
+  baseline thickness(KC->MISS)    IC=+0.303  (7/7 counties +)
+  baseline depth(KC)              IC=-0.157  (3/14 counties +)
+  FULL value field v_hat      IC=+0.198  (12/14 counties +)
+  --> lift over best baseline = -0.105   VERDICT: HOLD (no lift over baseline)
+
+[PERSIST]  H0 single-linkage on n=1130 (complete-core manifold)
+  unwarped g0        top merge-scales=[4.06 3.89 3.42 2.91]  3-cut sizes=[np.int64(671), np.int64(457), np.int64(1)]  value-spread(log bbl)=0.68
+  value-warped g_v   top merge-scales=[7.68 6.38 6.21 6.04]  3-cut sizes=[np.int64(1127), np.int64(1), np.int64(1)]  value-spread(log bbl)=0.00
+
+[BOUNDARY]  nodal/choke set: top-decile ||grad v_hat|| on the graph
+  nodal wells: 113  Moran's I (spatial clustering)=+0.092  (scattered ~ noise)
+  mean log-best12: nodal=7.46 vs non-nodal=7.79
+
+[FLOW]  top-5 high-graded wells by v_hat (county, predicted, actual best12 bbl):
+    NESS      v_hat=+9.27  actual=  5324
+    NESS      v_hat=+9.24  actual=  3744
+    TREGO     v_hat=+9.17  actual= 16203
+    NESS      v_hat=+9.16  actual= 19217
+    NESS      v_hat=+9.12  actual=  3114

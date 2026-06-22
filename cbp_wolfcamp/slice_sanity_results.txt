@@ -1,0 +1,32 @@
+[SLICE sanity] 208 shelf grid candidates; density from 12638 CKU leases (23903 wells)
+  candidate local density (wells within 8 km): p10=10 p50=64 p90=190
+
+[A] ORIGINAL top-10 by UCB -- how saturated are they?
+   lat      lon     ucb   wells<3km  wells<8km  verdict
+   38.989 -100.007  +9.79      1         27     step-out
+   38.892 -100.166  +9.79      0         35     step-out
+   38.844 -100.166  +9.75     32         38     step-out
+   38.941 -100.007  +9.73      2          3     step-out
+   38.892 -100.007  +9.69      0          2     step-out
+   38.844 -100.007  +9.69      1          4     step-out
+   38.747 -100.166  +9.69     19         64     MATURE infill
+   39.038 -100.086  +9.65      2         30     step-out
+   38.989 -100.086  +9.63      0         20     step-out
+   38.698 -100.007  +9.60      0         91     MATURE infill
+  --> 2/10 of the UCB top-10 sit in above-median-density (saturated) acreage
+
+[B] OPEN step-out re-rank (wells<8km <= p35=46): 73 open candidates; top-10 by UCB among open acreage:
+   lat      lon     v_hat  sigma  ucb   wells<8km  nearest(km)
+   38.989 -100.007  +9.03  0.76  +9.79     27      4.0
+   38.892 -100.166  +8.96  0.83  +9.79     35      5.2
+   38.844 -100.166  +8.93  0.82  +9.75     38      2.7
+   38.941 -100.007  +8.91  0.82  +9.73      3      2.2
+   38.892 -100.007  +8.95  0.75  +9.69      2      6.4
+   38.844 -100.007  +8.72  0.97  +9.69      4      3.3
+   39.038 -100.086  +9.00  0.65  +9.65     30      3.8
+   38.989 -100.086  +8.93  0.70  +9.63     20      5.6
+   38.844 -100.086  +8.80  0.78  +9.58     40      3.7
+   38.747 -100.245  +8.60  0.97  +9.56     15      5.7
+
+[SUMMARY] best infill UCB=+9.79 (wells<8km=27) vs best OPEN UCB=+9.79 (wells<8km=27)
+  predicted-value give-up for going open: +0.00 log-bbl (+0% best12)
