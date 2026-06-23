@@ -1,25 +1,25 @@
-[SLICE] MASK to shelf regime: n=671 wells; features=['subsea_KANS', 'depth_KANS', 'thk_KANS_MISS', 'lat', 'lon']
+[SLICE] MASK to shelf regime: n=672 wells; features=['subsea_KANS', 'depth_KANS', 'thk_KANS_MISS', 'lat', 'lon']
 
 [VERIFY] active-learning backtest (shared seed + frozen 1/3 test set):
   policy     test-RMSE@end  RMSE-AUC(lower=learns faster)  test-IC@end  mean discovered best12
-  random     1.134          1.151                  +0.405           2947
-  value      1.166          1.163                  +0.239           4172
-  infogain   1.134          1.151                  +0.387           3259
-  ucb        1.148          1.134                  +0.268           4500
+  random     1.145          1.159                  +0.388           3016
+  value      1.140          1.145                  +0.352           4466
+  infogain   1.157          1.169                  +0.383           2654
+  ucb        1.148          1.153                  +0.329           4665
 
-  infogain learns faster than random?  False  (AUC 1.151 vs 1.151)
-  ucb discovers more value than random? True  (4500 vs 2947 bbl)
+  infogain learns faster than random?  False  (AUC 1.169 vs 1.159)
+  ucb discovers more value than random? True  (4665 vs 3016 bbl)
   --> VERDICT: SHIP SLICE
 
 [PRODUCT] top next-well candidate sites over the shelf (ucb = v_hat + sigma):
    lat       lon      v_hat  sigma   ucb   nearest-well(deg)
-   38.989  -100.007  +9.03  0.76  +9.79   0.036
-   38.892  -100.166  +8.96  0.83  +9.79   0.046
-   38.844  -100.166  +8.93  0.82  +9.75   0.024
-   38.941  -100.007  +8.91  0.82  +9.73   0.020
-   38.892  -100.007  +8.95  0.75  +9.69   0.058
-   38.844  -100.007  +8.72  0.97  +9.69   0.030
-   38.747  -100.166  +8.95  0.74  +9.69   0.016
-   39.038  -100.086  +9.00  0.65  +9.65   0.034
-   38.989  -100.086  +8.93  0.70  +9.63   0.050
-   38.698  -100.007  +8.83  0.77  +9.60   0.037
+   38.989  -100.007  +8.96  0.85  +9.81   0.036
+   38.892  -100.166  +9.05  0.70  +9.75   0.046
+   38.941  -100.007  +8.84  0.87  +9.71   0.020
+   38.844  -100.166  +9.02  0.69  +9.70   0.024
+   38.989  -100.086  +8.91  0.77  +9.68   0.050
+   39.038  -100.086  +8.97  0.70  +9.67   0.034
+   38.892  -100.007  +8.84  0.80  +9.64   0.058
+   38.747  -100.166  +8.96  0.68  +9.64   0.016
+   38.698  -100.007  +8.90  0.72  +9.62   0.037
+   38.795  -100.166  +8.94  0.64  +9.58   0.030

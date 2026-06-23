@@ -3,30 +3,30 @@
 
 [A] ORIGINAL top-10 by UCB -- how saturated are they?
    lat      lon     ucb   wells<3km  wells<8km  verdict
-   38.989 -100.007  +9.79      1         27     step-out
-   38.892 -100.166  +9.79      0         35     step-out
-   38.844 -100.166  +9.75     32         38     step-out
-   38.941 -100.007  +9.73      2          3     step-out
-   38.892 -100.007  +9.69      0          2     step-out
-   38.844 -100.007  +9.69      1          4     step-out
-   38.747 -100.166  +9.69     19         64     MATURE infill
-   39.038 -100.086  +9.65      2         30     step-out
-   38.989 -100.086  +9.63      0         20     step-out
-   38.698 -100.007  +9.60      0         91     MATURE infill
-  --> 2/10 of the UCB top-10 sit in above-median-density (saturated) acreage
+   38.989 -100.007  +9.81      1         27     step-out
+   38.892 -100.166  +9.75      0         35     step-out
+   38.941 -100.007  +9.71      2          3     step-out
+   38.844 -100.166  +9.70     32         38     step-out
+   38.989 -100.086  +9.68      0         20     step-out
+   39.038 -100.086  +9.67      2         30     step-out
+   38.892 -100.007  +9.64      0          2     step-out
+   38.747 -100.166  +9.64     19         64     MATURE infill
+   38.698 -100.007  +9.62      0         91     MATURE infill
+   38.795 -100.166  +9.58      0         65     MATURE infill
+  --> 3/10 of the UCB top-10 sit in above-median-density (saturated) acreage
 
 [B] OPEN step-out re-rank (wells<8km <= p35=46): 73 open candidates; top-10 by UCB among open acreage:
    lat      lon     v_hat  sigma  ucb   wells<8km  nearest(km)
-   38.989 -100.007  +9.03  0.76  +9.79     27      4.0
-   38.892 -100.166  +8.96  0.83  +9.79     35      5.2
-   38.844 -100.166  +8.93  0.82  +9.75     38      2.7
-   38.941 -100.007  +8.91  0.82  +9.73      3      2.2
-   38.892 -100.007  +8.95  0.75  +9.69      2      6.4
-   38.844 -100.007  +8.72  0.97  +9.69      4      3.3
-   39.038 -100.086  +9.00  0.65  +9.65     30      3.8
-   38.989 -100.086  +8.93  0.70  +9.63     20      5.6
-   38.844 -100.086  +8.80  0.78  +9.58     40      3.7
-   38.747 -100.245  +8.60  0.97  +9.56     15      5.7
+   38.989 -100.007  +8.96  0.85  +9.81     27      4.0
+   38.892 -100.166  +9.05  0.70  +9.75     35      5.2
+   38.941 -100.007  +8.84  0.87  +9.71      3      2.2
+   38.844 -100.166  +9.02  0.69  +9.70     38      2.7
+   38.989 -100.086  +8.91  0.77  +9.68     20      5.6
+   39.038 -100.086  +8.97  0.70  +9.67     30      3.8
+   38.892 -100.007  +8.84  0.80  +9.64      2      6.4
+   38.844 -100.007  +8.67  0.90  +9.57      4      3.3
+   38.795 -100.007  +8.73  0.82  +9.55      7      3.4
+   38.844 -100.086  +8.75  0.69  +9.44     40      3.7
 
-[SUMMARY] best infill UCB=+9.79 (wells<8km=27) vs best OPEN UCB=+9.79 (wells<8km=27)
+[SUMMARY] best infill UCB=+9.81 (wells<8km=27) vs best OPEN UCB=+9.81 (wells<8km=27)
   predicted-value give-up for going open: +0.00 log-bbl (+0% best12)

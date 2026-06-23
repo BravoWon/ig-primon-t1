@@ -42,6 +42,7 @@ def main():
     lab = vg.cut_clusters(n, E, W0, k=3)
     sizes = Counter(lab)
     big = [c for c, _ in sizes.most_common(2)]            # two largest = the regimes
+    big.sort(key=lambda c: np.median(Xfull[idx[lab == c], names.index("depth_KANS")]))  # shallower KC = shelf = regime 0 (label-stable)
     print(f"[ROUTE on the PERSIST 2-regime split]  complete-core n={n}; "
           f"cluster sizes={dict(sizes)} -> regimes {big}")
 

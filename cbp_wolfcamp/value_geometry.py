@@ -73,7 +73,7 @@ def knn_graph(Xc, k=10):
 
 def warp_weights(E, W, v, beta):
     """WARP prime: g_v = e^{-beta*v}.g0  -> contract distances in high-value regions."""
-    vn = (v - np.nanmean(v)) / (np.nanstd(v) + 1e-9)
+    vn = np.nan_to_num((v - np.nanmean(v)) / (np.nanstd(v) + 1e-9))   # guard NaN v -> finite edge weights
     return W * np.exp(-beta * 0.5 * (vn[E[:, 0]] + vn[E[:, 1]]))
 
 
@@ -112,7 +112,7 @@ def cut_clusters(n, E, W, k):
             if size[a] < size[b]:
                 a, b = b, a
             parent[b] = a; size[a] += size[b]
-    thresh = sorted(merges, reverse=True)[k - 1] if len(merges) >= k else -np.inf
+    thresh = sorted(merges, reverse=True)[k - 2] if (k >= 2 and len(merges) >= k - 1) else -np.inf
     parent = list(range(n)); size = [1] * n
     for e in order:
         if W[e] >= thresh:
@@ -187,7 +187,10 @@ def load():
         except (ValueError, KeyError):
             continue
         w = wells[a]
-        w.setdefault("lat", float(r["LATITUDE"])); w.setdefault("lon", float(r["LONGITUDE"]))
+        try:
+            w.setdefault("lat", float(r["LATITUDE"])); w.setdefault("lon", float(r["LONGITUDE"]))
+        except (ValueError, KeyError):
+            pass                                          # missing coords -> well dropped by final filter
         try:
             w.setdefault("elev", float(r["ELEVATION"]))
         except (ValueError, KeyError):

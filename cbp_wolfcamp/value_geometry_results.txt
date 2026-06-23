@@ -9,8 +9,8 @@
   --> lift over best baseline = -0.105   VERDICT: HOLD (no lift over baseline)
 
 [PERSIST]  H0 single-linkage on n=1130 (complete-core manifold)
-  unwarped g0        top merge-scales=[4.06 3.89 3.42 2.91]  3-cut sizes=[np.int64(671), np.int64(457), np.int64(1)]  value-spread(log bbl)=0.68
-  value-warped g_v   top merge-scales=[7.68 6.38 6.21 6.04]  3-cut sizes=[np.int64(1127), np.int64(1), np.int64(1)]  value-spread(log bbl)=0.00
+  unwarped g0        top merge-scales=[4.06 3.89 3.42 2.91]  3-cut sizes=[np.int64(672), np.int64(457), np.int64(1)]  value-spread(log bbl)=0.68
+  value-warped g_v   top merge-scales=[7.68 6.38 6.21 6.04]  3-cut sizes=[np.int64(1128), np.int64(1), np.int64(1)]  value-spread(log bbl)=0.00
 
 [BOUNDARY]  nodal/choke set: top-decile ||grad v_hat|| on the graph
   nodal wells: 113  Moran's I (spatial clustering)=+0.092  (scattered ~ noise)

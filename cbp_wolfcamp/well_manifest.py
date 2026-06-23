@@ -68,7 +68,6 @@ def basin(state, county, field):
 
 
 def channels(las):
-    mn = {c.mnemonic.upper() for c in las.curves}
     def has(*names):
         for n in names:
             try:

@@ -161,7 +161,7 @@ def main():
 
     # ---- 2. MSE (Teale) ---------------------------------------------------------
     print("\n  [2] MSE (Teale, rotating-only)")
-    mse = teale_mse(wob, rpm, tq, rop, d_in)
+    mse = np.full_like(rop, np.nan, dtype=float) if tq is None else teale_mse(wob, rpm, tq, rop, d_in)
     mse_d = mse[drilling]
     mse_d = mse_d[np.isfinite(mse_d) & (mse_d > 0)]
     if mse_d.size:

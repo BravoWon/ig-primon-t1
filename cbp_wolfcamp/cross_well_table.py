@@ -109,7 +109,10 @@ def process(path: Path):
         flags.append("tq_was_ftlbf")
 
     # MSE at the reference bit (absolute is bit-scaled; rho columns are bit-invariant)
-    mse = teale_mse(wob, rpm, tq, rop, REF_BIT_IN)
+    if tq is None:                                    # no torque channel -> skip MSE cleanly
+        mse = np.full_like(rop, np.nan, dtype=float); flags.append("no_torque")
+    else:
+        mse = teale_mse(wob, rpm, tq, rop, REF_BIT_IN)
     mok = drilling & np.isfinite(mse) & (mse > 0)
     mse_p50 = np.median(mse[mok]) / 1e3 if mok.any() else np.nan
 
