@@ -5,7 +5,10 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, Rectangle
-import fitz
+try:
+    import fitz  # PyMuPDF
+except ImportError:
+    raise SystemExit("build_package.py needs PyMuPDF — install with:  pip install pymupdf")
 
 NAVY, ACC, GREEN, AMBER, GREY = "#15293f", "#c0392b", "#1e7d34", "#9a6a2f", "#5a6470"
 
