@@ -1,0 +1,13 @@
+[ROUTE on the PERSIST 2-regime split]  complete-core n=1130; cluster sizes={np.int64(1): 672, np.int64(0): 1, np.int64(2): 457} -> regimes [np.int64(1), np.int64(2)]
+
+[CHARACTERIZE] what separates the two regimes:
+  regime 0: n= 672  KC depth med= 3821ft  KC subsea med=-1484  thk(KC-MISS) med= 574  best12 med= 2964bbl  Miss%=100  top counties=['NESS', 'TREGO', 'STAFFORD']
+  regime 1: n= 457  KC depth med= 4342ft  KC subsea med=-2508  thk(KC-MISS) med= 433  best12 med= 2046bbl  Miss%=100  top counties=['BARBER', 'KIOWA', 'COMANCHE']
+
+[VERIFY] on the 1129 regime-assigned wells:
+  per-regime baseline (thickness KC->MISS) IC | regime 0: +0.406  (4/4 counties +)
+  per-regime baseline (thickness KC->MISS) IC | regime 1: +0.163  (3/3 counties +)
+  pooled value field            IC=+0.243  (7/7 +)
+  ROUTED (per-regime fields)    IC=+0.209  (7/7 +)
+  routed-soft (regime feature)  IC=+0.243  (7/7 +)
+  --> routing lift = +0.000   VERDICT: HOLD (routing adds no OOS lift)

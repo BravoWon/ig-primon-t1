@@ -1,0 +1,36 @@
+Lansing-KC isopach wringer: n=3302 CKU wells with both tops
+  thickness ft: p1=0 p10=0 p50=0 p90=297 p99=475
+  degenerate picks (<=5 or >700 ft): 2408 (73%)
+
+[1] CLEAN -- does thinner-pays survive dropping degenerate picks?
+  RAW detrended thickness -> best12          n=3302  rho=-0.251  p=1.3e-48 ***  
+  CLEANED detrended thickness -> best12      n= 894  rho=-0.042  p=2.1e-01   
+
+[2] SPECIFIC -- test EVERY available interval; is only Lansing-KC predictive?
+    (if deeper/thicker intervals all correlate -> generic depth confound, NOT reservoir)
+  LANS-KANS isopach -> best12                n= 896  rho=-0.031  p=3.5e-01   
+  KANS-MARM isopach -> best12                n= 778  rho=+0.228  p=1.2e-10 ***  
+  KANS-MISS isopach -> best12                n=1130  rho=+0.229  p=6.1e-15 ***  
+  LANS-MISS isopach -> best12                n=1803  rho=+0.045  p=5.7e-02   
+  MISS-ARBU isopach -> best12                n= 270  rho=-0.027  p=6.5e-01   
+  KANS-ARBU isopach -> best12                n=2083  rho=+0.214  p=5.2e-23 ***  
+
+[3] INDEPENDENT of structure?
+  corr(detrended thickness, detrended structure) = +0.067  (near 0 => independent)
+  true structure -> best12 (should be NULL)  n=3302  rho=-0.016  p=3.5e-01   
+  thickness     -> best12                    n=3302  rho=-0.251  p=1.3e-48 ***  
+
+[4] REPLICATE per CKU county (cleaned, detrended thickness -> best12):
+    BARBER     n= 102  rho=-0.108 
+    BARTON     n= 124  rho=-0.001 
+    COMANCHE   n=  50  rho=-0.155 
+    ELLIS      n= 111  rho=-0.104 
+    KIOWA      n=  80  rho=-0.019 
+    NESS       n= 118  rho=-0.084 
+    PAWNEE     n=  41  rho=-0.208 
+    RICE       n=  59  rho=+0.092 
+    STAFFORD   n= 109  rho=+0.025 
+  counties: 9  thinner-pays(rho<0): 7  significant: 0
+
+[5] SPATIAL coherence (is thickness a smooth isopach or pick-noise?)
+  corr(well thickness, neighbor-median thickness) = +0.425  (high => smooth real isopach; ~0 => noise)

@@ -1,0 +1,15 @@
+[topological predictor]  n=5987 CKU single-well leases, 18 PRE-DRILL labels (geology/structure/isopachs + location + vintage; NO production outcomes)
+  manifold H0: largest merge-scale gaps [27.38 16.18 12.65 11.38] -> a few robust regimes (multi-modal solution space)
+
+  predictor                         in-sample   LOCO(county)   spatial-block
+  single coordinate (subsea KC)      +0.191      +0.191        +0.191
+  spatial-neighbor (known knowns)    +0.198      +0.043        +0.073
+  forward GBM (all labels)           +0.324      +0.273        +0.279
+  TOPOLOGICAL manifold-kNN (inverse) +0.295      +0.240        +0.276
+
+  VERDICT (out-of-sample is what counts):
+    single-coordinate LOCO baseline      = +0.191
+    topological manifold-kNN LOCO        = +0.240  (in-sample +0.295 -> gap +0.055)
+    spatial-block (fairer to proximity)  = +0.276
+    -> full-label topological beats one coordinate OOS? True
+    -> large in-sample->OOS collapse (spatial leakage)? False

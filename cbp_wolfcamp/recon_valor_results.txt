@@ -1,0 +1,22 @@
+=== KGS lease_prod coverage (OIL only) for Valor prospect counties ===
+
+  BUTLER: 608 leases, 1943 wells; lat[37.08,38.08] lon[-97.15,-96.53]
+     best12_oil>0: 608 leases; median best12=2136 cum_oil median=19476 bbl
+     top zones: (blank)=285, Mississippian System=136, Arbuckle Group=53, Viola Limestone Formation=35, Kansas City Group=28, Bevier Coal Bed=21
+
+  FINNEY: 470 leases, 996 wells; lat[37.70,38.26] lon[-101.10,-100.62]
+     best12_oil>0: 470 leases; median best12=5376 cum_oil median=27836 bbl
+     top zones: (blank)=308, Mississippian System=33, Upper Kearny Member=32, Marmaton Group=27, St. Louis Limestone Formation=15, Mississippian, Morrow=5
+
+  GRAY: 82 leases, 103 wells; lat[37.48,37.99] lon[-100.66,-100.44]
+     best12_oil>0: 82 leases; median best12=3448 cum_oil median=17260 bbl
+     top zones: (blank)=64, Mississippian System=10, St. Louis Limestone Formation=3, Cherokee Group=2, Pawnee Limestone Formation=1, Mound City Shale Member=1
+
+=== formation TOPS present in prospect boxes (distinct wells) ===
+  FINNEY/GRAY(box): MORROW=2995, ARBUCKLE=108, MISSISSIPPIAN=4064, LANSING=4885
+  BUTLER(box): MORROW=37, ARBUCKLE=799, MISSISSIPPIAN=1989, LANSING=1325, TRENTON=3
+
+=== rough PLSS boxes (sanity) ===
+  Old Paint T23-24S R29-30W      ~ (38.00, -100.57)
+  Algrim T23-24S R29-30W         ~ (38.00, -100.57)
+  Butler Arbuckle T28S R5-6E     ~ (37.61, -96.82)

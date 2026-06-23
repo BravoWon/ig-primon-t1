@@ -1,0 +1,48 @@
+
+====================================================================
+OUTSIDE VIEW  (reference class + this-well logit adjustments)
+====================================================================
+  reference-class base rate         P10/P50/P90/mean = (np.float64(0.616), np.float64(0.729), np.float64(0.826), np.float64(0.724))
+  net logit shift (this well)       mean = +0.22
+  OUTSIDE-VIEW CoS                  P10/P50/P90/mean = (np.float64(0.611), np.float64(0.772), np.float64(0.881), np.float64(0.757))
+
+====================================================================
+INSIDE VIEW  (sequential stage gates, shared latent factors -> correlation)
+====================================================================
+  G1 reservoir present & charged     marginal P10/P50/P90/mean = (np.float64(0.811), np.float64(0.9), np.float64(0.95), np.float64(0.888))
+  G2 old casing/cement integrity     marginal P10/P50/P90/mean = (np.float64(0.705), np.float64(0.85), np.float64(0.931), np.float64(0.831))
+  G3 window + short-radius curve     marginal P10/P50/P90/mean = (np.float64(0.766), np.float64(0.88), np.float64(0.942), np.float64(0.865))
+  G4 lateral placed in oil (OWC)     marginal P10/P50/P90/mean = (np.float64(0.734), np.float64(0.85), np.float64(0.921), np.float64(0.836))
+  G5 commercial deliverability       marginal P10/P50/P90/mean = (np.float64(0.836), np.float64(0.9), np.float64(0.941), np.float64(0.893))
+  INSIDE-VIEW CoS (product)        P10/P50/P90/mean = (np.float64(0.301), np.float64(0.498), np.float64(0.672), np.float64(0.491))
+  (note: naive product of gate base-probs = 0.515; per-gate uncertainty (Jensen) lowers each gate's mean, only partly offset by correlation, -> simulated mean 0.491 sits just BELOW the naive product)
+
+====================================================================
+TRIANGULATION  (pool the two independent views)
+====================================================================
+  OUTSIDE  P50=0.77   INSIDE  P50=0.50   divergence=0.27
+  COMBINED CoS                     P10/P50/P90/mean = (np.float64(0.367), np.float64(0.643), np.float64(0.85), np.float64(0.624))
+  -> headline P(successful producer) ~ 64%  (80% band 37%-85%)
+
+====================================================================
+SENSITIVITY  (tornado: swing each factor +/-1sd, measure dP50 of CoS)
+====================================================================
+  SHORT-RADIUS RE-ENTRY mechanical risk  P50 0.72 <-> 0.81   swing 0.088
+  adjacent Branch 5 discovery PRODUCING  P50 0.74 <-> 0.80   swing 0.063
+  target CONFIDENTIAL (could be Madison) P50 0.74 <-> 0.80   swing 0.053
+  re-entry: reservoir already logged     P50 0.74 <-> 0.80   swing 0.053
+  pool limits undefined (edge risk)      P50 0.75 <-> 0.79   swing 0.046
+  new pool -> virgin pressure (no depletion) P50 0.75 <-> 0.79   swing 0.042
+  continuous Red River 'B' fairway       P50 0.75 <-> 0.79   swing 0.035
+  gentle 25-30deg build + modern tooling P50 0.76 <-> 0.79   swing 0.028
+
+====================================================================
+DYNAMICS  (P(success) updates as each stage GATE is passed -- risk retires)
+====================================================================
+  stage observed PASS                   gate P  P(success | reached here)
+  -- start --                             0.90                       0.51
+  G2 old casing/cement integrity          0.85                       0.57
+  G3 window + short-radius curve          0.88                       0.67
+  G4 lateral placed in oil (OWC)          0.85                       0.77
+  G5 commercial deliverability            0.90                       0.90
+  (each passed gate removes that risk; conditional CoS climbs toward 1 as drilling/completion succeed)

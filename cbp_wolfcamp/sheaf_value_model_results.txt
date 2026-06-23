@@ -1,0 +1,11 @@
+[sheaf value model]  n=5987 wells, 18 pre-drill labels; stalk dim 5, kNN cell complex degree 10
+
+  buffered spatial-block holdout: scored on 5978 held-out wells (4x4 blocks, 0.15deg buffer), GLOBAL rank-IC:
+    single coordinate (subsea KC)      IC = +0.191
+    manifold-kNN  (TRIVIAL sheaf)       IC = +0.266
+    CELLULAR SHEAF (restriction maps)   IC = +0.314
+
+  VERDICT:
+    sheaf beats manifold-kNN?   True  (delta +0.048)
+    sheaf beats single coord?   True  (delta +0.122)
+    top-decile sheaf pick median best12 = 4228 bbl vs rest 2250 bbl (1.88x)
