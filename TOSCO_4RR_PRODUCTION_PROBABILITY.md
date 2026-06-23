@@ -11,8 +11,9 @@ Cedar Hills).*
 **~70–80% probability of a successful producing well (point estimate ~75%).** This is a *development /
 step-out re-entry*, not a wildcat — the reservoir risk is largely retired; the residual ~20–30%
 failure risk is dominated by **re-entry mechanics and lateral placement, not reservoir presence.**
-Caveat on magnitude: a *successful* Bowman Red River well is a **modest producer (tens of bopd, EUR
-~40–150 Mbbl)** — high probability of a *commercial* well, low probability of a *big* one.
+Caveat on magnitude: a *successful* Bowman Red River well is a **modest conventional producer — IP
+~tens-to-low-hundreds bopd (direct offset Branch 5 ≈ 65 bopd; field discovery 1-Peterson ~497 bopd),
+EUR ~40–150 Mbbl** — high probability of a *commercial* well, low probability of a *Bakken-scale* one.
 
 ## Why this is de-risked (the reclassification)
 1. **Re-entry of an existing wellbore.** The original Tosco Branch 4 vertical already penetrated and
@@ -59,8 +60,9 @@ Caveat on magnitude: a *successful* Bowman Red River well is a **modest producer
   mechanical-success term.
 - **Branch 5's actual rate/decline** (the direct analog) is partly paywalled (scout ticket); its full
   decline curve would calibrate both probability and expected magnitude.
-- **Magnitude ≠ probability.** Even a clean success is a modest stripper-to-small producer; Bowman
-  County averages ~18 bopd/well. High odds of *a* well, modest size.
+- **Magnitude ≠ probability.** Even a clean success is a modest conventional producer — IP ~tens-to-
+  low-hundreds bopd (direct offset Branch 5 ≈ 65 bopd), not Bakken-scale. (Bowman's ~18 bopd/well
+  county figure is the stripper-weighted average across all old wells, not this well's expected rate.)
 
 ## Bottom line
 A re-entry step-out into a Marlo-discovered, currently-producing Bowman County Red River pool is a

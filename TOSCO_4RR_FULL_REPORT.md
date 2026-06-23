@@ -200,7 +200,7 @@ waterflood/EOR. *High probability of a producer of modest size — not a big wel
    mechanical history — the highest-information, lowest-cost diligence item.*
 3. **Branch 5 decline curve** (paywalled scout ticket) would calibrate magnitude and G5. → *Buy the
    scout ticket or subscribe (NDIC).*
-4. **Magnitude ≠ probability.** Even a clean success is a tens-of-bopd producer (county avg ~18 bopd).
+4. **Magnitude ≠ probability.** Even a clean success is a modest conventional producer — IP ~tens-to-low-hundreds bopd (direct offset Branch 5 ≈ 65 bopd), not Bakken-scale. (County avg ~18 bopd is the stripper-weighted all-well figure, not this well's rate.)
 
 ## 9. Bottom line
 A re-entry step-out into a **Marlo-discovered, currently-producing** Bowman County Red River pool is a

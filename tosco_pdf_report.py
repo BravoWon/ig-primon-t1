@@ -203,7 +203,7 @@ for i, c in enumerate(cites):
     fig.text(0.06, 0.46 - i * 0.024, c, fontsize=7.6, color="#444")
 fig.text(0.06, 0.145, "Scope: probability of a producing well, NOT economics. Inputs are expert-judgment priors except\n"
          "the empirical reference class. Target formation confidential to 12/19/2026; assessment assumes the\n"
-         "Red River trend. Magnitude if successful is modest (tens of bopd; Bowman county avg ~18 bopd).",
+         "Red River trend. Magnitude if successful: IP ~tens-to-low-hundreds bopd (offset Branch 5 ≈ 65 bopd), EUR ~40–150 Mbbl.",
          fontsize=7.8, color="#777", linespacing=1.5)
 footer(fig, 4); pdf.savefig(fig); plt.close(fig)
 
