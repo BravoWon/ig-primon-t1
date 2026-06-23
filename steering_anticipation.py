@@ -94,7 +94,7 @@ def main():
     inz_L = [fleet(2000, L, 0.85, True).mean() for L in looks]
     Lbest = looks[int(np.argmax(inz_L))]
     print(f"  look-ahead sweep (ft): " + " ".join(f"{L}:{v:.0%}" for L, v in zip(looks, inz_L)) +
-          f"   -> best extended horizon ~ {Lbest} ft")
+          f"   -> best horizon ~ {Lbest} ft (projection does not pay; the fleet prior does)")
 
     # prior-strength sweep (the 'to scale' lever: fleet-learned dip prior)
     ws = [0.0, 0.25, 0.5, 0.75, 0.95]
@@ -120,7 +120,8 @@ def main():
     ax.plot(md, za, color=AN, lw=1.9, label=f"ANTICIPATORY + fleet prior  ({ia:.0%})")
     ax.set_xlabel("measured depth along lateral (ft)"); ax.set_ylabel("TVD (ft, rel.)")
     ax.invert_yaxis(); ax.legend(loc="upper left", fontsize=7, frameon=False)
-    ax.set_title("One well: reactive trails the dipping window; anticipation leads it", loc="left", color=NAVY, fontsize=9.5)
+    ax.set_title("One well: naive anticipation (no prior) drifts out of zone; prior-anchored ties reactive",
+                 loc="left", color=NAVY, fontsize=8.6)
 
     # B: fleet bars
     axb = fig.add_axes([0.70, 0.56, 0.24, 0.30])
@@ -138,19 +139,19 @@ def main():
     axc.axvline(Lbest, color=AMBER, ls="--", lw=1); axc.text(Lbest, min(inz_L), f"  best ~{Lbest} ft", color=AMBER, fontsize=8)
     axc.set_xlabel("look-ahead horizon (ft)"); axc.set_ylabel("fleet in-zone %")
     axc.yaxis.set_major_formatter(lambda v, _: f"{v:.0%}")
-    axc.set_title("'Extended' horizon: anticipate further until the dip estimate gets too noisy", loc="left", color=NAVY, fontsize=9.2)
+    axc.set_title("Look-ahead projection adds noise — best at ~0 ft horizon", loc="left", color=NAVY, fontsize=9.0)
 
     # D: prior-strength sweep
     axd = fig.add_axes([0.55, 0.10, 0.39, 0.33])
     axd.plot(ws, inz_w, "-o", color=NAVY, lw=2)
     axd.set_xlabel("weight on fleet-learned dip prior  (0 = real-time only)"); axd.set_ylabel("fleet in-zone %")
     axd.yaxis.set_major_formatter(lambda v, _: f"{v:.0%}")
-    axd.set_title("Scale lever: the offset/sheaf dip prior sharpens anticipation", loc="left", color=NAVY, fontsize=9.2)
+    axd.set_title("The real lever: the fleet/sheaf dip prior — 71%→98% in-zone", loc="left", color=NAVY, fontsize=9.0)
 
-    fig.text(0.06, 0.052, "Finding: extended anticipation is only safe with a reliable dip prior — the sheaf/structural model\n"
-             "(this repo) supplies it across the fleet. Anticipating off single-well data alone is WORSE than reacting;\n"
-             "the value is unlocked by SCALE (and the look-ahead horizon has a limit — extrapolating dip too far overshoots).",
-             fontsize=7.6, color="#666", va="top", linespacing=1.5)
+    fig.text(0.06, 0.055, "Finding: anticipation pays ONLY through a reliable, fleet-learned dip prior (the sheaf/structural model,\n"
+             "this repo): in-zone climbs 71%→98% as the prior strengthens, and the fleet mean beats reactive (90%→95%).\n"
+             "Anticipating off single-well data is WORSE than reacting; extending the look-ahead horizon does NOT help (best ~0 ft).",
+             fontsize=7.4, color="#666", va="top", linespacing=1.5)
     pdf.savefig(fig); plt.close(fig); pdf.close()
     print("  wrote TOSCO_Steering_Anticipation.pdf")
 

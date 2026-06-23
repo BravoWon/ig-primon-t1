@@ -33,7 +33,7 @@ CONTENTS = "TOSCO_Package_Contents.pdf"
 pages, cur = [], 2                                   # first doc starts on page 2
 for f, _, _ in DOCS:
     pages.append(cur)
-    cur += fitz.open(f).page_count
+    _d = fitz.open(f); cur += _d.page_count; _d.close()
 total = cur - 1
 
 # ============================ Contents page (portrait) ============================
@@ -91,9 +91,9 @@ print(f"wrote {CONTENTS}")
 
 # ============================ merge ============================
 out = fitz.open()
-out.insert_pdf(fitz.open(CONTENTS))
+_c = fitz.open(CONTENTS); out.insert_pdf(_c); _c.close()
 for f, _, _ in DOCS:
-    out.insert_pdf(fitz.open(f))
+    _s = fitz.open(f); out.insert_pdf(_s); _s.close()
 # bookmarks / outline for navigation
 toc = [[1, "Contents", 1]] + [[1, title, pg] for (_, title, _), pg in zip(DOCS, pages)]
 out.set_toc(toc)

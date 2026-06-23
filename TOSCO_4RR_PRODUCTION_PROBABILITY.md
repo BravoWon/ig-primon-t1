@@ -8,9 +8,11 @@ records + Williston Red River / re-entry literature (DOE/Luff OSTI #2214; NDGS R
 Cedar Hills).*
 
 ## Headline
-**~70–80% probability of a successful producing well (point estimate ~75%).** This is a *development /
-step-out re-entry*, not a wildcat — the reservoir risk is largely retired; the residual ~20–30%
-failure risk is dominated by **re-entry mechanics and lateral placement, not reservoir presence.**
+**~64–72% probability of a successful producing well (triangulated point estimate ~68%; CoS-model
+combined P50 ~64%).** This is a *development / step-out re-entry*, not a wildcat — the reservoir risk
+is largely retired; the residual ~30% failure risk is dominated by **re-entry mechanics and lateral
+placement, not reservoir presence.** (The reference-class *outside* view alone is more optimistic at
+~77%; the headline triangulates it with the stricter stage-gate *inside* view at ~50%.)
 Caveat on magnitude: a *successful* Bowman Red River well is a **modest conventional producer — IP
 ~tens-to-low-hundreds bopd (direct offset Branch 5 ≈ 65 bopd; field discovery 1-Peterson ~497 bopd),
 EUR ~40–150 Mbbl** — high probability of a *commercial* well, low probability of a *Bakken-scale* one.
@@ -39,7 +41,7 @@ EUR ~40–150 Mbbl** — high probability of a *commercial* well, low probabilit
 | **Mechanical execution** (window/whipstock through old casing; slim-tool short-radius lateral) | The key wildcard — old casing/cement integrity unknown; gentle 25–30° build + modern tooling favorable | **~0.80** |
 | **Lateral placement** (stay in thin ~8–10 ft pay, updip of OWC, non-depleted) | New pool → likely virgin pressure (avoids the #1 Luff failure mode = depletion); thin-pay geosteering risk remains | **~0.85** |
 | **Commercial rate** (makes oil, not just water) | Updip new-pool position favorable; residual water/rate risk | **~0.85** |
-| **Overall P(successful producer)** | chained, with positive correlation among factors → | **~0.70–0.80** |
+| **Overall P(successful producer)** | inside-view chain ≈ 0.52 (naive product; per-gate uncertainty ≈ offset by correlation, no lift above it); **triangulated** with the outside/reference view (~0.77) → | **~0.64 (central 0.64–0.72)** |
 
 ## How it fails (the residual risk, ranked)
 1. **Mechanical re-entry execution (~10–15%)** — degraded old casing/cement, can't set a clean

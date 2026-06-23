@@ -45,7 +45,7 @@ fig.text(0.06, 0.745,
 metrics = [("~64–72%", "Probability of a\nsuccessful producer", GO),
            ("Development-\nclass re-entry", "Not a wildcat\n(pool is producing)", NAVY),
            ("Execution", "Dominant risk:\nshort-radius mechanics", ACC),
-           ("~65–150 bopd", "IP if successful · EUR 40–150 Mbbl\n(direct offset Branch 5 ≈ 65 bopd)", GREY)]
+           ("~65–150 bopd", "IP if successful · EUR 40–150 Mbbl\n(offset Branch 5 ≈65; discovery ~497 bopd)", GREY)]
 for i, (big, sub, c) in enumerate(metrics):
     x = 0.06 + i * 0.225
     ax = fig.add_axes([x, 0.565, 0.205, 0.085]); ax.axis("off")
