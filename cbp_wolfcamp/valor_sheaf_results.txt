@@ -1,0 +1,35 @@
+[Valor sheaf]  cellular-sheaf high-grading on the acquired plays (public KGS data)
+
+=== MORROW (Finney/Gray):  n=419 oil leases with tops; scored 418 held-out (GRID 3x3) ===
+   single coord (subsea_MISS)   OOS rank-IC = +0.161
+   manifold-kNN                 OOS rank-IC = +0.087
+   CELLULAR SHEAF               OOS rank-IC = +0.041
+   -> sheaf vs kNN -0.047; sheaf vs coord -0.120   [WEAK -- public geology not predictive here]
+   FOOTPRINT high-grade (45 scored wells): top sheaf-ranked locations
+     lat       lon      sheaf   actual best12
+      37.994  -100.527  +9.36     7859
+      37.994  -100.509  +9.34     2583
+      37.966  -100.600  +9.33    15258
+      37.922  -100.528  +9.28     4471
+      37.922  -100.546  +9.27     7726
+      37.966  -100.618  +9.25     3046
+   footprint sheaf rank-IC = +0.033 (n=45)
+
+=== ARBUCKLE (Butler):  n=106 oil leases with tops; scored 106 held-out (GRID 2x2) ===
+   single coord (subsea_MISS)   OOS rank-IC = +0.291
+   manifold-kNN                 OOS rank-IC = +0.269
+   CELLULAR SHEAF               OOS rank-IC = +0.318
+   -> sheaf vs kNN +0.049; sheaf vs coord +0.027   [sheaf high-grades this play]
+   FOOTPRINT high-grade (10 scored wells): top sheaf-ranked locations
+     lat       lon      sheaf   actual best12
+      37.641   -96.976  +7.84     2081
+      37.591   -96.973  +7.72     2076
+      37.680   -96.863  +7.70     1590
+      37.672   -96.871  +7.70      739
+      37.676   -96.869  +7.69     1247
+      37.668   -96.865  +7.69      382
+   footprint sheaf rank-IC = +0.042 (n=10)
+
+NOTE: Morrow = sandstone (channel sand sub-resolution -> public-geology ceiling is LOW by
+design); Arbuckle = carbonate (structure-controlled). The seller's seismic resolves what
+public tops cannot. This is the cheap public high-grade screen, not the valuation.

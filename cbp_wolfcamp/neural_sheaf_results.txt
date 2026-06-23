@@ -1,0 +1,13 @@
+[neural sheaf]  n=5987, 16 geology features, stalk d=4, 3 layers, device=cuda
+   fold block 0: trained on 5053 known, scored 412 held-out
+   fold block 1: trained on 3058 known, scored 2395 held-out
+   fold block 2: trained on 4014 known, scored 1210 held-out
+   fold block 3: trained on 3104 known, scored 1970 held-out
+
+  buffered spatial 2x2 holdout, scored 5987 held-out, GLOBAL rank-IC:
+    single coordinate                IC = +0.191
+    manifold-kNN                     IC = +0.237
+    LINEAR sheaf (fixed maps)        IC = +0.283
+    NEURAL sheaf (learned SO(d))     IC = +0.160
+
+  VERDICT: neural vs linear sheaf -0.123  -> no gain -- geology-signal ceiling reached (linear sheaf already captures it)
