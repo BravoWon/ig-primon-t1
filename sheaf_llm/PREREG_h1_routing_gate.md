@@ -1,6 +1,24 @@
 # Pre-registration — Čech H¹ global-consistency obstruction as a routing/verification signal
 
-**Status: `[GATE]` (derive-before-numerics). NOT a validated design component.** This is the one
+## RESULT (gate RUN — `h1_gate.py`, 2026-06-24): falsifier FIRED. Does NOT enter the design.
+- **Stage 1 (anchors) ✓** — PR box: pairwise-consistent, **no global section** (obstruction fires);
+  classical: glues. The obstruction is computed correctly and beats pairwise *on contextual systems by
+  construction*.
+- **Stage 3 (model-in-the-loop, GPT-2/Brown, N=1500) — the decisive H2 test:** pairwise-disagreement
+  AUROC **0.601**; contextual-fraction (H¹) AUROC **0.503 ≈ chance**; binary veto **0.503**. Held-out:
+  pairwise 0.588 → pairwise+H¹ 0.588, **increment +0.000**. The binary veto fires on only ~1% of
+  positions. **H1 is operationally inert over the pairwise baseline.**
+- **Stage 2 (garden-path illustration)** — contextual-fraction 0.00 on both garden-paths and controls
+  under the nested-window cover: genuine multi-way contextuality barely *arises* in this LLM-cover regime.
+- **Verdict:** the theorem is rigorous, the operational payoff is zero (this program's signature pattern,
+  sharper than the subword gate). **Prong 3 (H¹ veto) is rejected as a design component.** Honest limit:
+  this is *one* cover (nested left-context windows); a non-nested cover (left/right/content, or real MoE
+  expert contexts) is the only rescue path — but the burden was on H¹ to clear a natural construction and
+  it didn't, and the obstruction barely fires, so the prior shifts strongly against rescue.
+
+---
+
+**Status: `[GATE]` → RUN, FALSIFIED (see RESULT above). NOT a validated design component.** This was the one
 "coherence-transport" dimension with a falsifiable in-program core (the other three: #4 quarantined; #1
 reduces to entropy-regularized routing; #2 to natural-gradient/Fisher optimization — both standard,
 de-mythologized, `[E]`). H¹ enters the design **only if** it passes the decisive hypothesis below.

@@ -162,6 +162,25 @@ built and confirmed on real language.
 
 ---
 
+## Routing logic — de-mythologized, and the H¹ gate (another rigorous-but-inert negative)
+
+A "coherence transport / dimensions of merit" proposal arrived (thermodynamic entropy, geodesic flow,
+topos/Lax pairs, categorical point-replacement). Run through the program's gate filter: #4 quarantined;
+**#1 reduces to entropy-regularized routing `[E]`** and **#2 to natural-gradient/Fisher optimization `[E]`**
+— both standard, real, not novel; **#3 — the Čech H¹ global-consistency obstruction — was the only one
+with a falsifiable in-program core** (continuous with the sheaf-as-verifier win), so it got a pre-registration
+(`PREREG_h1_routing_gate.md`) and a gate (`h1_gate.py`), *not* a slot in the design.
+
+**The gate fired the falsifier.** Stage 1 validated the obstruction (PR box: pairwise-consistent yet no
+global section; classical glues). Stage 3 (GPT-2/Brown, N=1500, label = true-token surprisal): pairwise
+baseline AUROC **0.601**, the H¹ higher-order signal **0.503 ≈ chance**, held-out increment over pairwise
+**+0.000**. Garden-path illustration: contextual-fraction 0.00 on both — under the natural nested-window
+cover, genuine multi-way contextuality barely arises. **The theorem is rigorous; the operational payoff is
+zero.** H¹ does not enter the routing logic. (Honest limit: one cover; a non-nested cover is the only
+rescue path, but the burden was on H¹ and it didn't clear it.) Net routing logic: entropy-reg + natural
+gradient, both standard; **no structural veto is supported by evidence.** Same lesson as the subword gate —
+rigorous higher-order structure, real, and *not the lever* — now at the routing layer too.
+
 ## Quarantine — what we never needed
 
 constants-from-topology · RH "resolution" · "deterministic → prevents all hallucination" · Waypoint
