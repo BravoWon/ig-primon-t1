@@ -151,6 +151,24 @@ At held-out (starved) positions:
   embeddings + a thin grounding top-up**. This is the program's recurring shape — the unfair part was the
   *baseline* (`UNK`), exactly as earlier arcs were misled by the wrong *metric*.
 
+**Brick 3 (`recursion_gate.py`) — depth extrapolation works, but GROUNDING carries it, not typed sheaf
+composition.** Nested clauses `(S V O)→(S V (S V O))→…` with a recursive role-weighted target; train
+depths {1,2,3}, test {4,5,6} (extrapolation) + unseen words. flat-GRU vs grounded-GRU (generic recurrence
+on grounded features) vs grounded-sheaf (typed weight-tied restriction maps `R_subj/R_verb/R_child` folded
+along the tree).
+- **Depth extrapolation is "easy" here** — *every* recurrent arm rolls the uniform recurrence out to depths
+  4–6 untrained, including plain flat-GRU on seen words (1.00). Depth per se is not a discriminating axis.
+- **The dictionary is the lever (words):** both grounded arms = **1.00 on UNSEEN words at every depth**;
+  flat = chance (0.10). Grounding's zero-shot-words win HOLDS recursively (brick 1/2 confirmed at depth).
+- **Typed sheaf composition is NOT a distinct lever:** grounded-sheaf ≡ grounded-GRU on everything
+  (1.00/1.00) at comparable params — a generic grounded recurrence matches the typed restriction-map fold.
+  **Falsifier fired.** (Methodology: the sheaf cell needed LayerNorm to keep the recursive value
+  depth-consistent — an unnormalized fold collapsed to ln2/0.50; the discipline caught a false negative.)
+- **Consistent with the whole thread:** the sheaf's value is MEANING/grounding (the dictionary); the
+  specifically-sheaf STRUCTURE (eigenweights, λ₁, gluing/H¹, typed composition) keeps not being the lever.
+  Caveat: the target is a *uniform* recurrence (easy to roll out); a non-uniform compositional task is the
+  only place typed composition could still separate — low prior given the thread, but the honest rescue.
+
 **The terminus (open — with an honest, modest data point at the bottom of the ladder):** a **fluent
 generative LM** routing every token through a grounded sheaf at billions of parameters. Measured against
 a *real* subword baseline (not the `UNK` strawman), grounding is a **small but robust generative positive
