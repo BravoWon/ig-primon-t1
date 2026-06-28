@@ -1,59 +1,28 @@
 #!/usr/bin/env python
 """codebase design<->evolution COHERENCE, v4 -- LLM-JUDGE contradiction (the test embeddings can't do).
 
-v3 found 0 CONTESTED repos, but its contradiction axis was a churn-VOCABULARY proxy that cannot see
-semantic contradiction. v4 replaces it with a real judge: an instruct LLM reads each COVERED commit
-against its COVERING design section and rates ALIGN / CONTRADICT / UNRELATED. Tests whether CONTESTED=0
-is true or a proxy artifact -- and whether the churn-regex over/under-counts real contradiction.
+v3's contradiction axis was a churn-VOCABULARY proxy that cannot see semantic contradiction. v4 replaces
+it: an instruct LLM reads each COVERED commit against its COVERING design section and rates ALIGN /
+CONTRADICT / UNRELATED. Tests whether v3's CONTESTED=0 is true or a proxy artifact.
 
-  coverage      : same de-baselined gluing as v3 (does the change match its OWN design?)
-  judge(commit) : Qwen2.5-3B-Instruct on (covering design section, commit message+files) -> verdict
-  LLM-contra%   : CONTRADICT / (ALIGN+CONTRADICT) among judged covered commits
-  compare to v3 churn-proxy; re-draw the coverage-vs-alignment map with the SEMANTIC axis.
-
-Honest scope: judges commit MESSAGE+FILES vs design (semantic, far better than keyword-matching), not
-the full diff (that's v5; avoids 100s of lazy blob fetches). Bounded sample per repo.
+Honest scope: judges commit MESSAGE+FILES vs design (not the full diff -- that's v5). Bounded sample/repo.
+Shared plumbing in coherence_lib; CHURN + the message-only judge prompt are v4's, kept local.
 
     python coherence_v4.py
 """
-import os, re, subprocess, glob
+import os, re
 import numpy as np
 import torch
-from transformers import AutoTokenizer, AutoModel, AutoModelForCausalLM
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from coherence_lib import (DEV, AAA, REPOS, KREMOVE, NAVY, GREEN, BLUE,
+                           embed, design_sections, commits, deboilerplate, load_judge)
 
-DEV = "cuda" if torch.cuda.is_available() else "cpu"
-ROOT = "C:/Users/JT-DEV1/Desktop/development/_coherence_repos"
-AAA = {"godotengine_godot", "bevyengine_bevy", "microsoft_TypeScript", "facebook_react", "obsproject_obs-studio"}
-REPOS = [d for d in sorted(glob.glob(ROOT + "/*")) if os.path.isdir(d + "/.git")]
-REPOS += ["C:/Users/JT-DEV1/Desktop/development/proj-0/isoZ"]
-MAXC, MAXSEC, KREMOVE, NJUDGE = 500, 150, 3, 14
-DESIGN_PAT = re.compile(r"(readme|architect|design|contribut|overview|docs/|adr|spec|roadmap|manifesto)", re.I)
+NJUDGE = 14
 CHURN = re.compile(r"\b(revert|rollback|back ?out|undo|breaking change|no longer|deprecat|remove|delete|"
                    r"drop support|rewrite|overhaul|revamp|hack|workaround|regression|broke|kludge)\b", re.I)
-JUDGE_ID = "Qwen/Qwen2.5-3B-Instruct"
-NAVY, GREEN, BLUE = "#15293f", "#1e7d34", "#2c6fbb"
-
-_etok = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
-_emod = AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2").to(DEV).eval()
-print(f"[coherence v4]  loading judge {JUDGE_ID} ...")
-_jtok = AutoTokenizer.from_pretrained(JUDGE_ID)
-_jmod = AutoModelForCausalLM.from_pretrained(JUDGE_ID, torch_dtype=torch.float16).to(DEV).eval()
-
-
-@torch.no_grad()
-def embed(texts, bs=128):
-    out = []
-    for i in range(0, len(texts), bs):
-        enc = _etok([t[:512] for t in texts[i:i + bs]], padding=True, truncation=True,
-                    max_length=128, return_tensors="pt").to(DEV)
-        h = _emod(**enc).last_hidden_state
-        m = enc.attention_mask[..., None].float()
-        v = (h * m).sum(1) / m.sum(1).clamp(min=1)
-        out.append(torch.nn.functional.normalize(v, dim=-1).cpu())
-    return torch.cat(out).numpy() if out else np.zeros((0, 384))
+_jtok, _jmod = load_judge()
 
 
 @torch.no_grad()
@@ -70,54 +39,12 @@ def judge(section, change):
     return m.group(0) if m else "UNRELATED"
 
 
-def git(repo, *a):
-    return subprocess.run(["git", "-C", repo, *a], capture_output=True, text=True, errors="ignore", timeout=180).stdout
-
-
-def design_sections(repo):
-    files = [f for f in git(repo, "ls-files", "*.md").splitlines() if DESIGN_PAT.search(f)]
-    files = sorted(files, key=lambda f: (f.count("/"), len(f)))[:60]
-    secs = []
-    for f in files:
-        try:
-            txt = open(os.path.join(repo, f), encoding="utf-8", errors="ignore").read()
-        except OSError:
-            continue
-        for s in re.split(r"\n#{1,3}\s", txt):
-            s = re.sub(r"\s+", " ", s).strip()
-            if len(s) > 80:
-                secs.append(s[:600])
-    if len(secs) > MAXSEC:
-        secs = [secs[i] for i in np.linspace(0, len(secs) - 1, MAXSEC).astype(int)]
-    return secs
-
-
-def commits(repo):
-    raw = git(repo, "log", f"-n{MAXC}", "--no-merges", "--name-only", "--format=%x1e%s %b%x1f")
-    out = []
-    for rec in raw.split("\x1e"):
-        parts = rec.split("\x1f")
-        if len(parts) < 2:
-            continue
-        msg = re.sub(r"\s+", " ", parts[0]).strip()[:300]
-        files = [l.strip() for l in parts[1].splitlines() if l.strip()][:20]
-        dirs = " ".join(sorted({("/".join(f.split("/")[:2]) if "/" in f else f) for f in files}))
-        out.append((msg, f"{msg}  || files: {dirs}"))
-    return list(reversed(out))
-
-
-def deboilerplate(vecs, k):
-    mu = vecs.mean(0); X = vecs - mu
-    _, _, Vt = np.linalg.svd(X, full_matrices=False)
-    U = Vt[:k]; X = X - (X @ U.T) @ U
-    return X / np.clip(np.linalg.norm(X, axis=1, keepdims=True), 1e-8, None)
-
-
 def main():
     raw = {}
     for repo in REPOS:
         name = os.path.basename(repo)
-        secs, coms = design_sections(repo), commits(repo)
+        secs = design_sections(repo)
+        coms = [(m, t) for _, m, t in commits(repo)]
         if len(secs) < 3 or len(coms) < 8:
             continue
         raw[name] = dict(secs=secs, msgs=[m for m, _ in coms], texts=[t for _, t in coms])
@@ -141,11 +68,10 @@ def main():
         sig = (C[n] @ D[n].T).max(1) - (C[n] @ others[idx].T).max(1)
         covered = np.where(sig > 0)[0]
         churn = np.array([bool(CHURN.search(raw[n]["msgs"][i])) for i in range(len(sig))])
-        # LLM-judge a sample of covered commits
         sample = rng.choice(covered, min(NJUDGE, len(covered)), replace=False) if len(covered) else []
         verds = []
         for i in sample:
-            cover_idx = int((Craw[n][i] @ Draw[n].T).argmax())       # covering section (raw similarity)
+            cover_idx = int((Craw[n][i] @ Draw[n].T).argmax())
             verds.append(judge(raw[n]["secs"][cover_idx], raw[n]["texts"][i]))
         dec = [v for v in verds if v in ("ALIGN", "CONTRADICT")]
         llm_contra = (sum(v == "CONTRADICT" for v in dec) / len(dec)) if dec else 0.0

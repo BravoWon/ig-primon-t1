@@ -6,98 +6,25 @@ v2's orphan% conflated two failures: (a) a commit's area has NO design doc to gl
 incoherence. v3 splits them into a 2D map.
 
   COVERAGE(commit)      = de-baselined glue > 0  (does this change distinctively match its OWN design?)
-  coverage_rate(repo)   = fraction covered                       -> the 'is it documented' axis
-  CONTRADICTION(commit) = churn/anti-design vocabulary in msg (revert|rewrite|deprecate|breaking|
-                          remove|workaround|hack|regression|...) -> 'fighting the design' (a heuristic proxy)
-  contradiction_rate    = fraction of COVERED commits that are churn-type
-  alignment_rate        = 1 - contradiction_rate  (among covered)
+  CONTRADICTION(commit) = churn/anti-design vocabulary in msg (revert|rewrite|deprecate|...) -- a proxy
+  2D map: x = coverage_rate, y = alignment_rate(among covered)
+    top-right COHERENT | bottom-right CONTESTED (doc fought) | top-left UNDER-DOC | bottom-left CHAOTIC
 
-2D map (per repo):  x = coverage_rate,  y = alignment_rate(among covered)
-  top-right  COHERENT      (documented AND realized)
-  bottom-right CONTESTED   (documented but code fights it -- the STRONG incoherence)
-  top-left   UNDER-DOC     (sparse docs, but what exists isn't fought)
-  bottom-left CHAOTIC
+Shared plumbing in coherence_lib. (CHURN regex is v3's metric, kept local.)
 
     python coherence_v3.py
 """
-import os, re, subprocess, glob
+import os, re
 import numpy as np
-import torch
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from transformers import AutoTokenizer, AutoModel
+from coherence_lib import (DEV, AAA, REPOS, KREMOVE, NAVY, GREEN, BLUE,
+                           embed, design_sections, commits, deboilerplate)
 
-DEV = "cuda" if torch.cuda.is_available() else "cpu"
-ROOT = "C:/Users/JT-DEV1/Desktop/development/_coherence_repos"
-AAA = {"godotengine_godot", "bevyengine_bevy", "microsoft_TypeScript", "facebook_react", "obsproject_obs-studio"}
-REPOS = [d for d in sorted(glob.glob(ROOT + "/*")) if os.path.isdir(d + "/.git")]
-REPOS += ["C:/Users/JT-DEV1/Desktop/development/proj-0/isoZ"]
-MAXC, MAXSEC, KREMOVE = 500, 150, 3
-DESIGN_PAT = re.compile(r"(readme|architect|design|contribut|overview|docs/|adr|spec|roadmap|manifesto)", re.I)
 CHURN = re.compile(r"\b(revert|rollback|roll back|back ?out|undo|breaking change|no longer|deprecat|"
                    r"remove|delete|drop support|rewrite|re-write|overhaul|revamp|hack|workaround|"
                    r"work around|temporary|band-?aid|regression|broke|broken|messy|cleanup|kludge)\b", re.I)
-NAVY, GREEN, BLUE = "#15293f", "#1e7d34", "#2c6fbb"
-
-_tok = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
-_mod = AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2").to(DEV).eval()
-
-
-@torch.no_grad()
-def embed(texts, bs=128):
-    out = []
-    for i in range(0, len(texts), bs):
-        enc = _tok([t[:512] for t in texts[i:i + bs]], padding=True, truncation=True,
-                   max_length=128, return_tensors="pt").to(DEV)
-        h = _mod(**enc).last_hidden_state
-        m = enc.attention_mask[..., None].float()
-        v = (h * m).sum(1) / m.sum(1).clamp(min=1)
-        out.append(torch.nn.functional.normalize(v, dim=-1).cpu())
-    return torch.cat(out).numpy() if out else np.zeros((0, 384))
-
-
-def git(repo, *a):
-    return subprocess.run(["git", "-C", repo, *a], capture_output=True, text=True, errors="ignore", timeout=180).stdout
-
-
-def design_sections(repo):
-    files = [f for f in git(repo, "ls-files", "*.md").splitlines() if DESIGN_PAT.search(f)]
-    files = sorted(files, key=lambda f: (f.count("/"), len(f)))[:60]
-    secs = []
-    for f in files:
-        try:
-            txt = open(os.path.join(repo, f), encoding="utf-8", errors="ignore").read()
-        except OSError:
-            continue
-        for s in re.split(r"\n#{1,3}\s", txt):
-            s = re.sub(r"\s+", " ", s).strip()
-            if len(s) > 80:
-                secs.append(s[:600])
-    if len(secs) > MAXSEC:
-        secs = [secs[i] for i in np.linspace(0, len(secs) - 1, MAXSEC).astype(int)]
-    return secs
-
-
-def commits(repo):
-    raw = git(repo, "log", f"-n{MAXC}", "--no-merges", "--name-only", "--format=%x1e%H%x1f%s %b%x1f")
-    out = []
-    for rec in raw.split("\x1e"):
-        parts = rec.split("\x1f")
-        if len(parts) < 3:
-            continue
-        msg = re.sub(r"\s+", " ", parts[1]).strip()[:300]
-        files = [l.strip() for l in parts[2].splitlines() if l.strip()][:20]
-        dirs = " ".join(sorted({("/".join(f.split("/")[:2]) if "/" in f else f) for f in files}))
-        out.append((msg, f"{msg}  || files: {dirs}"))
-    return list(reversed(out))
-
-
-def deboilerplate(vecs, k):
-    mu = vecs.mean(0); X = vecs - mu
-    _, _, Vt = np.linalg.svd(X, full_matrices=False)
-    U = Vt[:k]; X = X - (X @ U.T) @ U
-    return X / np.clip(np.linalg.norm(X, axis=1, keepdims=True), 1e-8, None)
 
 
 def main():
@@ -105,7 +32,8 @@ def main():
     raw = {}
     for repo in REPOS:
         name = os.path.basename(repo)
-        secs, coms = design_sections(repo), commits(repo)
+        secs = design_sections(repo)
+        coms = [(m, t) for _, m, t in commits(repo)]
         if len(secs) < 3 or len(coms) < 8:
             continue
         raw[name] = dict(secs=secs, msgs=[m for m, _ in coms], texts=[t for _, t in coms])
@@ -126,9 +54,8 @@ def main():
         sig = (C[n] @ D[n].T).max(1) - (C[n] @ others[idx].T).max(1)
         covered = sig > 0
         churn = np.array([bool(CHURN.search(m)) for m in raw[n]["msgs"]])
-        cov_rate = float(covered.mean())
-        contra = float(churn[covered].mean()) if covered.sum() else 0.0   # contradiction AMONG covered
-        R[n] = dict(cov=cov_rate, contra=contra, align=1 - contra, churn_all=float(churn.mean()),
+        contra = float(churn[covered].mean()) if covered.sum() else 0.0
+        R[n] = dict(cov=float(covered.mean()), contra=contra, align=1 - contra,
                     nc=len(covered), aaa=(n in AAA))
 
     def quad(r):
