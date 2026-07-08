@@ -16,8 +16,9 @@ T1, T2, PHI = 1.0, 0.2, math.pi / 2
 GREEN, RED, BLUE, NAVY, AMBER = "#1e7d34", "#c0392b", "#2c6fbb", "#15293f", "#9a6a2f"
 
 
-def build(L1, L2, M, V, seed, torus=True, theta=0.0):
-    """Real-space Haldane. Sites indexed (n1, n2, s); s=0 A, s=1 B. Returns H, (x,y) cell coords."""
+def build(L1, L2, M, V, seed, torus=True, theta=0.0, open1=False):
+    """Real-space Haldane. Sites indexed (n1, n2, s); s=0 A, s=1 B. Returns H, (x,y) cell coords.
+    torus=False opens the n2 direction (cylinder); open1=True also opens n1 (flake, for the LCM)."""
     n = 2 * L1 * L2
     idx = lambda n1, n2, s: 2 * ((n1 % L1) * L2 + (n2 % L2)) + s
     rng = np.random.default_rng(seed)
@@ -29,17 +30,20 @@ def build(L1, L2, M, V, seed, torus=True, theta=0.0):
         for n2 in range(L2):
             a, b = idx(n1, n2, 0), idx(n1, n2, 1)
             diag[a] += M + dis[a]; diag[b] += -M + dis[b]
+            ok1 = lambda d1: (not open1) or (0 <= n1 + d1 < L1)
             # seam phase for bonds wrapping the n1-cycle
             ph = lambda d1: np.exp(1j * theta) if (n1 + d1) >= L1 else (np.exp(-1j * theta) if (n1 + d1) < 0 else 1.0)
             # NN: A(n) - B(n), B(n1, n2-1), B(n1+1, n2-1)
             off[a, b] += T1
             if torus or n2 - 1 >= 0:
                 off[a, idx(n1, n2 - 1, 1)] += T1
-                off[a, idx(n1 + 1, n2 - 1, 1)] += T1 * ph(1)
+                if ok1(1):
+                    off[a, idx(n1 + 1, n2 - 1, 1)] += T1 * ph(1)
             # NNN A->A: +R1, +(R2-R1), -R2  (phase e^{+i phi}); B: e^{-i phi}
-            off[idx(n1 + 1, n2, 0), a] += T2 * ephi * ph(1)
-            off[idx(n1 + 1, n2, 1), b] += T2 * emhi * ph(1)
-            if torus or n2 + 1 < L2:
+            if ok1(1):
+                off[idx(n1 + 1, n2, 0), a] += T2 * ephi * ph(1)
+                off[idx(n1 + 1, n2, 1), b] += T2 * emhi * ph(1)
+            if (torus or n2 + 1 < L2) and ok1(-1):
                 off[idx(n1 - 1, n2 + 1, 0), a] += T2 * ephi * ph(-1)
                 off[idx(n1 - 1, n2 + 1, 1), b] += T2 * emhi * ph(-1)
             if torus or n2 - 1 >= 0:
