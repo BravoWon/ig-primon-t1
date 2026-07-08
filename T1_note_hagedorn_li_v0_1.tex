@@ -98,18 +98,27 @@ independent contour machinery.
 An earlier version of the Route-A budget missed the $\binom{n}{2}$ tail term; the gate's failure
 mode (an exact $n^2$ excess) located it --- recorded, not hidden.
 
-\textbf{The wall, measured.} The zero-free route loses precision linearly:
-$\text{digits lost}\approx 0.2947\,n$ ($R^2=0.9999$; a first, contaminated fit at $0.2366$ and a
-wrong a-priori prediction $0.0297$ are both recorded). Hence $n_{\mathrm{wall}}(D)\approx(D+3)/0.295$:
-the price list for depth. $n=2000$ two-route costs $\mathrm{dps}\approx590$ (ball-arithmetic territory;
-cf.\ Johansson's rigorous single-route computations to $n=10^5$, which dominate any value we produce).
+\textbf{The wall, measured --- and identified as Johansson's law.} The zero-free route loses
+precision linearly: $\text{digits lost}\approx 0.2947\,n$ ($R^2=0.9999$ on the (90,130)-dps pair;
+confirmed out-of-sample at $0.2990$, $R^2=1.0000$, on the (310,360) pair; a contaminated first fit
+and a wrong a-priori prediction are both recorded). Per the executed literature gate this is a blind
+replication of a published law: Johansson prices the route at ``about $n$ bits'' ($1$ bit
+$\approx0.301$ digits per step), and Ma\'slanka's Fig.~6 shows $\approx0.2$ digits/step; Voros
+aggregates both. We claim only the corroboration and the explicit costing form
+$n_{\mathrm{wall}}(D)\approx(D+3)/0.295$ used to price our own runs (receipts to $n=1000$ at
+dps~360/310, agreement at $0.20$ of budget uniformly, $\lambda_{1000}=2326.05316\ldots$ to
+$\sim5\times10^{-8}$ relative).
 
-\textbf{Violation sensitivity (what the instrument would see).} Planting synthetic off-line zero
-quadruples: at height $\gamma^*=2$, strength $\beta^*=0.9$ turns $\lambda_n$ negative by $n=26$;
-$\beta^*=0.6$ by $n=231$; sensitivity falls superquadratically with height ($\gamma^*=14.13$
-invisible at $n\le400$). This chart is what licenses ``$\lambda_n>0$ observed'' to mean anything at
-all; without it the statement is a genuflection. It also delimits honestly how little of RH such
-ranges probe.
+\textbf{Violation sensitivity (Voros's thresholds, empirically confirmed).} Planting synthetic
+off-line zero quadruples: at height $\gamma^*=2$, strength $\beta^*=0.9$ turns $\lambda_n$ negative
+by $n=26$; $\beta^*=0.6$ by $n=231$; sensitivity falls superquadratically with height
+($\gamma^*=14.13$ invisible at $n\le400$). This is the empirical face of Voros's published RH-false
+asymptotics and detection thresholds ($n\gtrsim T^2/|t|$ onset; demonstrated by him on the genuine
+off-line zeros of Davenport--Heilbronn); our chart confirms, and claims, nothing beyond the
+confirmation. Moreover, by Oesterl\'e's bound (RH verified to height $T_0$ $\Rightarrow$
+$\lambda_n\ge0$ for $n\le T_0^2$), positivity in every range we touch is \emph{guaranteed} by
+existing zero verification --- our $\lambda_n>0$ observations are consistency checks of the
+instrument, not information about RH.
 
 \section{No-go clarifications (inoculation)}
 (i) The complex-$\beta$ zeros of the continued partition function are the nontrivial zeros of
@@ -121,11 +130,17 @@ residue), as our point-cloud demonstration (spectral lines at $x=\log p^k$, 12/1
 (iii) One-parameter ``curvature'' claims are vacuous (1-D manifolds are flat); nothing here uses them.
 
 \section{Honest scope}
-No statement in this note constitutes evidence for or against RH. All $\lambda_n$ values are within
-previously computed ranges. The candidate-novel items, pending the final literature gate, are
-presentational and instrumental: the matched-budget two-route receipt format, the measured wall law
-as a costing equation, and the planted-violation sensitivity chart. Negative results and all failed
-instrument versions are recorded in the repository gate files; the pre-registrations bind wording.
+No statement in this note constitutes evidence for or against RH; by Oesterl\'e's bound our
+positivity observations were guaranteed in advance. All $\lambda_n$ values are within previously
+computed ranges (Keiper to $7000$; Johansson, rigorously, to $10^5$). The final literature gate
+(executed 2026-07-08, recorded in the repository) demoted all three candidate-novel items: the
+two-route cross-verification is in essence Keiper (1992, including his unused hybrid formula (48))
+plus the Keiper--Johansson cross-check; the wall law is Johansson's one-bit-per-step statement
+(anticipated by Ma\'slanka's Fig.~6); the sensitivity chart empirically confirms Voros's published
+thresholds. What remains ours is presentational only --- the per-row matched-budget receipt format
+--- and the corroborations themselves, which we regard as validation of the instrument rather than
+contribution to the mathematics. Negative results and all failed instrument versions are recorded in
+the repository gate files; the pre-registrations bind wording.
 
 \begin{thebibliography}{19}
 \bibitem{Julia} B.~Julia, Statistical theory of numbers, in \emph{Number Theory and Physics}, Springer (1990).
