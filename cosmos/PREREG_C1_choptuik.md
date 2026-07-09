@@ -47,3 +47,16 @@ critical phenomenon + the resolution-wall law of unigrid collapse — and the ke
   feasible-heavy; (b) Garfinkle double-null scheme (naturally focusing — the right v2); (c) true AMR
   (the full instrument, a project). p* = 0.03353442212120 (this grid, this pulse) stands as the
   bisection artifact; γ remains NOT MEASURED here, honestly.
+
+---
+## C1b RECORD (2026-07-09, escalation (b) attempted — WIP, honestly parked)
+Double-null scheme drafted from scratch (derivations anchor-checked analytically: (r·r,u),v = −a²/4
+flat-exact; m≡0, σ,u≡0 flat). Instrument arc: (i) axis-sliver bug — grid-aligned cumsums missed the
+moving-axis segment ∫_u^{v_ia}, making r,u oscillate as 1/r → σ blow-up even in near-flat space;
+FIXED (offset-aware trapezoid integration; flat + weak-field now stable through full march).
+(ii) Strong-field axis instability REMAINS (σ overflow near collapse → NaN before clean horizon
+detection). Diagnosis of record: naive (r, σ, φ) characteristic marching is axis-unstable at strong
+fields — which is precisely WHY Garfinkle 1995 evolves his regularized h-variables; we re-derived the
+necessity of his variable choice empirically. **v2 next rung: implement Garfinkle's actual h-variable
+scheme (from the paper, not memory), or the N≈50–75k uniform-grid route (costed ~5–9 h).** γ remains
+NOT MEASURED; no number is reported from the unstable code.
