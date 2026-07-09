@@ -43,3 +43,26 @@ L=32). Script defect noted: results-json was inside the crossing-success branch 
 V ∈ {1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.8}, same L ∈ {12,16,24,32}, same 16 CRN seeds, same
 calibrations, same two routes, same verdicts. The crossing hunt moves to where the data says the
 transition lives.
+
+---
+## GATE RECORD v1.1 (2026-07-08, final for L≤32)
+- **The fan opened where the data pointed.** Below V≈1.6, C̄ drifts toward 0 with L; above, toward −1:
+  LCM crossings (16,24)=1.63, (24,32)=1.56 (the (12,16)=1.04 pair carries small-L corrections).
+  **V_c(LCM) ≈ 1.6.**
+- **Route 2 disagrees — and legitimately:** Bott-fraction curves are shifted right (f≈0.5 near
+  V≈1.9–2.2; lone crossing (12,16)=2.6; (16,24) none; nm=44). The marker-fluctuation peak sits at
+  V≈2.0–2.4 — with Bott, not with the LCM crossing. (Verdict-3 "False" is an index artifact: the
+  argmax criterion was written for the v1 grid; the stds DO peak, at ~2.0–2.4.)
+- **Joint honest reading:** at M/t2=5.5, L≤32, the disorder-driven transition is a BROAD critical
+  region ≈1.6–2.6 in which two legitimate locators — the local-marker crossing and the global
+  invariant flip — separate under strong finite-size corrections. This echoes P2a's lesson upward:
+  instruments that agree in phases diverge AT criticality; here the divergence is itself resolved
+  into two distinct finite-size scales.
+- **Exponent: NO CLAIM.** Collapse beats the V-shuffled null 28× (S=0.0013 vs 0.0373) — the scaling
+  structure is real — but best-ν=0.80 sits ON the search-grid boundary and the collapse window
+  included off-critical points; with the two-route V_c tension unresolved, ν is **not measured at
+  L≤32**, per prereg. [E] band comparison: moot.
+- **Escalation (named, costed):** sparse/Lanczos L≥64 flakes, collapse restricted to |V−V_c|·L^{1/ν}
+  ≲ O(1), corrections-to-scaling term, and a transfer-matrix localization-length third route to
+  arbitrate the LCM-vs-Bott V_c. This is the genuine frontier of this substrate; L≤32 dense eigh has
+  said everything it can.
