@@ -29,3 +29,21 @@ without AMR (declared).
 ## Honest scope
 Choptuik 1993 / Gundlach reviews: fully occupied. Deliverable = the receipt genre on a gravitational
 critical phenomenon + the resolution-wall law of unigrid collapse — and the kernel's 10th domain.
+
+---
+## GATE RECORD (2026-07-09, appended post-execution)
+- **Verdicts 1–3: FAIL. Verdict 4 (the wall): DELIVERED — the failure IS the measurement, three ways:**
+  (i) mass floor M ≈ 3.7e−3 ≈ dr/4 below ε~1e−5 (the smallest hole a cell can hold — 20 digits of
+  bisected p* meaningless past it); (ii) curvature ceiling R_max ≈ 4.66e3 ≈ O(dr⁻²); (iii) the
+  convergence control: M(N) vs M(N/2) differ 153% at ε=1e−3 — no converged scaling window exists at
+  N=4096 unigrid (local slopes wander 0.23–0.52; the auto-fit's γ_A=0.247 / γ_B=0.172 are
+  wall-contaminated numbers, NOT measurements of γ).
+- **Instrument finding of record: unigrid at dr=0.0146 reaches ~1.5 decades from criticality and no
+  further — re-deriving, with receipts, why AMR was the enabling instrument of Choptuik 1993** (the
+  critical echo cascade shrinks like e^{−nΔ}; a fixed grid cannot follow it).
+- Bugs on the tombstone: Picard constraint saturation (fixed pre-launch: exact linear solve);
+  lapse exp-overflow in deep-collapse gauge normalization (cosmetic, noted for v2: normalize in log).
+- **Escalations, costed:** (a) uniform N≈50–75k (mass floor →2e−4, ~2 more decades): ~5–9 h CPU,
+  feasible-heavy; (b) Garfinkle double-null scheme (naturally focusing — the right v2); (c) true AMR
+  (the full instrument, a project). p* = 0.03353442212120 (this grid, this pulse) stands as the
+  bisection artifact; γ remains NOT MEASURED here, honestly.
