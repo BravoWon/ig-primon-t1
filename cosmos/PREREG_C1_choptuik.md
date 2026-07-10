@@ -60,3 +60,52 @@ fields — which is precisely WHY Garfinkle 1995 evolves his regularized h-varia
 necessity of his variable choice empirically. **v2 next rung: implement Garfinkle's actual h-variable
 scheme (from the paper, not memory), or the N≈50–75k uniform-grid route (costed ~5–9 h).** γ remains
 NOT MEASURED; no number is reported from the unstable code.
+
+---
+## C1c GATE RECORD (2026-07-09, Garfinkle's actual h-variables from gr-qc/9412008 — **γ MEASURED**)
+**Instrument:** `gate_C1c_garfinkle.py`, faithful to the paper: evolve h with Φ=h̄; g=exp(4π∫q dr),
+q=(h−h̄)²/r; ḣ=(g−ḡ)(h−h̄)/2r, ṙ=−ḡ/2; axis Taylor forms on first 3 pts (eqs. 10–14); grid rides
+ingoing rays (natural focusing); midpoint-insertion regrid; MOTS at ḡ/g<0.02, M=r/2. N=800 rays.
+The C1b strong-field instability is GONE — h-variables carry p=0.05–0.1 straight to clean MOTS.
+p*(N=800) = 0.01280497040512 (bracket 2.1e−14, the f64 floor again); p*(N=1600) = 0.012794010326.
+
+**VERDICTS (registered rules, corrected fitter — see fitter disclosure below):**
+1. **PASS** — γ_A = **0.3681**, R² = 0.9997, over **4.00 decades** (ε ∈ [1e−5, 1e−1]).
+   Grid-converged: independent re-bisection + refit at N=1600 gives γ_A = 0.3696 (|Δγ| = 0.0015);
+   with ε defined per-grid the ε=1e−3 masses agree to 2%. (N=400 is below the scheme's stability
+   edge — blows up unphysically — so the in-run N/2 control recorded instability, not error.)
+2. **FAIL** — |γ_A − γ_B| = 0.066 > 0.03. γ_B (registered window rule) = 0.3024 from the only
+   qualifying window (1.0 decade, ε ∈ [3.2e−3, 3.2e−2], R² = 0.999).
+3. **FAIL** (as the registered conjunction) — γ_A within anchor (|0.3681 − 0.374| = 0.006 ✓);
+   γ_B off by 0.072 ✗. **The Gundlach anchor is HIT on the mass branch — first γ measurement of
+   the arc after C1 (wall) and C1b (instability).**
+4. Walls mapped again, now for the focusing instrument: mass floor M ≈ 1.38e−3 below ε ≈ 3e−9
+   (2.7× below C1's floor with 800 rays vs 4096 cells — the focusing dividend); curvature ceiling
+   max h₁² ≈ 1.06e5 below ε ≈ 1e−9; stability edge between N=400 (blow-up) and N=800 (convergent).
+
+**Fitter disclosure (Law #6 applied):** the in-run `fitwin` had bugs provable by inspection —
+median over ALL local slopes (plateau-poisoned), non-contiguous keep-span, signed decade width. Its
+advisory numbers (γ_A=0.2610, γ_B=0.3044, "−1.0 decades") are disowned. `gate_C1c_refit.py`
+implements the FULL registered conjunction (largest contiguous window with locally-stable slopes
+AND window R²>0.99); the plateau self-excludes (R²=0.29). Raw arrays untouched.
+
+**Route-B diagnosis of record:** the DSS fine structure (Gundlach; Hod–Piran) modulates the
+curvature branch ~12× stronger than the mass branch (fitted ln-amplitude 0.26 vs 0.021). Local
+slopes oscillate 0.15↔0.64 with ~2-decade spacing, so no long window has "locally stable slope" —
+the registered rule and the wiggle are structurally incompatible on this branch. Wiggle-aware
+4-parameter fit gives γ_B ≈ 0.33 (advisory, NOT registered). Verdict 2/3 FAILs stand as registered.
+
+**Echo stretch (declared "expected nm"): upgraded to DETECTION, not measurement.** Four channels:
+(i) h₁(u) zero-crossing interval ratios at p*(1−1e−12): 13 crossings, Δ ∈ [2.9, 5.6] (noisy — ~3
+echoes fit above the 1e−12 floor); (ii) Route-A dense wiggle (quarter-decade scan): Δ = 3.85;
+(iii) Route-B dense wiggle: Δ = 2.65; (iv) slope-peak spacing by eye: 2.0 decades → Δ ≈ 3.39.
+All bracket/are consistent with Choptuik Δ = 3.44; none is a receipt-standard measurement.
+**Δ: DETECTED (periodic term improves both routes' fits ~2×), NOT MEASURED.**
+
+Artifacts: `gate_C1c_results.json` (+refit/echo/wiggle blocks), `gate_C1c_dense.json`,
+`gate_C1c_conv1600.json`, `gate_C1c_refit.py`, `gate_C1c_echo.py`, `gate_C1c_wiggle.py`.
+Bugs on the tombstone: dispersal stall (regrid halves du geometrically; fixed with the physical
+early-exit m_out < 1e−3·m_init); g-overflow at strong field (clipped exponent, cosmetic).
+**Costed next rungs:** Δ to receipt standard needs either deeper ε (higher-precision p*, mp-float
+bisection) or the field-profile echo overlay (Garfinkle Figs. 2–6); Route-B γ needs a
+wiggle-native registered rule (pre-register the 4-param fit as primary on a fresh gate).
