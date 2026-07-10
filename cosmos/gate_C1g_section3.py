@@ -69,7 +69,11 @@ def evolve_g(p, vout, cfl=0.1, n0=800, collect=False):
         u += du
         if collect and len(r) > 8:
             trace.append((u, float(G.bars(r, h)[1]), float(r[-1])))
-        if 8 < len(r) < n0 // 2:
+        # post-echo regrid FREEZE (termination amendment 2, disclosed): once crossings have
+        # stopped (echoes over) and no MOTS is imminent, stop refining -- the grid then drains
+        # in O(N) steps instead of stalling on a geometrically shrinking du. Labels unchanged.
+        frozen = (u_lc is not None and u > u_lc + 0.2 and mots[j] > 5 * G.MOTS_THRESH)
+        if not frozen and 8 < len(r) < n0 // 2:
             rm = 0.5 * (r[1:] + r[:-1]); hm = 0.5 * (h[1:] + h[:-1])
             rn = np.empty(2 * len(r) - 1); hn = np.empty_like(rn)
             rn[0::2] = r; rn[1::2] = rm
@@ -83,9 +87,15 @@ def bisect_g(vout, cfl=0.1, lo=0.005, hi=0.1):
         hi *= 2
         if hi > 0.4:
             return None
-    for _ in range(46):
+    while evolve_g(lo, vout, cfl)[0] == "bh":                    # lower-side escape guard (PR#13
+        lo /= 2                                                  # CodeRabbit): lo must DISPERSE,
+        if lo < 1e-4:                                            # else bisection returns silent
+            return None                                          # garbage near lo
+    for i in range(46):
         mid = 0.5 * (lo + hi)
-        if evolve_g(mid, vout, cfl)[0] == "bh":
+        out = evolve_g(mid, vout, cfl)[0]
+        print(f"      bisect[{i:02d}] p={mid:.12f} -> {out}", flush=True)
+        if out == "bh":
             hi = mid
         else:
             lo = mid

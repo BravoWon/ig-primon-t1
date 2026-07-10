@@ -33,6 +33,27 @@ gate's native currency): dispersal ⇔ no h₁ sign change for 1.5 u-units after
 subcritical — no ladder to clip). bh detection (MOTS) untouched. All configurations re-bisected
 under the amended termination.
 
+**Termination amendment 2 (2026-07-10, pre-data, disclosed):** amendment 1's u_lc+1.5 dispersal
+clock is correct but reintroduced the stall in slow motion — post-echo regrids keep halving
+spacings, so the 1.5-unit tail march cost 10–15 min per disp-side run (3.8 CPU-hours of it0
+bisection with zero output; measured). Fix: the regrid FREEZES once crossings have stopped
+(u > u_lc + 0.2) and no MOTS is imminent (min ḡ/g > 5×threshold) — the grid then drains in O(N)
+steps. Labels unchanged (bh fires in the spiral where crossings are ongoing and the freeze never
+engages; disp reached faster). Bisection progress is now logged per iteration.
+
+**Mid-gate disclosures (2026-07-10, from PR #13 review — CodeRabbit; before any verdict was
+computed; NO tolerance or rule changed):**
+(i) *Bracket guard:* the registered auto-widening only handled p* escaping ABOVE hi; a p* below
+lo would have produced a silently wrong bisection, not a failure. Guard added to the code (lo
+must disperse, halving down to 1e−4, else nm). The running it0 log visibly brackets on both
+sides (disp 0.0109 / bh 0.0139), so no collected data is affected.
+(ii) *Verdict-4 corner, disclosed as registered:* with the banked P̄ = 4.29 frozen, verdict 4's
+two clauses jointly admit only Δ ∈ [3.20, 3.42] — it CANNOT pass if Δ lands exactly on the
+3.4453 anchor (the γ_A clause misses by 0.003). This corner was unexamined at registration; it
+encodes the banked P-tension (P̄ is ~7% below the anchor-predicted Δ/(2γ) = 4.61). Tolerances
+remain FROZEN per mid-gate rule; verdict 4 is to be read accordingly: it tests closure among OUR
+banked measurements, and a Δ at the exact anchor would honestly fail it.
+
 ## Event extraction (A5 re-registered INBOUND-ONLY — the C1f contamination channel)
 Crossings (u > 1.0, interpolated) + inter-crossing extremum times (C1f A7), but the event set is
 cut STRICTLY INBOUND: turnaround = global-minimum crossing interval; events = crossings/peaks
