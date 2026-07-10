@@ -34,7 +34,7 @@ def evolve_g(p, vout, cfl=0.1, n0=800, collect=False):
     amplitude-free); the m_out exit survives only for runs with NO crossings (nothing to clip)."""
     r, h = init_trunc(p, vout, n0)
     u, m_init, trace = 0.0, None, []
-    u_lc, s_prev = None, 0.0
+    u_lc, s_prev, quiet = None, 0.0, 0
     while u < G.UEND and len(r) > 8:
         hd1, rd1, g, gbar, h0, h1 = G.rates(r, h)
         mots = gbar / g
@@ -44,7 +44,9 @@ def evolve_g(p, vout, cfl=0.1, n0=800, collect=False):
         if u > 1.0:                                              # same trim as the event rules
             s = math.copysign(1.0, h1) if h1 != 0 else 0.0
             if s_prev != 0.0 and s != 0.0 and s != s_prev:
-                u_lc = u
+                u_lc, quiet = u, 0
+            else:
+                quiet += 1
             s_prev = s
         m_out = 0.5 * r[-1] * (1 - mots[-1])
         if m_init is None:
@@ -69,10 +71,16 @@ def evolve_g(p, vout, cfl=0.1, n0=800, collect=False):
         u += du
         if collect and len(r) > 8:
             trace.append((u, float(G.bars(r, h)[1]), float(r[-1])))
-        # post-echo regrid FREEZE (termination amendment 2, disclosed): once crossings have
+        # post-echo regrid FREEZE (termination amendments 2+3, disclosed): once crossings have
         # stopped (echoes over) and no MOTS is imminent, stop refining -- the grid then drains
-        # in O(N) steps instead of stalling on a geometrically shrinking du. Labels unchanged.
-        frozen = (u_lc is not None and u > u_lc + 0.2 and mots[j] > 5 * G.MOTS_THRESH)
+        # in O(N) steps instead of stalling on a geometrically shrinking du. Amendment 3: the
+        # 5x-THRESH guard blocked freezing exactly in the near-critical hover window (mots
+        # 0.04-0.1 post-closest-approach; 45 min on one bisection probe, measured) -> guard
+        # loosened to 2x, plus a quiet-trigger: 20k steps with no crossing and mots > 1.5x
+        # THRESH cannot be a collapse in progress (the echoes ARE crossings). Labels unchanged;
+        # MOTS detection continues every step on the frozen grid.
+        frozen = (u_lc is not None and u > u_lc + 0.2 and mots[j] > 2 * G.MOTS_THRESH) or \
+                 (quiet > 20000 and mots[j] > 1.5 * G.MOTS_THRESH)
         if not frozen and 8 < len(r) < n0 // 2:
             rm = 0.5 * (r[1:] + r[:-1]); hm = 0.5 * (h[1:] + h[:-1])
             rn = np.empty(2 * len(r) - 1); hn = np.empty_like(rn)

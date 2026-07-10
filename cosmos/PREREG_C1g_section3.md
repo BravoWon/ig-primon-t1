@@ -41,6 +41,15 @@ bisection with zero output; measured). Fix: the regrid FREEZES once crossings ha
 steps. Labels unchanged (bh fires in the spiral where crossings are ongoing and the freeze never
 engages; disp reached faster). Bisection progress is now logged per iteration.
 
+**Termination amendment 3 (2026-07-10, pre-data — the near-critical hover hole):** amendment 2's
+freeze guard (min ḡ/g > 5×THRESH) blocked freezing exactly where bisection spends its expensive
+probes: near-critical dispersals hover at mots 0.04–0.1 after closest approach — no bh, no
+freeze, du halves geometrically (one probe burned 45 min; measured, killed). Guard loosened to
+2×THRESH, plus a quiet-trigger: 20k consecutive steps with no h₁ crossing AND mots > 1.5×THRESH
+freezes regardless (a collapse in progress is never quiet — the echoes are crossings; MOTS
+detection continues every step on the frozen grid). Labels unchanged; the bisection reruns from
+scratch under the single consistent instrument.
+
 **Mid-gate disclosures (2026-07-10, from PR #13 review — CodeRabbit; before any verdict was
 computed; NO tolerance or rule changed):**
 (i) *Bracket guard:* the registered auto-widening only handled p* escaping ABOVE hi; a p* below
