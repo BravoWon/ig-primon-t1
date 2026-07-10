@@ -72,16 +72,15 @@ def evolve_g(p, vout, cfl=0.1, n0=800, collect=False):
         u += du
         if collect and len(r) > 8:
             trace.append((u, float(G.bars(r, h)[1]), float(r[-1])))
-        # post-echo regrid FREEZE (termination amendments 2+3, disclosed): once crossings have
-        # stopped (echoes over) and no MOTS is imminent, stop refining -- the grid then drains
-        # in O(N) steps instead of stalling on a geometrically shrinking du. Amendment 3: the
-        # 5x-THRESH guard blocked freezing exactly in the near-critical hover window (mots
-        # 0.04-0.1 post-closest-approach; 45 min on one bisection probe, measured) -> guard
-        # loosened to 2x, plus a quiet-trigger: 20k steps with no crossing and mots > 1.5x
-        # THRESH cannot be a collapse in progress (the echoes ARE crossings). Labels unchanged;
-        # MOTS detection continues every step on the frozen grid.
-        frozen = (u_lc is not None and u > u_lc + 0.2 and mots[j] > 2 * G.MOTS_THRESH) or \
-                 (quiet > 20000 and mots[j] > 1.5 * G.MOTS_THRESH)
+        # post-echo regrid FREEZE (termination amendments 2+3+5, disclosed): stop refining when
+        # the run has gone quiet, so the grid drains in O(N) steps instead of stalling on a
+        # geometrically shrinking du. Amendment 5 RETRACTED the u-based term (u > u_lc + 0.2):
+        # the ladder's own inter-crossing gaps reach 1.04 in u, so it froze the regrid INSIDE
+        # the cascade and degraded resolution exactly where the next echo needed it (measured
+        # at it1: crossing 3 unresolved). The step-based quiet trigger is the sole criterion --
+        # it adapts to du naturally (early gaps ~3.5k steps: no fire; post-cascade drain: tens
+        # of thousands of tiny steps: fires). MOTS detection continues on the frozen grid.
+        frozen = (quiet > 20000 and mots[j] > 1.5 * G.MOTS_THRESH)
         if not frozen and 8 < len(r) < n0 // 2:
             rm = 0.5 * (r[1:] + r[:-1]); hm = 0.5 * (h[1:] + h[:-1])
             rn = np.empty(2 * len(r) - 1); hn = np.empty_like(rn)
@@ -178,7 +177,10 @@ def deep_delta(ps, vout, cfl, eps):
 
 def main():
     print("[C1g] Section III; prereg cosmos/PREREG_C1g_section3.md")
-    vout, configs, ups = 3.0, [], 0
+    vout, configs, ups = 3.37, [], 0                             # resume at the first unrefuted rung:
+                                                                 # v_out=3.0/3.18 are below-marginal by
+                                                                 # MEASURED arrivals (4.859/4.931 < u*),
+                                                                 # a regrid-independent ray property
     for it in range(7):                                          # <=3 upward + start + <=3 refinements
         ps = bisect_g(vout)
         if ps is None:

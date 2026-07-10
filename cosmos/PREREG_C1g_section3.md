@@ -65,6 +65,19 @@ this way while a 4e-13-neighboring run did not. (D) *ε-backoff implemented* as 
 (deep-run bh at the floor ⇒ retry at 3.16× ε, attempts logged), and the deep-run status string
 is now printed (the events=0 line was undiagnosable from the log alone — observability receipt).
 
+**Termination amendment 5 (2026-07-10, pre-config-data — the freeze ate the ladder):** amendment
+2's u-based freeze term (engage 0.2 u-units after the last crossing) fires INSIDE the cascade:
+the ladder's own inter-crossing gaps reach 1.04 in u (measured: 3.62→4.65), so the regrid froze
+between echoes and degraded axis resolution exactly where the next crossing needed it (it1
+receipt: crossing 3 at u≈4.95 unresolved; also measured independently: v_out=3.18's outermost
+ray dies at u=4.931 < u* — still below the marginal ray, so the raise was correct too). The
+u-based term is RETRACTED; the step-based quiet trigger (20k crossing-free steps + MOTS guard)
+is the sole freeze criterion — it adapts to du naturally (early gaps ≈ 3.5k steps: no fire;
+post-cascade drain: fires). Freeze timing alters evolution dynamics ⇒ ALL configurations
+re-bisect again under the final instrument. The relaunch RESUMES at v_out = 3.37: the
+below-marginal refutations of 3.0 and 3.18 rest on measured outermost-ray ARRIVALS (4.859 and
+4.931, both < u* ≈ 5.01) — ray trajectories are regrid-independent, so those receipts carry.
+
 **Mid-gate disclosures (2026-07-10, from PR #13 review — CodeRabbit; before any verdict was
 computed; NO tolerance or rule changed):**
 (i) *Bracket guard:* the registered auto-widening only handled p* escaping ABOVE hi; a p* below
