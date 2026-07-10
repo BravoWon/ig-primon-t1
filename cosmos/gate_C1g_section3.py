@@ -90,7 +90,12 @@ def evolve_g(p, vout, cfl=0.1, n0=800, collect=False):
     return "disp", trace
 
 
-def bisect_g(vout, cfl=0.1, lo=0.005, hi=0.1):
+def _probe(args):
+    p, vout, cfl = args
+    return evolve_g(p, vout, cfl)[0]
+
+
+def bisect_g(vout, cfl=0.1, lo=0.005, hi=0.1, pool=None):
     while evolve_g(hi, vout, cfl)[0] != "bh":                    # registered bracket widening
         hi *= 2
         if hi > 0.4:
@@ -99,16 +104,21 @@ def bisect_g(vout, cfl=0.1, lo=0.005, hi=0.1):
         lo /= 2                                                  # CodeRabbit): lo must DISPERSE,
         if lo < 1e-4:                                            # else bisection returns silent
             return None                                          # garbage near lo
-    for i in range(46):
-        mid = 0.5 * (lo + hi)
-        out = evolve_g(mid, vout, cfl)[0]
-        print(f"      bisect[{i:02d}] p={mid:.12f} -> {out}", flush=True)
-        if out == "bh":
-            hi = mid
-        else:
-            lo = mid
-        if (hi - lo) / hi < 3e-14:
-            break
+    lvl = 0
+    while (hi - lo) / hi >= 3e-14 and lvl < 26:                  # 3-worker trisection: interval
+        ms = [lo + (hi - lo) * k / 4 for k in (1, 2, 3)]         # shrinks 4x per level (~20 levels
+        args = [(m_, vout, cfl) for m_ in ms]                    # vs 46 sequential bisections)
+        outs = pool.map(_probe, args) if pool else [_probe(a) for a in args]
+        newlo, newhi = lo, hi
+        for m_, o in zip(ms, outs):                              # monotone: first bh caps hi
+            if o == "bh":
+                newhi = m_
+                break
+            newlo = m_
+        lo, hi = newlo, newhi
+        lvl += 1
+        print(f"      trisect[{lvl:02d}] ({lo:.14f}, {hi:.14f}) rel={(hi - lo) / hi:.2e}",
+              flush=True)
     return 0.5 * (lo + hi)
 
 
@@ -144,10 +154,24 @@ def events_inbound(trace):
     if len(j) < 5:
         return None
     uc = u[j] + (u[j + 1] - u[j]) * np.abs(h[j]) / (np.abs(h[j]) + np.abs(h[j + 1]))
-    ti = int(np.argmin(np.diff(uc)))
-    ut = float(uc[ti])                                           # turnaround (first endpoint)
+    # A5c geometric band-gating (disclosed): the accepted ladder telescopes -- the next crossing's
+    # gap from the last ACCEPTED one must fall in the DSS shrink band [0.05, 0.8] x previous gap.
+    # Sub-band gaps are turnaround jitter (measured at v_out=4.5: 9 noise crossings at gaps
+    # 1e-5..2e-4 against a real continuation of 1.5e-3, diluting Delta to 0.736); above-band gaps
+    # are outbound/growth. Skipped, not terminal: the scan recovers real crossings buried past
+    # jitter fog. Turnaround = last accepted crossing.
+    acc = [0, 1]
+    gprev = uc[1] - uc[0]
+    for k in range(2, len(uc)):
+        g = uc[k] - uc[acc[-1]]
+        if 0.05 * gprev <= g <= 0.8 * gprev:
+            acc.append(k)
+            gprev = g
+    if len(acc) < 4:
+        return None
+    ut = float(uc[acc[-1]])                                      # turnaround = deepest accepted
     r_ut = float(np.interp(ut, u, rout))
-    ucin, jin = uc[:ti + 1], j[:ti + 1]                          # strictly inbound
+    ucin, jin = uc[acc], j[acc]
     pks = []
     for a, b in zip(jin[:-1], jin[1:]):
         if b > a + 1:
@@ -176,7 +200,13 @@ def deep_delta(ps, vout, cfl, eps):
         len(F0) + len(F1), ut, r_ut, arr
 
 
+KNOWN = {(4.5, 0.1): 0.01279507180394}                           # banked p*'s: A5c is extraction-
+                                                                 # layer only, dynamics unchanged
+
+
 def main():
+    import multiprocessing
+    pool = multiprocessing.Pool(3)
     print("[C1g] Section III; prereg cosmos/PREREG_C1g_section3.md")
     vout, configs, ups, v_good = 4.5, [], 0, None                # amendment 6: the pile-up receipts
                                                                  # (arrivals 4.859/4.931/4.955 at
@@ -186,7 +216,7 @@ def main():
                                                                  # pile-up to a safe rung and descend
                                                                  # from above via measured r_ut
     for it in range(8):
-        ps = bisect_g(vout)
+        ps = KNOWN.get((round(vout, 4), 0.1)) or bisect_g(vout, pool=pool)
         if ps is None:
             print(f"  it{it}: v_out={vout:.4f} -- bracket failed, nm", flush=True)
             break
@@ -238,7 +268,7 @@ def main():
 
     print(f"\n  V3 controls: CFL=0.05 (own bisection) + penultimate "
           f"v_out={pen['vout'] if pen else float('nan'):.4f}:", flush=True)
-    ps05 = bisect_g(fin["vout"], cfl=0.05)
+    ps05 = bisect_g(fin["vout"], cfl=0.05, pool=pool)
     D05 = float("nan")
     if ps05:
         fit05, *_ = deep_delta(ps05, fin["vout"], 0.05, 1e-12)
