@@ -78,6 +78,17 @@ re-bisect again under the final instrument. The relaunch RESUMES at v_out = 3.37
 below-marginal refutations of 3.0 and 3.18 rest on measured outermost-ray ARRIVALS (4.859 and
 4.931, both < u* ≈ 5.01) — ray trajectories are regrid-independent, so those receipts carry.
 
+**Protocol amendment 6 (2026-07-10, pre-config-data — arrival-targeted ascent):** measured
+arrivals 4.859 / 4.931 / 4.955 at v_out = 3.0 / 3.18 / 3.37, gains collapsing ~3× per rung: the
+focusing PILE-UP — d(arrival)/dv → 0 approaching the marginal ray from below, so fixed-factor
+raises crawl while the deep ladder (crossings at u = 5.005–5.0095) sits on the far side.
+Amended ascent: JUMP the pile-up to a safe rung (v_out = 4.5, beyond any plausible v_marg by
+≥ 0.8; escalate to 6.0 = the untruncated grid, a ladder-complete configuration by construction,
+if 4.5 still starves), then descend from above via the REGISTERED refinement (v_out ← v_out −
+r_ut + margin — arrival-informed by construction, since r_ut measures the idle grid at the
+turnaround). A descent step that undershoots into few-events splits v_out against the last good
+configuration (bisection on v). Ascent budget 4; arrival now logged per iteration.
+
 **Mid-gate disclosures (2026-07-10, from PR #13 review — CodeRabbit; before any verdict was
 computed; NO tolerance or rule changed):**
 (i) *Bracket guard:* the registered auto-widening only handled p* escaping ABOVE hi; a p* below

@@ -160,50 +160,59 @@ def events_inbound(trace):
 
 def deep_delta(ps, vout, cfl, eps):
     out, tr = evolve_g(ps * (1 - eps), vout, cfl, collect=True)
+    arr = float(tr[-1][0]) if len(tr) else float("nan")          # arrival = grid-drain time
     if out != "disp":
-        return None, out, 0, float("nan"), float("nan")
+        return None, out, 0, float("nan"), float("nan"), arr
     got = events_inbound(tr)
     if got is None or got[0] is None:
         n = 0 if (got is None) else -1
         ut, r_ut = (float("nan"), float("nan")) if got is None else (got[1], got[2])
-        return None, "few-events", n, ut, r_ut
+        return None, "few-events", n, ut, r_ut, arr
     (F0, F1), ut, r_ut = got
     D, us, sse, D0, D1 = fit_timing2(F0, F1)
     return {"Delta": float(D), "ustar": float(us), "n": [len(F0), len(F1)],
             "fam": [float(D0), float(D1)],
             "F0": [float(x) for x in F0], "F1": [float(x) for x in F1]}, "ok", \
-        len(F0) + len(F1), ut, r_ut
+        len(F0) + len(F1), ut, r_ut, arr
 
 
 def main():
     print("[C1g] Section III; prereg cosmos/PREREG_C1g_section3.md")
-    vout, configs, ups = 3.37, [], 0                             # resume at the first unrefuted rung:
-                                                                 # v_out=3.0/3.18 are below-marginal by
-                                                                 # MEASURED arrivals (4.859/4.931 < u*),
-                                                                 # a regrid-independent ray property
-    for it in range(7):                                          # <=3 upward + start + <=3 refinements
+    vout, configs, ups, v_good = 4.5, [], 0, None                # amendment 6: the pile-up receipts
+                                                                 # (arrivals 4.859/4.931/4.955 at
+                                                                 # 3.0/3.18/3.37, gains collapsing 3x
+                                                                 # per rung) show d(arrival)/dv -> 0
+                                                                 # below the marginal ray -- JUMP the
+                                                                 # pile-up to a safe rung and descend
+                                                                 # from above via measured r_ut
+    for it in range(8):
         ps = bisect_g(vout)
         if ps is None:
             print(f"  it{it}: v_out={vout:.4f} -- bracket failed, nm", flush=True)
             break
         for e in (1e-12, 3.162e-12, 1e-11):                      # registered eps-backoff: bh at the
-            fit, status, nev, ut, r_ut = deep_delta(ps, vout, 0.1, e)   # floor = fog/false-MOTS; retry
+            fit, status, nev, ut, r_ut, arr = deep_delta(ps, vout, 0.1, e)  # floor = fog/false-MOTS
             if fit is not None or status == "few-events":
                 break
             print(f"    (deep eps={e:.3e}: {status} -> backoff)", flush=True)
         D = fit["Delta"] if fit else float("nan")
         print(f"  it{it}: v_out={vout:.4f}  p*={ps:.14f}  [{status}]  events={nev}  Delta={D:.3f}  "
-              f"u_t={ut:.4f}  r_out(u_t)={r_ut:.4f}", flush=True)
+              f"u_t={ut:.4f}  r_out(u_t)={r_ut:.4f}  arrival={arr:.4f}", flush=True)
         configs.append({"vout": vout, "pstar": ps, "n_events": nev, "ut": ut, "r_ut": r_ut,
-                        "Delta": D})
-        if fit is None:                                          # grid drained before the ladder
-            ups += 1                                             # completed: v_out is BELOW the
-            if ups > 3:                                          # marginal ray (gravitational
-                print("  protocol nm: marginal ray not bracketed in 3 raises", flush=True)
-                break                                            # focusing shortens arrivals) --
-            vout *= 1.06                                         # approach from above, per the
-            print(f"    (grid drained early: raising v_out -> {vout:.4f})", flush=True)
-            continue                                             # paper's 'slightly too large'
+                        "Delta": D, "arrival": arr})
+        if fit is None:                                          # ladder incomplete at this rung
+            ups += 1
+            if ups > 4:
+                print("  protocol nm: ladder not resolved within the ascent budget", flush=True)
+                break
+            if v_good is None:                                   # ascent: jump the pile-up
+                vout = 6.0 if vout >= 4.5 - 1e-9 else 4.5
+                print(f"    (ladder incomplete: safe-rung jump -> {vout:.4f})", flush=True)
+            else:                                                # descent undershot: split on v
+                vout = 0.5 * (vout + v_good)
+                print(f"    (descent undershot: splitting -> {vout:.4f})", flush=True)
+            continue
+        v_good = vout
         if not math.isnan(r_ut) and r_ut < 0.05:
             break
         vout = vout - r_ut + max(0.1 * r_ut, 0.02)
@@ -217,7 +226,7 @@ def main():
           flush=True)
     Ds, diag = [], []
     for e in (1e-11, 1e-12, 3.162e-13):
-        fit, status, nev, ut, r_ut = deep_delta(fin["pstar"], fin["vout"], 0.1, e)
+        fit, status, nev, ut, r_ut, arr = deep_delta(fin["pstar"], fin["vout"], 0.1, e)
         if fit:
             Ds.append(fit["Delta"]); diag.append({"eps": e, **fit})
             print(f"    eps={e:.3e}: events {fit['n'][0]}+{fit['n'][1]}  Delta={fit['Delta']:.3f}"
