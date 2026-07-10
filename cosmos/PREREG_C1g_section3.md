@@ -89,6 +89,14 @@ r_ut + margin — arrival-informed by construction, since r_ut measures the idle
 turnaround). A descent step that undershoots into few-events splits v_out against the last good
 configuration (bisection on v). Ascent budget 4; arrival now logged per iteration.
 
+**Amendment 7b (2026-07-10, pre-config-data — overflow-cascade classification):** a trisection
+probe crashed the worker pool with LinAlgError (SVD non-convergence in the 4-point axis fit):
+the g-clip bounds g but not ḣ = (g−ḡ)(h−h̄)/2r, so h can go non-finite one step before MOTS in
+violent collapse. Non-finite field state now classifies bh in-loop (the overflow cascade is
+collapse-side by receipt — it is the same warning family that accompanies every bh spiral), with
+a worker-level exception fallback to bh. Banked p*'s unaffected: the sequential bisections never
+reached this branch (no crash, no non-finite label), so their outcomes are bit-identical.
+
 **Mid-gate disclosures (2026-07-10, from PR #13 review — CodeRabbit; before any verdict was
 computed; NO tolerance or rule changed):**
 (i) *Bracket guard:* the registered auto-widening only handled p* escaping ABOVE hi; a p* below

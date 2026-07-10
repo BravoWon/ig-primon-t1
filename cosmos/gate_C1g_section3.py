@@ -36,6 +36,10 @@ def evolve_g(p, vout, cfl=0.1, n0=800, collect=False):
     u, m_init, trace = 0.0, None, []
     u_lc, s_prev, quiet = None, 0.0, 0
     while u < G.UEND and len(r) > 8:
+        if not np.isfinite(h).all():                             # overflow cascade: the g-clip bounds
+            return "bh", trace                                   # g but not hdot's product; non-finite
+                                                                 # h = collapse-side violence (receipt:
+                                                                 # trisect worker LinAlgError, 7b)
         hd1, rd1, g, gbar, h0, h1 = G.rates(r, h)
         mots = gbar / g
         j = int(np.argmin(mots))
@@ -92,7 +96,10 @@ def evolve_g(p, vout, cfl=0.1, n0=800, collect=False):
 
 def _probe(args):
     p, vout, cfl = args
-    return evolve_g(p, vout, cfl)[0]
+    try:
+        return evolve_g(p, vout, cfl)[0]
+    except Exception:                                            # belt-and-suspenders for the pool:
+        return "bh"                                              # any numeric blowup is collapse-side
 
 
 def bisect_g(vout, cfl=0.1, lo=0.005, hi=0.1, pool=None):
