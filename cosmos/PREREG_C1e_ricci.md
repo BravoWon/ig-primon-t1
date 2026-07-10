@@ -89,6 +89,14 @@ initial-slice anchor draft compared noise and was amended pre-launch, disclosed 
    Per prereg: **γ_B is NOT YET CONVERGED — an instrument bound, not a measurement.** The Δ half
    of the control passed; the Δ claim (V3) stands with this noted.
 
+**ADDENDUM (2026-07-10, before C1f registration):** V3's PASS is ENTANGLED with V5's failure —
+Δ_B = 2γ_B·P used the non-converged γ_B = 0.4167 as a factor. The robust C1d/C1e content is the
+PERIOD P = Δ/(2γ) = 4.28–4.30 (stable across observables and N), which pins only the RATIO Δ/γ =
+8.56–8.60, not Δ itself (with the converged mass-branch γ_A = 0.3681 the same P gives Δ ≈ 3.15,
+outside the band). V3 is DOWNGRADED from "Δ measured" to "Δ/γ measured": the wiggle route cannot
+break the γ–Δ degeneracy by construction. Gate C1f (echo timing + echo counting, both
+selection-free) is registered to measure Δ and γ independently and supersedes this claim.
+
 **Finding of record:** extremal (max-over-run) Route-B observables are exponent-corrupting in
 BOTH directions on this instrument class — under-resolved maxima clip (γ low), fully-resolved
 maxima noise-harvest (γ high, non-convergent; the P4.3 f64-extrema lesson recurring at the PDE
