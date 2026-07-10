@@ -50,6 +50,21 @@ freezes regardless (a collapse in progress is never quiet — the echoes are cro
 detection continues every step on the frozen grid). Labels unchanged; the bisection reruns from
 scratch under the single consistent instrument.
 
+**Protocol amendments 4 (2026-07-10, pre-config-data — the it0 nm's, all measured):**
+(A) *Iteration direction:* v_out⁰ = 3.0 sits BELOW the marginal ray — the flat estimate u*/2
+ignores gravitational focusing (rays arrive early, so the marginal ray starts HIGHER): measured,
+the v_out=3.0 grid drains at u = 4.859 while the cascade runs to u* ≈ 5.01, leaving 2–4
+crossings. The protocol now approaches from above per the paper's own "slightly too large":
+few-events ⇒ raise v_out ×1.06 and re-bisect (≤3 raises, else nm), then refine downward as
+registered. (B) *A5b flicker rejection:* the drained-endgame grid flips the 4-point h₁ fit for
+hundreds of noise "crossings" (spaced ~1e-9 in u) that hijack the turnaround argmin; events now
+require grid extent r_outer > 1e-2 (instrument-capacity floor, amplitude-free) plus ≥5-step sign
+runs. (C) *MOTS r-floor:* r[MOTS] > 5e-4 — a "horizon" at r ~ 1e-8 on a drained 8-ray grid is
+fit noise (the family's banked mass floor is 1e-3-scale); one deep run false-triggered exactly
+this way while a 4e-13-neighboring run did not. (D) *ε-backoff implemented* as registered
+(deep-run bh at the floor ⇒ retry at 3.16× ε, attempts logged), and the deep-run status string
+is now printed (the events=0 line was undiagnosable from the log alone — observability receipt).
+
 **Mid-gate disclosures (2026-07-10, from PR #13 review — CodeRabbit; before any verdict was
 computed; NO tolerance or rule changed):**
 (i) *Bracket guard:* the registered auto-widening only handled p* escaping ABOVE hi; a p* below

@@ -39,8 +39,9 @@ def evolve_g(p, vout, cfl=0.1, n0=800, collect=False):
         hd1, rd1, g, gbar, h0, h1 = G.rates(r, h)
         mots = gbar / g
         j = int(np.argmin(mots))
-        if mots[j] < G.MOTS_THRESH:
-            return "bh", trace
+        if mots[j] < G.MOTS_THRESH and r[j] > 5e-4:              # r-floor: a "horizon" at r~1e-8 on a
+            return "bh", trace                                   # drained endgame grid is fit noise
+                                                                 # (banked mass floor is 1e-3-scale)
         if u > 1.0:                                              # same trim as the event rules
             s = math.copysign(1.0, h1) if h1 != 0 else 0.0
             if s_prev != 0.0 and s != 0.0 and s != s_prev:
@@ -119,10 +120,28 @@ def events_inbound(trace):
     if len(tr) < 4:
         return None
     u, h, rout = tr[:, 0], tr[:, 1], tr[:, 2]
-    m = u > UTRIM
+    m = (u > UTRIM) & (rout > 1e-2)
+    # A5b flicker rejection (disclosed, two parts): (i) GRID-EXTENT FLOOR r_outer > 1e-2 —
+    # the endgame flicker (hundreds of h1-fit sign flips spaced ~1e-9 in u, which hijacked the
+    # turnaround argmin) lives exclusively on the drained grid (r_out ~ 1e-8); real echoes run
+    # at r_out ~ 0.1-1. Amplitude-free, instrument-capacity-based. (ii) sign-runs >= 5 steps on
+    # each side of a counted crossing (step-length alone failed: at drained-endgame du ~ 1e-9,
+    # noise flips persist for many steps — measured before the r_out floor was added).
     u, h, rout = u[m], h[m], rout[m]
+    if len(u) < 4:
+        return None
     s = np.sign(h)
-    j = np.where(s[1:] * s[:-1] < 0)[0]
+    runs = []                                                    # (sign, start, length)
+    for i in range(len(s)):
+        if runs and s[i] == runs[-1][0]:
+            runs[-1][2] += 1
+        else:
+            runs.append([s[i], i, 1])
+    j = []
+    for a, b in zip(runs[:-1], runs[1:]):
+        if a[0] != 0 and b[0] != 0 and a[0] != b[0] and a[2] >= 5 and b[2] >= 5:
+            j.append(b[1] - 1)                                   # last index of the left run
+    j = np.asarray(j, dtype=int)
     if len(j) < 5:
         return None
     uc = u[j] + (u[j + 1] - u[j]) * np.abs(h[j]) / (np.abs(h[j]) + np.abs(h[j + 1]))
@@ -159,27 +178,38 @@ def deep_delta(ps, vout, cfl, eps):
 
 def main():
     print("[C1g] Section III; prereg cosmos/PREREG_C1g_section3.md")
-    vout, configs = 3.0, []
-    for it in range(4):                                          # v_out^0 + up to 3 refinements
+    vout, configs, ups = 3.0, [], 0
+    for it in range(7):                                          # <=3 upward + start + <=3 refinements
         ps = bisect_g(vout)
         if ps is None:
             print(f"  it{it}: v_out={vout:.4f} -- bracket failed, nm", flush=True)
             break
-        fit, status, nev, ut, r_ut = deep_delta(ps, vout, 0.1, 1e-12)
+        for e in (1e-12, 3.162e-12, 1e-11):                      # registered eps-backoff: bh at the
+            fit, status, nev, ut, r_ut = deep_delta(ps, vout, 0.1, e)   # floor = fog/false-MOTS; retry
+            if fit is not None or status == "few-events":
+                break
+            print(f"    (deep eps={e:.3e}: {status} -> backoff)", flush=True)
         D = fit["Delta"] if fit else float("nan")
-        print(f"  it{it}: v_out={vout:.4f}  p*={ps:.14f}  events={nev}  Delta={D:.3f}  "
+        print(f"  it{it}: v_out={vout:.4f}  p*={ps:.14f}  [{status}]  events={nev}  Delta={D:.3f}  "
               f"u_t={ut:.4f}  r_out(u_t)={r_ut:.4f}", flush=True)
         configs.append({"vout": vout, "pstar": ps, "n_events": nev, "ut": ut, "r_ut": r_ut,
                         "Delta": D})
+        if fit is None:                                          # grid drained before the ladder
+            ups += 1                                             # completed: v_out is BELOW the
+            if ups > 3:                                          # marginal ray (gravitational
+                print("  protocol nm: marginal ray not bracketed in 3 raises", flush=True)
+                break                                            # focusing shortens arrivals) --
+            vout *= 1.06                                         # approach from above, per the
+            print(f"    (grid drained early: raising v_out -> {vout:.4f})", flush=True)
+            continue                                             # paper's 'slightly too large'
         if not math.isnan(r_ut) and r_ut < 0.05:
             break
-        if math.isnan(r_ut):
-            print("    (no turnaround measured -- stopping refinement)", flush=True)
-            break
         vout = vout - r_ut + max(0.1 * r_ut, 0.02)
-    if len(configs) < 2:
-        print("  protocol nm: fewer than 2 configurations"); return
-    fin, pen = configs[-1], configs[-2]
+    usable = [c for c in configs if not math.isnan(c["Delta"])]
+    if not usable:
+        print("  protocol nm: no configuration resolved the ladder"); return
+    fin = usable[-1]
+    pen = usable[-2] if len(usable) >= 2 else None
 
     print(f"\n  FINAL config v_out={fin['vout']:.4f}: verdict runs eps in 1e-11/1e-12/3.16e-13:",
           flush=True)
@@ -195,8 +225,8 @@ def main():
     Dmed = float(np.median(Ds)) if Ds else float("nan")
     nev_12 = next((d["n"][0] + d["n"][1] for d in diag if d["eps"] == 1e-12), 0)
 
-    print(f"\n  V3 controls: CFL=0.05 (own bisection) + penultimate v_out={pen['vout']:.4f}:",
-          flush=True)
+    print(f"\n  V3 controls: CFL=0.05 (own bisection) + penultimate "
+          f"v_out={pen['vout'] if pen else float('nan'):.4f}:", flush=True)
     ps05 = bisect_g(fin["vout"], cfl=0.05)
     D05 = float("nan")
     if ps05:
@@ -205,13 +235,15 @@ def main():
             D05 = fit05["Delta"]
             print(f"    CFL=0.05: p*={ps05:.14f}  Delta={D05:.3f}  "
                   f"events {fit05['n'][0]}+{fit05['n'][1]}", flush=True)
-    Dpen = pen["Delta"]
-    print(f"    penultimate: Delta={Dpen:.3f}  (from iteration record)")
+    Dpen = pen["Delta"] if pen else float("nan")
+    print(f"    penultimate: Delta={Dpen:.3f}  (from iteration record; nan = nm, no second "
+          f"resolved config)")
 
     gB = Dmed / (2 * PBAR)
     v1 = nev_12 >= 10
     v2 = len(Ds) >= 2 and abs(Dmed - ANCH_D) <= 0.25
-    v3 = (not math.isnan(D05)) and abs(D05 - Dmed) <= 0.15 and abs(Dpen - Dmed) <= 0.15
+    v3 = (not math.isnan(D05)) and abs(D05 - Dmed) <= 0.15 and \
+         (not math.isnan(Dpen)) and abs(Dpen - Dmed) <= 0.15
     v4 = v2 and v3 and abs(gB - 0.374) <= 0.03 and abs(gB - GA) <= 0.03
     print(f"\n  PRE-REGISTERED VERDICTS:")
     print(f"    (1) ladder >=10 inbound events at eps=1e-12: {'PASS' if v1 else 'FAIL'} ({nev_12})")
