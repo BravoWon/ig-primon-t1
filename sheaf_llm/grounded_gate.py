@@ -25,6 +25,10 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import nltk
 from nltk.corpus import wordnet as wn
+try:
+    wn.ensure_loaded()
+except LookupError:
+    nltk.download("wordnet", quiet=True)
 
 DEV = "cuda" if torch.cuda.is_available() else "cpu"
 SS = ["noun.animal", "noun.artifact", "noun.food", "noun.plant",

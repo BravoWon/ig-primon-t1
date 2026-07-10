@@ -35,6 +35,10 @@ import matplotlib.pyplot as plt
 import nltk
 from nltk.corpus import brown
 from nltk.corpus import wordnet as wn
+try:
+    wn.ensure_loaded()
+except LookupError:
+    nltk.download("wordnet", quiet=True)
 
 DEV = "cuda" if torch.cuda.is_available() else "cpu"
 V, DM, DG, NH, NL, FF, BLK = 6000, 192, 16, 6, 3, 512, 96

@@ -22,11 +22,14 @@ from coherence_lib import (DEV, AAA, REPOS, KREMOVE, NAVY, GREEN, BLUE,
 NJUDGE = 14
 CHURN = re.compile(r"\b(revert|rollback|back ?out|undo|breaking change|no longer|deprecat|remove|delete|"
                    r"drop support|rewrite|overhaul|revamp|hack|workaround|regression|broke|kludge)\b", re.I)
-_jtok, _jmod = load_judge()
+_jtok = _jmod = None                                     # lazy: loaded on first judge() call
 
 
 @torch.no_grad()
 def judge(section, change):
+    global _jtok, _jmod
+    if _jmod is None:
+        _jtok, _jmod = load_judge()
     msgs = [{"role": "system", "content": "You audit whether a code change is consistent with a project's "
              "stated design. Reply with exactly one word: ALIGN, CONTRADICT, or UNRELATED."},
             {"role": "user", "content": f"DESIGN STATEMENT:\n{section[:600]}\n\nCODE CHANGE (commit):\n"

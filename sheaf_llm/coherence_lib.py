@@ -15,8 +15,9 @@ import torch
 from transformers import AutoTokenizer, AutoModel, AutoModelForCausalLM
 
 DEV = "cuda" if torch.cuda.is_available() else "cpu"
-ROOT = "C:/Users/JT-DEV1/Desktop/development/_coherence_repos"
-ISOZ = "C:/Users/JT-DEV1/Desktop/development/proj-0/isoZ"
+_DEV_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ROOT = os.environ.get("COHERENCE_REPOS", os.path.join(_DEV_DIR, "_coherence_repos"))
+ISOZ = os.environ.get("COHERENCE_SELF_REPO", os.path.join(_DEV_DIR, "proj-0", "isoZ"))
 AAA = {"godotengine_godot", "bevyengine_bevy", "microsoft_TypeScript", "facebook_react", "obsproject_obs-studio"}
 MAXC, MAXSEC, KREMOVE = 500, 150, 3
 DESIGN_PAT = re.compile(r"(readme|architect|design|contribut|overview|docs/|adr|spec|roadmap|manifesto)", re.I)
@@ -25,17 +26,24 @@ NAVY, GREEN, BLUE, RED, AMBER = "#15293f", "#1e7d34", "#2c6fbb", "#c0392b", "#9a
 
 def discover_repos():
     repos = [d for d in sorted(glob.glob(ROOT + "/*")) if os.path.isdir(d + "/.git")]
-    return repos + [ISOZ]
+    return repos + ([ISOZ] if os.path.isdir(os.path.join(ISOZ, ".git")) else [])
 
 
 REPOS = discover_repos()
 
-_etok = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
-_emod = AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2").to(DEV).eval()
+_etok = _emod = None                                     # lazy: importing this lib must stay cheap
+
+
+def _ensure_embedder():
+    global _etok, _emod
+    if _emod is None:
+        _etok = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
+        _emod = AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2").to(DEV).eval()
 
 
 @torch.no_grad()
 def embed(texts, bs=128):
+    _ensure_embedder()
     out = []
     for i in range(0, len(texts), bs):
         enc = _etok([t[:512] for t in texts[i:i + bs]], padding=True, truncation=True,
@@ -98,5 +106,6 @@ def load_judge(judge_id="Qwen/Qwen2.5-3B-Instruct"):
     """Lazy: only v4/v5 need the LLM judge, so it is NOT loaded at import time."""
     print(f"[coherence] loading judge {judge_id} ...")
     tok = AutoTokenizer.from_pretrained(judge_id)
-    mod = AutoModelForCausalLM.from_pretrained(judge_id, dtype=torch.float16).to(DEV).eval()
+    mod = AutoModelForCausalLM.from_pretrained(
+        judge_id, torch_dtype=(torch.float16 if DEV == "cuda" else torch.float32)).to(DEV).eval()
     return tok, mod

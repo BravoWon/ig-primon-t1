@@ -25,6 +25,11 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from nltk.corpus import wordnet as wn
+try:
+    wn.ensure_loaded()
+except LookupError:
+    import nltk
+    nltk.download("wordnet", quiet=True)
 
 DEV = "cuda" if torch.cuda.is_available() else "cpu"
 SS = ["noun.animal", "noun.artifact", "noun.food", "noun.plant",
@@ -92,13 +97,17 @@ def main():
             self.ess, self.ed, self.ev = nn.Embedding(S, D), nn.Embedding(B, D), nn.Embedding(NV, D)
             if sheaf:
                 self.Rs, self.Ro = nn.Linear(2 * D, D), nn.Linear(2 * D, D)      # role-specific restriction maps
+            else:
+                self.Rb = nn.Linear(2 * D, D)                                    # ONE shared map (role-blind)
             self.mlp = nn.Sequential(nn.Linear(3 * D, HID), nn.GELU(), nn.Linear(HID, HID), nn.GELU(), nn.Linear(HID, S))
         def forward(self, gs, go, v):
             s = torch.cat([self.ess(gs[0]), self.ed(gs[1])], -1); o = torch.cat([self.ess(go[0]), self.ed(go[1])], -1)
             if self.sheaf:
                 zs, zo = self.Rs(s), self.Ro(o)                                  # subj/obj transported by DIFFERENT maps
             else:
-                zs = zo = (s + o)[:, :D]                                         # bag: symmetric sum, role-blind
+                zs = zo = self.Rb(s + o)                                         # bag: symmetric sum, role-blind
+                # (fix per PR#12 review: the old `(s+o)[:, :D]` truncated away the depth half,
+                #  confounding role-blindness with information loss; Rb keeps both features)
             return self.mlp(torch.cat([zs, self.ev(v), zo], -1))
 
     def run(kind):

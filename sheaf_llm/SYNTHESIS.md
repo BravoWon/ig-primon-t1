@@ -73,6 +73,10 @@ be respected). `flat` (positional) aces roles but **dies on unseen words (0.12 =
 asymmetric target); **`grounded-sheaf` (inherited dictionary + role-specific restriction maps) gets
 BOTH, 1.00 / 1.00.** The dictionary and the sheaf relations are **each necessary and they stack** —
 exactly the human-trace architecture (inherit meaning, compose it structurally).
+*(Baseline repaired 2026-07-10 after PR review: the original bag truncated away the depth feature,
+confounding role-blindness with information loss. Re-run with an information-preserving symmetric
+map (`Rb(s+o)`): the cap is unchanged — 0.55 seen / 0.57 unseen — so the role-blind ceiling, not the
+missing feature, was binding. The brick-2 conclusion survives its corrected control.)*
 
 **Brick 2 HARDENED (`adversarial_gate.py`) — the 1.00/1.00 was partly by construction; the win still
 survives.** Brick 2's target was a clean function of *exactly* the two inherited tiers, so a skeptic

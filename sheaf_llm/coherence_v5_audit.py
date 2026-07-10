@@ -22,11 +22,14 @@ FOCUS = {"obra_superpowers-marketplace": "CONTESTED?", "daymade_claude-code-skil
          "jarrodwatts_claude-hud": "CHAOTIC?", "team-attention_plugins-for-claude-natives": "control(COHERENT)",
          "bevyengine_bevy": "control(COHERENT)"}
 NJ = 16
-_jtok, _jmod = load_judge()
+_jtok = _jmod = None                                     # lazy: loaded on first judge() call
 
 
 @torch.no_grad()
 def judge(section, change, sample=False):
+    global _jtok, _jmod
+    if _jmod is None:
+        _jtok, _jmod = load_judge()
     msgs = [{"role": "system", "content": "You audit whether a code change is consistent with a project's "
              "stated design. Reply with exactly one word: ALIGN, CONTRADICT, or UNRELATED."},
             {"role": "user", "content": f"DESIGN STATEMENT:\n{section[:600]}\n\nCODE CHANGE (commit message "

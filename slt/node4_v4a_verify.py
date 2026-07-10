@@ -61,7 +61,7 @@ def main():
     ok = True
     for seed in (0, 1, 2):
         g, te, lc, lcy, nan = probe("cocycle", seed)
-        stat = "NaN@" + str(nan) if nan is not None else ("grok+satisfied" if (g and te > 0.95 and lcy < 1.0) else "PROBLEM")
+        stat = "NaN@" + str(nan) if nan is not None else ("grok+satisfied" if (g is not None and te > 0.95 and lcy < 1.0) else "PROBLEM")
         ok &= nan is None and g is not None and te > 0.95 and lcy < 1.0
         print(f"  cocycle  s{seed}: grok@{str(g):>6} te {te:.2f}  Lcons {lc:.3f}  Lcyc {lcy:.2f}  -> {stat}")
     g, te, _, _, nan = probe("baseline", 0)

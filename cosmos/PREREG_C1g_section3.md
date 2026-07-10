@@ -8,7 +8,7 @@ echo ladder in any observable class. C1g implements it.**
 ## Protocol (fixed)
 Configuration = (N=800, CFL=0.1, v_out); grid = linspace(v_out/N, v_out, N); initial pulse = the
 SAME functional form as C1c (h = p·e^(−z²)(3r²−2r³z/σ), R0=2, σ=0.5) truncated at v_out — each
-v_out is a NEW discrete family: **p* re-bisected to the f64 floor per configuration** (C1f
+v_out is a NEW discrete family: **`p*` re-bisected to the f64 floor per configuration** (C1f
 receipt: instrument changes shift p* by ≫ the probed ε). Rays outside the marginal ray cannot
 causally influence the critical point; truncating them re-allocates the whole grid to the echo
 region's domain of dependence.

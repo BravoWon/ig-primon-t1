@@ -21,7 +21,7 @@ exactly the shape of the subword gate (rigorous higher-order structure can be re
 
     python h1_gate.py
 """
-import itertools, math
+import itertools, math, os
 from collections import Counter
 import numpy as np
 import torch
@@ -35,7 +35,9 @@ import nltk
 from nltk.corpus import brown
 
 DEV = "cuda" if torch.cuda.is_available() else "cpu"
-GPT2 = "C:/Users/JT-DEV1/Documents/gpt2-sm"
+GPT2 = os.environ.get("H1_GPT2", "C:/Users/JT-DEV1/Documents/gpt2-sm")
+if not os.path.isdir(GPT2):
+    GPT2 = "gpt2"                                        # fall back to the HF hub id
 LS = [4, 8, 16, 32]          # context-window lengths = the "contexts" of the cover
 LFULL, TOPP, CAP = 48, 0.9, 40
 NAVY = "#15293f"

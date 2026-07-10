@@ -29,9 +29,12 @@ import matplotlib.pyplot as plt
 from transformers import AutoTokenizer, AutoModel
 
 DEV = "cuda" if torch.cuda.is_available() else "cpu"
-ROOT = "C:/Users/JT-DEV1/Desktop/development/_coherence_repos"
+_DEV_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ROOT = os.environ.get("COHERENCE_REPOS", os.path.join(_DEV_DIR, "_coherence_repos"))
 REPOS = [d for d in sorted(glob.glob(ROOT + "/*")) if os.path.isdir(d + "/.git")]
-REPOS += ["C:/Users/JT-DEV1/Desktop/development/proj-0/isoZ"]          # local self-anchor
+_ISOZ = os.environ.get("COHERENCE_SELF_REPO", os.path.join(_DEV_DIR, "proj-0", "isoZ"))
+if os.path.isdir(os.path.join(_ISOZ, ".git")):
+    REPOS += [_ISOZ]                                     # local self-anchor
 MAXC, MAXSEC = 500, 150
 DESIGN_PAT = re.compile(r"(readme|architect|design|contribut|overview|docs/|adr|spec|roadmap|manifesto)", re.I)
 NAVY, GREEN, RED = "#15293f", "#1e7d34", "#c0392b"
