@@ -32,6 +32,22 @@ the f64 instrument's outcome and its band-gated crossing TIMES to |δu| < 1e−6
 is not bit-identical — roundoff differs — but at ε ≫ both fogs the physical ladder must match).
 (c) DD threshold sanity: the seeded bracket's endpoints must label (disp, bh) at DD.
 
+## Amendment C1h-2 (2026-07-11, pre-descent-data — bracket-inversion forensics)
+First launch: the seeded ±1e−11 bracket came back INVERTED (lo=bh, hi=disp) — impossible for a
+monotone boundary, so ≥1 mislabel. Forensics (termination-cause instrumentation, banked in the
+diag log): the hi probe dispersed honestly (drain, closest approach mots 0.41); the lo probe
+burned the full 2M-step budget stuck at u = 5.0214 with **mots_min = −inf** — ray-crossing drove
+ḡ negative (grid pathology, not a horizon) and the budget classifier took −inf as
+closest-approach ⇒ bh; the freeze never engaged because sub-resolution h₁ flicker (flips every
+1–2 steps) kept resetting the quiet counter — the A5b flicker signature attacking the GUARD
+layer. Two fixes, both termination-side: (i) mots_min tracks POSITIVE mots only (negative =
+ray-crossing; the MOTS trigger likewise requires mots > 0); (ii) a sign flip resets quiet/u_lc
+only if ≥ 5 steps from the previous flip (sub-resolution flicker must not veto the freeze).
+**Measured en route (banked):** the DD threshold sits (1e−10, 1e−9) relative ABOVE the f64 seed
+— the f64 p*'s absolute position error, directly measured; bracket verification therefore starts
+at ±1e−9 (narrower windows are known-inverted). Descent restarted from scratch under the fixed
+classifier (levels 1–4 of the first descent discarded unexamined).
+
 ## Verdict runs and verdicts (fixed)
 Deep runs at **ε = 1e−14, 1e−18, 1e−22** — the new axis is DEPTH: three ladders of increasing
 τ* (≈ 12, 15.5, 19). Ladder fit = C1f's `fit_timing2`, events = A5c band-gated (unchanged).

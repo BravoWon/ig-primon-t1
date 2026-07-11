@@ -104,39 +104,53 @@ def init_dd(p, vout=VOUT, n0=N0):
     return r, h
 
 
+LAST = {}                                                        # termination forensics (diag aid)
+
+
 def evolve_dd(p, vout=VOUT, cfl=CFL, n0=N0, collect=False):
     """C1g's evolve with every guard, state in DD. p is a DD scalar tuple."""
     r, h = init_dd(p, vout, n0)
     u = (0.0, 0.0)
     m_init, trace = None, []
     u_lc, s_prev, quiet, steps, mots_min = None, 0.0, 0, 0, 1.0
+    last_flip = -10
+
+    def _fin(cause, out):
+        LAST.update(cause=cause, out=out, steps=steps, mots_min=mots_min, u=u[0],
+                    n=len(r[0]), u_lc=u_lc)
+        return out
+
     while u[0] < G.UEND and len(r[0]) > 8:
         steps += 1
         if steps > 2_000_000:
-            return ("bh" if mots_min < 2 * G.MOTS_THRESH else "disp"), trace
+            return _fin("budget", "bh" if mots_min < 2 * G.MOTS_THRESH else "disp"), trace
         if not np.isfinite(h[0]).all():
-            return "bh", trace
+            return _fin("overflow", "bh"), trace
         hd, rd, g, gbar, h0, h1 = rates_dd(r, h)
         mots = gbar[0] / g[0]                                    # detection: f64 hi parts
         j = int(np.argmin(mots))
-        mots_min = min(mots_min, float(mots[j]))
-        if mots[j] < G.MOTS_THRESH and r[0][j] > 5e-4:
-            return "bh", trace
+        mj = float(mots[j])
+        if mj > 0:                                               # amendment C1h-2: negative mots =
+            mots_min = min(mots_min, mj)                         # ray-crossing pathology, never a
+        if 0 < mj < G.MOTS_THRESH and r[0][j] > 5e-4:            # horizon (forensics: mots_min=-inf
+            return _fin("mots", "bh"), trace                     # mislabeled a subcritical hover)
         h1f = float(h1[0])
         if u[0] > 1.0:
             s = math.copysign(1.0, h1f) if h1f != 0 else 0.0
-            if s_prev != 0.0 and s != 0.0 and s != s_prev:
-                u_lc, quiet = u[0], 0
-            else:
-                quiet += 1
+            if s_prev != 0.0 and s != 0.0 and s != s_prev and steps - last_flip >= 5:
+                u_lc, quiet = u[0], 0                            # C1h-2 guard-layer flicker rule:
+            else:                                                # sub-resolution flips (every 1-2
+                quiet += 1                                       # steps) must not reset the quiet
+            if s_prev != 0.0 and s != 0.0 and s != s_prev:       # counter, else the freeze never
+                last_flip = steps                                # engages and the budget burns
             s_prev = s
         m_out = 0.5 * r[0][-1] * (1 - mots[-1])
         if m_init is None:
             m_init = max(m_out, 1e-30)
         elif u_lc is None and m_out < 1e-3 * m_init:
-            return "disp", trace
+            return _fin("m_out", "disp"), trace
         elif u_lc is not None and u[0] > u_lc + 1.5:
-            return "disp", trace
+            return _fin("disp-clock", "disp"), trace
         du = cfl * float(np.quantile(np.diff(r[0]), 0.05))
         r2 = D.add(r, D.scale(rd, du))
         h2 = D.add(h, D.scale(hd, du))
@@ -165,7 +179,7 @@ def evolve_dd(p, vout=VOUT, cfl=CFL, n0=N0, collect=False):
             rn[0][0::2], rn[1][0::2] = r[0], r[1]; rn[0][1::2], rn[1][1::2] = rm[0], rm[1]
             hn[0][0::2], hn[1][0::2] = h[0], h[1]; hn[0][1::2], hn[1][1::2] = hm[0], hm[1]
             r, h = rn, hn
-    return "disp", trace
+    return _fin("drain/UEND", "disp"), trace
 
 
 def _probe_dd(args):
@@ -253,8 +267,10 @@ def main():
     import multiprocessing
     pool = multiprocessing.Pool(5)
     print("[C1h] mp-float bisection; prereg cosmos/PREREG_C1h_mpfloat.md")
-    # seeded bracket, labels verified at DD (widen x10 to 1e-8, else nm)
-    w = 1e-11
+    # seeded bracket, labels verified at DD (widen x10 to 1e-8, else nm); starts at 1e-9 --
+    # the DD threshold displacement is MEASURED at (1e-10, 1e-9) above the f64 seed, so
+    # narrower windows are known-inverted (banked receipts, first campaign launch)
+    w = 1e-9
     lo = hi = None
     while w <= 1e-8:
         cl = D.mul(D.dd(np.array(PSTAR_F64)), D.dd(np.array(1.0 - w)))
