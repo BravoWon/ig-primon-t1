@@ -48,6 +48,20 @@ only if ≥ 5 steps from the previous flip (sub-resolution flicker must not veto
 at ±1e−9 (narrower windows are known-inverted). Descent restarted from scratch under the fixed
 classifier (levels 1–4 of the first descent discarded unexamined).
 
+## Amendment C1h-3 (2026-07-11, pre-verdict — the quiet-collapse robbery)
+The first full descent sealed a bracket at 2e−23 whose ε = 1e−14 verdict run returned bh — nine
+orders above the bracket floor, impossible unless the WHOLE bracket sat above the true threshold.
+Mechanism: post-departure, a collapse-bound run's unstable mode grows MONOTONICALLY — no h₁
+crossings, so 20k quiet steps accumulate while mots is still above the freeze guard; the freeze
+drains the grid before the horizon resolves and the probe is mislabeled disp. Each robbery pulls
+lo upward into true-bh territory; eighteen self-consistent levels then descend inside the wrong
+region ("the freeze's premise — a collapse in progress is never quiet — is FALSE during
+post-departure growth"). Fix: the freeze additionally requires mots to be NON-DECREASING (5k-step
+trend sampler; a downtrend vetoes the freeze); the 2M budget still bounds any slow hover and
+classifies by positive-only mots_min. The displaced first-descent p*
+(0.012793009044178402 − 5.78e−19, bracket 2e−23) is BANKED AS DIAGNOSTIC: the fixed re-descent's
+p* against it measures the robbery-zone width directly. Full re-descent from the ±1e−9 seed.
+
 ## Verdict runs and verdicts (fixed)
 Deep runs at **ε = 1e−14, 1e−18, 1e−22** — the new axis is DEPTH: three ladders of increasing
 τ* (≈ 12, 15.5, 19). Ladder fit = C1f's `fit_timing2`, events = A5c band-gated (unchanged).

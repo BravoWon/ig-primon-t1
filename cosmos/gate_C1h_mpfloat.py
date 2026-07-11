@@ -114,6 +114,7 @@ def evolve_dd(p, vout=VOUT, cfl=CFL, n0=N0, collect=False):
     m_init, trace = None, []
     u_lc, s_prev, quiet, steps, mots_min = None, 0.0, 0, 0, 1.0
     last_flip = -10
+    mots_trend_old, mots_trend_ref = 1.0, 1.0
 
     def _fin(cause, out):
         LAST.update(cause=cause, out=out, steps=steps, mots_min=mots_min, u=u[0],
@@ -144,6 +145,8 @@ def evolve_dd(p, vout=VOUT, cfl=CFL, n0=N0, collect=False):
             if s_prev != 0.0 and s != 0.0 and s != s_prev:       # counter, else the freeze never
                 last_flip = steps                                # engages and the budget burns
             s_prev = s
+        if steps % 5000 == 0:                                    # mots trend sampler (amendment 3)
+            mots_trend_old, mots_trend_ref = mots_trend_ref, mj
         m_out = 0.5 * r[0][-1] * (1 - mots[-1])
         if m_init is None:
             m_init = max(m_out, 1e-30)
@@ -170,7 +173,13 @@ def evolve_dd(p, vout=VOUT, cfl=CFL, n0=N0, collect=False):
         u = (float(u[0]), float(u[1]))
         if collect and len(r[0]) > 8:
             trace.append((u[0], float(bars_dd(r, h)[1][0]), float(r[0][-1])))
-        frozen = (quiet > 20000 and mots[j] > 1.05 * G.MOTS_THRESH)
+        # amendment 3 (the quiet-collapse robbery): post-departure the unstable mode grows
+        # MONOTONICALLY -- no crossings, quiet accumulates, and the freeze would drain the grid
+        # before the horizon resolves, mislabeling bh-side probes as disp (the entire first
+        # descent converged above the true threshold this way; eps=1e-14 verdict run came back
+        # bh). A collapsing run's mots trends DOWN: a downtrend now vetoes the freeze; the 2M
+        # budget still catches any slow hover and classifies by its (positive-only) mots_min.
+        frozen = (quiet > 20000 and mj > 1.05 * G.MOTS_THRESH and mj >= mots_trend_old - 1e-4)
         if not frozen and 8 < len(r[0]) < n0 // 2:
             rm = D.scale(D.add((r[0][1:], r[1][1:]), (r[0][:-1], r[1][:-1])), 0.5)
             hm = D.scale(D.add((h[0][1:], h[1][1:]), (h[0][:-1], h[1][:-1])), 0.5)
