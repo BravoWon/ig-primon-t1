@@ -155,3 +155,38 @@ This IS Garfinkle's 1995 method, finally implemented whole; Δ = 3.4453 is Gundl
 Deliverable = the completed re-derivation receipt (the arc's three failure-modes each re-derived
 one piece of the 1995 toolchain; C1g assembles them and tests whether the ladder opens), and —
 if verdicts pass — Δ measured without AMR at N=800, the claim C1e retracted and C1f voided.
+
+---
+## GATE RECORD (2026-07-11, appended post-execution)
+Eight pre-verdict amendments, every one with a measured receipt (the instrument ledger of this
+gate: dispersal pack-off, hover hole ×2 — killed structurally by the step-budget, endgame
+flicker, phantom horizon, focusing pile-up → arrival-targeted ascent, freeze-in-the-ladder,
+turnaround jitter → geometric band-gate, overflow cascade, threshold fog → ε-backoff; plus
+3-worker trisection search per operator license).
+
+**VERDICTS: 1 PASS · 2 FAIL · 3 FAIL · 4 FAIL.**
+1. **PASS — Section III works as an instrument.** The walk (4.500 → 4.398 → 4.253 → 4.219 →
+   4.168 → 4.134, two fog-poisoned rungs self-corrected by v-splitting) bracketed the marginal
+   ray to r_out(u_t) = 0.040 (4% idle grid) and resolved a 13-event band-gated ladder at the
+   final configuration — vs ~7 inbound-clean at C1f's fixed grid. The resolution starvation C1f
+   measured is CURED.
+2. FAIL — Δ = 3.955 (median of 3 verdict draws), off the anchor by +0.510.
+3. FAIL — ray-allocation drift +0.211 > 0.15; sampling control nm (its p*(CFL=0.05) =
+   0.012793008684668 bisected cleanly, but the control path lacked the ε-backoff the main loop
+   had — implementation asymmetry, disclosed; its single ε = 1e−12 draw hit threshold fog).
+4. FAIL — implied γ_B = 0.4609.
+
+**FINDING OF RECORD — the wall moves one layer deeper and becomes final for f64:** the config-Δ
+series across the six usable configurations — 3.833, 3.491, 3.630, 3.848, 4.166, 3.955 — spreads
+±0.34 with NO convergence under ray allocation, while each draw's two families agree internally
+(e.g. 4.51/4.55, 4.10/3.72). The fit is precise per-configuration and unstable across them ⇒ the
+binding constraint is the EVENT BUDGET, not allocation: at the f64 bisection floor, τ* = γ·ln(1/ε)
+≈ 10 caps the inbound ladder at ~6–7 crossings, and ~5 fit-informative rungs cannot pin a
+4-parameter two-family ladder better than ±0.3. Section III added resolution; only ε-digits add
+τ-depth. **The C1 arc's terminal statement at f64/N=800:** every layer of the 1995 toolchain was
+rebuilt from its own failure receipts — mesh (C1→AMR), variables (C1b→h), fitter (C1c),
+observable (C1d/C1e), sampler (C1f), ray allocation (C1g→Section III) — and the last wall
+standing is the floating-point type itself. Δ remains honestly unmeasured here; the named
+escalation (standing since C1c) is the mp-float bisection: dps ≈ 30 gives ε ~ 1e−25, τ* ≈ 21,
+a ~12-crossing ladder — a genuine project, priced.
+Final configuration: v_out = 4.134212319612, p* = 0.012793009036827 (CFL = 0.1, N = 800).
