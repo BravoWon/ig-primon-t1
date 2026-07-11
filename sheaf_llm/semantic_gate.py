@@ -29,6 +29,16 @@ NAVY, RED, GREEN = "#15293f", "#c0392b", "#1e7d34"
 
 
 def build_data(frac, seed=0):
+    """PR#13 review: the 'every token seen' split invariant is now ENFORCED (resample until
+    cov == 1.0), not merely reported."""
+    for s in range(seed, seed + 200):
+        out = _build_once(frac, s)
+        if out[2] == 1.0:
+            return out
+    raise SystemExit(f"nm: no split with full token coverage at frac={frac} in 200 seeds")
+
+
+def _build_once(frac, seed):
     pairs = [(t1, t2) for t1 in range(N * N) for t2 in range(N * N)]
     def tgt(t1, t2):
         a1, b1 = divmod(t1, N); a2, b2 = divmod(t2, N)
@@ -106,8 +116,16 @@ def main():
     for n, _, _ in models:
         print(f"  {n:10} params {params[n]/1e3:5.1f}k   OOS by frac: " + " ".join(f"{a:.2f}" for a in curves[n]))
     f0 = curves["flat"]; r0 = curves["relational"]
-    print(f"  relational reaches {max(r0):.2f} OOS; flat tops out {max(f0):.2f} at the same data, "
-          f"and is ~chance at low data -> STRUCTURE generalizes from FEW examples; flat needs to memorize.")
+    # PR#13 review: verdict text now CONDITIONAL on the measured curves (it previously asserted
+    # the thesis unconditionally), compared at matched fractions, and labeled exploratory.
+    lowi, hii = 0, len(FRACS) - 1
+    wins = r0[lowi] > f0[lowi] + 0.05 and r0[hii] >= f0[hii] - 0.02
+    print(f"  at frac={FRACS[lowi]:.2f}: relational {r0[lowi]:.2f} vs flat {f0[lowi]:.2f}; "
+          f"at frac={FRACS[hii]:.2f}: {r0[hii]:.2f} vs {f0[hii]:.2f} -> "
+          f"{'structure generalizes from few examples here' if wins else 'no structural advantage at this budget'}")
+    print("  NOTE (exploratory): single seed per cell; models NOT capacity-matched "
+          f"(params {', '.join(f'{n}={params[n]/1e3:.1f}k' for n, _, _ in models)}) -- "
+          "architectural comparison, not isolated evidence for structure.")
 
     fig, ax = plt.subplots(figsize=(7.5, 5))
     for n, _, c in models:

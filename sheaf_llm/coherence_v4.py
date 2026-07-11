@@ -64,6 +64,8 @@ def main():
     Craw = {n: rawV[spans[n][1]:spans[n][2]] for n in names}
 
     rng = np.random.default_rng(0); R = {}
+    if len(names) < 2:
+        raise SystemExit("nm: the cross-repo control needs >=2 eligible repositories")
     print(f"  judging up to {NJUDGE} covered commits/repo (ALIGN/CONTRADICT/UNRELATED)...")
     for n in names:
         others = np.concatenate([D[m] for m in names if m != n])
@@ -79,8 +81,11 @@ def main():
         dec = [v for v in verds if v in ("ALIGN", "CONTRADICT")]
         llm_contra = (sum(v == "CONTRADICT" for v in dec) / len(dec)) if dec else 0.0
         churn_contra = float(churn[covered].mean()) if len(covered) else 0.0
+        # PR#13 review fix (post-dates the banked v4 run, which v5 superseded anyway): ALIGN
+        # share over ALL verdicts -- all-UNRELATED must not read as coherent.
+        align_all = (sum(v == "ALIGN" for v in verds) / len(verds)) if verds else 0.0
         R[n] = dict(cov=float((sig > 0).mean()), churn=churn_contra, llm=llm_contra,
-                    align=1 - llm_contra, nj=len(dec), aaa=(n in AAA))
+                    align=align_all, nj=len(dec), aaa=(n in AAA))
 
     def quad(r):
         return ("COHERENT" if r["cov"] >= 0.5 and r["align"] >= 0.6 else

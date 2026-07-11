@@ -44,6 +44,7 @@ def main():
         print(f"  anchor {nm:8}: <r> = {synth(b).mean():.4f}")
     zz = np.load("lhc/zeta_zeros.npy")
     print(f"  zeta zeros    : <r> = {rstat(zz, 0.02).mean():.4f}   (Montgomery-Odlyzko sanity: ~GUE)")
+    # allow_pickle scoped to the local git-tracked anchor cache (see gate_L1_L2.get_events).
     d = np.load("lhc/events_ttbar_pu0.npz", allow_pickle=True); events = list(d["events"])
     rs_real, rs_sur = [], []
     for ev in events[:150]:

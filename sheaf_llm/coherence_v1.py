@@ -113,6 +113,8 @@ def main():
         print(f"  {name[:42]:42}  commits={len(coms):4}  design_secs={len(secs):3}  coherence_own={glue.mean():.3f}")
 
     names = list(data)
+    if len(names) < 2:
+        raise SystemExit("nm: the cross-repo baseline needs >=2 eligible repositories")
     allD = {n: data[n]["D"] for n in names}
     rows = []
     for n in names:

@@ -77,6 +77,12 @@ exactly the human-trace architecture (inherit meaning, compose it structurally).
 confounding role-blindness with information loss. Re-run with an information-preserving symmetric
 map (`Rb(s+o)`): the cap is unchanged — 0.55 seen / 0.57 unseen — so the role-blind ceiling, not the
 missing feature, was binding. The brick-2 conclusion survives its corrected control.)*
+*(Deep-sweep audit 2026-07-11, PR #13: recursion_gate re-run with per-arm shared data streams —
+conclusion unchanged (flat unseen 0.11≈chance, both grounded arms 1.00 at extrapolation depths);
+semantic_gate re-run with the every-token-seen invariant ENFORCED and a data-conditional verdict —
+conclusion unchanged and strengthened: relational wins 0.93-vs-0.01 OOS at 5% data with FEWER
+parameters than flat (36.1k vs 39.2k), so the capacity confound ran against the win. Three gates
+now re-verified under corrected controls; three conclusions intact.)*
 
 **Brick 2 HARDENED (`adversarial_gate.py`) — the 1.00/1.00 was partly by construction; the win still
 survives.** Brick 2's target was a clean function of *exactly* the two inherited tiers, so a skeptic

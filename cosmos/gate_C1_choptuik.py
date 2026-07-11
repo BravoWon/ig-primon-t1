@@ -116,6 +116,8 @@ def main():
         if out == "bh" and M > 0:
             epsA.append(eps); MA.append(M)
         print(f"    eps={eps:.3e}: {tag}  M={M:.5e}", flush=True)
+    if len(epsA) < 4:                                            # PR#13 review: crash -> clear nm
+        raise SystemExit("Route A nm: <4 usable supercritical points -- no registered window")
     lx, ly = np.log(epsA), np.log(MA)
     # pre-registered window rule: largest contiguous window with locally stable slope (drop tail where
     # local slope deviates >0.05 from the window median), R^2>0.99
@@ -136,6 +138,8 @@ def main():
         if out == "disp" and Rm > 0:
             epsB.append(eps); RB.append(Rm)
         print(f"    eps={eps:.3e}: {out}  Rmax={Rm:.5e}", flush=True)
+    if len(epsB) < 4:                                            # PR#13 review: crash -> clear nm
+        raise SystemExit("Route B nm: <4 usable subcritical points -- no registered window")
     lxB, lyB = np.log(epsB), np.log(RB)
     slopesB = np.diff(lyB) / np.diff(lxB)
     medB = float(np.median(slopesB))

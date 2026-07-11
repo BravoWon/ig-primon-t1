@@ -45,6 +45,9 @@ def judge(section, change, sample=False):
 
 
 def get_diff(repo, h):
+    """TRUNCATED-diff sample: first 1400 chars of the commit diff (PR#13 review: do not label
+    this a full-diff audit -- large commits may have the relevant hunk omitted, which STRENGTHENS
+    the banked v5 conclusion that contradiction is not reliably measurable by cheap means)."""
     d = git(repo, "show", h, "--no-color", "--format=", "--", ".")
     return re.sub(r"\n{3,}", "\n", d)[:1400]
 
@@ -68,7 +71,9 @@ def main():
     Draw = {n: rawV[spans[n][0]:spans[n][1]] for n in names}; Craw = {n: rawV[spans[n][1]:spans[n][2]] for n in names}
 
     rng = np.random.default_rng(0)
-    print(f"\n{'repo':40}{'expect':>16}{'msg-only(v4)':>14}{'FULL-DIFF':>11}{'self-agree':>12}")
+    if len(names) < 2:
+        raise SystemExit("nm: the cross-repo baseline needs >=2 eligible repositories")
+    print(f"\n{'repo':40}{'expect':>16}{'msg-only(v4)':>14}{'DIFF-1400ch':>12}{'self-agree':>12}")
     evidence = []
     for n in [n for n in names if n in FOCUS]:
         others = np.concatenate([D[m] for m in names if m != n])

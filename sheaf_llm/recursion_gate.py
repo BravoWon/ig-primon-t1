@@ -151,7 +151,9 @@ def main():
             return self.head(val)
 
     def run(kind):
-        torch.manual_seed(SEED)
+        nonlocal rng
+        rng = np.random.default_rng(SEED + 1)                    # PR#13 review: every arm gets the
+        torch.manual_seed(SEED)                                  # SAME generated train/test stream
         m = {"flat": FlatGRU, "grounded-gru": GroundedGRU, "grounded-sheaf": GroundedSheaf}[kind]().to(DEV)
         opt = torch.optim.AdamW(m.parameters(), lr=LR)
         run_loss = []

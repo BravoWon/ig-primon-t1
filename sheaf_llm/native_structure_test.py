@@ -26,7 +26,12 @@ BATCH, ITERS, EVAL_EVERY, LR = 24, 2500, 250, 3e-4
 
 
 def corpus():
-    files = sorted(glob.glob("*.md")) + sorted(glob.glob("cbp_wolfcamp/*.md")) + sorted(glob.glob("sheaf_llm/*.py"))
+    # PR#13 review: paths resolved from __file__ (cwd-dependent globs silently changed the
+    # corpus); the cbp_wolfcamp glob is dropped (client dir removed from the repo).
+    import os
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    files = sorted(glob.glob(os.path.join(root, "*.md"))) + \
+        sorted(glob.glob(os.path.join(root, "sheaf_llm", "*.py")))
     t = "\n\n".join(open(f, encoding="utf-8", errors="ignore").read() for f in files)[:2_000_000]
     chars = sorted(set(t)); stoi = {c: i for i, c in enumerate(chars)}
     ids = torch.tensor([stoi[c] for c in t], dtype=torch.long)
@@ -111,7 +116,8 @@ def main():
         print(f"  {kind:13} PARAMS {params/1e6:.3f}M  FINAL val {out[kind][1]:.4f}")
 
     pd, ld = out["dense"], out["lowrank-wide"]
-    print(f"\nVERDICT (equal params {pd[0]/1e6:.3f}M vs {ld[0]/1e6:.3f}M):")
+    print(f"\nVERDICT (~equal params: {pd[0]} vs {ld[0]}, diff {pd[0]-ld[0]:+d} from Linear "
+          f"biases -- PR#13 review; EXPLORATORY: single seed):")
     print(f"  dense val {pd[1]:.4f}  |  lowrank-wide val {ld[1]:.4f}  -> "
           f"{'STRUCTURE WINS (native thesis lives)' if ld[1] < pd[1] else 'dense wins (structure loses even native)'} "
           f"({(pd[1]-ld[1])/pd[1]*100:+.2f}% val loss)")

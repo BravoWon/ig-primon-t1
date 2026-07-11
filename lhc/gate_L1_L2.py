@@ -43,6 +43,9 @@ rng = np.random.default_rng(0)
 # ---------------- data ----------------
 def get_events():
     if os.path.exists(CACHE_EV):
+        # allow_pickle is scoped to THIS locally-generated, git-tracked anchor cache (the banked
+        # bytes back the L1/L2 receipts; reformatting would invalidate them). Never point this
+        # loader at untrusted files (CWE-502, PR#13 review).
         d = np.load(CACHE_EV, allow_pickle=True)
         return list(d["events"])
     from datasets import load_dataset

@@ -40,6 +40,9 @@ def refit(eps, y, tol):
             span = abs(lx[j + 1] - lx[i]) / math.log(10)
             if best is None or span > best[0]:
                 best = (span, i, j, float(g), float(r2))
+    if best is None:                                             # PR#13 review: crash -> clear nm
+        raise SystemExit("refit nm: no contiguous window satisfies tol AND R^2>0.99 "
+                         "(the registered conjunction admits no window on this data)")
     span, i, j, g, r2 = best
     return g, r2, float(span), float(eps[i]), float(eps[j + 1])
 
