@@ -97,6 +97,17 @@ collapse-side by receipt — it is the same warning family that accompanies ever
 a worker-level exception fallback to bh. Banked p*'s unaffected: the sequential bisections never
 reached this branch (no crash, no non-finite label), so their outcomes are bit-identical.
 
+**Termination amendment 8 (2026-07-11, pre-config-data — the hover shell dies structurally):**
+amendment 3's freeze guard (mots > 1.5×THRESH) left a hover SHELL at mots ∈ (0.02, 0.03): one
+trisection probe at bracket 4e−13 spun there for 11.8 CPU-hours while pool.map held the protocol
+hostage. Band tweaks only thin the shell; two structural kills instead: (i) freeze guard lowered
+to 1.05×THRESH — the 20k crossing-free-step criterion is the real discriminator (a genuinely
+final plunge takes hundreds of steps, not 20k; MOTS detection continues on the frozen grid);
+(ii) a terminal step budget (2M ≈ 3–6× any legitimate run) classifying by closest approach at
+exhaustion (min mots < 2×THRESH ⇒ bh, else disp — at 1e−13 brackets either label is within the
+threshold's own f64 meaning). Hover-probe dynamics change ⇒ seeds dropped, ALL configurations
+re-bisect under the final instrument.
+
 **Mid-gate disclosures (2026-07-10, from PR #13 review — CodeRabbit; before any verdict was
 computed; NO tolerance or rule changed):**
 (i) *Bracket guard:* the registered auto-widening only handled p* escaping ABOVE hi; a p* below

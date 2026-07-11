@@ -34,8 +34,13 @@ def evolve_g(p, vout, cfl=0.1, n0=800, collect=False):
     amplitude-free); the m_out exit survives only for runs with NO crossings (nothing to clip)."""
     r, h = init_trunc(p, vout, n0)
     u, m_init, trace = 0.0, None, []
-    u_lc, s_prev, quiet = None, 0.0, 0
+    u_lc, s_prev, quiet, steps, mots_min = None, 0.0, 0, 0, 1.0
     while u < G.UEND and len(r) > 8:
+        steps += 1
+        if steps > 2_000_000:                                    # terminal backstop (amendment 8):
+            return ("bh" if mots_min < 2 * G.MOTS_THRESH         # classify by closest approach --
+                    else "disp"), trace                          # at 1e-13 brackets either label is
+                                                                 # within the threshold's f64 meaning
         if not np.isfinite(h).all():                             # overflow cascade: the g-clip bounds
             return "bh", trace                                   # g but not hdot's product; non-finite
                                                                  # h = collapse-side violence (receipt:
@@ -43,6 +48,7 @@ def evolve_g(p, vout, cfl=0.1, n0=800, collect=False):
         hd1, rd1, g, gbar, h0, h1 = G.rates(r, h)
         mots = gbar / g
         j = int(np.argmin(mots))
+        mots_min = min(mots_min, float(mots[j]))
         if mots[j] < G.MOTS_THRESH and r[j] > 5e-4:              # r-floor: a "horizon" at r~1e-8 on a
             return "bh", trace                                   # drained endgame grid is fit noise
                                                                  # (banked mass floor is 1e-3-scale)
@@ -84,7 +90,11 @@ def evolve_g(p, vout, cfl=0.1, n0=800, collect=False):
         # at it1: crossing 3 unresolved). The step-based quiet trigger is the sole criterion --
         # it adapts to du naturally (early gaps ~3.5k steps: no fire; post-cascade drain: tens
         # of thousands of tiny steps: fires). MOTS detection continues on the frozen grid.
-        frozen = (quiet > 20000 and mots[j] > 1.5 * G.MOTS_THRESH)
+        frozen = (quiet > 20000 and mots[j] > 1.05 * G.MOTS_THRESH)   # amendment 8: 1.5x left a
+                                                                 # hover shell (0.02, 0.03) -- one probe
+                                                                 # spun 11.8 CPU-h there; 20k quiet
+                                                                 # steps is the real criterion (a final
+                                                                 # plunge takes hundreds, not 20k)
         if not frozen and 8 < len(r) < n0 // 2:
             rm = 0.5 * (r[1:] + r[:-1]); hm = 0.5 * (h[1:] + h[:-1])
             rn = np.empty(2 * len(r) - 1); hn = np.empty_like(rn)
@@ -207,8 +217,8 @@ def deep_delta(ps, vout, cfl, eps):
         len(F0) + len(F1), ut, r_ut, arr
 
 
-KNOWN = {(4.5, 0.1): 0.01279507180394}                           # banked p*'s: A5c is extraction-
-                                                                 # layer only, dynamics unchanged
+KNOWN = {}                                                       # seeds dropped: amendment 8 changes
+                                                                 # hover-probe dynamics; re-bisect all
 
 
 def main():
