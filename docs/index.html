@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IG-PRIMON-T1 — A Falsifiable-Research Program</title>
+<meta name="description" content="Pre-registered gates, two-route receipts, and honestly measured walls — across number theory, topological matter, fluids, collider statistics, critical spacetime collapse, and machine learning.">
+<style>
+  :root{
+    --bg:#0b0e14; --panel:#11161f; --panel2:#0e1319; --line:#1f2733;
+    --text:#c9d4e3; --dim:#7d8b9f; --faint:#4d5b6e;
+    --gold:#e3b341; --green:#4ac26b; --red:#f47067; --gray:#8b98a9; --blue:#6cb6ff;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6}
+  a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  header.hero{padding:88px 0 56px;border-bottom:1px solid var(--line);
+    background:radial-gradient(1200px 500px at 70% -10%, #16202e 0%, var(--bg) 60%)}
+  .hero h1{font-size:2.6rem;letter-spacing:.02em;color:#e8eef7}
+  .hero h1 .mono{font-family:var(--mono);color:var(--gold)}
+  .hero p.sub{margin-top:14px;font-size:1.15rem;color:var(--dim);max-width:56rem}
+  .hero p.ethos{margin-top:22px;font-family:var(--mono);font-size:.92rem;color:var(--faint)}
+  nav{position:sticky;top:0;background:rgba(11,14,20,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);z-index:9}
+  nav .wrap{display:flex;gap:18px;overflow-x:auto;padding-top:10px;padding-bottom:10px;white-space:nowrap}
+  nav a{color:var(--dim);font-size:.85rem;font-family:var(--mono)}
+  nav a:hover{color:var(--gold);text-decoration:none}
+  .statbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:40px 0}
+  .stat{background:var(--panel);padding:18px 20px}
+  .stat .n{font-family:var(--mono);font-size:1.35rem;color:var(--gold)}
+  .stat .l{font-size:.8rem;color:var(--dim);margin-top:2px}
+  section{padding:52px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:1.6rem;color:#e8eef7;margin-bottom:6px}
+  h2 .tag{font-family:var(--mono);font-size:.75rem;color:var(--faint);margin-left:10px;letter-spacing:.08em}
+  .lede{color:var(--dim);max-width:60rem;margin-bottom:26px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px}
+  .card h3{font-size:1.08rem;color:#e8eef7}
+  .card h3 .dir{font-family:var(--mono);font-size:.72rem;color:var(--faint);font-weight:400;margin-left:8px}
+  .card p{font-size:.9rem;color:var(--dim);margin-top:8px}
+  .card .hl{color:var(--text)}
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:.83rem}
+  th{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--faint);
+    text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);font-weight:500}
+  td{padding:7px 8px;border-bottom:1px solid var(--panel2);vertical-align:top}
+  td.mono, .mono{font-family:var(--mono)}
+  .pass{color:var(--green);font-family:var(--mono);font-size:.78rem}
+  .fail{color:var(--red);font-family:var(--mono);font-size:.78rem}
+  .nm{color:var(--gray);font-family:var(--mono);font-size:.78rem}
+  .live{color:var(--gold);font-family:var(--mono);font-size:.78rem}
+  .wall{margin-top:14px;padding:12px 14px;background:var(--panel2);border-left:3px solid var(--gold);
+    border-radius:0 6px 6px 0;font-size:.85rem;color:var(--dim)}
+  .wall b{color:var(--gold);font-family:var(--mono);font-weight:600;font-size:.78rem;letter-spacing:.06em}
+  .laws{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:10px}
+  .law{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px;font-size:.88rem}
+  .law .no{font-family:var(--mono);color:var(--gold);font-size:.75rem}
+  .law b{color:var(--text)}
+  .law span{color:var(--dim)}
+  .quote{margin:26px 0 0;padding:18px 22px;background:var(--panel2);border:1px solid var(--line);
+    border-radius:10px;font-size:.95rem;color:var(--dim);font-style:italic}
+  .quote .who{display:block;margin-top:8px;font-style:normal;font-family:var(--mono);font-size:.72rem;color:var(--faint)}
+  footer{padding:44px 0 64px;color:var(--faint);font-size:.85rem}
+  footer .mono{color:var(--dim)}
+  .pill{display:inline-block;font-family:var(--mono);font-size:.68rem;padding:2px 8px;border:1px solid var(--line);
+    border-radius:999px;color:var(--dim);margin-right:6px;margin-top:10px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>IG-PRIMON-<span class="mono">T1</span></h1>
+    <p class="sub">A falsifiable-research program. Grandiose ideas walk in; they are distilled to kernels,
+    pre-registered with fixed verdicts, executed against external anchors by two independent routes —
+    and what gets banked is the truth: the anchor hits <em>and</em> the walls, with equal ceremony.</p>
+    <p class="ethos">pre-register &rarr; two routes &rarr; in-run anchors &rarr; fixed verdicts &rarr; bank the failure too</p>
+  </div>
+</header>
+
+<nav><div class="wrap">
+  <a href="#method">method</a>
+  <a href="#foundations">foundations</a>
+  <a href="#critical-line">critical line</a>
+  <a href="#butterfly">butterfly</a>
+  <a href="#dark-topology">dark topology</a>
+  <a href="#fluids">shock wall</a>
+  <a href="#collider">collider chaos</a>
+  <a href="#cosmos">spacetime's edge</a>
+  <a href="#slt">grokking &amp; rlct</a>
+  <a href="#meaning">grounded meaning</a>
+  <a href="#precision">precision doctrine</a>
+</div></nav>
+
+<div class="wrap">
+
+<div class="statbar">
+  <div class="stat"><div class="n">15</div><div class="l">kernel instantiations, 10 domains</div></div>
+  <div class="stat"><div class="n">744 / 744</div><div class="l">topological receipts, zero disagreements</div></div>
+  <div class="stat"><div class="n">4C/&pi;</div><div class="l">a Dirichlet L-value, measured first</div></div>
+  <div class="stat"><div class="n">&gamma; = 0.3681</div><div class="l">Choptuik exponent, 4 decades, converged</div></div>
+  <div class="stat"><div class="n">n = 1000</div><div class="l">Keiper–Li two-route, ~5&times;10<sup>-8</sup> rel</div></div>
+  <div class="stat"><div class="n">r = 0.992</div><div class="l">SGLD &lambda;&#770; vs exact RLCT, gate-blind</div></div>
+</div>
+
+<section id="method">
+  <h2>The Kernel <span class="tag">GATE_KERNEL.md</span></h2>
+  <p class="lede">One dimension-free schema, instantiated fifteen times. Every gate fills the same slots:
+  a falsifiable claim, a chaos reference or surrogate null, in-run anchors on exactly known values,
+  rotation controls, verdicts committed before the first number exists, and a non-measurement
+  discipline — an instrument that cannot see is never allowed to testify.</p>
+  <div class="laws">
+    <div class="law"><span class="no">LAW 1</span><br><b>Instrument bug until proven otherwise.</b>
+      <span>Every anomaly is prosecuted as instrument error first. Picard saturation, axis slivers,
+      float-cast contamination, plateau-poisoned fitters — all caught this way.</span></div>
+    <div class="law"><span class="no">LAW 2</span><br><b>Universality is anonymity.</b>
+      <span>If a statistic is universal (GUE spacings, scaling exponents), it cannot identify its source.
+      Claims that decode the universal part are refuted by construction.</span></div>
+    <div class="law"><span class="no">LAW 6</span><br><b>Auto-verdicts are advisory — read the table.</b>
+      <span>A fitter is an instrument too. Its number is disowned the moment inspection shows the rule
+      it implements is not the rule that was registered.</span></div>
+    <div class="law"><span class="no">LAW 8</span><br><b>The failure is a measurement.</b>
+      <span>A wall, mapped in triplicate with receipts, is banked with the same ceremony as an anchor hit.
+      Meaning is the residue off the fixed point.</span></div>
+  </div>
+  <div class="quote">"You have eliminated the mesh, the coordinates, the fitter, and the grid as sources of error.
+    There is literally nowhere left for the physics to hide."
+    <span class="who">— the program's operating mood, mid-arc</span></div>
+</section>
+
+<section id="foundations">
+  <h2>Foundations <span class="tag">information geometry of arithmetic gases</span></h2>
+  <p class="lede">The root program: Fisher/Ruppeiner geometry of prime (primon / Riemann-gas) and disordered
+  systems, with every claim status-tagged <span class="mono">[V]/[E]/[C]/[GATE]</span> and no result registered
+  without a runnable artifact. Three papers and an installable verification layer.</p>
+  <div class="cards">
+    <div class="card"><h3>Paper 1 — The Arithmetic Dictionary</h3>
+      <p>A real-axis spectral dictionary reading number-field arithmetic (unit rank, signature,
+      <span class="mono">hR/w</span>, discriminant) off one Fisher expansion at the Hagedorn point —
+      no analytic continuation, no zero locations.</p><span class="pill">draft</span></div>
+    <div class="card"><h3>Paper 2 — The Curvature Dichotomy</h3>
+      <p>Generalized prime gases: temperature-driven &rArr; <span class="mono">R&rarr;0</span> (flat);
+      fugacity-driven &rArr; <span class="mono">|R|&rarr;&infin;</span>. A clean thermodynamic-geometry split.</p>
+      <span class="pill">compiled</span></div>
+    <div class="card"><h3>Paper 3 — The Criticality Diagnostic</h3>
+      <p>A curvature diagnostic separating continuous-RSB criticality from kinematic volume divergence,
+      across ridge regression, the SK spin glass, and the spherical perceptron.</p><span class="pill">draft</span></div>
+  </div>
+  <div class="wall"><b>OPERATIONAL LAYER</b> — <span class="mono">igprimon verify</span> re-checks every exact
+  anchor programmatically (Gardner &alpha;<sub>c</sub>(0)=2, Ising s(0)=ln 2, the engine R=&minus;1 pin, &hellip;).
+  A dependency bump that drifts a constant fails CI instead of going unnoticed.</div>
+</section>
+
+<section id="critical-line">
+  <h2>The Critical Line <span class="tag">li/</span></h2>
+  <p class="lede">The Keiper–Li coefficients &lambda;<sub>n</sub>, computed by two routes that share no
+  machinery — a zero-sum over 100k Odlyzko zeros with a semi-analytic tail, against a zero-free contour
+  route through the entire &xi; function — matched row by row at equal precision budget.</p>
+  <table>
+    <tr><th>receipt</th><th>measured</th><th>status</th></tr>
+    <tr><td>Two-route &lambda;<sub>n</sub> to n = 1000</td>
+      <td class="mono">&lambda;<sub>1000</sub> = 2326.05316, ~5&times;10<sup>-8</sup> rel</td><td class="pass">PASS</td></tr>
+    <tr><td>Route-B cancellation wall, measured law</td>
+      <td class="mono">digits_lost = 0.295&middot;n (R&sup2;=0.9999), confirmed out-of-sample 0.299</td><td class="pass">MEASURED</td></tr>
+    <tr><td>Violation sensitivity (planted off-line quadruple)</td>
+      <td class="mono">&lambda;<sub>n</sub> &rarr; &minus;81, frontier n*(&beta;) charted</td><td class="pass">PASS</td></tr>
+    <tr><td>Novelty of positivity evidence</td>
+      <td>Oesterl&eacute;: &lambda;<sub>n</sub>&ge;0 guaranteed for n &le; T&#8320;&sup2; &asymp; 5.6&times;10<sup>9</sup></td>
+      <td class="fail">DEMOTED</td></tr>
+  </table>
+  <div class="wall"><b>HONESTY HIGHLIGHT</b> — an adversarial literature gate demoted all three novelty
+  claims (Keiper 1992, Johansson's 1-bit/step, Voros thresholds), including the discovery that the
+  program's own positivity data was never evidence for RH at all. The demotions are banked in the same
+  ledger as the wins.</div>
+</section>
+
+<section id="butterfly">
+  <h2>The Butterfly <span class="tag">phys/</span></h2>
+  <p class="lede">Hofstadter's spectrum, prosecuted as arithmetic. Every gap of every flux p/q carries a
+  topological label twice over — non-Abelian Berry curvature integration against the TKNN Diophantine
+  congruence — and the deepest gap's decay turned out to be a number the lookup tables already knew.</p>
+  <table>
+    <tr><th>receipt</th><th>measured</th><th>status</th></tr>
+    <tr><td>FHS Chern = Diophantine label, all 44 fractions q&le;12 + out-of-sample families</td>
+      <td class="mono">744 / 744, zero disagreements</td><td class="pass">PASS</td></tr>
+    <tr><td>Odd-q minimal-gap asymptote</td>
+      <td class="mono">c<sub>&infin;</sub> = 4C/&pi; = 1.1662&hellip; (C = Catalan = &beta;(2)); action A = 8C matches DGHS 2019</td>
+      <td class="pass">IDENTIFIED</td></tr>
+    <tr><td>Out-of-sample prediction: flux 3/q decays at 4C/(3&pi;)</td>
+      <td class="mono">c&#8323; = 0.38843 &plusmn; 0.0018 vs 0.38875; exponent ratio 3.0025</td><td class="pass">PASS</td></tr>
+    <tr><td>ln(10)/2 and 7/6 candidate identifications</td><td class="mono">killed at ~7&sigma; / by exact action</td><td class="fail">DEAD</td></tr>
+  </table>
+  <div class="wall"><b>THE LOOP CLOSES</b> — the program opened with primes hiding in a spectrum;
+  the physics arc ended with a spectrum whose topology <em>is</em> modular arithmetic, and whose wall
+  exponent is a Dirichlet L-value. One-instanton vs two-instanton tunneling explains the parity split —
+  confirmed on a flux family the theory never saw.</div>
+</section>
+
+<section id="dark-topology">
+  <h2>Dark Topology <span class="tag">phys/</span></h2>
+  <p class="lede">Topological invariants taken into the dark: real-space Bott index against a Laughlin
+  charge pump, under disorder strong enough to kill the spectral gap — where the interesting physics lives
+  and half the instruments go blind.</p>
+  <table>
+    <tr><th>receipt</th><th>measured</th><th>status</th></tr>
+    <tr><td>Two-route agreement where both instruments see</td><td class="mono">36 / 36</td><td class="pass">PASS</td></tr>
+    <tr><td>Topology death under disorder</td><td class="mono">V<sub>c</sub> &isin; [4, 5] (2&times; the clean gap)</td><td class="pass">MEASURED</td></tr>
+    <tr><td>Disorder-<em>induced</em> topology (TAI-type), from the trivial side</td>
+      <td class="mono">sharp onset, double-receipted in the phase interior</td><td class="pass">PASS</td></tr>
+    <tr><td>Critical-point locators under finite-size scaling</td>
+      <td class="mono">local marker V<sub>c</sub>&asymp;1.6 vs global invariant 2.0&ndash;2.6 — two scales, no exponent claim at L&le;32</td>
+      <td class="nm">nm (honest)</td></tr>
+  </table>
+  <div class="wall"><b>ADMISSIBILITY CHART</b> — seven instruments, each with its measured domain of
+  validity: the pump needs a spectral gap; Bott crosses mobility gaps but self-gates at criticality;
+  the local Chern marker stays finite exactly where the binary invariants coin-flip. Knowing which
+  instrument is lying, and when, was the deliverable.</div>
+</section>
+
+<section id="fluids">
+  <h2>The Shock Wall <span class="tag">fluids/</span></h2>
+  <p class="lede">Viscous Burgers past shock formation: a spectral evolution route against the exact
+  Cole–Hopf integral (log-sum-exp stabilized, self-receipted by quadrature doubling).</p>
+  <table>
+    <tr><th>receipt</th><th>measured</th><th>status</th></tr>
+    <tr><td>Two-route agreement through the shock</td><td class="mono">&lt; 10<sup>-4</sup> at N* for &nu; = 0.1 &hellip; 0.01</td><td class="pass">PASS</td></tr>
+    <tr><td>Resolution wall vs viscosity</td><td class="mono">N* ~ &nu;<sup>-1.246</sup> (R&sup2; = 0.993) — replaces the naive &nu;<sup>-1</sup></td><td class="pass">MEASURED</td></tr>
+    <tr><td>Ladder death at &nu; &le; 0.005</td><td>composite wall: temporal RK4 becomes binding — named, costed</td><td class="nm">nm</td></tr>
+  </table>
+</section>
+
+<section id="collider">
+  <h2>Collider Chaos <span class="tag">lhc/</span></h2>
+  <p class="lede">A maximum-entropy worldview and a primes-in-the-noise conjecture, gated on simulated
+  ColliderML t&#773;t events with 2000 true Riemann zeros riding along as in-run anchors.</p>
+  <table>
+    <tr><th>receipt</th><th>measured</th><th>status</th></tr>
+    <tr><td>Jets are maximum-entropy chaos</td><td class="mono">falsified — nn-&Delta;R pulled ~40% below chaos</td><td class="fail">REFUTED</td></tr>
+    <tr><td>Bulk spacing statistics class</td>
+      <td class="mono">GOE (&beta;=1), not zeta's GUE (&beta;=2); real bulk pulled Poisson-ward by jets</td><td class="pass">MEASURED</td></tr>
+    <tr><td>Prime structure encoded in event statistics</td><td class="mono">doubly null</td><td class="fail">NULL</td></tr>
+    <tr><td>Zeta-zero anchor (GUE r-statistics)</td><td class="mono">KS = 0.045 — instrument sees</td><td class="pass">ANCHOR</td></tr>
+  </table>
+  <div class="wall"><b>LAW 2 AT WORK</b> — "meaning = deviation from universality." The universal part of a
+  spectrum is anonymous; only the pull <em>away</em> from it carries information about the source.</div>
+</section>
+
+<section id="cosmos">
+  <h2>Spacetime's Edge <span class="tag">cosmos/ &mdash; the Choptuik arc, live</span></h2>
+  <p class="lede">Critical gravitational collapse of a scalar field: tune the amplitude to the knife edge
+  between dispersal and black hole, and the spacetime echoes with discrete self-similarity. Seven gates so
+  far — each failure re-deriving, from its own receipts, one piece of the 1995 toolchain.</p>
+  <table>
+    <tr><th>gate</th><th>outcome</th><th>status</th></tr>
+    <tr><td class="mono">C1 &mdash; unigrid</td><td>&gamma; unreachable; wall banked in triplicate &rArr; <b class="hl">re-derives AMR</b></td><td class="fail">WALL</td></tr>
+    <tr><td class="mono">C1b &mdash; naive double-null</td><td>strong-field axis instability &rArr; <b class="hl">re-derives Garfinkle's h-variables</b></td><td class="fail">PARKED</td></tr>
+    <tr><td class="mono">C1c &mdash; h-variables, from the paper</td>
+      <td class="mono">&gamma;<sub>A</sub> = 0.3681, R&sup2;=0.9997, 4.00 decades, grid-converged (Gundlach 0.374 hit; mass branch)</td>
+      <td class="pass">PASS</td></tr>
+    <tr><td class="mono">C1d &mdash; wiggle-native rule</td>
+      <td>DSS fine structure detected at p=0.005, phase-coherent; max-over-run proxy bias measured (&minus;0.12, converged)</td>
+      <td class="pass">DETECTION</td></tr>
+    <tr><td class="mono">C1e &mdash; true Ricci</td>
+      <td>two-sided kill: axis clips (0.314), slice-max harvests (0.417, non-convergent) — the biases bracket the anchor</td>
+      <td class="fail">WALL</td></tr>
+    <tr><td class="mono">C1f &mdash; kill the max()</td>
+      <td>event statistics starve: the counting cliff — the sampler, not the observable, is the wall &rArr; <b class="hl">re-derives Section III</b></td>
+      <td class="fail">WALL</td></tr>
+    <tr><td class="mono">C1g &mdash; Section III ray tuning</td>
+      <td>the outermost gridpoint iterated onto the marginal ray; p* re-bisected per configuration</td>
+      <td class="live">RUNNING</td></tr>
+  </table>
+  <div class="wall"><b>ARC LEDGER</b> — &gamma; = 0.3681 measured and converged on the mass branch;
+  the echo-period ratio &Delta;/(2&gamma;) = 4.28&ndash;4.30 robust across five observables; &Delta; itself
+  and the curvature-branch &gamma; honestly open, walled by extremal selection and sampler resolution —
+  proven in triplicate across three observable classes. The instrument theorem: at fixed outer boundary,
+  800 rays cannot resolve the echo ladder no matter what you measure. Garfinkle knew; page 6.</div>
+</section>
+
+<section id="slt">
+  <h2>Grokking &amp; the RLCT <span class="tag">slt/</span></h2>
+  <p class="lede">Singular learning theory taken to the bench: does an SGLD estimator of the local learning
+  coefficient track the <em>exact</em> real log-canonical threshold? Six pre-registered nodes; the nulls
+  banked as prominently as the positive.</p>
+  <table>
+    <tr><th>receipt</th><th>measured</th><th>status</th></tr>
+    <tr><td>&lambda;&#770; vs exact Aoyagi&ndash;Watanabe RLCT (reduced-rank regression)</td>
+      <td class="mono">&lambda;&#770; = 0.889&middot;&lambda;<sub>AW</sub> + 0.16, r = 0.992, gate-blind, 4/5 regimes</td>
+      <td class="pass">PASS</td></tr>
+    <tr><td>&lambda;&#770; collapse at grokking</td><td class="mono">~5&ndash;7&times;, validated relative instrument (CV 3.5%)</td><td class="pass">MEASURED</td></tr>
+    <tr><td>Topological-coherence mechanism (nodes 3&ndash;4)</td>
+      <td class="mono">NULL at N=10 (p=0.145; norm-controlled effect vanishes)</td><td class="fail">NULL</td></tr>
+    <tr><td>VIB information bottleneck</td><td class="mono">null — equals shrink; mechanism = representation-norm collapse</td><td class="fail">NULL</td></tr>
+  </table>
+  <div class="wall"><b>SESSION META</b> — roughly eight auto-verdicts were overridden by reading the table,
+  including one "LIGHTNING &rarr; paper" that dissolved into an unstable-optimizer artifact at n = 1.</div>
+</section>
+
+<section id="meaning">
+  <h2>Grounded Meaning <span class="tag">sheaf_llm/</span></h2>
+  <p class="lede">Can sheaf-style structure — dictionaries, restriction maps, gluing — buy a language model
+  anything measurable? A program of bricks, each with a falsifier, most famous for what the right baseline
+  destroyed.</p>
+  <table>
+    <tr><th>receipt</th><th>measured</th><th>status</th></tr>
+    <tr><td>Zero-shot grounding (WordNet inheritance &rarr; unseen words)</td><td>real, survives adversarial re-target</td><td class="pass">PASS</td></tr>
+    <tr><td>&minus;27% PPL at embedding-starved positions</td>
+      <td>collapsed by an honest subword baseline to a robust-but-small ~2% top-up</td><td class="fail">CORRECTED</td></tr>
+    <tr><td>&Ccaron;ech H&sup1; obstruction as a routing veto</td>
+      <td class="mono">operationally inert — AUROC 0.503 vs pairwise baseline</td><td class="fail">NULL</td></tr>
+    <tr><td>Design&harr;code coherence metric (v1&ndash;v5)</td>
+      <td>coverage robustly measurable; contradiction instrument-dependent — the instrument was the finding, three times</td>
+      <td class="nm">nm</td></tr>
+  </table>
+  <div class="wall"><b>THE PATTERN</b> — brick 3's big number was the wrong baseline; H&sup1; was a rigorous
+  theorem with zero operational payoff; the coherence reversals reversed each other until the instrument was
+  audited at source. Validate the instrument before the finding.</div>
+</section>
+
+<section id="precision">
+  <h2>The Precision Doctrine <span class="tag">ig_primon/ &mdash; hardware track</span></h2>
+  <p class="lede">The research finding that became infrastructure: the quantization stack is prior art —
+  the value is the <em>verification discipline</em>. A fast explorer proposes; a slow exact authority
+  adjudicates; agreement is not verification.</p>
+  <table>
+    <tr><th>receipt</th><th>finding</th><th>status</th></tr>
+    <tr><td>Precision&ndash;Certification Firewall</td>
+      <td>a near-miss kernel (~3&ndash;4&times; fp32 eps) fools certify-by-agreement; Tier-C (mpmath, dps&ge;50) rejects it</td>
+      <td class="pass">PASS</td></tr>
+    <tr><td>Primitive fragility map, {device} &times; {precision}</td>
+      <td>attention most fragile and context-scaling; bf16 ~8&times; coarser than fp16 uniformly; LayerNorm fp16 overflow is a range artifact bf16 avoids</td>
+      <td class="pass">MEASURED</td></tr>
+    <tr><td>fp8 tension (real Blackwell tensor cores)</td>
+      <td class="mono">E4M3 finer but saturates past &plusmn;448; E5M2 mantissa-starved — range binds, not mantissa</td>
+      <td class="pass">MEASURED</td></tr>
+    <tr><td>Depth-N composition of locally-safe ops</td><td>the named open frontier — registered, not built</td><td class="nm">open</td></tr>
+  </table>
+</section>
+
+<section id="ethos" style="border-bottom:none">
+  <h2>The Ledger's Ethos</h2>
+  <div class="cards" style="margin-top:18px">
+    <div class="card"><p class="hl">"The failure IS the measurement."</p>
+      <p>Walls are deliverables. The unigrid wall, the cancellation wall, the shock wall, the sampler wall —
+      each one is a law with an R&sup2;, not an apology.</p></div>
+    <div class="card"><p class="hl">"Auto-verdicts advisory — read the table."</p>
+      <p>Fitters, counters, and detectors are instruments; instruments get audited. Numbers from
+      unconverged or wall-contaminated instruments are never reported as measurements.</p></div>
+    <div class="card"><p class="hl">"No novelty without a lit-gate."</p>
+      <p>Every candidate discovery faces an adversarial literature search. The program's most cited
+      internal result is a demotion.</p></div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">IG-PRIMON-T1</span> &mdash; every claim carries a runnable artifact;
+    every amendment is a versioned diff; chain of custody in the
+    <a href="https://github.com/BravoWon/ig-primon-t1">repository</a>.
+    Anchors: Gundlach &gamma;=0.374, &Delta;=3.4453 &middot; Catalan C=&beta;(2) &middot; Aoyagi&ndash;Watanabe RLCT &middot;
+    Odlyzko zeros &middot; Gardner &alpha;<sub>c</sub>(0)=2.
+  </div>
+</footer>
+
+</body>
+</html>

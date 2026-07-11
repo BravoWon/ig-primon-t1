@@ -35,3 +35,4 @@ muse_en_zh.txt
 
 # CBP drilling pipeline data (downloaded RRC bulk + large outputs, all reproducible)
 cbp_wolfcamp/data/
+li/odlyzko_zeros1.txt

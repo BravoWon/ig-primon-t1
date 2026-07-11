@@ -1,0 +1,163 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,geometry,booktabs,hyperref}
+\geometry{margin=1.1in}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\eps}{\varepsilon}
+\title{The Fisher metric of the primon gas at the Hagedorn point,\\
+and a two-route instrument for the Keiper--Li coefficients\\
+\large (IG-PRIMON-T1 note, draft v0.1 --- Phase 1 of the registration of 2026-06-12)}
+\author{B.~Jones\thanks{Computations performed on consumer hardware; all receipts, pre-registrations,
+and gate records in the accompanying repository. Draft for read-through; no novelty wording final
+until all literature gates are recorded.}}
+\date{2026-07-08}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study the Fisher information $I(\beta)=\operatorname{Var}(\log n)=(\log\zeta)''(\beta)$ of the
+Gibbs family $p_n(\beta)\propto n^{-\beta}$ (the ``primon gas'') near its Hagedorn point $\beta=1$.
+We record the expansion $I(1+\eps)=\eps^{-2}+\sum_k c_k\eps^k$ with $c_0,c_1$ in closed Stieltjes
+form and $c_k$ verified to $50$ digits ($k\le 6$); we prove the radius of convergence is exactly $3$
+and that the $c_k$ are shifted power sums over the full Riemann zero set --- a known corollary of the
+Hadamard product (Lehmer; Keiper; Bombieri--Lagarias; Coffey; Voros), which we use, not claim. The
+information length to the Hagedorn point diverges logarithmically with renormalization constant
+$C=-0.03435615417912198608\ldots$ ($80$ digits verified). We then run the cumulant chain upward to
+the Keiper--Li coefficients: a zero-free route (contour Taylor coefficients of $\log[(s-1)\zeta(s)]$,
+exact series logarithm, binomial transform) against a zero-sum route (Odlyzko ordinates plus a
+semi-analytic Riemann--von Mangoldt tail with explicit budget), agreeing to $\sim\!2\times10^{-8}$
+relative at $n=400$. The zero-free route's precision cost is measured as an empirical law
+($\text{digits lost}\approx 0.295\,n$), and the instrument's sensitivity to hypothetical off-line
+zeros is charted by planted-violation experiments. No claim of RH evidence is made or implied;
+$\lambda_n>0$ in our range is occupied territory. An appendix records negative results and the
+program's pre-registered falsifiers.
+\end{abstract}
+
+\section{Setup and standing discipline}
+For $\beta>1$ let $p_n(\beta)=n^{-\beta}/\zeta(\beta)$. Its Fisher information is
+$I(\beta)=(\log\zeta)''(\beta)$, divergent as $\beta\downarrow 1$ (the Hagedorn point). Prior art
+absorbed per the registration: primon-gas thermodynamics and the Hagedorn divergence are classical
+(Julia; Spector; Bakas--Bowick); Bost--Connes symmetry breaking at $\beta=1$; the Knauf chain;
+Riemann zeros as Fisher/Lee--Yang zeros at physics rigor (Julia; Dutta--Ghoshal). The bare statement
+$I\sim(\beta-1)^{-2}$ is the Hagedorn divergence relabeled and carries no standalone value. Every
+numerical claim below carries a stated precision, an independent second route, and a falsifier.
+
+\section{The expansion at the Hagedorn point}
+Write $Z(s)=(s-1)\zeta(s)$, entire of order 1, $Z(1)=1$, and $S(\eps)=(\log Z)''(1+\eps)$, so that
+$I(1+\eps)=\eps^{-2}+S(\eps)$, $S(\eps)=\sum_{k\ge0}c_k\eps^k$.
+
+\textbf{Constants (locked 2026-06-12, dps 50, two independent routes, falsifier $10^{-40}$).}
+\begin{align*}
+c_0&=-(\gamma_0^2+2\gamma_1)=-0.18754\,62328\,40365\,22459\,72033\,84605\,44158\,83839\ldots\\
+c_1&=6\left(\tfrac{\gamma_2}{2}+\gamma_0\gamma_1+\tfrac{\gamma_0^3}{3}\right)
+=+0.10337\,72640\,66385\,78760\,40164\,46167\,20832\,68908\ldots
+\end{align*}
+with $c_2,\dots,c_6$ tabulated in the repository at the same precision.
+
+\begin{lemma}[radius and zero-sum representation; proof in the repository lemma file]
+(i) $(\log Z)''(s)=-\sum_\rho (s-\rho)^{-2}$ over all zeros of $\zeta$ (trivial and nontrivial,
+conjugate-paired), absolutely and locally uniformly. (ii) $c_k=-(k+1)\sum_\rho(\rho-1)^{-(k+2)}$.
+(iii) The radius of convergence of $\sum c_k\eps^k$ is exactly $3$, with
+$c_k\sim-(k+1)(-3)^{-(k+2)}$ and the entire nontrivial-zero contribution $O(k\cdot 14.13^{-k})$.
+\end{lemma}
+
+\textbf{Attribution (per the executed literature gate).} Part (ii) is known-as-stated in equivalent
+forms: Lehmer (1988) at $s=0$; Keiper (1992) for $\log\xi$ at $s=1$; Bombieri--Lagarias (1999),
+\S4 (Stieltjes cumulants); Coffey (2005), Thm.~3 ($\eta$-coordinates); Voros (2005), eqs.~(49)--(56)
+(arbitrary expansion point, general $L$). We record the $c_k$-normalization for convenience only.
+Direct numerical corroboration: zero-sums over the first 120 nontrivial zeros reproduce $c_2,c_4,c_6$
+with residuals at $0.98$--$0.99$ of the analytic tail budget; and the derived
+$\sigma_3=c_1/2-\lambda(3)+1=-1.11158231452105922762668\times10^{-4}$ matches Lehmer's Table~5 to
+all 25 computed digits --- a cumulant-route/zero-route agreement across a 38-year-old table.
+
+\section{Information length to the Hagedorn point}
+$L(\beta)=\int_\beta^2\sqrt{I(t)}\,dt=-\log(\beta-1)+C+o(1)$: the Hagedorn point lies at infinite
+Fisher--Rao distance, logarithmically, with
+\[
+C=-0.03435615417912198608311088145844761509924587622554538185676859393077026298076215\!\ldots
+\]
+(80 digits; tanh-sinh and Gauss--Legendre agreement at dps 100; cancellation-free integrand assembly
+recorded in the gate file). Falsifier: any independent evaluation outside $10^{-81}$.
+
+\section{From cumulants to Keiper--Li: a two-route instrument}
+Li's criterion: RH $\iff \lambda_n\ge0\ \forall n$, $\lambda_n=\sum_\rho[1-(1-1/\rho)^n]$.
+We compute $\lambda_n$ two independent ways and require budgeted agreement.
+
+\textbf{Route A (zeros).} Sum over the first $10^5$ Odlyzko ordinates plus a semi-analytic tail
+(integral of the pair term against the Riemann--von Mangoldt density), with budget = $S(T)$
+fluctuation at the cut + ordinate-accuracy propagation + arithmetic floor.
+
+\textbf{Route B (zero-free).} Trapezoid-DFT Taylor coefficients of the \emph{entire} $Z(1+\eps)$ on
+$|\eps|=3$ (no branch hazard), exact power-series logarithm by recurrence, $\sigma_j$ via the closed
+trivial-zero part, binomial transform to $\lambda_n$. Anchors: $\lambda_1=1+\gamma/2-\tfrac12\log4\pi$
+(exact to working precision); $\sigma_2,\sigma_3$ vs.\ Lehmer; cross-run $\lambda_{40}$ through
+independent contour machinery.
+
+\textbf{Receipts.} At dps 130, routes agree at $0.2$--$0.3$ of budget for $n=50..400$
+($\lambda_{400}=748.31558\ldots$, $|A-B|\approx1.7\times10^{-5}$, $\sim2\times10^{-8}$ relative).
+An earlier version of the Route-A budget missed the $\binom{n}{2}$ tail term; the gate's failure
+mode (an exact $n^2$ excess) located it --- recorded, not hidden.
+
+\textbf{The wall, measured --- and identified as Johansson's law.} The zero-free route loses
+precision linearly: $\text{digits lost}\approx 0.2947\,n$ ($R^2=0.9999$ on the (90,130)-dps pair;
+confirmed out-of-sample at $0.2990$, $R^2=1.0000$, on the (310,360) pair; a contaminated first fit
+and a wrong a-priori prediction are both recorded). Per the executed literature gate this is a blind
+replication of a published law: Johansson prices the route at ``about $n$ bits'' ($1$ bit
+$\approx0.301$ digits per step), and Ma\'slanka's Fig.~6 shows $\approx0.2$ digits/step; Voros
+aggregates both. We claim only the corroboration and the explicit costing form
+$n_{\mathrm{wall}}(D)\approx(D+3)/0.295$ used to price our own runs (receipts to $n=1000$ at
+dps~360/310, agreement at $0.20$ of budget uniformly, $\lambda_{1000}=2326.05316\ldots$ to
+$\sim5\times10^{-8}$ relative).
+
+\textbf{Violation sensitivity (Voros's thresholds, empirically confirmed).} Planting synthetic
+off-line zero quadruples: at height $\gamma^*=2$, strength $\beta^*=0.9$ turns $\lambda_n$ negative
+by $n=26$; $\beta^*=0.6$ by $n=231$; sensitivity falls superquadratically with height
+($\gamma^*=14.13$ invisible at $n\le400$). This is the empirical face of Voros's published RH-false
+asymptotics and detection thresholds ($n\gtrsim T^2/|t|$ onset; demonstrated by him on the genuine
+off-line zeros of Davenport--Heilbronn); our chart confirms, and claims, nothing beyond the
+confirmation. Moreover, by Oesterl\'e's bound (RH verified to height $T_0$ $\Rightarrow$
+$\lambda_n\ge0$ for $n\le T_0^2$), positivity in every range we touch is \emph{guaranteed} by
+existing zero verification --- our $\lambda_n>0$ observations are consistency checks of the
+instrument, not information about RH.
+
+\section{No-go clarifications (inoculation)}
+(i) The complex-$\beta$ zeros of the continued partition function are the nontrivial zeros of
+$\zeta$; they are isolated, off the real axis, with no real-axis accumulation: no Lee--Yang/Fisher
+transition is associated with them (Dutta--Ghoshal at physics rigor; cited, not rediscovered).
+(ii) Matching a random-matrix universality class identifies nothing arithmetic: GUE statistics of
+zero spacings are the anonymous fixed point; the primes live in the \emph{departures} (explicit-formula
+residue), as our point-cloud demonstration (spectral lines at $x=\log p^k$, 12/12) illustrates.
+(iii) One-parameter ``curvature'' claims are vacuous (1-D manifolds are flat); nothing here uses them.
+
+\section{Honest scope}
+No statement in this note constitutes evidence for or against RH; by Oesterl\'e's bound our
+positivity observations were guaranteed in advance. All $\lambda_n$ values are within previously
+computed ranges (Keiper to $7000$; Johansson, rigorously, to $10^5$). The final literature gate
+(executed 2026-07-08, recorded in the repository) demoted all three candidate-novel items: the
+two-route cross-verification is in essence Keiper (1992, including his unused hybrid formula (48))
+plus the Keiper--Johansson cross-check; the wall law is Johansson's one-bit-per-step statement
+(anticipated by Ma\'slanka's Fig.~6); the sensitivity chart empirically confirms Voros's published
+thresholds. What remains ours is presentational only --- the per-row matched-budget receipt format
+--- and the corroborations themselves, which we regard as validation of the instrument rather than
+contribution to the mathematics. Negative results and all failed instrument versions are recorded in
+the repository gate files; the pre-registrations bind wording.
+
+\begin{thebibliography}{19}
+\bibitem{Julia} B.~Julia, Statistical theory of numbers, in \emph{Number Theory and Physics}, Springer (1990).
+\bibitem{Spector} D.~Spector, Supersymmetry and the M\"obius inversion function, Commun.\ Math.\ Phys.\ \textbf{127} (1990).
+\bibitem{BakasBowick} I.~Bakas, M.~Bowick, Curiosities of arithmetic gases, J.~Math.\ Phys.\ \textbf{32} (1991).
+\bibitem{BostConnes} J.-B.~Bost, A.~Connes, Hecke algebras, type III factors and phase transitions\ldots, Selecta Math.\ \textbf{1} (1995).
+\bibitem{Knauf} A.~Knauf, On a ferromagnetic spin chain, Commun.\ Math.\ Phys.\ \textbf{153} (1993).
+\bibitem{DuttaGhoshal} S.~Dutta, D.~Ghoshal, Phase transitions of the Riemann gas\ldots, arXiv:2102.13445.
+\bibitem{Ruppeiner} G.~Ruppeiner, Riemannian geometry in thermodynamic fluctuation theory, Rev.\ Mod.\ Phys.\ \textbf{67} (1995).
+\bibitem{Lehmer} D.~H.~Lehmer, The sum of like powers of the zeros of the Riemann zeta function, Math.\ Comp.\ \textbf{50} (1988).
+\bibitem{Keiper} J.~B.~Keiper, Power series expansions of Riemann's $\xi$ function, Math.\ Comp.\ \textbf{58} (1992).
+\bibitem{Li} X.-J.~Li, The positivity of a sequence of numbers and the Riemann hypothesis, J.~Number Theory \textbf{65} (1997).
+\bibitem{BL} E.~Bombieri, J.~C.~Lagarias, Complements to Li's criterion\ldots, J.~Number Theory \textbf{77} (1999).
+\bibitem{Coffey} M.~W.~Coffey, Toward verification of the Riemann hypothesis\ldots, Math.\ Phys.\ Anal.\ Geom.\ \textbf{8} (2005).
+\bibitem{Voros} A.~Voros, Zeta functions over zeros of general zeta and $L$-functions, in Dev.\ Math.\ \textbf{14}, Springer (2005); and \emph{Zeta Functions over Zeros of Zeta Functions}, Springer (2010).
+\bibitem{Maslanka} K.~Ma\'slanka, Li's criterion for the Riemann hypothesis --- numerical approach, Opuscula Math.\ (2004).
+\bibitem{Johansson} F.~Johansson, Rigorous high-precision computation\ldots (Arb); Keiper--Li computations to $n=10^5$.
+\bibitem{Odlyzko} A.~M.~Odlyzko, Tables of zeros of the Riemann zeta function, \url{www.dtc.umn.edu/~odlyzko}.
+\end{thebibliography}
+\end{document}
