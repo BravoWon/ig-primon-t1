@@ -179,14 +179,45 @@ along the tree).
   Caveat: the target is a *uniform* recurrence (easy to roll out); a non-uniform compositional task is the
   only place typed composition could still separate — low prior given the thread, but the honest rescue.
 
-**The terminus (open — with an honest, modest data point at the bottom of the ladder):** a **fluent
-generative LM** routing every token through a grounded sheaf at billions of parameters. Measured against
-a *real* subword baseline (not the `UNK` strawman), grounding is a **small but robust generative positive
-(~2% PPL)** at 3 M params — not the large lever the `UNK` comparison suggested. Whether even that thin
-edge survives scale (better-learned rare embeddings) and whether grounding-everywhere constrains a large
-fluent model remain open and need real GPUs. Everything up to here — words (brick 1), structured
-composition (brick 2, hardened), and a small generative LM (brick 3′, hardened against subword) — is
-built and confirmed on real language.
+**Brick 3 rescue RESOLVED-NEGATIVE (`nonuniform_gate_v2.py`, `PREREG_nonuniform_composition_gate.md`) — the
+non-uniform task closes the last door.** Same three arms, same architectures; the *only* change is the fold
+operator's commutativity — a verb-typed **permutation** `val ← P[verb][(val+ss(subj))%S]` (non-commutative:
+order and type now matter, so a generic recurrence cannot collapse the fold to one effective operator, and
+typed weight-tied restriction maps have their fairest possible advantage). Converged (16k steps, both grounded
+arms in-dist ≈ 1.00), 2-seed, with a *valid* commutative control (`abelian_wt`, the weighted fold GRUs can
+learn) reproducing a clean architectures-tie null. **Falsifier fired again, and it holds after convergence:**
+on the non-commutative target the generic grounded-GRU extrapolates to depth **better** than the typed sheaf
+(**0.91 vs 0.79** seen, d4–6; margin −0.13) — typed composition is not just inert but modestly *worse*.
+Grounding's zero-shot-word win holds (both grounded arms 0.91/0.78 vs flat 0.13). *(Two instrument faults
+were caught and fixed before believing it — the clean commutative twin is parity-hard so GRUs sat at chance
+[forcing the weighted control], and the sheaf was undertrained in the first pass [inflating the gap to −0.19];
+the round-trip verifier + convergence discipline caught both. Same lesson as the whole thread: validate the
+instrument before the finding.)* **Verdict: specifically-sheaf typed composition never separates from generic
+grounded recurrence — uniform OR non-uniform. Grounding is the lever; sheaf geometry is not.** The one door
+the recursion gate left open is now shut.
+
+**The terminus (RUN on BOTH scaling axes — POSITIVE and 3-seed SEED-ROBUST on data AND params; Chinchilla-scaled + billions still open):**
+the goal is a **fluent generative LM** routing every token through a grounded sheaf at billions of parameters.
+Brick 3′'s one open question — *does the grounding edge survive scale, or is it a small-data crutch that
+better-learned rare embeddings erase?* — was gated (`PREREG_terminus_scale_gate.md`, `terminus/`). A ~40 M-param
+GPT (GPT-2 BPE, real **FineWeb-Edu** with a validated WordNet↔BPE grounding stream), arms flat / grounded /
+grounded-**random** placebo, swept over token budgets {8M, 30M, 90M}, **3 seeds**. Result: the overall
+grounded-vs-flat edge **holds ~7–9% across an 11× data increase (does not decay)**, and — the load-bearing
+control — grounded beats its matched-capacity **random-supersense placebo at every seed × every budget (9/9)**
+with a margin that **grows with scale (+3.1 → +10.4%)**. So the edge is **semantic** (real inherited meaning,
+not the grounding pathway's extra capacity) **and seed-robust**, not a small-data artifact. This is the program's
+**first structural positive** — sheaf composition, Möbius geometry, and SHA "certification" all died at their
+gates; grounding is the one inherited-structure idea that survives *and strengthens* under scale. **A second,
+independent ladder confirms it on the other axis:** holding data fixed (30 M tokens) and varying **model size**
+14 M→90 M (3 seeds, `RESULT 3`), grounding again beats its placebo **9/9 across every size and seed**, margin
+growing +1.3→+13.5% — the "better-learned embeddings erase it" falsifier did not fire on the param axis either.
+The two ladders **weld exactly** at their shared 40 M × 30 M point (bit-for-bit per seed). **Honest limits:** each
+ladder is *single-variable* (vary tokens at fixed params, or params at fixed tokens); the fixed-token param ladder
+is undertrained-favoring, so the clean claim is *survives / does not decay*, not *grows because of params*. A
+**Chinchilla-scaled** ladder (tokens ∝ params) and **true billions** (real GPUs / cloud) remain the sharper open
+tests; one corpus, WordNet nouns only. Everything up to here — words (brick 1), structured composition (brick 2,
+hardened), a small generative LM (brick 3′, hardened against subword), and now the terminus **hardened on both
+scaling axes (3-seed data + 3-seed params)** — is built and confirmed on real language.
 
 ---
 
