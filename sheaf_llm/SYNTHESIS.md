@@ -240,6 +240,21 @@ rescue path, but the burden was on H¹ and it didn't clear it.) Net routing logi
 gradient, both standard; **no structural veto is supported by evidence.** Same lesson as the subword gate —
 rigorous higher-order structure, real, and *not the lever* — now at the routing layer too.
 
+## DeltaSheaf — the obstruction idea re-tested on real LLM ensembles (`../../deltasheaf-v02/`, 2026-07-17)
+A follow-on to the H¹ gate: does inter-model disagreement geometry (edge deltas, cycle residuals, the "area
+between maps") **decode-recover** the gold answer on items where an ensemble is jointly wrong? Frozen SPEC +
+controls (`CONCLUSION.md`). **Banked negative, twice:** (a) the sheaf geometry — map / displacement / area /
+volume — is all at chance on 322 blind-spot items (0-of-5 across 5 families 26M–7B), instrument-validated on
+synthetic and round-tripped (recovers on clean 0.37, null on blind-spot 0.21); (b) a bigger *same-kind* reader
+(Qwen-7B) is also at chance (25.8%) — the blind spots are **scale-invariant**. The one open branch — whether a
+genuinely *complementary* system (Wikipedia retrieval) recovers them — is honestly **UNDECIDED**: the only
+valid reader (7B open-book) is too slow for this environment, and the small-model reader degrades on context
+(a driftwave round-trip **VOIDED** an apparent "retrieval hurts" null — it was reader degradation, −7% on
+*easy* items too). **Meta-lesson (the program's spine, sharpest instance yet): FOUR instrument artifacts caught
+before believing a false finding** — degenerate substrate, throttled retrieval, degenerate cosine reader, and
+the dangerous degrading open-book reader. Geometry/obstruction is *still* not the lever; grounding
+(information-hole import) remains the survivor; whether retrieval *import* recovers reasoning-hard holes is open.
+
 ## Quarantine — what we never needed
 
 constants-from-topology · RH "resolution" · "deterministic → prevents all hallucination" · Waypoint
