@@ -271,9 +271,22 @@ fact-form context, and the copy-control certifies import-not-deference — **wro
 swing driven by fact *correctness*. **Final form of the import law: the blind spots are genuinely importable
 fact-gaps; real fact CONTENT (not just a stated answer) recovers them; the binding constraint is retrieval
 content quality, full stop.** Import pays baked into representations at training time (terminus) and at
-inference iff the content is right — better retrieval is a live lever. **Next channel, pre-registered:**
-latent-space import via orthogonal Procrustes between heterogeneous models (`../procrustes-gate/PREREG.md`)
-— rotation-as-*operation* (untouched by the rank-7 invariant nulls), with fact-form's 81.7% as the bar.
+inference iff the content is right — better retrieval is a live lever.
+**Procrustes-import gate (`../procrustes-gate/`, CLOSED 2026-07-18) — the map is a CHANNEL, not a SOURCE.**
+The one place the invariant nulls didn't reach: the *alignment operation* between models, not its invariants.
+Orthogonal Procrustes genuinely transports representations across independently-trained models (v1:
+Qwen-3B→OLMo-1B, 98.5% recovery vs all controls at floor, aligned cosine +0.315 vs 0 — semantic communication
+where the Smith/Möbius *compression* starved it; rotation preserves). But: (a) a math specialist (Qwen2.5-Math-7B)
+scores 27% ≈ chance on the blind spots — model-universal voids, nothing to transplant; (b) GPA co-registration
+of a dim-matched trio into a consensus centroid gives aligned-consensus **62.7% = best single map 62.6%** — an
+inert average, no signal beyond the strongest source (though alignment *matters*: raw-average 53.7%); (c) the
+raw 5,120-D uncollapsed residual separates 0-of-5 delusion from 5-of-5 truth only as a difficulty shadow
+(difficulty AUC 0.988, geometry increment −0.013). **Resolution: the map transports whatever the source holds,
+bounded by it; it never manufactures signal.** The program's two levers — grounding + content-import — are
+*complementary content flowing between systems*; Procrustes is the confirmed mechanism of that flow, never its
+substance. The lever is the content; the map is how it travels. Feynman-integral framing: canonical geometry
+reveals content that *exists* (integrals are periods); inter-model disagreement holds only difficulty, so every
+basis — collapsed, co-registered, uncollapsed — returns difficulty. **Geometric program triple-sealed.**
 **Meta-lesson (the program's spine, sharpest run yet): EIGHT instrument artifacts caught** — degenerate
 substrate · throttled retrieval · degenerate cosine reader · degrading open-book reader · a seed-std fragile
 positive (adversarial verifier + McNemar recurse killed a wanted-true "+1.6% beats best-single") · a
