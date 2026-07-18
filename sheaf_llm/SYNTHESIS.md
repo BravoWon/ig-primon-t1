@@ -240,20 +240,46 @@ rescue path, but the burden was on H¹ and it didn't clear it.) Net routing logi
 gradient, both standard; **no structural veto is supported by evidence.** Same lesson as the subword gate —
 rigorous higher-order structure, real, and *not the lever* — now at the routing layer too.
 
-## DeltaSheaf — the obstruction idea re-tested on real LLM ensembles (`../../deltasheaf-v02/`, 2026-07-17)
+## DeltaSheaf — the obstruction idea re-tested on real LLM ensembles (`../../deltasheaf-v02/`, 2026-07-17→18, CLOSED)
 A follow-on to the H¹ gate: does inter-model disagreement geometry (edge deltas, cycle residuals, the "area
-between maps") **decode-recover** the gold answer on items where an ensemble is jointly wrong? Frozen SPEC +
-controls (`CONCLUSION.md`). **Banked negative, twice:** (a) the sheaf geometry — map / displacement / area /
-volume — is all at chance on 322 blind-spot items (0-of-5 across 5 families 26M–7B), instrument-validated on
-synthetic and round-tripped (recovers on clean 0.37, null on blind-spot 0.21); (b) a bigger *same-kind* reader
-(Qwen-7B) is also at chance (25.8%) — the blind spots are **scale-invariant**. The one open branch — whether a
-genuinely *complementary* system (Wikipedia retrieval) recovers them — is honestly **UNDECIDED**: the only
-valid reader (7B open-book) is too slow for this environment, and the small-model reader degrades on context
-(a driftwave round-trip **VOIDED** an apparent "retrieval hurts" null — it was reader degradation, −7% on
-*easy* items too). **Meta-lesson (the program's spine, sharpest instance yet): FOUR instrument artifacts caught
-before believing a false finding** — degenerate substrate, throttled retrieval, degenerate cosine reader, and
-the dangerous degrading open-book reader. Geometry/obstruction is *still* not the lever; grounding
-(information-hole import) remains the survivor; whether retrieval *import* recovers reasoning-hard holes is open.
+between maps") carry exploitable task signal? Frozen SPEC + controls; full record `CONCLUSION.md`.
+**Geometry: null on EVERY axis, space SPANNED, exploration FROZEN.** (a) decode-recovery at chance on 322
+blind-spot items (0-of-5 across 5 families 26M–7B), instrument-validated on synthetic; (b) Qwen-7B also at
+chance (25.8%) — blind spots **scale-invariant**; (c) per-item routing null (routers ≈ shuffle ≈ best-single);
+(d) geometry null at *detection* too — raw residuals AUC 0.515, cycle+area 0.557, inverse/round-trip maps
+SUBTRACT; the fairest instrument (whiten the full 320-D cochain complex against a permutation-null "geometry
+of chance") lifts geometry-only to its best 0.656 and proves the complex genuinely deviates from chance (5×
+more coherent than random registration) — yet it is fully subsumed by one label-free difficulty scalar
+(0.787); (e) **rank theorem**: ensembles occupy ~7 orthogonal invariant modes (per-item shape ~3–4-D), task
+signal diffuse, capping at 0.606 < a single confidence scalar (0.767). *Between-model = rank-7 + task-inert;
+within-model = rank-1 + the only live signal.*
+**The ONE real positive — detection, productized.** Reframed "who is right" (dead) → "is the strongest model
+wrong": ensemble confidence predicts the leader's errors; ablation-proven **cross-model increment +0.026 AUC
+(CI [+0.010,+0.040]; leader self-recalibration +0.001 = nothing; other-4-models-alone AUC 0.691)** →
+`selective.py`: AURC Δ+0.018 (CI-clean), **+3.9 pts accuracy at 50% coverage**. Cascade (defer-to-majority)
+null: where the leader fails, majority fails too — the ensemble's knowledge is *decline, not redirect*.
+**v0.3 retrieval-import RESOLVED, then CEILINGED.** Checkpointed 7B protocol, control-first: control PASSED
+at n=400 (88.0→86.0%, p=0.26 — the 3B degradation does not persist; an n=150 abort was correctly diagnosed
+as underpowered noise), gate a perfectly symmetric null (25.8→25.8%, 29 flips each way, p=1.000;
+passage-present items AT chance) — **the real Wikipedia pipeline imports nothing.** Then the oracle CEILING:
+a gold-stating note lifts the gate **25.8% → 89.8%** (copy-control: wrong notes adopted 90.4% → mechanical).
+**CODA-2 closed the last rung — FACT-FORM import (genuine, not copying):** a leak-filtered encyclopedia FACT
+sentence (states the knowledge, never the answer/letter) lifts the gate **25.8% → 81.7%**; the corrected
+integration instrument (wrong facts on easy items crater 86→35%, gap +51%) proves the reader integrates
+fact-form context, and the copy-control certifies import-not-deference — **wrong facts crater accuracy to
+6.8%** (below chance) with only 31.1% wrong-letter adoption (vs answer-form's mechanical 90.4%): a 75-point
+swing driven by fact *correctness*. **Final form of the import law: the blind spots are genuinely importable
+fact-gaps; real fact CONTENT (not just a stated answer) recovers them; the binding constraint is retrieval
+content quality, full stop.** Import pays baked into representations at training time (terminus) and at
+inference iff the content is right — better retrieval is a live lever. **Next channel, pre-registered:**
+latent-space import via orthogonal Procrustes between heterogeneous models (`../procrustes-gate/PREREG.md`)
+— rotation-as-*operation* (untouched by the rank-7 invariant nulls), with fact-form's 81.7% as the bar.
+**Meta-lesson (the program's spine, sharpest run yet): EIGHT instrument artifacts caught** — degenerate
+substrate · throttled retrieval · degenerate cosine reader · degrading open-book reader · a seed-std fragile
+positive (adversarial verifier + McNemar recurse killed a wanted-true "+1.6% beats best-single") · a
+self-recalibration attribution error (ablation separated cross-model signal from leader recalibration) · an
+underpowered control abort (n=150→400 extension, rule fixed before relaunch) · un-instructed oracle notes
+over-ridden by the reader's own reasoning. Every one pre-empted a false conclusion entering this ledger.
 
 ## Quarantine — what we never needed
 

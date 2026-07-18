@@ -1,0 +1,100 @@
+{"i": 0, "letter": "D", "correct": false, "reply": "The degree of the field extension Q(sqrt(2), sqrt(3), sqrt(18)) over Q is given as 6 in the reference excerpt.\n\nAnswer: D", "wrong_letter": "A"}
+{"i": 2, "letter": "D", "correct": true, "reply": "The polynomial \\( x^5 + 3x^3 + x^2 + 2x \\) in \\( \\mathbb{Z}_5 \\) has zeros at \\( x = 0 \\) and \\( x = 1 \\), and by symmetry and properties of finite fields, the ", "wrong_letter": "C"}
+{"i": 4, "letter": null, "correct": false, "reply": "First, compute the product of the polynomials \\( f(x) = 4x - 5 \\) and \\( g(x) = 2x^2 - 4x + 2 \\):\n\n\\[\n(4x - 5)(2x^2 - 4x + 2) = 4x(2x^2 - 4x + 2) - 5(2x^2 - 4x ", "wrong_letter": "C"}
+{"i": 7, "letter": "C", "correct": false, "reply": "Answer: C.", "wrong_letter": "B"}
+{"i": 8, "letter": "B", "correct": true, "reply": "The degree of the field extension Q(sqrt(2) + sqrt(3)) over Q is given as 4 in the reference excerpt.\n\nAnswer: B. 4", "wrong_letter": "C"}
+{"i": 9, "letter": "C", "correct": true, "reply": "The given polynomial \\(x^3 + 2x + 2\\) has zeros at \\(x = 3\\) and \\(x = 6\\) in \\(\\mathbb{Z}_7\\). To find all zeros, we need to check if there are any other solut", "wrong_letter": "D"}
+{"i": 11, "letter": "C", "correct": true, "reply": "Answer: C. both symmetric and anti-symmetric.", "wrong_letter": "A"}
+{"i": 13, "letter": "D", "correct": false, "reply": "The given factorization in Z_7 is correct as (x - 1)(x - 4)(x - 2).\n\nAnswer: D. (x - 1)(x − 4)(x − 2)", "wrong_letter": "D"}
+{"i": 17, "letter": "C", "correct": true, "reply": "The product in the ring \\( \\mathbb{Z}_5 \\times \\mathbb{Z}_9 \\) of the elements \\( (2,3) \\) and \\( (3,5) \\) is computed component-wise modulo 5 and 9 respectivel", "wrong_letter": "A"}
+{"i": 18, "letter": "D", "correct": true, "reply": "Answer: D. zero has no inverse.", "wrong_letter": "A"}
+{"i": 21, "letter": "A", "correct": true, "reply": "The coefficients are reduced modulo 8, so \\(-5\\) becomes \\(3\\) and \\(-4x\\) becomes \\(4x\\). Thus, \\(f(x) + g(x) = 2x^2 + (4x - 4x) + (2 - 5) = 2x^2 - 3 \\equiv 2x", "wrong_letter": "C"}
+{"i": 22, "letter": "A", "correct": false, "reply": "Answer: A.", "wrong_letter": "C"}
+{"i": 23, "letter": "C", "correct": false, "reply": "Answer: C. group, because the set satisfies the group axioms including closure, associativity, identity, and inverses, and is commutative.", "wrong_letter": "C"}
+{"i": 25, "letter": "D", "correct": false, "reply": "Answer: D. infinite, abelian. The set G forms an infinite, abelian group under matrix multiplication.", "wrong_letter": "D"}
+{"i": 26, "letter": "C", "correct": true, "reply": "Answer: C. True, False.", "wrong_letter": "D"}
+{"i": 28, "letter": "D", "correct": true, "reply": "Answer: D.", "wrong_letter": "C"}
+{"i": 31, "letter": "C", "correct": false, "reply": "Answer: C. non-abelian group. Because the given condition contradicts the definition of an abelian group, where (ab)^-1 should equal b^-1a^-1 for all a, b in G.", "wrong_letter": "C"}
+{"i": 33, "letter": "A", "correct": false, "reply": "Answer: A. g = g^-1 for every g in G.", "wrong_letter": "A"}
+{"i": 35, "letter": "D", "correct": false, "reply": "The degree of the field extension Q(sqrt(2), sqrt(3)) over Q is given as 6 in the reference excerpt.\n\nAnswer: D", "wrong_letter": "D"}
+{"i": 37, "letter": "C", "correct": false, "reply": "The polynomial \\(x^2 - 12\\) in \\(\\mathbb{Z}[x]\\) satisfies the Eisenstein criterion for irreducibility over \\(\\mathbb{Q}\\) with \\(p = 5\\).\n\nAnswer: C.", "wrong_letter": "C"}
+{"i": 39, "letter": "B", "correct": false, "reply": "Answer: B.", "wrong_letter": "B"}
+{"i": 40, "letter": "B", "correct": false, "reply": "The identity element satisfies a*1 = a and 1*a = a for all a in Z, which is true for 1. Answer: B.", "wrong_letter": "B"}
+{"i": 44, "letter": "A", "correct": false, "reply": "Answer: A.", "wrong_letter": "A"}
+{"i": 48, "letter": "C", "correct": true, "reply": "A. True, False. Reason: Statement 1 is true as per the reference, but Statement 2 does not always hold in a general ring. Answer: C.", "wrong_letter": "D"}
+{"i": 49, "letter": "B", "correct": true, "reply": "The maximum order is determined by the least common multiple (LCM) of the orders of the individual groups, which is LCM(8, 10, 24) = 120.\n\nAnswer: B", "wrong_letter": "D"}
+{"i": 50, "letter": "B", "correct": false, "reply": "Answer: B.", "wrong_letter": "B"}
+{"i": 53, "letter": "A", "correct": false, "reply": "Answer: A", "wrong_letter": "B"}
+{"i": 54, "letter": "B", "correct": true, "reply": "The degree of the field extension Q(sqrt(2)) over Q is 2, as given in the reference excerpt.\n\nAnswer: B. 2", "wrong_letter": "D"}
+{"i": 56, "letter": "B", "correct": false, "reply": "Answer: B.", "wrong_letter": "B"}
+{"i": 57, "letter": "C", "correct": false, "reply": "The reference excerpt directly states that the generator for the finite field Z_11 is 3.\n\nAnswer: C", "wrong_letter": "C"}
+{"i": 58, "letter": "C", "correct": false, "reply": "Answer: C. True, False.", "wrong_letter": "C"}
+{"i": 64, "letter": "A", "correct": false, "reply": "Answer: A. 1. The reference excerpt directly states that there is exactly one such homomorphism.", "wrong_letter": "A"}
+{"i": 66, "letter": "C", "correct": false, "reply": "Answer: C.", "wrong_letter": "A"}
+{"i": 68, "letter": "C", "correct": false, "reply": "The given factorization in Z_5[x] is (x - 1)(x + 1)^3.\n\nAnswer: C. (x-1)(x+1)^3", "wrong_letter": "C"}
+{"i": 72, "letter": "D", "correct": true, "reply": "Using Fermat's Little Theorem, since 23 is a prime number and 3 is not divisible by 23, we have \\(3^{22} \\equiv 1 \\mod 23\\). Thus, \\(3^{47} = 3^{22*2+3} = (3^{2", "wrong_letter": "C"}
+{"i": 73, "letter": "B", "correct": true, "reply": "The characteristic of a ring is the smallest positive integer \\( n \\) such that \\( n \\cdot a = 0 \\) for all elements \\( a \\) in the ring. Since \\( \\mathbb{Z}_3 ", "wrong_letter": "A"}
+{"i": 74, "letter": "D", "correct": true, "reply": "Statement 1 is false because there can be groups where distinct elements a and b have the same square. Statement 2 is true as per the given reference. Answer: D", "wrong_letter": "C"}
+{"i": 77, "letter": "D", "correct": false, "reply": "The reference excerpt directly states that the characteristic of the ring \\( \\mathbb{Z} \\times \\mathbb{Z} \\) is 30. Answer: D.", "wrong_letter": "D"}
+{"i": 78, "letter": "A", "correct": false, "reply": "Statement 1 is true because for integers greater than 1, the set {1, 2, ..., n-1} forms a group under multiplication modulo n. Statement 2 is true because there", "wrong_letter": "A"}
+{"i": 79, "letter": "A", "correct": false, "reply": "Answer: A.", "wrong_letter": "B"}
+{"i": 81, "letter": "A", "correct": false, "reply": "Answer: A. True, True. The reference excerpt directly confirms both statements.", "wrong_letter": "A"}
+{"i": 83, "letter": "B", "correct": false, "reply": "Answer: B.", "wrong_letter": "D"}
+{"i": 88, "letter": "D", "correct": false, "reply": "The product of (12)(16) in Z_24 is computed as (12 * 16) mod 24, which equals 192 mod 24 = 6.\n\nAnswer: D. 6", "wrong_letter": "D"}
+{"i": 89, "letter": "C", "correct": true, "reply": "Answer: C.", "wrong_letter": "B"}
+{"i": 91, "letter": "B", "correct": true, "reply": "The given reference is incorrect; the cosets of the subgroup 4Z within the group 2Z are actually 4Z and 6Z, not as stated. However, considering 2Z and 4Z proper", "wrong_letter": "A"}
+{"i": 93, "letter": "D", "correct": false, "reply": "The maximum possible order for an element of the symmetric group S_6 is 105, as given in the reference excerpt.\n\nAnswer: D. 105", "wrong_letter": "D"}
+{"i": 98, "letter": "B", "correct": false, "reply": "The order of an element in a direct product group is the least common multiple of the orders of its components. The order of (4, 2) in Z_12 x Z_8 is lcm(4, 2) =", "wrong_letter": "B"}
+{"i": 99, "letter": "B", "correct": false, "reply": "Answer: B.", "wrong_letter": "D"}
+{"i": 101, "letter": "D", "correct": false, "reply": "Defective development of the maxillary air sinus leads to a \"dish-faced\" profile. Answer: D.", "wrong_letter": "D"}
+{"i": 102, "letter": "A", "correct": true, "reply": "Answer: A. Bladder. Reason: The bladder stores urine before it is expelled from the body.", "wrong_letter": "D"}
+{"i": 104, "letter": "B", "correct": true, "reply": "The cluster of blood capillaries found in each nephron in the kidney is called the glomerulus. Answer: B.", "wrong_letter": "D"}
+{"i": 106, "letter": "B", "correct": false, "reply": "The hypochondriac region of the abdomen lies just distal to the sternum.\n\nAnswer: B. Hypochondriac", "wrong_letter": "B"}
+{"i": 107, "letter": "C", "correct": false, "reply": "Answer: C. Osteoblasts are involved in bone formation and repair, not in the defense against environmental bacteria.", "wrong_letter": "C"}
+{"i": 109, "letter": "B", "correct": false, "reply": "Reason: The reference excerpt specifies \"bilateral contraction of limb musculature.\"\nAnswer: B.", "wrong_letter": "B"}
+{"i": 110, "letter": "B", "correct": false, "reply": "Answer: B. hard palate and upper lip.", "wrong_letter": "B"}
+{"i": 115, "letter": "A", "correct": false, "reply": "Answer: A. Its efferent limb is carried in the optic nerve.", "wrong_letter": "A"}
+{"i": 116, "letter": "C", "correct": false, "reply": "Answer: C. External and internal intercostal muscles and diaphragm. The reference excerpt specifically mentions the internal intercostal muscles and the diaphra", "wrong_letter": "C"}
+{"i": 117, "letter": "D", "correct": true, "reply": "Answer: D. Testes. Reason: The reference excerpt states that male hormones, or androgens, are primarily produced by the testes.", "wrong_letter": "A"}
+{"i": 119, "letter": "C", "correct": true, "reply": "Answer: C. Trachea. Reason: The trachea, also known as the windpipe, is the airway that leads to the lungs.", "wrong_letter": "D"}
+{"i": 120, "letter": "C", "correct": true, "reply": "Answer: C. In the upper wall of the right atrium.", "wrong_letter": "D"}
+{"i": 126, "letter": "C", "correct": true, "reply": "Answer: C. Nephrolithiasis, because it directly refers to the condition involving the formation of kidney stones (renal calculi).", "wrong_letter": "D"}
+{"i": 127, "letter": "D", "correct": false, "reply": "Answer: D. Superficial temporal artery crosses the orbital rim.", "wrong_letter": "D"}
+{"i": 128, "letter": "B", "correct": false, "reply": "Answer: B. Gallbladder. The reference excerpt directly states that a patient with severe blunt trauma to the left upper abdomen and requiring surgery is most li", "wrong_letter": "B"}
+{"i": 130, "letter": "D", "correct": false, "reply": "Answer: D. Pronation, as stated directly in the reference excerpt.", "wrong_letter": "D"}
+{"i": 132, "letter": "C", "correct": false, "reply": "Answer: C. Ileocecum, because bile enters the digestive tract through the ileocecal junction where the ileum meets the cecum.", "wrong_letter": "C"}
+{"i": 134, "letter": "A", "correct": false, "reply": "Answer: A. palatine processes.", "wrong_letter": "A"}
+{"i": 136, "letter": "D", "correct": true, "reply": "Answer: D. Spleen.", "wrong_letter": "C"}
+{"i": 137, "letter": "B", "correct": false, "reply": "Answer: B. Cranial and spinal.", "wrong_letter": "B"}
+{"i": 138, "letter": "A", "correct": false, "reply": "The reference excerpt explicitly lists cartilage, smooth muscle, and respiratory epithelium as the layers of bronchiole walls. Answer: A.", "wrong_letter": "A"}
+{"i": 139, "letter": "C", "correct": true, "reply": "Answer: C. Liver. The liver is responsible for removing bilirubin from the blood, manufacturing plasma proteins, and producing prothrombin and fibrinogen.", "wrong_letter": "B"}
+{"i": 140, "letter": "C", "correct": true, "reply": "Answer: C. Gastroesophageal reflux disease.", "wrong_letter": "D"}
+{"i": 142, "letter": "B", "correct": true, "reply": "The calcaneus is not located superior to the patella or inferior to the ischium; thus, the correct answer is not A. Answer: B. Femur, as it is the large bone lo", "wrong_letter": "A"}
+{"i": 143, "letter": "B", "correct": false, "reply": "A successful inferior alveolar nerve block will produce anesthesia of the lower lip and mandibular teeth. Answer: B.", "wrong_letter": "B"}
+{"i": 145, "letter": "A", "correct": false, "reply": "Answer: A. endochondral ossification and follow the somatic growth pattern.", "wrong_letter": "A"}
+{"i": 146, "letter": null, "correct": false, "reply": "The thigh was mistakenly referred to but the actual target is the lower leg containing the fibula. Answer: X.", "wrong_letter": "D"}
+{"i": 147, "letter": "B", "correct": false, "reply": "Monocytes do not have a nucleus. Answer: B.", "wrong_letter": "B"}
+{"i": 148, "letter": "B", "correct": false, "reply": "The reference excerpt states that the coronal suture joins the left and right parietal bones.\n\nAnswer: B. left and right parietal bones.", "wrong_letter": "B"}
+{"i": 149, "letter": "A", "correct": false, "reply": "The reference excerpt states the sequence from chin to sternum as hyoid bone, cricoid cartilage, and thyroid cartilage. Answer: A.", "wrong_letter": "A"}
+{"i": 150, "letter": "B", "correct": false, "reply": "Answer: B. The infraorbital foramen, as stated in the reference excerpt.", "wrong_letter": "B"}
+{"i": 151, "letter": "C", "correct": false, "reply": "Answer: C. The sympathetic trunks.", "wrong_letter": "C"}
+{"i": 153, "letter": "B", "correct": true, "reply": "The spinal canal is located within the vertebral canal, which runs longitudinally through the vertebrae. Answer: B. dorsal", "wrong_letter": "D"}
+{"i": 154, "letter": "C", "correct": false, "reply": "The reference excerpt states that the parotid duct runs deep to the masseter muscle and enters the mouth opposite the upper second premolar. Answer: C.", "wrong_letter": "C"}
+{"i": 156, "letter": "B", "correct": false, "reply": "Answer: B. is a terminal branch of the maxillary branch of the facial nerve.", "wrong_letter": "B"}
+{"i": 157, "letter": "C", "correct": true, "reply": "Answer: C. Peristalsis. Peristalsis is the process by which the stomach muscles contract and move food through the digestive tract.", "wrong_letter": "D"}
+{"i": 158, "letter": "D", "correct": true, "reply": "Answer: D. Synapse. Reason: Impulse transmission between neurons occurs specifically at synapses.", "wrong_letter": "B"}
+{"i": 160, "letter": "D", "correct": true, "reply": "Answer: D. Pancreas. The reference excerpt states that the liver secretes bile, not insulin, and the pancreas is known to secrete insulin.", "wrong_letter": "C"}
+{"i": 161, "letter": "A", "correct": false, "reply": "A. loss of taste over the anterior two-thirds of the tongue. Reason: The glossopharyngeal nerve is responsible for taste in that specific area of the tongue. An", "wrong_letter": "A"}
+{"i": 162, "letter": "A", "correct": false, "reply": "A one-line reason: The reference states that damage to the third cranial nerve due to orbital trauma results in convergent strabismus.\nAnswer: A", "wrong_letter": "A"}
+{"i": 163, "letter": "C", "correct": true, "reply": "Answer: C. Pulmonary arteries. Reason: The reference excerpt directly states this fact.", "wrong_letter": "D"}
+{"i": 164, "letter": "D", "correct": false, "reply": "Answer: D. lift their shoulders without impairment.", "wrong_letter": "D"}
+{"i": 166, "letter": "D", "correct": true, "reply": "Answer: D. On the anterior side of the neck. The reference excerpt specifically mentions the antecubital space for the carotid pulse, but the question asks for ", "wrong_letter": "B"}
+{"i": 167, "letter": "D", "correct": false, "reply": "Answer: D. discriminative touch decussate in the pyramids.", "wrong_letter": "D"}
+{"i": 169, "letter": "D", "correct": false, "reply": "The lingual nerve requires local anaesthesia to ensure a pain-free biopsy.\nAnswer: D. The lingual nerve.", "wrong_letter": "D"}
+{"i": 171, "letter": "A", "correct": true, "reply": "Answer: A. Acetylcholine. Reason: The reference excerpt states that acetylcholine plays a crucial role in the transmission of nerve impulses to muscles.", "wrong_letter": "C"}
+{"i": 172, "letter": "C", "correct": false, "reply": "Lamina V is the correct location as stated in the reference excerpt.\nAnswer: C. Lamina V.", "wrong_letter": "C"}
+{"i": 173, "letter": "B", "correct": false, "reply": "The lateral pterygoid muscle pulls the mandible forward, displacing the posterior fragment anteriorly in an unfavorable fracture. Answer: B.", "wrong_letter": "B"}
+{"i": 176, "letter": "B", "correct": false, "reply": "Answer: B. flaccid paralysis. Because the left internal capsule conveys motor neurons to the right leg, damage to this area results in flaccid paralysis on the ", "wrong_letter": "B"}
+{"i": 177, "letter": "D", "correct": false, "reply": "Answer: D. Right or left lung because there are no factors predisposing to the fragment going in one particular direction.", "wrong_letter": "D"}
+{"i": 178, "letter": "C", "correct": true, "reply": "Answer: C. Electrolytes. Reason: Calcium, potassium, and sodium are essential minerals that participate in electrical conductivity in the body's fluids.", "wrong_letter": "B"}
+{"i": 179, "letter": "A", "correct": false, "reply": "Answer: A. parasympathetic pre- and post-ganglionic neurons.", "wrong_letter": "A"}

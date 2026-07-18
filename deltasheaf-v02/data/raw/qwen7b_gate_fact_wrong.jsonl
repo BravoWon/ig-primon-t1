@@ -1,0 +1,322 @@
+{"i": 3, "letter": "A", "correct": false, "reply": "Answer: A", "wrong_letter": "D"}
+{"i": 12, "letter": null, "correct": false, "reply": "The order of the factor group (Z_11 x Z_15)/(<1, 1>) is given as 60 in the reference excerpt.\n\nAnswer: 60", "wrong_letter": "B"}
+{"i": 15, "letter": "A", "correct": false, "reply": "A. True, True. The reference excerpt confirms both statements. Answer: A.", "wrong_letter": "D"}
+{"i": 24, "letter": "A", "correct": false, "reply": "Answer: A.", "wrong_letter": "A"}
+{"i": 27, "letter": "C", "correct": false, "reply": "C. Yes, with p=5. The reference excerpt states that the polynomial satisfies the Eisenstein criterion for irreducibility over \\(\\mathbb{Q}\\) with \\(p = 5\\). Ans", "wrong_letter": "D"}
+{"i": 36, "letter": "C", "correct": false, "reply": "The product of 20 and -8 in Z_26 is calculated as (20 * -8) mod 26, which equals 11.\n\nAnswer: C. 11", "wrong_letter": "C"}
+{"i": 41, "letter": "B", "correct": false, "reply": "The characteristic of a ring is the smallest positive integer \\( n \\) such that \\( n \\cdot a = 0 \\) for all \\( a \\) in the ring. For \\( \\mathbb{Z}_3 \\times 3\\ma", "wrong_letter": "D"}
+{"i": 43, "letter": "C", "correct": true, "reply": "Answer: C.", "wrong_letter": "B"}
+{"i": 46, "letter": "A", "correct": false, "reply": "Answer: A", "wrong_letter": "C"}
+{"i": 62, "letter": "A", "correct": false, "reply": "Answer: A.", "wrong_letter": "D"}
+{"i": 63, "letter": "C", "correct": false, "reply": "Answer: C. reflexive. \n\n**Reason:** The relation does not include pairs of the form (a, a) for any a in A, so it is not reflexive. However, the question asks to", "wrong_letter": "A"}
+{"i": 67, "letter": "D", "correct": false, "reply": "Answer: D. H contains the identity element.", "wrong_letter": "D"}
+{"i": 70, "letter": "C", "correct": false, "reply": "The inverse of an element a is a - 2.\n\nAnswer: C. a-2", "wrong_letter": "B"}
+{"i": 75, "letter": "D", "correct": false, "reply": "Answer: D.", "wrong_letter": "C"}
+{"i": 80, "letter": "D", "correct": false, "reply": "Answer: D.", "wrong_letter": "C"}
+{"i": 84, "letter": "C", "correct": false, "reply": "Answer: C. True, False.", "wrong_letter": "B"}
+{"i": 90, "letter": "B", "correct": false, "reply": "Answer: B.", "wrong_letter": "A"}
+{"i": 92, "letter": "B", "correct": true, "reply": "Answer: B. Number of relations form A = {x, y, z} to B= (1, 2), is 64. Reason: Each element in A can map to either of 2 elements in B, resulting in \\(2^{3*2} = ", "wrong_letter": "A"}
+{"i": 108, "letter": "D", "correct": false, "reply": "The reference excerpt states that the palatine processes begin to fuse at twelve weeks post-fertilization.\n\nAnswer: D.十二周后", "wrong_letter": "A"}
+{"i": 123, "letter": "C", "correct": false, "reply": "Answer: C. mesoderm formation and occurs before neurulation.", "wrong_letter": "A"}
+{"i": 125, "letter": "A", "correct": false, "reply": "Answer: A. Carbon dioxide.", "wrong_letter": "B"}
+{"i": 135, "letter": "B", "correct": false, "reply": "Answer: B. is derived from the second pharyngeal pouch.", "wrong_letter": "D"}
+{"i": 141, "letter": "A", "correct": false, "reply": "Answer: A. trigeminal and glossopharyngeal nerves.", "wrong_letter": "B"}
+{"i": 159, "letter": "C", "correct": false, "reply": "The lateral pterygoid muscle initiates the elevation of the mandible. Answer: C.", "wrong_letter": "B"}
+{"i": 187, "letter": "D", "correct": false, "reply": "The seventh cranial nerve supplies the parotid salivary gland. Answer: D.", "wrong_letter": "D"}
+{"i": 199, "letter": "B", "correct": false, "reply": "Answer: B. to be palpable extraorally.", "wrong_letter": "B"}
+{"i": 207, "letter": "B", "correct": false, "reply": "Answer: B. synovial membrane and capsule.", "wrong_letter": "A"}
+{"i": 252, "letter": "A", "correct": true, "reply": "Answer: A. The Earth and Venus are in a 1:1 orbital resonance (for every 1 Earth orbit there is exactly 1 Venus orbit) - This is not true because Earth and Venu", "wrong_letter": "D"}
+{"i": 261, "letter": "B", "correct": false, "reply": "Because Mars has more carbon dioxide in its atmosphere than the Earth. Answer: B.", "wrong_letter": "B"}
+{"i": 279, "letter": "B", "correct": false, "reply": "Answer: B. Hubble Space Telescope images that resolved Pluto's disk. Because these images provided the first accurate resolution of Pluto's disk, allowing for p", "wrong_letter": "B"}
+{"i": 295, "letter": "B", "correct": false, "reply": "Answer: B. Asteroids emit a lot of their own radiation.", "wrong_letter": "B"}
+{"i": 323, "letter": "A", "correct": false, "reply": "The reference excerpt directly states that you would observe the phases of the Earth as new, first quarter, full, and third quarter phases. Answer: A.", "wrong_letter": "B"}
+{"i": 369, "letter": "A", "correct": false, "reply": "Answer: A. Perseus, as stated in the reference excerpt.", "wrong_letter": "A"}
+{"i": 370, "letter": "C", "correct": false, "reply": "The correct order from shortest to longest wavelength is gamma rays, X-rays, ultraviolet, visible light, infrared, radio waves. Answer: C.", "wrong_letter": "B"}
+{"i": 406, "letter": "A", "correct": true, "reply": "The reference excerpt mentions the effectiveness of the Anglo-American model during the late 2008 recession due to its financial regulatory framework and econom", "wrong_letter": "D"}
+{"i": 456, "letter": "B", "correct": false, "reply": "The statement correctly reflects the reference excerpt.\nAnswer: B", "wrong_letter": "B"}
+{"i": 458, "letter": "A", "correct": false, "reply": "Reason: The reference excerpt directly states that insider trading compromises the fiduciary relationship.\nAnswer: A", "wrong_letter": "C"}
+{"i": 460, "letter": "D", "correct": false, "reply": "D. Ethics of duty locate morality beyond the sphere of rationality in an emotional 'moral impulse' towards others. Answer: D.", "wrong_letter": "A"}
+{"i": 467, "letter": "C", "correct": false, "reply": "The statement accurately reflects the key points of post-modern ethics as described in the reference excerpt.\nAnswer: C", "wrong_letter": "C"}
+{"i": 471, "letter": "C", "correct": true, "reply": "The reference excerpt highlights the importance of addressing negative publicity to protect reputation and avoid damage to public image, which aligns with optio", "wrong_letter": "B"}
+{"i": 473, "letter": "A", "correct": false, "reply": "Answer: A. Economic, Overuse of resources, Overpopulation, Over pollution,\nReason: The reference excerpt directly states that the economic perspective involves ", "wrong_letter": "D"}
+{"i": 505, "letter": "D", "correct": false, "reply": "The root value of the knee reflex is L1, L2. Answer: D.", "wrong_letter": "A"}
+{"i": 520, "letter": "D", "correct": false, "reply": "Oliguria is not a symptom of hypercalcaemia. Answer: D.", "wrong_letter": "A"}
+{"i": 535, "letter": "B", "correct": false, "reply": "Answer: B. cortisol. Because the reference excerpt states that cortisol activates glycogen breakdown in exercising muscle.", "wrong_letter": "B"}
+{"i": 537, "letter": "A", "correct": false, "reply": "Answer: A. Every 4 hours. Reason: The reference excerpt states that a cannula should be flushed every 4 hours to maintain patency and prevent blockages.", "wrong_letter": "D"}
+{"i": 539, "letter": "D", "correct": false, "reply": "The reference states that the smallest increments are 1 millimeter of mercury (mmHg).\n\nAnswer: D. 1 mmHg.", "wrong_letter": "D"}
+{"i": 550, "letter": "C", "correct": false, "reply": "Answer: C. Arachnodactyly is a feature of the disease. This is not directly stated in the reference but is a known feature of Systemic Sclerosis.", "wrong_letter": "A"}
+{"i": 551, "letter": "D", "correct": false, "reply": "A palpable left parasternal impulse suggests left ventricular hypertrophy.\nAnswer: D. Left ventricular hypertrophy", "wrong_letter": "B"}
+{"i": 552, "letter": "C", "correct": false, "reply": "Answer: C. 20%. The reference states that a loss of up to 20% of blood volume can occur before significant changes in heart rate and blood pressure are observed", "wrong_letter": "C"}
+{"i": 579, "letter": "D", "correct": false, "reply": "Answer: D. Antifungal agents.", "wrong_letter": "A"}
+{"i": 621, "letter": "D", "correct": false, "reply": "Answer: D. 'knock knee' deformity is due to bilateral genu varum.", "wrong_letter": "D"}
+{"i": 624, "letter": "A", "correct": false, "reply": "Answer: A. A left basal pneumonia. Reason: It causes consolidation and inflammation affecting the affected lung tissue, leading to tracheal deviation.", "wrong_letter": "A"}
+{"i": 628, "letter": "B", "correct": false, "reply": "Answer: B. 30 seconds.", "wrong_letter": "D"}
+{"i": 681, "letter": "B", "correct": false, "reply": "Answer: B. about 30 seconds.", "wrong_letter": "A"}
+{"i": 707, "letter": "B", "correct": false, "reply": "Answer: B. Movement without resistance, stretching at end of range.", "wrong_letter": "B"}
+{"i": 724, "letter": "A", "correct": false, "reply": "A surgical support can be used for: prolapsed stomas. Answer: A.", "wrong_letter": "B"}
+{"i": 769, "letter": "B", "correct": false, "reply": "The experiment indicates that the song of the young male's species is primarily instinctive, as exposure to a different species' song results in a repertoire la", "wrong_letter": "A"}
+{"i": 850, "letter": "A", "correct": false, "reply": "Answer: A. not actively carrying out transcription.", "wrong_letter": "B"}
+{"i": 867, "letter": "D", "correct": true, "reply": "Answer: D. reversibly decreasing the number of enzyme molecules that are available to bind substrates", "wrong_letter": "B"}
+{"i": 895, "letter": "C", "correct": false, "reply": "Answer: C. Companion cells, phloem parenchyma, fibers, sieve tube.", "wrong_letter": "C"}
+{"i": 898, "letter": "C", "correct": false, "reply": "Answer: C. 4, as stated directly in the reference excerpt for a three-component mixture.", "wrong_letter": "C"}
+{"i": 905, "letter": "C", "correct": false, "reply": "Answer: C. T1, unlike T2, is sensitive to molecular motions at the Larmor frequency.", "wrong_letter": "B"}
+{"i": 906, "letter": null, "correct": false, "reply": "The difference in Larmor frequency between benzene and trifluoroacetic acid corresponds to a chemical shift difference of 1.656 kHz, which at 400 MHz correspond", "wrong_letter": "B"}
+{"i": 910, "letter": "C", "correct": false, "reply": "Answer: C. steady state concentration of free radical intermediates is often too low to enable direct detection by EPR.", "wrong_letter": "B"}
+{"i": 914, "letter": "B", "correct": false, "reply": "Answer: B. Protons have orbital and spin angular momentum, neutrons have spin angular momentum.", "wrong_letter": "B"}
+{"i": 922, "letter": "A", "correct": false, "reply": "Answer: A.", "wrong_letter": "C"}
+{"i": 929, "letter": "C", "correct": false, "reply": "Answer: C. It dissolves in most organic solvents.", "wrong_letter": "A"}
+{"i": 937, "letter": "B", "correct": false, "reply": "The reference excerpt directly provides the predicted hyperfine value as 3.75 G.\nAnswer: B. 3.75 G", "wrong_letter": "A"}
+{"i": 941, "letter": "B", "correct": false, "reply": "The reference directly states the frequency difference is 30.7 kHz. Answer: B.", "wrong_letter": "C"}
+{"i": 948, "letter": "C", "correct": false, "reply": "The given reference states that 15.5 MHz corresponds to a magnetic field strength of 1.55 mT and a magnetic field intensity of approximately 0.562 Gauss. The co", "wrong_letter": "A"}
+{"i": 952, "letter": "D", "correct": false, "reply": "Answer: D. A small deviation of g from ge is expected when λ is small and positive.", "wrong_letter": "A"}
+{"i": 954, "letter": "B", "correct": false, "reply": "The reference excerpt directly states that protons exhibit the fastest spin-lattice relaxation at a magnetic field of 5.19 Tesla for a rotational correlation ti", "wrong_letter": "B"}
+{"i": 956, "letter": "C", "correct": false, "reply": "The reference excerpt directly states that CH3Br exhibits a 1H resonance approximately 1.55 kHz away from TMS on a spectrometer operating at a 12.0 T magnet.\nAn", "wrong_letter": "D"}
+{"i": 957, "letter": "A", "correct": false, "reply": "The given reference directly states the equilibrium polarization for the specified conditions, so no calculation is needed. Answer: A. 10.8 x 10^-5.", "wrong_letter": "C"}
+{"i": 965, "letter": "C", "correct": false, "reply": "The limiting high-temperature molar heat capacity at constant volume (C_V) for a gas-phase diatomic molecule is 2.5 times the universal gas constant (R).\n\nAnswe", "wrong_letter": "C"}
+{"i": 968, "letter": "C", "correct": false, "reply": "The reference excerpt states that the 55Mn nuclide accommodates a maximum of eight allowed energy levels. Answer: C.", "wrong_letter": "C"}
+{"i": 978, "letter": "A", "correct": false, "reply": "The reference excerpt directly states that the value of T2 under the given conditions is 0.721 seconds.\nAnswer: A. 0.721 s", "wrong_letter": "C"}
+{"i": 981, "letter": "A", "correct": false, "reply": "The given reference provides the correct resonant field positions for the specified conditions, indicating the correct answer is based on those values. Answer: ", "wrong_letter": "A"}
+{"i": 982, "letter": "B", "correct": false, "reply": "The reference directly provides the relative occupancies, so no calculation is needed. Answer: B.", "wrong_letter": "C"}
+{"i": 990, "letter": "C", "correct": false, "reply": "Answer: C. ΔJ = 2; Δu = 0.", "wrong_letter": "B"}
+{"i": 997, "letter": "D", "correct": false, "reply": "Answer: D. The set includes 0, which cannot be a common divisor of any pair of integers except 0 itself.", "wrong_letter": "D"}
+{"i": 1002, "letter": "B", "correct": false, "reply": "Answer: B. III only. The excerpt directly states that resolution theorem proving is a succinct proof system, matching property III.", "wrong_letter": "A"}
+{"i": 1003, "letter": "D", "correct": false, "reply": "A purely segmented memory system divides memory into units of equal size and suffers from internal fragmentation. Answer: D.", "wrong_letter": "C"}
+{"i": 1011, "letter": "C", "correct": false, "reply": "Answer: C.", "wrong_letter": "C"}
+{"i": 1031, "letter": "B", "correct": false, "reply": "Answer: B. It cannot return a value.", "wrong_letter": "B"}
+{"i": 1033, "letter": "C", "correct": false, "reply": "The reference excerpt directly states the theoretically best possible elapsed times for 2 and 4 processors as 50 and 25 seconds, respectively. Answer: C.", "wrong_letter": "B"}
+{"i": 1038, "letter": "B", "correct": false, "reply": "Answer: B.", "wrong_letter": "B"}
+{"i": 1060, "letter": "B", "correct": false, "reply": "The string \"xy\" cannot be generated because it would require B to generate an empty string, which is not possible given the rules for B. Answer: B.", "wrong_letter": "C"}
+{"i": 1068, "letter": "C", "correct": false, "reply": "Reason: The reference excerpt shows that adding 11111111 and 10000001 results in overflow.\nAnswer: C.", "wrong_letter": "A"}
+{"i": 1073, "letter": "B", "correct": true, "reply": "Answer: B. 1/x + 1/z < 1/w + 1/y. This condition ensures that the total number of scalar multiplications in the first approach is less than in the second approa", "wrong_letter": "A"}
+{"i": 1074, "letter": "B", "correct": false, "reply": "Answer: B. Write-through usually results in a better hit ratio than write-back because every write operation updates main memory immediately in write-through, r", "wrong_letter": "D"}
+{"i": 1086, "letter": "D", "correct": false, "reply": "Since the cache has a write-through policy and the loop updates elements of array A, all writes will bypass the cache and go directly to memory. Answer: D.", "wrong_letter": "B"}
+{"i": 1097, "letter": "C", "correct": false, "reply": "Answer: C. 2", "wrong_letter": "B"}
+{"i": 1104, "letter": "D", "correct": false, "reply": "Answer: D.", "wrong_letter": "B"}
+{"i": 1111, "letter": "C", "correct": false, "reply": "Answer: C. III only.", "wrong_letter": "C"}
+{"i": 1114, "letter": "A", "correct": false, "reply": "Answer: A. I and II only.", "wrong_letter": "A"}
+{"i": 1119, "letter": "B", "correct": false, "reply": "The probabilities for even and odd numbers are not equal, but since the problem states the probability of rolling a 5 (odd) and a 6 (even) under these condition", "wrong_letter": "C"}
+{"i": 1120, "letter": "B", "correct": true, "reply": "Answer: B.", "wrong_letter": "A"}
+{"i": 1121, "letter": "C", "correct": false, "reply": "Answer: C. II and III only. The reference excerpt confirms the lack of an identity element and inverses, but does not mention non-associativity for this specifi", "wrong_letter": "B"}
+{"i": 1163, "letter": "A", "correct": false, "reply": "Answer: A. II only.", "wrong_letter": "C"}
+{"i": 1164, "letter": "D", "correct": false, "reply": "The given reference directly states the volume of the solid generated is 2π cubic units. Answer: D.", "wrong_letter": "C"}
+{"i": 1166, "letter": "A", "correct": false, "reply": "The rate of change of the height of the water is determined by the volume flow rate and the relationship between the radius and height of the cone, leading to a", "wrong_letter": "C"}
+{"i": 1168, "letter": "C", "correct": false, "reply": "The minimum value occurs at x = 1/c.\n\nAnswer: C. f(1/c)", "wrong_letter": "B"}
+{"i": 1171, "letter": "A", "correct": false, "reply": "The binomial distribution for this scenario is symmetric around the mean, and the probability of getting exactly 50 heads is the highest due to the central limi", "wrong_letter": "C"}
+{"i": 1172, "letter": "C", "correct": false, "reply": "False, False. Answer: C.", "wrong_letter": "B"}
+{"i": 1173, "letter": "A", "correct": false, "reply": "Answer: -1. Because if a real 2 x 2 matrix \\( A \\) satisfies \\( A = A^{-1} \\) and \\( A \\neq I \\neq -A \\), the trace of \\( A \\) is -1.", "wrong_letter": "A"}
+{"i": 1181, "letter": "B", "correct": true, "reply": "Answer: B. If A is closed, then A = R.", "wrong_letter": "D"}
+{"i": 1189, "letter": "C", "correct": false, "reply": "The probability that a point (x, y) in R^2, chosen uniformly at random within the region defined by the inequality 0 < |x| + |y| < 1, satisfies the condition 2(", "wrong_letter": "D"}
+{"i": 1191, "letter": "D", "correct": true, "reply": "The dimensions of the intersection \\( U \\cap V \\) can be 0, 1, 2, or 3 based on the given range and properties of subspaces in \\( \\mathbb{R}^5 \\). However, the ", "wrong_letter": "A"}
+{"i": 1194, "letter": "C", "correct": false, "reply": "Reason: The reference excerpt shows that a set with 28 subsets of 4 elements must have \\( \\binom{n}{4} = 28 \\), which implies \\( n = 7 \\). For \\( n = 7 \\), the ", "wrong_letter": "C"}
+{"i": 1195, "letter": "B", "correct": false, "reply": "The given reference excerpt directly states that the point \\((2, 1)\\) is mapped to \\((-1, 4)\\) by the linear transformation \\(T\\).\n\nAnswer: B. (-1, 4)", "wrong_letter": "B"}
+{"i": 1199, "letter": "C", "correct": false, "reply": "Answer: C. about 1 minute.", "wrong_letter": "C"}
+{"i": 1222, "letter": "B", "correct": false, "reply": "The relative speed between the car and the camera is used to adjust the frequency, resulting in a perceived frequency of 787 Hz.\nAnswer: B. 787 Hz", "wrong_letter": "D"}
+{"i": 1224, "letter": "C", "correct": false, "reply": "Answer: C. Low self-esteem, strong self-efficacy, external locus of control.", "wrong_letter": "C"}
+{"i": 1225, "letter": "B", "correct": false, "reply": "The concentration of carbon dioxide in the right ventricle is typically higher due to the shunting of deoxygenated blood from the right side to the left side of", "wrong_letter": "C"}
+{"i": 1267, "letter": "B", "correct": false, "reply": "Answer: B. 30 seconds.", "wrong_letter": "A"}
+{"i": 1274, "letter": "A", "correct": false, "reply": "The second shock occurs during the refractory period, characterized by depolarization initially but failing to elicit a response due to the refractory period be", "wrong_letter": "A"}
+{"i": 1293, "letter": "D", "correct": false, "reply": "Answer: D. He critiques his study methods and tries to find out which led to poor returns. This approach shows Tyler is willing to analyze and improve his learn", "wrong_letter": "B"}
+{"i": 1322, "letter": "A", "correct": false, "reply": "Answer: A. Oxaloacetate.", "wrong_letter": "B"}
+{"i": 1325, "letter": "A", "correct": false, "reply": "Answer: A. Study at a health smoothie store instead of a coffee shop. Reason: Studying at a health smoothie store does not inherently restrict caloric intake; i", "wrong_letter": "C"}
+{"i": 1326, "letter": "A", "correct": false, "reply": "To prevent denaturation and ensure accurate resolution based on molecular weight. Answer: A.", "wrong_letter": "A"}
+{"i": 1343, "letter": "C", "correct": false, "reply": "Increased pH activates glycogen breakdown in exercising muscle. Answer: C.", "wrong_letter": "B"}
+{"i": 1354, "letter": "A", "correct": false, "reply": "Decreased histone deacetyltransferase activity leads to increased acetylation of histones, which generally increases gene expression. Answer: A.", "wrong_letter": "D"}
+{"i": 1370, "letter": "B", "correct": false, "reply": "Reason: The given reference indicates that the most strongly reflected wavelength for this specific setup is 550 nm.\nAnswer: B. 550 nm", "wrong_letter": "A"}
+{"i": 1378, "letter": "C", "correct": false, "reply": "The reference excerpt directly states that if the total energy of a particle is equal to twice its rest energy, then the magnitude of the particle's relativisti", "wrong_letter": "C"}
+{"i": 1398, "letter": "B", "correct": false, "reply": "The change in magnetic flux divided by the time interval gives the average induced EMF, calculated as \\(\\frac{(250)(0.06-0.01)(0.2)}{0.25} = 0.1\\) V.\n\nAnswer: B", "wrong_letter": "A"}
+{"i": 1403, "letter": "A", "correct": false, "reply": "The average total energy of a three-dimensional harmonic oscillator in thermal equilibrium is given as \\(\\frac{1}{2} k T\\) for each degree of freedom, and there", "wrong_letter": "C"}
+{"i": 1404, "letter": "C", "correct": false, "reply": "The reference states that 2,000 seconds are needed for 10 measurements to achieve 1% uncertainty, so the student should count for 2,000 seconds to match this pr", "wrong_letter": "B"}
+{"i": 1416, "letter": "B", "correct": false, "reply": "The given reference directly states that the particle will travel 288 meters before decaying in the lab frame when moving at 0.60c. Answer: B.", "wrong_letter": "B"}
+{"i": 1418, "letter": "B", "correct": false, "reply": "The reference excerpt directly provides the answer, stating the rest mass is approximately 0.2 GeV/c².\n\nAnswer: B. 0.2 GeV/c²", "wrong_letter": "A"}
+{"i": 1423, "letter": "B", "correct": false, "reply": "B is perpendicular to the surface. This follows directly from the reference excerpt provided. Answer: B.", "wrong_letter": "B"}
+{"i": 1425, "letter": "B", "correct": false, "reply": "The centripetal acceleration is always perpendicular to the velocity vector, and the additional tangential acceleration contributes to the angle. Given the spec", "wrong_letter": "D"}
+{"i": 1427, "letter": "A", "correct": false, "reply": "The change in magnetic flux and the time interval given result in an average induced EMF of 0.04 V as per the reference excerpt.\n\nAnswer: A. 0.04 V", "wrong_letter": "A"}
+{"i": 1436, "letter": "C", "correct": false, "reply": "The given energy for removing one electron (51.8 eV) is already the first ionization energy of helium. Answer: C. 51.8 eV.", "wrong_letter": "D"}
+{"i": 1447, "letter": "C", "correct": false, "reply": "The work required to stretch a spring is proportional to the square of the distance stretched and the force constant. Given the conditions, the force constant o", "wrong_letter": "B"}
+{"i": 1449, "letter": "B", "correct": false, "reply": "The wavelength at which the thermal spectrum reaches its maximum can be found using Wien's displacement law, which states that the peak wavelength is inversely ", "wrong_letter": "D"}
+{"i": 1452, "letter": "B", "correct": false, "reply": "The observed frequency shift for the echo, considering the Doppler effect, results in a lower frequency due to the car's motion towards the wall. Answer: B.", "wrong_letter": "B"}
+{"i": 1455, "letter": "B", "correct": false, "reply": "Answer: B. Dye laser. Dye lasers involve transitions between the energy levels of free atoms within the dye molecules.", "wrong_letter": "B"}
+{"i": 1466, "letter": "B", "correct": false, "reply": "Reason: The given reference indicates that the most strongly reflected wavelength for this specific setup is 550 nm.\nAnswer: B. 550 nm", "wrong_letter": "A"}
+{"i": 1467, "letter": "C", "correct": false, "reply": "The given problem directly states that a particle with the same characteristics as described in the reference has a mass of approximately \\(3.3 \\times 10^{-22}\\", "wrong_letter": "C"}
+{"i": 1468, "letter": "B", "correct": true, "reply": "The payload's horizontal velocity matches the plane's velocity, so only its vertical velocity contributes to its velocity relative to the plane. Answer: B.", "wrong_letter": "A"}
+{"i": 1469, "letter": "B", "correct": false, "reply": "The energy difference between the n=3 and n=1 states for positronium is approximately 6.8 eV, as given in the reference excerpt. Answer: B.", "wrong_letter": "C"}
+{"i": 1522, "letter": "A", "correct": false, "reply": "Answer: A. Authentication.", "wrong_letter": "A"}
+{"i": 1559, "letter": null, "correct": false, "reply": "Answer: No, since the key must be at least as long as the message for perfect secrecy.", "wrong_letter": "B"}
+{"i": 1564, "letter": "C", "correct": false, "reply": "Answer: C. Cryptographic flaws in the system may get exploited to evade privacy, as this represents an issue at the application layer, not the presentation laye", "wrong_letter": "B"}
+{"i": 1574, "letter": "A", "correct": false, "reply": "Answer: A. always. Because the property holds specifically within the context of four-dimensional space.", "wrong_letter": "A"}
+{"i": 1600, "letter": "A", "correct": false, "reply": "Answer: A. Evaporation, because the water changes from liquid to gas as it loses heat to the surroundings.", "wrong_letter": "D"}
+{"i": 1650, "letter": "B", "correct": false, "reply": "The change in mass affects the momentum, not necessarily the speed, as the big fish could adjust its velocity to maintain its original momentum if it moves in t", "wrong_letter": "C"}
+{"i": 1652, "letter": "D", "correct": false, "reply": "The reference excerpt directly states this relationship, so the answer is straightforward. Answer: D.", "wrong_letter": "D"}
+{"i": 1661, "letter": "B", "correct": true, "reply": "Answer: B. decreases. Connecting more lamps in series increases the total resistance of the circuit, which according to Ohm's Law, reduces the current.", "wrong_letter": "A"}
+{"i": 1676, "letter": "B", "correct": false, "reply": "The mutual induction of electric and magnetic fields can produce an electromotive force (EMF), which is a form of energy. Answer: B.", "wrong_letter": "B"}
+{"i": 1699, "letter": "C", "correct": false, "reply": "Answer: C. interference.", "wrong_letter": "C"}
+{"i": 1738, "letter": "D", "correct": true, "reply": "Answer: D. Neither of these. Time dilation affects the perception of time, not mass or pulse directly.", "wrong_letter": "A"}
+{"i": 1794, "letter": "A", "correct": false, "reply": "The combined surface area greatly increases because each new connection between pieces adds additional surface area where they touch. Answer: A.", "wrong_letter": "A"}
+{"i": 1801, "letter": "C", "correct": false, "reply": "Answer: C. remains largely unchanged. Because the volume of water displaced by the balloon does not significantly change as it sinks deeper.", "wrong_letter": "C"}
+{"i": 1813, "letter": "B", "correct": false, "reply": "Answer: B. They can be added over time to give returns for longer time periods. This is not true for continuously compounded returns, which must be exponentiate", "wrong_letter": "A"}
+{"i": 1822, "letter": "A", "correct": false, "reply": "Answer: A. (ii) and (iv) only. The reference excerpt states that in a triangular or recursive system, independent variables may be correlated with error terms i", "wrong_letter": "D"}
+{"i": 1827, "letter": "B", "correct": false, "reply": "The test statistic of 1.53 indicates negative autocorrelation among the residuals.\nAnswer: B.", "wrong_letter": "A"}
+{"i": 1850, "letter": "C", "correct": false, "reply": "Answer: C. An acf that declines geometrically and a pacf that is zero after q lags.", "wrong_letter": "B"}
+{"i": 1869, "letter": "D", "correct": false, "reply": "The fixed effects approach can only capture cross-sectional heterogeneity and not temporal variation in the dependent variable. Answer: D.", "wrong_letter": "B"}
+{"i": 1873, "letter": "C", "correct": false, "reply": "Answer: C. (i), (ii), and (iii) only.\n\nReason: The reference excerpt confirms that variance decompositions measure the impact of a unit shock to each variable a", "wrong_letter": "D"}
+{"i": 1877, "letter": "C", "correct": false, "reply": "Answer: C. (i), (ii), and (iii) only. The reference excerpt confirms (ii) and (iii), and (i) is not directly supported by the given information but is generally", "wrong_letter": "B"}
+{"i": 1887, "letter": "A", "correct": false, "reply": "Answer: A. The RSS for the whole sample.", "wrong_letter": "A"}
+{"i": 1888, "letter": "A", "correct": false, "reply": "Answer: A. The test statistic will follow a chi-squared distribution with 2 degrees of freedom under the null hypothesis.", "wrong_letter": "D"}
+{"i": 1898, "letter": "B", "correct": false, "reply": "Answer: B. (i) and (iii) only. The reference excerpt mentions slowness of response and omission of relevant autocorrelated variables as causes, but does not men", "wrong_letter": "D"}
+{"i": 1904, "letter": "C", "correct": false, "reply": "Answer: C. The variables are treated asymmetrically in the cointegrating tests.", "wrong_letter": "B"}
+{"i": 1908, "letter": "A", "correct": false, "reply": "The provided confidence interval matches exactly with the one given in the reference excerpt. Answer: A.", "wrong_letter": "B"}
+{"i": 1910, "letter": "A", "correct": false, "reply": "Answer: A. The b and d coefficients significant and the a and c coefficients insignificant.", "wrong_letter": "B"}
+{"i": 1915, "letter": "B", "correct": false, "reply": "Answer: B. (i) and (iii) only. EGARCH models address the issues of potential negative coefficients and the symmetry in volatility response to shocks, but they d", "wrong_letter": "B"}
+{"i": 1923, "letter": "B", "correct": false, "reply": "The reference excerpt states the range is from 30° to 1, which likely means 30° to 180° based on common firing angle control practices.  \nAnswer: B.", "wrong_letter": "C"}
+{"i": 1925, "letter": "B", "correct": false, "reply": "The electric field in the gap between the plates is the same as that produced by one plate because the fields from both plates add up constructively in the midd", "wrong_letter": "A"}
+{"i": 1931, "letter": "A", "correct": false, "reply": "Answer: A. Zinc silicate. Because the reference excerpt explicitly states that zinc silicate is the fluorescent material that emits red fluorescence.", "wrong_letter": "A"}
+{"i": 1970, "letter": "D", "correct": false, "reply": "Answer: D. Registers, because the reference excerpt explicitly states that both the Arithmetic Logic Unit (ALU) and the control section of a CPU utilize registe", "wrong_letter": "A"}
+{"i": 1979, "letter": "D", "correct": false, "reply": "A. PLD is too broad; it does not specify the programmable OR array. Answer: D. PLA.", "wrong_letter": "D"}
+{"i": 1988, "letter": "D", "correct": false, "reply": "Answer: D. None. The reference excerpt specifically mentions sensitivity to mechanical pressure or movement, not level or edge sensitivity.", "wrong_letter": "B"}
+{"i": 1999, "letter": "B", "correct": false, "reply": "Answer: B. dynamically induced emf. Because the principle describes an emf induced in a conductor due to a varying magnetic field, regardless of whether the con", "wrong_letter": "B"}
+{"i": 2025, "letter": "C", "correct": false, "reply": "The reference mentions that the lowest critical frequency is due to zero and can be found at the origin or near the origin in an RLC circuit, which is character", "wrong_letter": "B"}
+{"i": 2030, "letter": "A", "correct": false, "reply": "The change in the cross-sectional area of a conductor in a magnetic field affects its reluctance. Answer: A.", "wrong_letter": "D"}
+{"i": 2040, "letter": "C", "correct": false, "reply": "The latching current is given as 0.009 amperes for a holding current of 2 mA. Answer: C.", "wrong_letter": "A"}
+{"i": 2048, "letter": "D", "correct": false, "reply": "Answer: D. none of above. Reason: The power factor cannot be determined.", "wrong_letter": "A"}
+{"i": 2049, "letter": "B", "correct": true, "reply": "The voltmeter's accuracy is 2% of the full scale reading, which is 2% of 100 V, equating to 2 V. For a measurement of 75 V, the limiting error is 2 V, which is ", "wrong_letter": "A"}
+{"i": 2095, "letter": "A", "correct": false, "reply": "The digit 6 in 681,452 is in the ten-thousands place, making its value ten times that of the same digit in the thousands place of 186,425. Answer: A.", "wrong_letter": "C"}
+{"i": 2121, "letter": "B", "correct": false, "reply": "The equation should represent the temperature drop, with the initial temperature minus the drop equaling the final temperature. Answer: B.", "wrong_letter": "C"}
+{"i": 2136, "letter": "D", "correct": false, "reply": "The common difference is 20, and the eighth term can be found by 20 + (8-1) * 20 = 640.\nAnswer: D. 640.", "wrong_letter": "C"}
+{"i": 2173, "letter": "C", "correct": false, "reply": "The given expression matches the correct arithmetic operations for the problem: adding the strawberries picked by Max and Jonathon and then subtracting the stra", "wrong_letter": "C"}
+{"i": 2190, "letter": "B", "correct": false, "reply": "Answer: B. 18 + 1,000 + 900 + 60.", "wrong_letter": "D"}
+{"i": 2193, "letter": "A", "correct": false, "reply": "Answer: A. There are 6 groups of marbles with 8 marbles in each group. Reason: This matches the given information that 56 marbles are sorted into 6 equal groups", "wrong_letter": "A"}
+{"i": 2200, "letter": "B", "correct": false, "reply": "Answer: B. 16", "wrong_letter": "B"}
+{"i": 2201, "letter": "C", "correct": true, "reply": "Answer: C. surveying a group of people standing in line for tickets. This method is more likely to provide a representative sample of the crowd attending the ga", "wrong_letter": "B"}
+{"i": 2225, "letter": "B", "correct": false, "reply": "The reference excerpt shows that the ratio 9 over 6 forms a proportion with 6 over 9, indicating reciprocal ratios form proportions. Answer: B.", "wrong_letter": "C"}
+{"i": 2331, "letter": "D", "correct": false, "reply": "The value of the expression 14 + (−71) is calculated by subtracting 71 from 14, resulting in −57.\nAnswer: D. −57", "wrong_letter": "D"}
+{"i": 2353, "letter": "B", "correct": false, "reply": "The dimensions 27 feet by 53 feet correctly adhere to the 10 to 19 ratio as stated in the reference excerpt. Answer: B.", "wrong_letter": "A"}
+{"i": 2383, "letter": "B", "correct": false, "reply": "The reference excerpt states the distance is approximately 7,000 feet. Answer: B.", "wrong_letter": "C"}
+{"i": 2398, "letter": "B", "correct": false, "reply": "The value of −25 − (−11) is simplified to −25 + 11, which equals −14.\nAnswer: B. −14", "wrong_letter": "A"}
+{"i": 2403, "letter": "D", "correct": true, "reply": "Reason: Calculate the price per bottle for each option.\nAnswer: D.", "wrong_letter": "B"}
+{"i": 2437, "letter": "D", "correct": false, "reply": "The sum of 365 and 56 is 421 as stated in the reference excerpt.\n\nAnswer: D. 421", "wrong_letter": "C"}
+{"i": 2449, "letter": "B", "correct": false, "reply": "Construct the truth table and observe that when K and L are both true, the premises are true but the conclusion is false. Answer: B. Invalid. Counterexample whe", "wrong_letter": "C"}
+{"i": 2454, "letter": "A", "correct": false, "reply": "Given the reference excerpt, the truth tables for the propositions have already been constructed and shown to be logically equivalent. Therefore:\n\nAnswer: A. Lo", "wrong_letter": "C"}
+{"i": 2457, "letter": "B", "correct": false, "reply": "The argument is invalid because the counterexample where H, I, and J are all false shows that the premises can be true while the conclusion is false.\n\nAnswer: B", "wrong_letter": "A"}
+{"i": 2459, "letter": "B", "correct": false, "reply": "The \"if, and only if\" part of the proposition contains the antecedent. Answer: B.", "wrong_letter": "A"}
+{"i": 2469, "letter": "B", "correct": false, "reply": "Answer: B. (P ∨ C) ∨ I correctly groups \"pie or cheesecake\" as a single option before combining it with \"ice cream\".", "wrong_letter": "B"}
+{"i": 2478, "letter": "D", "correct": false, "reply": "Invalid. Counterexample when P, R, and S are true and Q is false. Answer: D.", "wrong_letter": "D"}
+{"i": 2487, "letter": null, "correct": false, "reply": "Invalid. Counterexample when T and X are true while U, W, and Z are false.", "wrong_letter": "B"}
+{"i": 2499, "letter": "B", "correct": true, "reply": "The truth tables show that the statements \\(I \\equiv \\neg H\\) and \\(\\neg(\\neg I \\equiv H)\\) have no rows where both statements are true simultaneously, indicati", "wrong_letter": "D"}
+{"i": 2512, "letter": "C", "correct": false, "reply": "Answer: C. Some cookies have oatmeal. If something doesn't have oatmeal, then it is not a cookie and it doesn't have chocolate chips. So this cookie doesn't hav", "wrong_letter": "C"}
+{"i": 2533, "letter": "A", "correct": false, "reply": "Construct the truth table and find that there is no row where both premises are true and the conclusion is false. Answer: A. Valid.", "wrong_letter": "A"}
+{"i": 2538, "letter": "C", "correct": false, "reply": "Invalid. Counterexample when S and U are true and T is false. Reason: This satisfies all premises but not the conclusion. Answer: C.", "wrong_letter": "A"}
+{"i": 2543, "letter": "C", "correct": false, "reply": "The formula uses \"necessary condition\" for the first part and \"not a sufficient condition\" for the second part, which translates to \"⊃\" and \"~(⊃)\" respectively.", "wrong_letter": "B"}
+{"i": 2544, "letter": "A", "correct": true, "reply": "Answer: A. Because it correctly interprets the logical structure and relationships between the statements.", "wrong_letter": "B"}
+{"i": 2547, "letter": "C", "correct": false, "reply": "The argument is invalid because the conclusion does not follow from the premises in all cases; specifically, when I is true and J is false, I ≡ ~J is true, I ∨ ", "wrong_letter": "A"}
+{"i": 2552, "letter": "C", "correct": false, "reply": "Constructing the truth table and comparing the columns for ~(J ∨ K) · L and (L ⊃ J) · K, we find that they have at least one row with different truth values. Th", "wrong_letter": "B"}
+{"i": 2585, "letter": "D", "correct": false, "reply": "Answer: D. 79% because the reference excerpt states that as of 2019, approximately 79% of Germans reported that the relationship between the United States and G", "wrong_letter": "D"}
+{"i": 2589, "letter": "D", "correct": false, "reply": "Answer: D. 85% because the reference excerpt directly states that 85% of Americans believed sending troops to Vietnam was a mistake in 1965.", "wrong_letter": "B"}
+{"i": 2604, "letter": "B", "correct": false, "reply": "Answer: B. 69%. The reference excerpt states that approximately 69% of Turks reported that God plays an important role in their lives as of 2019.", "wrong_letter": "A"}
+{"i": 2605, "letter": "C", "correct": false, "reply": "Answer: C. Wildfires were not responsible for the most deaths, so they cannot be the correct answer.", "wrong_letter": "A"}
+{"i": 2607, "letter": "A", "correct": false, "reply": "Answer: A. by 4 fold. The reference excerpt directly states that the GDP per capita increased by a factor of four.", "wrong_letter": "B"}
+{"i": 2610, "letter": "B", "correct": false, "reply": "Answer: B. 46%", "wrong_letter": "D"}
+{"i": 2613, "letter": "A", "correct": false, "reply": "Answer: A. Diarrheal diseases.", "wrong_letter": "D"}
+{"i": 2635, "letter": "C", "correct": false, "reply": "Answer: C. 50%. The reference excerpt states that approximately 50% of Americans expressed support for the Social Security Act in 1935.", "wrong_letter": "D"}
+{"i": 2640, "letter": "D", "correct": false, "reply": "Answer: D. 69%, because the reference excerpt directly states that approximately 69% of people in Tunisia held this view as of 2018.", "wrong_letter": "D"}
+{"i": 2659, "letter": "A", "correct": false, "reply": "Answer: A. Canada. The reference excerpt states that Canada was the country that emitted the most carbon dioxide among those listed in 2017.", "wrong_letter": "A"}
+{"i": 2668, "letter": "B", "correct": false, "reply": "Answer: B. 98%. The reference excerpt states that 98% of those polled believed Nixon should be removed from office before his resignation.", "wrong_letter": "A"}
+{"i": 2685, "letter": "D", "correct": false, "reply": "Steroids are characterized by a four-ring structure and do not consist of glycerol and fatty acids. Answer: D.", "wrong_letter": "B"}
+{"i": 2696, "letter": "A", "correct": false, "reply": "Answer: A. pyruvate → lactate.", "wrong_letter": "D"}
+{"i": 2708, "letter": "D", "correct": false, "reply": "Answer: D. Autotrophs had to convert atmospheric nitrogen to nitrate.", "wrong_letter": "D"}
+{"i": 2715, "letter": "A", "correct": false, "reply": "Answer: A. All phenotypic variation is the result of genotypic variation.", "wrong_letter": "A"}
+{"i": 2718, "letter": "D", "correct": false, "reply": "Answer: D. Sudden reduction in the animal food resource.", "wrong_letter": "A"}
+{"i": 2720, "letter": "C", "correct": false, "reply": "Answer: C. the islands were originally part of the continent.", "wrong_letter": "B"}
+{"i": 2725, "letter": "B", "correct": false, "reply": "A short sequence by a promoter that assists transcription by interacting with regulatory proteins is known as a repressor.\nAnswer: B", "wrong_letter": "A"}
+{"i": 2728, "letter": "A", "correct": false, "reply": "This is a classic example of sexual selection because it involves the differential allocation of parental care and resources based on sex ratios. Answer: A.", "wrong_letter": "B"}
+{"i": 2762, "letter": "B", "correct": false, "reply": "Answer: B. a single strand of the original DNA segment after a point mutation contains the fewest number of nucleotides due to the mutation affecting only speci", "wrong_letter": "B"}
+{"i": 2781, "letter": "C", "correct": false, "reply": "Answer: C. in many cases, phenotype is not merely determined by genotype, but by the environment as well.", "wrong_letter": "B"}
+{"i": 2811, "letter": "A", "correct": false, "reply": "Answer: A. The water potential of the pure water is negative.", "wrong_letter": "A"}
+{"i": 2884, "letter": "C", "correct": false, "reply": "Answer: C. large vacuoles that store water, because animal cells typically lack large vacuoles while plant cells contain prominent central vacuoles.", "wrong_letter": "C"}
+{"i": 2918, "letter": "B", "correct": false, "reply": "The process described is characteristic of asexual reproduction or genetic isolation in the new variant. Answer: B. Fruit flies.", "wrong_letter": "B"}
+{"i": 2951, "letter": "C", "correct": false, "reply": "Answer: C. Taiga, because it is specifically described as having cold winters and extensive pine forests.", "wrong_letter": "C"}
+{"i": 2984, "letter": "B", "correct": false, "reply": "The reference excerpt directly states the partial pressure of nitrogen in a similar scenario, confirming it's 0.40 atm. Answer: B.", "wrong_letter": "D"}
+{"i": 3008, "letter": "B", "correct": false, "reply": "Answer: B. Use a bomb calorimeter to measure the heat of the reaction. This method directly measures the enthalpy change of the reaction under constant volume c", "wrong_letter": "A"}
+{"i": 3032, "letter": "C", "correct": false, "reply": "The central carbon atoms in CO3²⁻ and NO3⁻ exhibit sp² hybridization because they each have three sigma bonds and one lone pair of electrons, which requires sp²", "wrong_letter": "A"}
+{"i": 3033, "letter": "B", "correct": false, "reply": "The 2s peak has the lowest energy. Answer: B.", "wrong_letter": "D"}
+{"i": 3037, "letter": "A", "correct": false, "reply": "The balanced half-reaction involves 6 electrons on the left side to reduce bromate ions to bromine. Answer: A.", "wrong_letter": "B"}
+{"i": 3046, "letter": "B", "correct": false, "reply": "Answer: B. Br—N.", "wrong_letter": "A"}
+{"i": 3047, "letter": "B", "correct": false, "reply": "Answer: B. When the concentrations are at standard state, because the standard state ensures that the numerical values of Kp and Kc are directly comparable and ", "wrong_letter": "B"}
+{"i": 3057, "letter": "C", "correct": false, "reply": "The given net ionic equation must match the stoichiometry and charge balance of the reactants and products. Answer: C.", "wrong_letter": "C"}
+{"i": 3061, "letter": "B", "correct": false, "reply": "The reference excerpt states to add 600 mL of the stock solution to the volumetric flask. Answer: B.", "wrong_letter": "D"}
+{"i": 3072, "letter": "B", "correct": false, "reply": "Answer: B. one mole of sulfur atoms reacts with one mole of oxygen molecules to yield one mole of sulfur dioxide molecules.", "wrong_letter": "A"}
+{"i": 3079, "letter": "D", "correct": false, "reply": "The given reference directly states that 4.32 grams of mercury(II) oxide produce 0.0150 moles of oxygen gas. Answer: D.", "wrong_letter": "D"}
+{"i": 3097, "letter": "C", "correct": false, "reply": "Answer: C. The heat of solution for cerium(III) sulfate is endothermic.", "wrong_letter": "D"}
+{"i": 3098, "letter": "D", "correct": false, "reply": "The mole fraction of sodium hydroxide in a solution where its weight percent in water is 50% is 0.5.\n\nAnswer: D. 0.5", "wrong_letter": "A"}
+{"i": 3103, "letter": "B", "correct": false, "reply": "Answer: B. Boiling points", "wrong_letter": "B"}
+{"i": 3108, "letter": "B", "correct": false, "reply": "Answer: B. Add 33.3 mL of 12.0 M acid to the flask, and then dilute it with 66.7 mL of water.", "wrong_letter": "B"}
+{"i": 3112, "letter": "B", "correct": false, "reply": "The indicator was not suitable for phenol, leading to inaccurate endpoint detection. Answer: B.", "wrong_letter": "A"}
+{"i": 3138, "letter": "B", "correct": false, "reply": "The reference excerpt describes the balanced reaction between sodium sulfate and barium nitrate producing barium sulfate and sodium nitrate. Answer: B.", "wrong_letter": "A"}
+{"i": 3140, "letter": "A", "correct": false, "reply": "Answer: A. 1s. Reason: The 1s electrons are closest to the nucleus and experience the strongest attraction, so they require the most energy to eject and thus ha", "wrong_letter": "B"}
+{"i": 3141, "letter": "B", "correct": false, "reply": "Answer: B. sulfuric acid has more oxygen atoms in its formula.", "wrong_letter": "D"}
+{"i": 3150, "letter": "A", "correct": false, "reply": "The pH of the solution equals the pKa for a weak monoprotic acid in this case.\nAnswer: A. 4.26", "wrong_letter": "D"}
+{"i": 3155, "letter": "C", "correct": false, "reply": "The reference states the unknown gas is most likely pentane (C5H12).\nAnswer: C. C5H12", "wrong_letter": "A"}
+{"i": 3162, "letter": "B", "correct": false, "reply": "Answer: B. one mole of sulfur atoms reacts with one mole of oxygen molecules to yield one mole of sulfur dioxide molecules.", "wrong_letter": "C"}
+{"i": 3169, "letter": "B", "correct": false, "reply": "The reference excerpt directly states the rate constant for a first-order reaction with a half-life of 34 minutes is 2.04 × 10^-2 s^-1.\n\nAnswer: B. 2.04 × 10^-2", "wrong_letter": "B"}
+{"i": 3173, "letter": "B", "correct": false, "reply": "Answer: B. Increasing the temperature at which the reaction occurs. Reason: For a first-order reaction, increasing the temperature decreases the rate constant a", "wrong_letter": "C"}
+{"i": 3188, "letter": "D", "correct": false, "reply": "Answer: D. Which college has the highest number of students majoring in computer science? because the data set includes the state of attendance for each student", "wrong_letter": "D"}
+{"i": 3194, "letter": "B", "correct": false, "reply": "The initial value of `sum` is set to `numList[1]`, which means `sum` starts at 1, not 0. This incorrect initialization leads to an incorrect sum. Answer: B.", "wrong_letter": "D"}
+{"i": 3206, "letter": "A", "correct": false, "reply": "Answer: A. II only.", "wrong_letter": "A"}
+{"i": 3210, "letter": "C", "correct": false, "reply": "The correct sequence ensures that both lists are free of duplicates and sorted before combining them. This ensures that the final combined list is also free of ", "wrong_letter": "D"}
+{"i": 3221, "letter": "C", "correct": false, "reply": "Answer: C. A function that rounds a numeric value, because it is not designed to identify outliers but to adjust values to a specified number of decimal places.", "wrong_letter": "A"}
+{"i": 3248, "letter": "B", "correct": false, "reply": "Answer: B. Algorithm I always works correctly, but Algorithm II only works correctly when the maximum value is not the first value in the list.", "wrong_letter": "B"}
+{"i": 3251, "letter": "B", "correct": false, "reply": "Answer: B. 1, 4, 16 because these weights cover all the pricing tiers without exceeding the maximum accepted weight and include the boundaries.", "wrong_letter": "B"}
+{"i": 3256, "letter": "B", "correct": false, "reply": "The procedure does not work as intended because it resets `foundIndex` to 0 whenever the current name does not match `targetName`. This means `foundIndex` will ", "wrong_letter": "A"}
+{"i": 3274, "letter": "B", "correct": false, "reply": "The slice `b[::2]` starts at the beginning of the list, takes every second element, and ends at the end of the list. This results in the elements at indices 0, ", "wrong_letter": "A"}
+{"i": 3296, "letter": "D", "correct": true, "reply": "Answer: D. explaining the reasons for debunking opponents of communism.", "wrong_letter": "C"}
+{"i": 3299, "letter": "A", "correct": false, "reply": "Answer: A. Sixteenth-century Spain. The reference excerpt explicitly states that a similar fondness for entertainment among the nobility was taken to its most o", "wrong_letter": "B"}
+{"i": 3314, "letter": "B", "correct": false, "reply": "Answer: B. Calvinists believed in consubstantiation while Lutherans believed in transub substantiation.", "wrong_letter": "C"}
+{"i": 3384, "letter": "A", "correct": false, "reply": "The reference excerpt indicates that protests from Catholic missionaries did not lead to the immediate or complete abolition of the encomienda system. Therefore", "wrong_letter": "C"}
+{"i": 3405, "letter": "D", "correct": false, "reply": "Answer: D. Challenges to the monopoly on truth held by the Roman Catholic Church on multiple fronts.", "wrong_letter": "C"}
+{"i": 3415, "letter": "C", "correct": false, "reply": "The Act was an attempt to legitimize Henry VIII's claim to be the supreme head of the Church of England and assert his authority over the church. Answer: C.", "wrong_letter": "D"}
+{"i": 3428, "letter": "B", "correct": false, "reply": "Answer: B. The conversion from male-dominated politics to female-dominated politics. The phrase indicates that Queen Victoria had successfully navigated politic", "wrong_letter": "A"}
+{"i": 3482, "letter": "B", "correct": false, "reply": "Answer: B. provides a corridor for communication between southern and northern Europe.", "wrong_letter": "D"}
+{"i": 3500, "letter": "D", "correct": false, "reply": "Answer: D. They have a well-developed infrastructure.", "wrong_letter": "D"}
+{"i": 3502, "letter": "B", "correct": false, "reply": "The reference excerpt directly states that these features are found in the second zone. Answer: B.", "wrong_letter": "B"}
+{"i": 3507, "letter": null, "correct": false, "reply": "Answer: Spatial expansion and neighborhood development.", "wrong_letter": "A"}
+{"i": 3570, "letter": "A", "correct": false, "reply": "Answer: A. a large city located on the periphery of the country.", "wrong_letter": "A"}
+{"i": 3582, "letter": "B", "correct": false, "reply": "Answer: B. a territorial dispute.", "wrong_letter": "D"}
+{"i": 3592, "letter": "C", "correct": false, "reply": "The reference excerpt directly states that the process is called \"innovative diffusion.\" Answer: C.", "wrong_letter": "C"}
+{"i": 3595, "letter": "B", "correct": false, "reply": "Answer: B. Lack of population growth. The reference excerpt states that Europe does not face the problem of lack of population growth but rather other issues li", "wrong_letter": "A"}
+{"i": 3614, "letter": "C", "correct": false, "reply": "Answer: C. Pesticides. The reference excerpt directly states that pesticides have little or no significant impact on mortality rates in developing countries.", "wrong_letter": "A"}
+{"i": 3627, "letter": "C", "correct": false, "reply": "Answer: C. Single-market products do not necessitate proximity to their markets compared to multi-market products.", "wrong_letter": "A"}
+{"i": 3723, "letter": "B", "correct": false, "reply": "Answer: B. senators have more political power than representatives, and Senate races are accordingly contested more aggressively.", "wrong_letter": "A"}
+{"i": 3735, "letter": "C", "correct": false, "reply": "Reason: The Plains States have a significant impact on election outcomes due to the electoral college system.\nAnswer: C", "wrong_letter": "D"}
+{"i": 3742, "letter": "B", "correct": false, "reply": "Answer: B. Senate committees have relatively little power to alter legislation.", "wrong_letter": "C"}
+{"i": 3761, "letter": "B", "correct": false, "reply": "Answer: B. negotiate a treaty with another country.", "wrong_letter": "A"}
+{"i": 3765, "letter": "C", "correct": false, "reply": "Answer: C. States are equally represented in the House, while representation in the Senate is proportional to population.", "wrong_letter": "C"}
+{"i": 3849, "letter": "C", "correct": false, "reply": "Answer: C. The sale of cucumbers to a pickle manufacturer is counted in GDP because it represents a formal, market transaction.", "wrong_letter": "A"}
+{"i": 3864, "letter": "C", "correct": false, "reply": "Answer: C. II and IV only. The reference excerpt explicitly mentions individuals on fixed incomes and restaurant owners, while the other options are not directl", "wrong_letter": "B"}
+{"i": 3881, "letter": "B", "correct": false, "reply": "Answer: B. decrease by $2.9 million. Because selling securities reduces the reserves of banks, leading to a decrease in the money supply according to the money ", "wrong_letter": "B"}
+{"i": 3919, "letter": "B", "correct": false, "reply": "Answer: B. For a given money supply if nominal GDP increases the velocity of money decreases.", "wrong_letter": "D"}
+{"i": 3922, "letter": "B", "correct": true, "reply": "Net exports fall because the entertainment system is imported, and GDP is reduced to reflect this negative contribution. Answer: B.", "wrong_letter": "D"}
+{"i": 3972, "letter": "C", "correct": true, "reply": "Answer: China ($2). Because the cost of a Big Mac in China, when converted to U.S. dollars using the given exchange rate (100 Chinese Yuan per dollar), becomes ", "wrong_letter": "A"}
+{"i": 3978, "letter": "B", "correct": false, "reply": "Answer: B. Sell government securities risking inflation.", "wrong_letter": "A"}
+{"i": 3990, "letter": "A", "correct": false, "reply": "One-line reason: Fiscal policy can lead to increased government spending or reduced taxation, which might not directly control unemployment but can cause other ", "wrong_letter": "A"}
+{"i": 3995, "letter": "A", "correct": false, "reply": "Answer: A. Imports fall. Reason: Removal of protective tariffs reduces barriers to importation, typically leading to a decrease in imported goods.", "wrong_letter": "A"}
+{"i": 4001, "letter": "B", "correct": false, "reply": "Reason: A depreciation of the dollar makes foreign currencies more expensive, increasing the cost of travel abroad.\nAnswer: B", "wrong_letter": "D"}
+{"i": 4023, "letter": "D", "correct": true, "reply": "Answer: D. When the deficit is negative the debt decreases.", "wrong_letter": "C"}
+{"i": 4024, "letter": "A", "correct": false, "reply": "Decreasing taxes and increasing the reserve ratio would likely accomplish the goal of lessening the threat of inflation. Answer: A.", "wrong_letter": "A"}
+{"i": 4027, "letter": "C", "correct": false, "reply": "Decreased demand for money leads to a falling interest rate and a corresponding appreciation of the dollar in foreign currency markets.\nAnswer: C. Decreased dem", "wrong_letter": "C"}
+{"i": 4033, "letter": "B", "correct": false, "reply": "An increase in input costs that corresponds with an increase in unemployment creates the trade-off depicted by the Phillips curve.\nAnswer: B.", "wrong_letter": "B"}
+{"i": 4035, "letter": "A", "correct": false, "reply": "A. This will increase the investment component of GDP and therefore overall GDP. Reason: Stock purchases contribute to investment spending in the economy. Answe", "wrong_letter": "B"}
+{"i": 4036, "letter": "C", "correct": false, "reply": "One-line reason: Higher consumer wealth and optimism lead to more funds being supplied, decreasing the demand for loans.\nAnswer: C. Decrease in demand     Falli", "wrong_letter": "B"}
+{"i": 4044, "letter": "C", "correct": false, "reply": "The United States imports rice to align its market with the lower global price and eliminate a domestic surplus. Answer: C.", "wrong_letter": "B"}
+{"i": 4045, "letter": "A", "correct": false, "reply": "Answer: A. Resources will be misallocated.", "wrong_letter": "C"}
+{"i": 4051, "letter": "A", "correct": false, "reply": "Answer: A. Only I is correct. The reference excerpt specifically states that the primary mechanism is about consumers' incomes not going as far due to rising pr", "wrong_letter": "A"}
+{"i": 4053, "letter": "B", "correct": false, "reply": "Answer: B. foreigners having no taste for this country's products.", "wrong_letter": "A"}
+{"i": 4054, "letter": "D", "correct": false, "reply": "An uptick in net exports leads to an increase in aggregate demand, which can cause a decrease in real GDP and price level as the economy adjusts. Answer: D.", "wrong_letter": "A"}
+{"i": 4060, "letter": "A", "correct": false, "reply": "Answer: A. The reference excerpt directly states that if prices are expected to rise more slowly in the future, the Phillips curve will shift to the right.", "wrong_letter": "A"}
+{"i": 4068, "letter": "D", "correct": false, "reply": "Answer: D. prices and/or output is higher.", "wrong_letter": "A"}
+{"i": 4092, "letter": "A", "correct": false, "reply": "A. Imports into the United States will decrease because foreign goods become more expensive in U.S. dollars. Answer: A.", "wrong_letter": "A"}
+{"i": 4109, "letter": "B", "correct": false, "reply": "The net effect of increasing spending and taxes by the same amount leads to a reduction in real GDP by $6 million due to the simultaneous crowding out of privat", "wrong_letter": "C"}
+{"i": 4122, "letter": "D", "correct": false, "reply": "Answer: D. Renters of apartments who have signed a lease that holds rent constant for two years. Reason: Their fixed rental payments may not keep up with rising", "wrong_letter": "D"}
+{"i": 4128, "letter": "C", "correct": false, "reply": "Answer: C. The money (or banking) multiplier is equal to one when the reserve requirement ratio is zero.", "wrong_letter": "A"}
+{"i": 4147, "letter": "C", "correct": false, "reply": "U.S. net exports decrease, leading to a decrease in the value of the dollar and an increase in the value of the yen. Answer: C.", "wrong_letter": "A"}
+{"i": 4163, "letter": "B", "correct": false, "reply": "Demand for currency decreases, Value of currency depreciates, Net exports decrease. Answer: B.", "wrong_letter": "B"}
+{"i": 4165, "letter": "A", "correct": false, "reply": "Answer: A. Higher spending, Lower taxes, Sell Treasury securities. This combination stimulates the economy through increased government spending and makes more ", "wrong_letter": "C"}
+{"i": 4176, "letter": "A", "correct": false, "reply": "A one-line reason: The combination increases demand and reduces tax burden simultaneously.\n\nAnswer: A", "wrong_letter": "C"}

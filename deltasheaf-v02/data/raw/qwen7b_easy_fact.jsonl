@@ -1,0 +1,100 @@
+{"i": 0, "letter": "B", "correct": true, "reply": "The degree of the field extension Q(sqrt(2), sqrt(3), sqrt(18)) over Q is given as 4 in the reference excerpt.\n\nAnswer: B"}
+{"i": 2, "letter": "D", "correct": true, "reply": "The polynomial \\( x^5 + 3x^3 + x^2 + 2x \\) in \\( \\mathbb{Z}_5 \\) has zeros at \\( x = 0 \\) and \\( x = 4 \\). To find all zeros, we need to check each element of \\"}
+{"i": 4, "letter": "B", "correct": true, "reply": "The product of the polynomials f(x) = 4x - 5 and g(x) = 2x^2 - 4x + 2 in Z_8[x] is given directly as 6x^2 + 4x + 6.\n\nAnswer: B"}
+{"i": 7, "letter": "C", "correct": false, "reply": "Answer: C."}
+{"i": 8, "letter": "B", "correct": true, "reply": "The degree of the field extension Q(sqrt(2) + sqrt(3)) over Q is given as 4 in the reference excerpt.\n\nAnswer: B. 4"}
+{"i": 9, "letter": "C", "correct": true, "reply": "The polynomial \\( x^3 + 2x + 2 \\) has zeros at \\( x = 2 \\) and \\( x = 3 \\) in \\( \\mathbb{Z}_7 \\), and since it is a cubic polynomial, it must have three roots i"}
+{"i": 11, "letter": "C", "correct": true, "reply": "Answer: C. both symmetric and anti-symmetric."}
+{"i": 13, "letter": "C", "correct": true, "reply": "The given factorization in the reference excerpt is correct for the polynomial in Z_7[x]. Answer: C."}
+{"i": 17, "letter": "C", "correct": true, "reply": "The product in the ring \\( \\mathbb{Z}_5 \\times \\mathbb{Z}_9 \\) of the elements \\( (2,3) \\) and \\( (3,5) \\) is computed as \\( (2 \\cdot 3, 3 \\cdot 5) = (1, 15) \\)"}
+{"i": 18, "letter": "D", "correct": true, "reply": "Answer: D. zero has no inverse"}
+{"i": 21, "letter": "D", "correct": false, "reply": "The coefficients are added modulo 8, so (-5 + 2) mod 8 = 3. Answer: D."}
+{"i": 22, "letter": "B", "correct": false, "reply": "Answer: B."}
+{"i": 23, "letter": "D", "correct": true, "reply": "Answer: D. abelian group. Because the set satisfies the group axioms (closure, associativity, identity, and invertibility) and commutativity."}
+{"i": 25, "letter": "C", "correct": true, "reply": "Answer: C. infinite, non abelian group. Reason: The reference excerpt directly states this."}
+{"i": 26, "letter": "C", "correct": true, "reply": "Answer: C. True, False."}
+{"i": 28, "letter": "C", "correct": false, "reply": "Answer: C."}
+{"i": 31, "letter": "B", "correct": true, "reply": "Answer: B. abelian group."}
+{"i": 33, "letter": "C", "correct": true, "reply": "Answer: C. (g o h)^2 = g^2 o h^2 for every g,h in G. This directly follows from the given property of the abelian group."}
+{"i": 35, "letter": "B", "correct": true, "reply": "The degree of the field extension Q(sqrt(2), sqrt(3)) over Q is given as 4 in the reference excerpt.\n\nAnswer: B. 4"}
+{"i": 37, "letter": "B", "correct": true, "reply": "B. Yes, with p=3. The polynomial \\(x^2 - 12\\) satisfies the Eisenstein criterion for irreducibility over \\(\\mathbb{Q}\\) with \\(p = 3\\). Answer: B."}
+{"i": 39, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 40, "letter": "C", "correct": true, "reply": "The identity element satisfies a*(-1) = a for all a in Z, and -1 is defined as the identity element in the reference excerpt.\n\nAnswer: C. -1"}
+{"i": 44, "letter": "C", "correct": true, "reply": "Answer: C. True, False."}
+{"i": 48, "letter": "A", "correct": false, "reply": "Answer: A."}
+{"i": 49, "letter": "B", "correct": true, "reply": "The maximum order is determined by the least common multiple (LCM) of the orders of the individual groups, which is LCM(8, 10, 24) = 120.\n\nAnswer: B"}
+{"i": 50, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 53, "letter": "A", "correct": false, "reply": "Answer: A."}
+{"i": 54, "letter": "B", "correct": true, "reply": "The degree of the field extension Q(sqrt(2)) over Q is 2, as given in the reference excerpt.\n\nAnswer: B. 2"}
+{"i": 56, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 57, "letter": "B", "correct": true, "reply": "The reference excerpt states that the generator for the finite field Z_11 is 2.\n\nAnswer: B"}
+{"i": 58, "letter": "C", "correct": false, "reply": "Answer: C. True, False."}
+{"i": 64, "letter": "B", "correct": true, "reply": "Answer: B. 2. The reference excerpt directly states there are exactly two homomorphisms from Z to Z_2."}
+{"i": 66, "letter": "B", "correct": false, "reply": "False, False. Statement 1 is false because the degree of the sum of two polynomials is not always the maximum of their degrees. Statement 2 is false because a f"}
+{"i": 68, "letter": "A", "correct": true, "reply": "The given reference excerpt directly states the factorization in Z_5[x] as (x − 2)(x + 2)(x − 1)(x + 1).\n\nAnswer: A"}
+{"i": 72, "letter": "D", "correct": true, "reply": "Using Fermat's Little Theorem, which states \\(3^{22} \\equiv 1 \\pmod{23}\\), we can simplify \\(3^{47} = 3^{22*2+3} = (3^{22})^2 * 3^3 \\equiv 1^2 * 3^3 \\equiv 3^3 "}
+{"i": 73, "letter": "B", "correct": true, "reply": "The ring \\( \\mathbb{Z}_3 \\times \\mathbb{Z}_3 \\) possesses a characteristic of 3 by definition.\n\nAnswer: B. 3"}
+{"i": 74, "letter": "D", "correct": true, "reply": "False, True. Answer: D."}
+{"i": 77, "letter": null, "correct": false, "reply": "The characteristic of a ring is the smallest positive integer \\( n \\) such that \\( n \\cdot 1 = 0 \\), where \\( 1 \\) is the multiplicative identity. Since \\( \\mat"}
+{"i": 78, "letter": "D", "correct": true, "reply": "False, True. Statement 1 is false because the set lacks an identity element and inverses for all elements under multiplication modulo n. Statement 2 is true bec"}
+{"i": 79, "letter": "A", "correct": false, "reply": "Answer: A."}
+{"i": 81, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 83, "letter": "A", "correct": false, "reply": "Answer: A."}
+{"i": 88, "letter": "A", "correct": true, "reply": "The product of 12 and 16 in Z_24 is 0 because both 12 and 16 are multiples of 8, and in Z_24, 8*2 = 16 ≡ 0 (mod 24) and 8*2 = 16 ≡ 0 (mod 24), so their product "}
+{"i": 89, "letter": "A", "correct": false, "reply": "Answer: A."}
+{"i": 91, "letter": "B", "correct": true, "reply": "The reference excerpt already provides the complete set of cosets, so no additional calculation is needed. Answer: B."}
+{"i": 93, "letter": "A", "correct": true, "reply": "The maximum possible order for an element of S_6 is determined by the least common multiple of the lengths of its disjoint cycles, which can be at most 6. Answe"}
+{"i": 98, "letter": "D", "correct": false, "reply": "The order of an element in a direct product group is the least common multiple of the orders of its components. The order of (4, 2) in Z_12 x Z_8 is 6 because l"}
+{"i": 99, "letter": "C", "correct": true, "reply": "Answer: C. True, False."}
+{"i": 101, "letter": "B", "correct": true, "reply": "Answer: B. a recessive maxilla due to failure of elongation of the cranial base."}
+{"i": 102, "letter": "A", "correct": true, "reply": "Answer: A. Bladder, as it is the structure in the body that collects urine."}
+{"i": 104, "letter": "B", "correct": true, "reply": "Answer: B. Glomerulus."}
+{"i": 106, "letter": "A", "correct": true, "reply": "The epigastric region of the abdomen lies just distal to the sternum.\n\nAnswer: A. Epigastric"}
+{"i": 107, "letter": "B", "correct": true, "reply": "Answer: B. Mucous membranes, because they trap and expel environmental bacteria through mucus secretion."}
+{"i": 109, "letter": "D", "correct": true, "reply": "Answer: D. contraction of contralateral limb musculature. Because the primary motor cortex controls the opposite side of the body."}
+{"i": 110, "letter": "D", "correct": true, "reply": "Reason: The reference excerpt mentions the hard palate, upper lip, upper central incisor, and lower first molar as potential infection sites.\nAnswer: D. hard pa"}
+{"i": 115, "letter": "C", "correct": true, "reply": "Answer: C. It is a consensual reflex."}
+{"i": 116, "letter": "B", "correct": true, "reply": "Answer: B. External intercostal muscles and diaphragm."}
+{"i": 117, "letter": "D", "correct": true, "reply": "Answer: D. Testes. Male hormones, or androgens, are primarily produced by the testes in males."}
+{"i": 119, "letter": "C", "correct": true, "reply": "Answer: C. Trachea. Reason: The reference excerpt explicitly states that the trachea allows air to pass into the lungs."}
+{"i": 120, "letter": "C", "correct": true, "reply": "Answer: C. In the upper wall of the right atrium."}
+{"i": 126, "letter": "C", "correct": true, "reply": "Answer: C. Nephrolithiasis."}
+{"i": 127, "letter": "A", "correct": true, "reply": "A. facial artery crosses the mandible. Answer: A."}
+{"i": 128, "letter": "C", "correct": true, "reply": "Answer: C. Spleen."}
+{"i": 130, "letter": "C", "correct": true, "reply": "Answer: C. Flexion."}
+{"i": 132, "letter": "B", "correct": true, "reply": "Answer: B. Duodenum."}
+{"i": 134, "letter": "C", "correct": true, "reply": "Answer: C. palatine, frontonasal and secondary nasal processes."}
+{"i": 136, "letter": "D", "correct": true, "reply": "The spleen is a lymphoid organ that serves as a reservoir for red blood cells and filters pathogens from the blood.\nAnswer: D. Spleen."}
+{"i": 137, "letter": "C", "correct": true, "reply": "Answer: C. Thoracic and abdominal"}
+{"i": 138, "letter": "D", "correct": true, "reply": "The reference excerpt states that the walls of bronchioles consist of smooth muscle and respiratory epithelium. Answer: D."}
+{"i": 139, "letter": "C", "correct": true, "reply": "Answer: C. Liver."}
+{"i": 140, "letter": "C", "correct": true, "reply": "Answer: C. Gastroesophageal reflux disease, because it is directly characterized by incompetence of the esophageal sphincter leading to stomach content backflow"}
+{"i": 142, "letter": "B", "correct": true, "reply": "The femur is the large bone located superior to the patella and inferior to the ischium.\nAnswer: B. Femur"}
+{"i": 143, "letter": "C", "correct": true, "reply": "A successful inferior alveolar nerve block will produce anesthesia of the lower lip, mandibular teeth, and labial gingivae of the anterior mandibular teeth. Ans"}
+{"i": 145, "letter": "C", "correct": true, "reply": "Answer: C. intramembranous ossification and follow the somatic growth pattern."}
+{"i": 146, "letter": "B", "correct": true, "reply": "The fibula is located in the lower leg. Answer: B."}
+{"i": 147, "letter": "C", "correct": true, "reply": "Answer: C. Erythrocyte, because they are specialized cells in the blood that do not contain a nucleus."}
+{"i": 148, "letter": "A", "correct": true, "reply": "The coronal suture joins the frontal and parietal bones.\n\nAnswer: A. frontal and parietal bones."}
+{"i": 149, "letter": "C", "correct": true, "reply": "The reference excerpt states the sequence as hyoid bone, thyroid cartilage, and then cricoid cartilage. Answer: C."}
+{"i": 150, "letter": "A", "correct": false, "reply": "The reference excerpt mentions palpable bony structures including the sternum, scapulae, clavicles, and iliac crests, but does not include any of the foramina l"}
+{"i": 151, "letter": "D", "correct": true, "reply": "The vagus nerves accompany the oesophagus through the diaphragm. Answer: D."}
+{"i": 153, "letter": "B", "correct": true, "reply": "The anatomic location of the spinal canal is dorsal. Answer: B."}
+{"i": 154, "letter": "B", "correct": true, "reply": "Answer: B. Superficial to masseter and enters the mouth opposite the upper second molar."}
+{"i": 156, "letter": "A", "correct": true, "reply": "Answer: A. is a terminal branch of the maxillary division of the trigeminal nerve."}
+{"i": 157, "letter": "C", "correct": true, "reply": "Answer: C. Peristalsis, because it involves the coordinated contraction and relaxation of muscle layers in the digestive tract to propel food."}
+{"i": 158, "letter": "D", "correct": true, "reply": "Answer: D. Synapse. Reason: The reference excerpt directly states that a synapse is the point at which an impulse is transmitted from one neuron to another neur"}
+{"i": 160, "letter": "D", "correct": true, "reply": "Answer: D. Pancreas."}
+{"i": 161, "letter": "C", "correct": true, "reply": "Answer: C. loss of taste and somaesthetic sensation over the posterior third of the tongue."}
+{"i": 162, "letter": "B", "correct": true, "reply": "Answer: B. ptosis. Because the third cranial nerve (oculomotor nerve) controls eyelid elevation among other functions."}
+{"i": 163, "letter": "C", "correct": true, "reply": "Answer: C. Pulmonary arteries."}
+{"i": 164, "letter": "C", "correct": true, "reply": "Answer: C. lift their shoulders against resistance. Because the accessory nerve innervates the sternocleidomastoid muscle, which is not directly tested in this "}
+{"i": 166, "letter": "D", "correct": true, "reply": "Answer: D. On the anterior side of the neck."}
+{"i": 167, "letter": "C", "correct": true, "reply": "Answer: C. skilled motor movements decussate in the pyramids."}
+{"i": 169, "letter": "B", "correct": true, "reply": "The mental nerve requires local anaesthesia to ensure a pain-free biopsy of the labial alveolar mucosa of the lower right lateral incisor tooth.\nAnswer: B. The "}
+{"i": 171, "letter": "A", "correct": true, "reply": "Answer: A. Acetylcholine, because it facilitates the transmission of nerve impulses to muscles as stated in the reference excerpt."}
+{"i": 172, "letter": "D", "correct": true, "reply": "Lamina IX is specifically mentioned in the reference excerpt as the location for motor neuron cell bodies in the spinal cord.\nAnswer: D."}
+{"i": 173, "letter": "A", "correct": true, "reply": "The digastric muscle pulls the anterior fragment downwards in an unfavorable fracture of the mandibular body. Answer: A."}
+{"i": 176, "letter": "A", "correct": true, "reply": "A. spastic paralysis. Reason: The internal capsule conveys motor neurons to the affected side, causing spastic paralysis. Answer: A."}
+{"i": 177, "letter": "A", "correct": true, "reply": "Answer: A. right lung because the right main bronchus is wider and more vertical than the left."}
+{"i": 178, "letter": "C", "correct": true, "reply": "Answer: C. Electrolytes."}
+{"i": 179, "letter": "D", "correct": true, "reply": "Answer: D. sympathetic post-ganglionic neurons and target organs."}

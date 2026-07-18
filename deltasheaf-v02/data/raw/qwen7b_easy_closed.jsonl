@@ -1,0 +1,400 @@
+{"i": 0, "letter": "D", "correct": false, "reply": "Answer: D. The extension Q(sqrt(2), sqrt(3), sqrt(18)) is equivalent to Q(sqrt(2), sqrt(3)) since sqrt(18) = sqrt(9*2) = 3*sqrt(2), and the degree of Q(sqrt(2), sqrt(3)) over Q is 4 as sqrt(2) and sqr"}
+{"i": 2, "letter": null, "correct": false, "reply": "To find the zeros of \\(x^5 + 3x^3 + x^2 + 2x\\) in \\(\\mathbb{Z}_5\\), we test each element of \\(\\mathbb{Z}_5 = \\{0, 1, 2, 3, 4\\}\\). For \\(x = 0\\), the polynomial evaluates to 0. For \\(x = 1\\), it evalua"}
+{"i": 4, "letter": "B", "correct": true, "reply": "Reason: Perform the multiplication and reduce coefficients modulo 8.\nAnswer: B. 6x^2 + 4x + 6"}
+{"i": 7, "letter": "C", "correct": false, "reply": "Answer: C."}
+{"i": 8, "letter": "B", "correct": true, "reply": "The minimal polynomial of \\(\\sqrt{2} + \\sqrt{3}\\) over \\(\\mathbb{Q}\\) is of degree 4, as it is a sum of square roots of distinct primes.\n\nAnswer: B. 4"}
+{"i": 9, "letter": null, "correct": false, "reply": "To find the zeros of \\(x^3 + 2x + 2\\) in \\(\\mathbb{Z}_7\\), we test each element of \\(\\mathbb{Z}_7\\):\n\n- For \\(x = 0\\): \\(0^3 + 2(0) + 2 = 2 \\neq 0\\)\n- For \\(x = 1\\): \\(1^3 + 2(1) + 2 = 5 \\neq 0\\)\n- Fo"}
+{"i": 11, "letter": "C", "correct": true, "reply": "Answer: C. Both symmetric and anti-symmetric."}
+{"i": 13, "letter": "B", "correct": false, "reply": "The polynomial can be factored by testing values in Z_7 and using synthetic division or direct substitution to confirm roots. The correct factorization is found to match option B with roots -1, -4, an"}
+{"i": 17, "letter": "C", "correct": true, "reply": "The product in the ring \\(Z_5 \\times Z_9\\) is computed component-wise. So, \\((2,3)(3,5) = ((2 \\cdot 3) \\mod 5, (3 \\cdot 5) \\mod 9) = (1,6)\\).\n\nAnswer: C. (1,6)."}
+{"i": 18, "letter": "D", "correct": true, "reply": "Answer: D. zero has no inverse."}
+{"i": 21, "letter": "B", "correct": false, "reply": "Reason: Perform polynomial addition modulo 8.\nAnswer: B. 6x^2 + 4x + 6"}
+{"i": 22, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 23, "letter": "D", "correct": true, "reply": "Answer: D. abelian group."}
+{"i": 25, "letter": "C", "correct": true, "reply": "Answer: C. infinite, non-abelian group."}
+{"i": 26, "letter": "C", "correct": true, "reply": "Answer: C. True, False."}
+{"i": 28, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 31, "letter": "B", "correct": true, "reply": "Answer: B. abelian group. Because the given condition implies that ab = ba for all a, b in G, which is the definition of an abelian group."}
+{"i": 33, "letter": "C", "correct": true, "reply": "Answer: C. (g o h)^2 = g^2 o h^2 for every g,h in G."}
+{"i": 35, "letter": "B", "correct": true, "reply": "The degree of the field extension Q(sqrt(2), sqrt(3)) over Q is 4 because the minimal polynomial of sqrt(2) over Q has degree 2 and the minimal polynomial of sqrt(3) over Q(sqrt(2)) also has degree 2,"}
+{"i": 37, "letter": "D", "correct": false, "reply": "D. No. The polynomial \\(x^2 - 12\\) does not satisfy the Eisenstein criterion for any prime \\(p\\). Answer: D."}
+{"i": 39, "letter": "B", "correct": false, "reply": "Answer: B."}
+{"i": 40, "letter": "C", "correct": true, "reply": "Answer: C. -1. Because -1 acts as the identity element such that for any integer \\(a\\), \\(a*(-1) = a + (-1) + 1 = a\\)."}
+{"i": 44, "letter": "C", "correct": true, "reply": "Answer: C. True, False."}
+{"i": 48, "letter": "A", "correct": false, "reply": "Answer: A."}
+{"i": 49, "letter": "B", "correct": true, "reply": "The least common multiple of 8, 10, and 24 is 120. Answer: B."}
+{"i": 50, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 53, "letter": "A", "correct": false, "reply": "Answer: A. True, True."}
+{"i": 54, "letter": "B", "correct": true, "reply": "The degree of the field extension Q(sqrt(2)) over Q is 2 because the minimal polynomial of sqrt(2) over Q is x^2 - 2, which is a polynomial of degree 2. Answer: B."}
+{"i": 56, "letter": "C", "correct": false, "reply": "Answer: C. True, False. \n\nReason: Over Z, 4x - 2 can't be factored further without leaving the ring, but over Q, it can be factored as 2(2x - 1)."}
+{"i": 57, "letter": "B", "correct": true, "reply": "A generator of a finite field \\( \\mathbb{Z}_{11}^* \\) must have an order of 10, meaning its powers will generate all non-zero elements of the field. The element 2 is such a generator because the order"}
+{"i": 64, "letter": "B", "correct": true, "reply": "Answer: B. 2."}
+{"i": 66, "letter": "A", "correct": false, "reply": "Answer: A."}
+{"i": 68, "letter": "A", "correct": true, "reply": "A. (x − 2)(x + 2)(x − 1)(x + 1) because these roots satisfy the polynomial x^4 + 4 in Z_5[x]. Answer: A."}
+{"i": 72, "letter": "A", "correct": false, "reply": "Answer: A. 1. Fermat's Little Theorem states \\(a^{p-1} \\equiv 1 \\mod p\\) for a prime \\(p\\) and \\(a\\) not divisible by \\(p\\), so \\(3^{22} \\equiv 1 \\mod 23\\), and \\(3^{47} = 3^{2*22+3} = (3^{22})^2 * 3^"}
+{"i": 74, "letter": "B", "correct": false, "reply": "Answer: B."}
+{"i": 79, "letter": "C", "correct": true, "reply": "Answer: C. True, False."}
+{"i": 81, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 83, "letter": "C", "correct": true, "reply": "Answer: C."}
+{"i": 88, "letter": "A", "correct": true, "reply": "A one-line reason: The product \\(12 \\times 16 = 192\\), and \\(192 \\mod 24 = 0\\).\n\nAnswer: A. 0"}
+{"i": 89, "letter": "C", "correct": true, "reply": "Answer: C."}
+{"i": 93, "letter": "A", "correct": true, "reply": "A cycle of length 6 in S_6 has order 6, and this is the maximum possible order for any element in S_6. Answer: A."}
+{"i": 98, "letter": "C", "correct": true, "reply": "The order is the least common multiple of the orders of 4 in Z_12 and 2 in Z_8, which is lcm(3, 4) = 12.\n\nAnswer: C. 12"}
+{"i": 99, "letter": "C", "correct": true, "reply": "Answer: C."}
+{"i": 101, "letter": "B", "correct": true, "reply": "Answer: B. A recessive maxilla due to failure of elongation of the cranial base."}
+{"i": 102, "letter": "A", "correct": true, "reply": "Answer: A. Bladder, because it is the storage organ for urine produced by the kidneys."}
+{"i": 104, "letter": "B", "correct": true, "reply": "Answer: B. Glomerulus, because it is the cluster of capillaries where filtration occurs in the nephron."}
+{"i": 106, "letter": "A", "correct": true, "reply": "Answer: A. Epigastric, as it is located just below the xiphoid process of the sternum."}
+{"i": 107, "letter": "B", "correct": true, "reply": "Answer: B. Mucous membranes, because they trap and remove pathogens from entering the body."}
+{"i": 109, "letter": "D", "correct": true, "reply": "Answer: D. Contraction of contralateral limb musculature."}
+{"i": 115, "letter": "C", "correct": true, "reply": "Answer: C. It is a consensual reflex."}
+{"i": 116, "letter": "B", "correct": true, "reply": "Answer: B. External intercostal muscles and diaphragm."}
+{"i": 117, "letter": "D", "correct": true, "reply": "Answer: D. Testes."}
+{"i": 119, "letter": "C", "correct": true, "reply": "Answer: C. Trachea, because it is the airway that leads directly to the lungs."}
+{"i": 120, "letter": "C", "correct": true, "reply": "Answer: C. In the upper wall of the right atrium."}
+{"i": 126, "letter": "C", "correct": true, "reply": "Answer: C. Nephrolithiasis."}
+{"i": 127, "letter": "D", "correct": false, "reply": "Answer: D. Superficial temporal artery crosses the orbital rim."}
+{"i": 128, "letter": "C", "correct": true, "reply": "Answer: C. Spleen."}
+{"i": 130, "letter": "C", "correct": true, "reply": "Answer: C. Flexion."}
+{"i": 132, "letter": "B", "correct": true, "reply": "Answer: B. Duodenum."}
+{"i": 134, "letter": "C", "correct": true, "reply": "Answer: C. Palatine, frontonasal and secondary nasal processes."}
+{"i": 136, "letter": "D", "correct": true, "reply": "Answer: D. Spleen, because it filters blood and stores blood cells including red blood cells."}
+{"i": 137, "letter": "C", "correct": true, "reply": "Answer: C. Thoracic and abdominal."}
+{"i": 138, "letter": "D", "correct": true, "reply": "Answer: D. smooth muscle and respiratory epithelium."}
+{"i": 140, "letter": "C", "correct": true, "reply": "Answer: C. Gastroesophageal reflux disease due to failure of the lower esophageal sphincter to maintain proper closure."}
+{"i": 142, "letter": "B", "correct": true, "reply": "Answer: B. Femur."}
+{"i": 143, "letter": "C", "correct": true, "reply": "Answer: C. Lower lip, mandibular teeth and labial gingivae of the anterior mandibular teeth."}
+{"i": 145, "letter": "C", "correct": true, "reply": "Answer: C. intramembranous ossification and follow the somatic growth pattern."}
+{"i": 147, "letter": "C", "correct": true, "reply": "Answer: C. Erythrocyte, because they are specialized for oxygen transport and have evolved to lose their nucleus to make more space for hemoglobin."}
+{"i": 148, "letter": "A", "correct": true, "reply": "Answer: A. frontal and parietal bones."}
+{"i": 150, "letter": "D", "correct": true, "reply": "Answer: D. All of the above."}
+{"i": 151, "letter": "D", "correct": true, "reply": "Answer: D. The vagus nerves."}
+{"i": 153, "letter": "B", "correct": true, "reply": "Answer: B. dorsal, as it refers to the back of the body where the spine and spinal canal are located."}
+{"i": 154, "letter": "B", "correct": true, "reply": "Answer: B. Superficial to masseter and enters the mouth opposite the upper second molar."}
+{"i": 156, "letter": "A", "correct": true, "reply": "Answer: A. is a terminal branch of the maxillary division of the trigeminal nerve."}
+{"i": 158, "letter": "D", "correct": true, "reply": "Answer: D. Synapse, because it is the site where neurotransmitters are released to transmit impulses between neurons."}
+{"i": 160, "letter": "D", "correct": true, "reply": "Answer: D. Pancreas."}
+{"i": 161, "letter": "C", "correct": true, "reply": "Answer: C. Loss of taste and somaesthetic sensation over the posterior third of the tongue."}
+{"i": 162, "letter": "B", "correct": true, "reply": "Answer: B. ptosis. Because the third cranial nerve (oculomotor nerve) controls eyelid elevation."}
+{"i": 163, "letter": "C", "correct": true, "reply": "Answer: C. Pulmonary arteries."}
+{"i": 166, "letter": "D", "correct": true, "reply": "Answer: D. On the anterior side of the neck."}
+{"i": 167, "letter": "C", "correct": true, "reply": "Answer: C. skilled motor movements decussate in the pyramids."}
+{"i": 171, "letter": "A", "correct": true, "reply": "Answer: A. Acetylcholine, because it is a neurotransmitter that facilitates muscle contraction by binding to receptors on muscle cells."}
+{"i": 172, "letter": "D", "correct": true, "reply": "Answer: D. Lamina IX, because motor neuron cell bodies are located in the ventral horn of the spinal cord, which corresponds to lamina IX."}
+{"i": 178, "letter": "C", "correct": true, "reply": "Answer: C. Electrolytes. Because they are minerals that ionize in solution and conduct electricity."}
+{"i": 179, "letter": "D", "correct": true, "reply": "Answer: D. Sympathetic post-ganglionic neurons and target organs."}
+{"i": 180, "letter": "B", "correct": true, "reply": "Answer: B. Bartholin's glands produce mucus to lubricate the vaginal opening."}
+{"i": 182, "letter": "C", "correct": true, "reply": "Answer: C. arachnoid and pia maters."}
+{"i": 183, "letter": "B", "correct": true, "reply": "Answer: B. Epiglottis."}
+{"i": 184, "letter": "B", "correct": true, "reply": "Answer: B. The floor, because it is the weakest and has the least bony support."}
+{"i": 185, "letter": "D", "correct": false, "reply": "Answer: D. The maxillary sinus walls are in close proximity to the floor of the orbit, the upper posterior teeth, the infratemporal fossa, and the hard palate, which explains their complex anatomical "}
+{"i": 186, "letter": "C", "correct": true, "reply": "Answer: C. The zygomaticomaxillary sutures contribute to increase in height and length of the maxilla. This sutural growth is significant in maxillary development."}
+{"i": 188, "letter": "C", "correct": true, "reply": "Answer: C. The anterior ethmoidal, frontal, and maxillary sinuses."}
+{"i": 189, "letter": "A", "correct": true, "reply": "Answer: A. Collagen, because it is the most abundant protein in the dermis known for its fibrous structure."}
+{"i": 190, "letter": "D", "correct": true, "reply": "Answer: D. a combination of these three processes."}
+{"i": 191, "letter": "D", "correct": false, "reply": "Answer: D. The buccal surfaces of the upper molars and labial surfaces of the lower incisors, because these areas are more exposed and harder to clean."}
+{"i": 192, "letter": "B", "correct": true, "reply": "Answer: B. The mucosa covering the vocal folds is tightly attached to underlying tissues."}
+{"i": 198, "letter": "C", "correct": false, "reply": "Answer: C. maxillary and frontonasal processes."}
+{"i": 200, "letter": "D", "correct": true, "reply": "Answer: D. resorb bone and differentiate from monocytes."}
+{"i": 201, "letter": "D", "correct": true, "reply": "Answer: D. is attached to the condylar process and protrudes the mandible."}
+{"i": 205, "letter": "C", "correct": true, "reply": "Answer: C. The inferior articular demifacet of T5 and the superior articular demifacet of T6."}
+{"i": 206, "letter": "C", "correct": true, "reply": "Answer: C. Spleen, because it is a primary lymphoid organ located in the upper left quadrant under the diaphragm."}
+{"i": 208, "letter": "D", "correct": true, "reply": "Answer: D. Respiration, because the thoracic cage provides the framework for the lungs to expand and contract during breathing."}
+{"i": 211, "letter": "D", "correct": false, "reply": "Answer: D. The foramen ovale, rotundum and spinosum and foramen lacerum."}
+{"i": 212, "letter": "D", "correct": true, "reply": "Answer: D. Narcolepsy, because it is specifically characterized by sudden onset of sleep."}
+{"i": 213, "letter": "A", "correct": true, "reply": "Answer: A. Alveoli, because they are the tiny air sacs where oxygen and carbon dioxide are exchanged between the air and the bloodstream."}
+{"i": 214, "letter": "A", "correct": true, "reply": "Answer: A. Closed, greenstick."}
+{"i": 215, "letter": "B", "correct": true, "reply": "Answer: B. Fallopian tube."}
+{"i": 216, "letter": "D", "correct": true, "reply": "Answer: D. all three structures."}
+{"i": 217, "letter": "B", "correct": true, "reply": "Answer: B. Prostate. The prostate gland surrounds the urethra at the neck of the bladder in men."}
+{"i": 219, "letter": "D", "correct": true, "reply": "Answer: D. The cerebellum, because it is primarily supplied by the vertebral and basilar arteries, which are branches of the subclavian arteries."}
+{"i": 220, "letter": "C", "correct": true, "reply": "Answer: C. Ileum."}
+{"i": 222, "letter": "C", "correct": true, "reply": "Answer: C. Pernicious anemia, because it involves a deficiency in intrinsic factor leading to poor absorption of vitamin B-12."}
+{"i": 223, "letter": "B", "correct": true, "reply": "Answer: B. The temporal bone."}
+{"i": 224, "letter": "D", "correct": true, "reply": "Answer: D. sacral spinal nerves, as they control parasympathetic functions for the pelvic organs."}
+{"i": 226, "letter": "C", "correct": true, "reply": "Answer: C. Olfactory, because it directly connects to the olfactory epithelium in the nasal cavity."}
+{"i": 227, "letter": "C", "correct": true, "reply": "Answer: C. medulla oblongata, as it contains essential centers for functions like heart rate and breathing."}
+{"i": 228, "letter": "A", "correct": true, "reply": "Answer: A. Starches. Saliva contains amylase, an enzyme that breaks down starches into simpler sugars."}
+{"i": 230, "letter": "A", "correct": true, "reply": "Answer: A. Sensory neuronal processes."}
+{"i": 231, "letter": "D", "correct": true, "reply": "Answer: D. Pituitary, because it controls and regulates the function of other endocrine glands."}
+{"i": 232, "letter": "A", "correct": true, "reply": "Answer: A. The lingual branch of the mandibular trigeminal nerve supplies sensation to the anterior two-thirds of the tongue."}
+{"i": 234, "letter": "D", "correct": true, "reply": "Answer: D. The mandibular canal, maxillary sinus, hard palate and zygomatic arch."}
+{"i": 236, "letter": "D", "correct": true, "reply": "Answer: D. Its distance from you. Because the apparent brightness decreases with the square of the distance from the observer."}
+{"i": 237, "letter": "C", "correct": true, "reply": "Answer: C. Because the Earth's atmosphere preferentially scatters short wavelengths."}
+{"i": 239, "letter": "D", "correct": true, "reply": "Answer: D\n\nReason: Titan is the only outer solar system moon with a thick atmosphere and its atmosphere is composed mostly of hydrocarbons."}
+{"i": 240, "letter": "C", "correct": true, "reply": "The minimum impact speed is the escape velocity from Earth's surface, which gives the kinetic energy upon impact as \\(0.5 \\cdot m \\cdot v^2 = 0.5 \\cdot m \\cdot \\left(\\frac{2GM}{R}\\right)\\). Answer: C."}
+{"i": 242, "letter": "B", "correct": true, "reply": "Answer: B. Radioactive dating of lunar samples shows that they are older."}
+{"i": 243, "letter": "D", "correct": true, "reply": "Answer: D. Helium, because it is the second most abundant element after hydrogen in terms of mass in the universe."}
+{"i": 244, "letter": "D", "correct": true, "reply": "Answer: D. The nuclei of comets gradually disintegrate and spread out along the comet's orbital path. When the Earth passes through the orbit of a comet we are bombarded by sand-sized particles which "}
+{"i": 245, "letter": "A", "correct": false, "reply": "Answer: A. Radiation pressure from the Sun's light pushes the ions away."}
+{"i": 246, "letter": "C", "correct": true, "reply": "Answer: C. By comparing the maximum altitude of the Sun in two cities at different latitudes at the same time on the same day."}
+{"i": 247, "letter": "A", "correct": true, "reply": "Answer: A. a dwarf galaxy orbiting the Milky Way."}
+{"i": 248, "letter": "D", "correct": true, "reply": "Answer: D. These craters contain the only permanently shadowed regions on Mercury."}
+{"i": 249, "letter": "B", "correct": true, "reply": "Answer: B. Laniakea. The Laniakea supercluster, which includes the Milky Way, has a diameter of about 160 Mpc."}
+{"i": 250, "letter": "C", "correct": true, "reply": "Answer: C. Jupiter, because it is a persistent anticyclonic storm located in the southern latitudes of Jupiter's atmosphere."}
+{"i": 251, "letter": "C", "correct": true, "reply": "Answer: C. It is the only one that has both a partially molten metallic core and reasonably rapid rotation."}
+{"i": 253, "letter": "D", "correct": true, "reply": "Answer: D and B only. Impact craters typically form with both ejecta and raised rims, but central peaks are more characteristic of larger craters."}
+{"i": 255, "letter": "D", "correct": true, "reply": "Answer: D. the rigid rocky material of the crust and uppermost portion of the mantle."}
+{"i": 256, "letter": "D", "correct": true, "reply": "Answer: D. a large gap visible from Earth produced by an orbital resonance with the moon Mimas."}
+{"i": 258, "letter": "B", "correct": true, "reply": "Answer: B. chunks of large differentiated asteroids that were shattered by collisions."}
+{"i": 259, "letter": "C", "correct": true, "reply": "Answer: C. 300 Kelvin. Reason: The conversion from Celsius to Kelvin is straightforward, adding 273.15 to the Celsius value, so 25°C + 273.15 ≈ 298.15K, which rounds to 300K."}
+{"i": 260, "letter": "D", "correct": true, "reply": "Answer: D. Io."}
+{"i": 264, "letter": "C", "correct": true, "reply": "Answer: C. Metals sank to the center during a time when the interiors were molten throughout."}
+{"i": 265, "letter": null, "correct": false, "reply": "Answer: X. In the inner part of the solar nebula, temperatures were high enough to allow only metals and rocks to condense, while hydrogen compounds could only condense in the cooler outer regions."}
+{"i": 266, "letter": "C", "correct": true, "reply": "Answer: C. They reveal that the age of the solar system is approximately 4.6 billion years."}
+{"i": 267, "letter": "D", "correct": true, "reply": "Answer: D. Venus shows evidence of impacts, erosion, and volcanism."}
+{"i": 268, "letter": "D", "correct": true, "reply": "Answer: D. All of the above. Planetary rings are known to exist for some, not all, of the jovian planets; they are composed of numerous particles orbiting according to Kepler's laws; and they are gene"}
+{"i": 269, "letter": "C", "correct": true, "reply": "Answer: C. The two stars will look like a single point of light because their angular separation is smaller than the angular resolution of your eyes."}
+{"i": 270, "letter": "D", "correct": true, "reply": "Answer: D. it switches polarity every 11 years, because Jupiter's magnetic field does not switch polarity on a regular 11-year cycle like the Sun's; its polarity reversals are much less frequent and n"}
+{"i": 271, "letter": "A", "correct": true, "reply": "Answer: A. The path of the Sun in the sky throughout a year."}
+{"i": 272, "letter": "C", "correct": true, "reply": "Answer: C. the acceleration of the universe."}
+{"i": 273, "letter": "B", "correct": true, "reply": "Answer: B. The spectra of some meteorites are similar to the spectra of asteroids in the asteroid belt."}
+{"i": 275, "letter": "C", "correct": true, "reply": "Answer: C. The force of attraction between any two objects decreases with the square of the distance between their centers. This is Newton's law of universal gravitation, not directly derived from Kep"}
+{"i": 276, "letter": "D", "correct": true, "reply": "Answer: D. Sagittarius A*."}
+{"i": 280, "letter": "D", "correct": true, "reply": "Answer: D. They are leftover planetesimals that never accreted into planets."}
+{"i": 281, "letter": "D", "correct": true, "reply": "Answer: D. From radioactive dating of rocks and meteorites, as it provides precise age measurements based on the decay of radioactive isotopes."}
+{"i": 282, "letter": "A", "correct": true, "reply": "Answer: A. We don't know for sure."}
+{"i": 284, "letter": "B", "correct": true, "reply": "Answer: B. Greenhouse gases transmit visible light allowing it to heat the surface but then absorb infrared light from Earth trapping the heat near the surface."}
+{"i": 287, "letter": "D", "correct": true, "reply": "Answer: D. Metals differentiated to the center during a time when the interiors were molten throughout."}
+{"i": 289, "letter": "D", "correct": true, "reply": "Answer: D. Breaking of small Jovian moons to form ring materials is not directly caused by orbital resonance."}
+{"i": 290, "letter": "C", "correct": true, "reply": "Answer: C. Without a strong magnetic field, the solar wind stripped away most of the atmosphere, significantly reducing the greenhouse effect and cooling Mars down."}
+{"i": 291, "letter": "D", "correct": true, "reply": "Answer: Dione."}
+{"i": 292, "letter": "D", "correct": true, "reply": "Answer: D. There is no solar day Planet X is tidally locked."}
+{"i": 293, "letter": "D", "correct": false, "reply": "Answer: D. Lower in the sky, because your latitude increases as you travel north, and the North Star's position in the sky is roughly aligned with your latitude."}
+{"i": 294, "letter": "D", "correct": true, "reply": "Answer: D. Could be any time. The probability of impact is the same next year as it is for any later year."}
+{"i": 296, "letter": "D", "correct": true, "reply": "Answer: D. As the cloud shrank its gravitational potential energy was converted to kinetic energy and then into thermal energy."}
+{"i": 297, "letter": "B", "correct": true, "reply": "Answer: B. You see the star's blackbody spectrum with absorption lines due to hydrogen."}
+{"i": 299, "letter": "C", "correct": true, "reply": "Answer: C. It is highly processed."}
+{"i": 302, "letter": "B", "correct": true, "reply": "Answer: B. 7. The Pleiades cluster is famously known for its seven brightest stars, which form a recognizable pattern in the night sky."}
+{"i": 305, "letter": "B", "correct": true, "reply": "Answer: B. Chicxulub Crater Yucatan Peninsula in Mexico, because it is the site of the impact crater linked to the Cretaceous-Paleogene extinction event."}
+{"i": 306, "letter": "D", "correct": true, "reply": "Answer: D. The Moon's umbra must touch the area where you are located."}
+{"i": 307, "letter": "C", "correct": true, "reply": "Answer: C. Solar eclipses would be much more frequent."}
+{"i": 308, "letter": "D", "correct": true, "reply": "Answer: D. Hawking radiation, because it is the radiation predicted to be emitted by black holes due to quantum effects near the event horizon."}
+{"i": 309, "letter": "C", "correct": true, "reply": "Answer: C. 2.5 million light years. The Andromeda Galaxy is approximately 2.5 million light years away from Earth."}
+{"i": 311, "letter": "A", "correct": true, "reply": "Answer: A. By measuring the maximum altitude of the Sun in two cities at different latitudes at the same time on the same day."}
+{"i": 313, "letter": "B", "correct": true, "reply": "Answer: B. nitrogen methane and carbon monoxide ices which sublimate into an atmosphere near perihelion."}
+{"i": 315, "letter": "C", "correct": true, "reply": "Answer: C. 1.38 × 10−23 m^2 · kg · s^−2 · K^−1 because this is the standard SI unit representation of the Boltzmann constant."}
+{"i": 316, "letter": "C", "correct": true, "reply": "Answer: C. A neutral atom always has equal numbers of neutrons and protons. Neutrons are not determined by electrical neutrality."}
+{"i": 317, "letter": "A", "correct": true, "reply": "Answer: A. human activities that are increasing the concentration of greenhouse gases in Earth's atmosphere."}
+{"i": 318, "letter": "A", "correct": true, "reply": "Answer: A. The spectra of some meteorites are similar to the spectra of asteroids in the asteroid belt."}
+{"i": 320, "letter": "A", "correct": true, "reply": "Answer: A. Distance at which one astronomical unit measures one arcsecond from Earth."}
+{"i": 321, "letter": "C", "correct": true, "reply": "Answer: C. black holes, because the Schwarzschild radius is the boundary past which nothing can escape the gravitational pull of a black hole."}
+{"i": 324, "letter": "D", "correct": true, "reply": "Answer: D. Moons contribute to all of the above."}
+{"i": 327, "letter": "A", "correct": true, "reply": "Answer: A. the atmosphere on Mars is too thin to trap a significant amount of heat."}
+{"i": 330, "letter": "B", "correct": true, "reply": "Answer: B. alternating bands of rising and falling air at different latitudes."}
+{"i": 331, "letter": "D", "correct": true, "reply": "Answer: D. Phobos and Deimos, because these are the officially recognized names of Mars' two moons."}
+{"i": 332, "letter": "C", "correct": true, "reply": "Answer: C. 380 to 740 nm. because this range encompasses the wavelengths visible to the human eye, from violet (approximately 380 nm) to red (approximately 740 nm)."}
+{"i": 333, "letter": "C", "correct": true, "reply": "Answer: C. The period of rotation is the same on every point on the disk."}
+{"i": 334, "letter": "C", "correct": true, "reply": "Answer: C. Cassiopeia."}
+{"i": 336, "letter": "D", "correct": true, "reply": "Answer: D. Life forms on Earth can exist without directly breathing oxygen if they can use other molecules for respiration or live in anaerobic environments."}
+{"i": 337, "letter": "C", "correct": true, "reply": "Answer: C. 29 Earth days. Because the Moon's rotation period matches its orbital period around Earth."}
+{"i": 338, "letter": "D", "correct": true, "reply": "Answer: D. Are we alone in the universe? because the Drake equation estimates the number of communicative civilizations in our galaxy."}
+{"i": 339, "letter": "C", "correct": true, "reply": "Answer: C. The Moon will be further from the Earth and the Earth’s day will be longer due to tidal braking slowing the Earth's rotation and the Moon's gradual drift away from Earth."}
+{"i": 340, "letter": "A", "correct": true, "reply": "Answer: A. Hydrogen, because it makes up about 75% of Jupiter's mass and similar proportions in other Jovian planets."}
+{"i": 341, "letter": "B", "correct": true, "reply": "Answer: B. about 5.2 times longer. The period of a planet's orbit increases with the cube root of the semi-major axis of its elliptical orbit, and for a circular orbit, this is approximately 1.44 time"}
+{"i": 342, "letter": "D", "correct": false, "reply": "Answer: D. A kilogram of bricks, because weight is independent of an object's density and depends only on its mass and the gravitational pull, which is the same for both options on the moon."}
+{"i": 343, "letter": "D", "correct": true, "reply": "Answer: D. It's too diffuse."}
+{"i": 344, "letter": "B", "correct": true, "reply": "Answer: B. They formed as gas giants beyond the frost line and then migrated inwards."}
+{"i": 345, "letter": "B", "correct": true, "reply": "Answer: B. Ability to measure the angular separation of objects."}
+{"i": 346, "letter": "D", "correct": true, "reply": "Answer: D. 23.5 degrees. The Earth's axis is tilted at an angle of approximately 23.5 degrees relative to its orbital plane around the Sun."}
+{"i": 347, "letter": "D", "correct": true, "reply": "Answer: D. because the Moon's rotational and orbital periods are equal."}
+{"i": 348, "letter": "C", "correct": true, "reply": "Answer: C. v = sqrt(2GM/R). This formula accounts for the total energy required to escape the gravitational field, including both kinetic and potential energy."}
+{"i": 349, "letter": null, "correct": false, "reply": "Answer: X. Io's surface is constantly resurfaced by volcanic activity, erasing any craters formed."}
+{"i": 350, "letter": "D", "correct": true, "reply": "Answer: D. Orion, because it is a prominent winter constellation featuring several bright stars including Betelgeuse."}
+{"i": 351, "letter": "D", "correct": true, "reply": "Answer: D. The nuclei of comets gradually disintegrate and spread out along their orbital paths. When the Earth passes through the orbit of a comet we are bombarded by sand-sized particles that cause "}
+{"i": 352, "letter": "C", "correct": true, "reply": "Answer: C. Greenhouse gases transmit visible light allowing it to heat the surface but then absorb infrared light from Earth trapping the heat near the surface."}
+{"i": 353, "letter": "A", "correct": true, "reply": "Answer: A. detecting the gravitational effect of an orbiting planet by looking for the Doppler shifts in the star's spectrum."}
+{"i": 355, "letter": "B", "correct": true, "reply": "To account for the observed retrograde motion of planets. Answer: B."}
+{"i": 356, "letter": "B", "correct": true, "reply": "Answer: B. 11, because the solar cycle, during which sunspot activity peaks and troughs, averages about 11 years."}
+{"i": 357, "letter": "C", "correct": true, "reply": "Answer: C. Earth."}
+{"i": 358, "letter": "D", "correct": true, "reply": "Answer: D. Molecules scatter blue light more effectively than red light."}
+{"i": 359, "letter": "D", "correct": true, "reply": "Answer: D. both a molten metallic core and reasonably fast rotation."}
+{"i": 360, "letter": "D", "correct": true, "reply": "Answer: D. along Jupiter's orbit 60° ahead of and behind Jupiter. This configuration is known as Lagrange points L4 and L5."}
+{"i": 361, "letter": "C", "correct": false, "reply": "Answer: C. Light gases (H He) hydrogen compounds (H2O CH4 NH3) metals rocks."}
+{"i": 362, "letter": "C", "correct": true, "reply": "Answer: C. 1609, because that was the year Galileo first used his improved telescope to observe the sky."}
+{"i": 363, "letter": "D", "correct": true, "reply": "Answer: D. the atmosphere on Mars is too thin to trap a significant amount of heat."}
+{"i": 366, "letter": "B", "correct": true, "reply": "Answer: B. Most rocks on the Moon’s surface are older than those on the Earth’s surface."}
+{"i": 367, "letter": "C", "correct": true, "reply": "Answer: C. There are many geologic features on Mars that are difficult to explain unless liquid water was once stable at the surface."}
+{"i": 368, "letter": "B", "correct": true, "reply": "Answer: B. by contracting changing gravitational potential energy into thermal energy."}
+{"i": 371, "letter": "C", "correct": true, "reply": "Answer: C. 250 years. Pluto's orbital period is about 248 Earth years, which is closest to 250 years among the given options."}
+{"i": 372, "letter": "D", "correct": true, "reply": "Answer: D. CO2, because the atmosphere lacks the oxygen necessary for human respiration."}
+{"i": 377, "letter": "C", "correct": true, "reply": "Answer: C. by contracting changing gravitational potential energy into thermal energy."}
+{"i": 378, "letter": "A", "correct": true, "reply": "Answer: A. the region around a star where liquid water can potentially exist on planetary surfaces."}
+{"i": 379, "letter": "B", "correct": true, "reply": "Answer: B. To measure galactic distances."}
+{"i": 380, "letter": "D", "correct": true, "reply": "Answer: D. The luminosity integrated over all wavelengths."}
+{"i": 381, "letter": "B", "correct": true, "reply": "Answer: B. Arecibo Telescope, because it had the largest parabolic dish until its collapse in 2020."}
+{"i": 382, "letter": "B", "correct": false, "reply": "Answer: B. 7000 K, as it is the closest to the actual surface temperature of about 5778 K."}
+{"i": 385, "letter": "C", "correct": true, "reply": "Answer: C. dark lavas filling older impact basins."}
+{"i": 386, "letter": "B", "correct": true, "reply": "Answer: B. 150 million km, because it is the average distance from the Earth to the Sun."}
+{"i": 387, "letter": "C", "correct": true, "reply": "Answer: C. Cryptocurrencies, Cheap, Secure, Financial crime. Reason: Bitcoin is often perceived as cheap and secure due to its decentralized nature, but it has also been linked to financial crimes lik"}
+{"i": 388, "letter": "B", "correct": true, "reply": "Answer: B. Unsafe practices, Distress, Fear, Serious. This aligns with common advertising standards aimed at protecting consumers from harmful or misleading content."}
+{"i": 389, "letter": "D", "correct": true, "reply": "Answer: D. Employee duties"}
+{"i": 393, "letter": "B", "correct": true, "reply": "Answer: B. preference utilitarianism. Reason: Both focus on maximizing individual (or in the case of corporations, entity) preferences or utility."}
+{"i": 394, "letter": "A", "correct": true, "reply": "Answer: A. The only social responsibility of business is to its shareholders."}
+{"i": 398, "letter": "C", "correct": true, "reply": "Answer: C. Independent, Perpetual, Owns its own assets. Corporations are distinct legal entities from their stakeholders and have enduring existence and property rights."}
+{"i": 399, "letter": "D", "correct": true, "reply": "Answer: D. Public services, social, economic and environmental. This aligns with the Act's aim to integrate social value into public procurement processes."}
+{"i": 400, "letter": "B", "correct": true, "reply": "Answer: B. Deceptive pricing, because it involves intentionally misleading customers about the true cost of an item."}
+{"i": 403, "letter": "A", "correct": true, "reply": "Answer: A. To make a profit. Profit is the primary financial goal that drives business operations and sustainability."}
+{"i": 404, "letter": "C", "correct": true, "reply": "Answer: C. That it is in an organization's own best interest to act in an ethical way."}
+{"i": 405, "letter": "C", "correct": true, "reply": "Answer: C. Consumer privacy. This right ensures consumers have control over their personal information and how it is managed by companies."}
+{"i": 409, "letter": "C", "correct": true, "reply": "Answer: C. Normative, Descriptive. Normative ethics prescribes how individuals ought to act, while descriptive ethics describes actual moral beliefs and practices."}
+{"i": 411, "letter": "A", "correct": true, "reply": "A one-line reason: Better environmental performance can lead to increased revenue through enhanced market access and product differentiation.\n\nAnswer: A"}
+{"i": 412, "letter": "B", "correct": true, "reply": "Answer: B. Social licence to operate. Because it refers to the broader societal acceptance necessary for a company to operate sustainably."}
+{"i": 413, "letter": "B", "correct": true, "reply": "Answer: B. Corporate Transparency, because it refers to the extent to which a company makes its actions and impacts clear and accessible to stakeholders."}
+{"i": 414, "letter": "C", "correct": true, "reply": "Answer: C. Environmental management systems, ISO14001, EMAS. These systems go beyond legal compliance to implement environmental goals and ensure regular auditing and reporting."}
+{"i": 415, "letter": "D", "correct": true, "reply": "Answer: D. China, Relationship, Market. The BRIC countries tend to initially follow a relationship-based approach to corporate governance but have increasingly moved towards market-based mechanisms as"}
+{"i": 416, "letter": "D", "correct": true, "reply": "Answer: D. Minimizing The Influence Of Stakeholder Information On The Firm."}
+{"i": 417, "letter": "A", "correct": true, "reply": "Answer: A. Intrusive, Artificial, Consumerism, Insecurity, Social Stereotypes. Marketing communications often intrude into people's lives, creating artificial needs, promoting consumerism which can le"}
+{"i": 418, "letter": "A", "correct": true, "reply": "Answer: A. Share options, Senior managers, Share Price. Share options align senior managers' interests with those of shareholders by linking their compensation to increases in share price and dividend"}
+{"i": 419, "letter": "B", "correct": false, "reply": "Predatory pricing involves setting prices below cost to drive competitors out of the market and then raising prices once competition is eliminated. Answer: B"}
+{"i": 421, "letter": "D", "correct": true, "reply": "Answer: D. A theory which states that an action is morally right if it promotes the greatest good for the greatest number."}
+{"i": 424, "letter": "D", "correct": true, "reply": "Answer: D. The long-term maintenance of systems according to environmental, economic and social considerations."}
+{"i": 425, "letter": "C", "correct": true, "reply": "Answer: C. Informal relationships, owner and family member influence on the organisation, lack of organisational resources."}
+{"i": 426, "letter": "B", "correct": true, "reply": "Answer: B. Global production network, Dynamic, Relational. Because it involves interconnected and flexible processes across multiple locations."}
+{"i": 427, "letter": "A", "correct": false, "reply": "Reason: The question \"Demand reduction\" typically refers to actions or policies aimed at decreasing the demand for a particular good or service, which can include measures like increasing prices (1), "}
+{"i": 428, "letter": "A", "correct": true, "reply": "Answer: A. Russia, China, Britain. The reason is that these countries have varying levels of civil society development, with Russia and China generally having less developed civil societies compared t"}
+{"i": 429, "letter": "D", "correct": false, "reply": "Answer: D. Moral reflexivity, because it refers to the ability to reflect on and critically examine one's own moral beliefs and decisions."}
+{"i": 432, "letter": "D", "correct": true, "reply": "Answer: D. Locus of control, because it refers to the perception of whether individuals feel they can control events that affect their lives or if they believe that fate, luck, or powerful others dete"}
+{"i": 433, "letter": "A", "correct": false, "reply": "Answer: A. Boundaryless, Control information, Private spaces. Because corporations often operate without clear boundaries, making it hard to control information within private spaces where many indivi"}
+{"i": 434, "letter": "A", "correct": true, "reply": "A. Social Contract - Because it describes the implicit agreement among citizens and their rulers regarding the structure of governance and rights. Answer: A."}
+{"i": 435, "letter": "D", "correct": true, "reply": "Answer: D. Huge power, Major contribution, Business malpractice. Businesses have significant influence and can make substantial positive impacts, but they also have the potential to cause major harm i"}
+{"i": 436, "letter": "B", "correct": true, "reply": "Answer: B. Economic, Legal, Ethical and Philanthropic. This categorization directly aligns with Carroll's stakeholder theory framework."}
+{"i": 437, "letter": "A", "correct": true, "reply": "Answer: A. Proactive, Groups, Under-represented, Increase. This option correctly describes the proactive nature of affirmative action aimed at groups that are underrepresented and seeks to increase th"}
+{"i": 439, "letter": "D", "correct": true, "reply": "Answer: D. Consumer vulnerability. Because it refers to the inability to make informed decisions, indicating a lack of protection or resilience in consumer decision-making."}
+{"i": 442, "letter": "D", "correct": false, "reply": "Answer: D."}
+{"i": 443, "letter": "C", "correct": true, "reply": "Answer: C. Corporate political activity, Lobbying, Legal, Campaigning. This option correctly matches the terms with their definitions and uses in the context of influencing government or public policy"}
+{"i": 444, "letter": "A", "correct": true, "reply": "Answer: A. Legislation, Sarbanes-Oxley Act, because it is a federal law that mandates enhanced financial disclosure and corporate governance practices to protect investors."}
+{"i": 447, "letter": "D", "correct": true, "reply": "Answer: D. Individual, Situational. Because ethical decision-making is influenced by personal values and beliefs as well as the context and circumstances of the situation."}
+{"i": 450, "letter": "A", "correct": true, "reply": "Answer: A. Bottom, Globalisation, Social, Environmental. This race involves countries lowering their social and environmental standards to attract foreign investment."}
+{"i": 452, "letter": "C", "correct": false, "reply": "Answer: C. Global production networks, Recapture, Waste. This option emphasizes the need for firms to rethink their entire production process and focus on reducing waste."}
+{"i": 453, "letter": "D", "correct": true, "reply": "Answer: D. because it indicates the company cannot meet its financial obligations."}
+{"i": 455, "letter": "A", "correct": true, "reply": "Answer: A. Social accountability standard, SA 8000. SA 8000 is the recognized global standard for labor rights and independent auditors certify compliance."}
+{"i": 462, "letter": "C", "correct": true, "reply": "Answer: C. Interest, Uncertain, Speculative, Tangible assets. This aligns with the core principles of Islamic finance which emphasize fairness, risk-sharing, and ethical investments."}
+{"i": 463, "letter": "D", "correct": false, "reply": "Answer: D. Rationalised, Cost-benefit analysis."}
+{"i": 464, "letter": "C", "correct": true, "reply": "Answer: C. Commercial performance."}
+{"i": 468, "letter": "C", "correct": true, "reply": "Answer: C. Social accounting, Financial accounting."}
+{"i": 472, "letter": "C", "correct": true, "reply": "Answer: C. Proactive, Cost effectiveness, Faster."}
+{"i": 475, "letter": "B", "correct": true, "reply": "Answer: B. Fair trade, because it specifically focuses on ensuring producers in developing countries receive fair compensation and have improved working conditions."}
+{"i": 476, "letter": "B", "correct": true, "reply": "Answer: B. Personal values, because they represent enduring beliefs about what is important in life that guide choices and behaviors."}
+{"i": 480, "letter": "D", "correct": true, "reply": "Answer: D. Corporate Citizenship. Because it specifically refers to a company's responsibility and commitment to being a good member of the community and society at large."}
+{"i": 483, "letter": "C", "correct": true, "reply": "Answer: C. Close, as there is considerable overlap between ethics and law, but the two are not equivalent."}
+{"i": 486, "letter": "B", "correct": true, "reply": "Answer: B. Business Ethics is the study of business situations, activities and decisions where issues of right and wrong are addressed."}
+{"i": 488, "letter": "D", "correct": true, "reply": "Answer: D. stamina, because marathon running is primarily about sustaining effort over a long distance."}
+{"i": 489, "letter": "A", "correct": true, "reply": "Answer: A. Alzheimer's disease."}
+{"i": 492, "letter": "A", "correct": false, "reply": "Answer: A. The anaerobic contribution progressively increases because each sprint depletes glycogen stores and oxygen supply, leading to a higher reliance on anaerobic processes for energy production."}
+{"i": 495, "letter": "A", "correct": true, "reply": "Answer: A. triplet sequences of nucleotide bases in mRNA or DNA."}
+{"i": 496, "letter": "D", "correct": true, "reply": "Answer: D. carnitine. Because it shuttles fatty acids across the mitochondrial membrane."}
+{"i": 497, "letter": "C", "correct": true, "reply": "Answer: C. Blood type B (rhesus negative) and blood type O (rhesus negative)."}
+{"i": 501, "letter": "B", "correct": true, "reply": "Answer: B. actin and myosin."}
+{"i": 504, "letter": "D", "correct": false, "reply": "Answer: D. The liver is usually resonant to percussion. This is because hepatomegaly typically indicates an increase in liver size, which changes its percussion note to resonance due to more air being"}
+{"i": 506, "letter": "C", "correct": true, "reply": "Answer: C. An inability to close the eyelid on the paralysed side indicates a lower motor neurone lesion. This is because facial nerve palsy affecting the eyelid closure suggests damage to the nerve f"}
+{"i": 507, "letter": "D", "correct": true, "reply": "Answer: D. Fracture of the radius and ulna at the wrist."}
+{"i": 508, "letter": "A", "correct": true, "reply": "A. turn off the transfusion, inform medical staff immediately, and follow transfusion policy advice on dealing with acute transfusion reactions. Answer: A. This action helps prevent further exposure t"}
+{"i": 510, "letter": "B", "correct": true, "reply": "Answer: B. One in six over 65s is providing some form of informal care. Reason: This statistic reflects the current prevalence of older adults contributing as informal carers."}
+{"i": 511, "letter": "B", "correct": true, "reply": "Answer: B. Attachment of more amino acids via peptide bonds, because proteins are fully synthesized during translation and cannot have additional amino acids added post-translation."}
+{"i": 512, "letter": "B", "correct": true, "reply": "To ensure proper drainage and prevent infection, when the catheter is blocked. Answer: B."}
+{"i": 517, "letter": "D", "correct": false, "reply": "Answer: D. Pregnancy is a cause of loss of lordosis of the lumbar spine because the hormonal changes and increased weight can lead to a flattening of the normal inward curve of the lower back."}
+{"i": 518, "letter": "D", "correct": true, "reply": "Answer: D. Nail pitting may give a clue to the diagnosis."}
+{"i": 519, "letter": "A", "correct": true, "reply": "Answer: A. It is a cause of ophthalmoplegia. Reason: Graves' disease often leads to Graves' ophthalmopathy, which can cause eye muscle inflammation and movement disorders."}
+{"i": 521, "letter": "B", "correct": true, "reply": "Answer: B. Kinase reactions involve the addition or removal of a phosphate group."}
+{"i": 522, "letter": "D", "correct": true, "reply": "Answer: D. 14-16 breaths per minute. This range is considered normal as it balances efficiency and oxygenation needs."}
+{"i": 523, "letter": "C", "correct": true, "reply": "Answer: C. take some time to re-establish."}
+{"i": 525, "letter": "B", "correct": true, "reply": "Answer: B. the components of the electron transport chain."}
+{"i": 527, "letter": "B", "correct": true, "reply": "Answer: B. 60-100 bpm."}
+{"i": 530, "letter": "B", "correct": true, "reply": "Answer: B. A pea-sized amount. Because it provides enough paste for effective cleaning without wasting product or causing excess foam."}
+{"i": 531, "letter": "D", "correct": true, "reply": "Answer: D. A moon face and a buffalo hump are characteristic of the disease. These features are due to the excess cortisol that causes redistribution of fat in the body."}
+{"i": 532, "letter": "D", "correct": true, "reply": "Answer: D. Innate ability and the capacity to respond to the training stimulus."}
+{"i": 533, "letter": "D", "correct": true, "reply": "Answer: D. always 1:1. Because each purine in one strand pairs with a pyrimidine in the complementary strand (adenine with thymine, guanine with cytosine)."}
+{"i": 534, "letter": "A", "correct": true, "reply": "Answer: A. testosterone, because performance-enhancing synthetic steroids are designed to mimic and potentiate the effects of testosterone."}
+{"i": 536, "letter": "D", "correct": true, "reply": "Answer: D. bound to albumin."}
+{"i": 538, "letter": "A", "correct": true, "reply": "Answer: A. Increased when intracellular ADP rises because creatine kinase facilitates the regeneration of ATP from ADP and creatine phosphate."}
+{"i": 540, "letter": "B", "correct": true, "reply": "Answer: B. Anaerobic respiration."}
+{"i": 541, "letter": "D", "correct": true, "reply": "Answer: D. 30:02:00, because this ratio provides the recommended compression-to-ventilation sequence for adult, child, and infant CPR according to most current guidelines."}
+{"i": 542, "letter": "C", "correct": false, "reply": "Reason: Multiply the weight by the dose per kg and convert mg to g.\nAnswer: C. 9.3"}
+{"i": 543, "letter": "B", "correct": true, "reply": "Answer: B. gain in body mass due to increased water retention in muscles."}
+{"i": 544, "letter": "C", "correct": true, "reply": "Answer: C. diastole and systole, because these are the primary phases that describe the pumping action of the heart."}
+{"i": 547, "letter": "C", "correct": true, "reply": "Answer: C. failure of the ATP supply to match the demand."}
+{"i": 548, "letter": "B", "correct": true, "reply": "Answer: B. Impacted faeces can sometimes be mistaken for a rectal tumour."}
+{"i": 549, "letter": "C", "correct": true, "reply": "Answer: C. Leakage of effluent onto peristomal skin can cause skin excoriation due to prolonged exposure to moisture and irritants."}
+{"i": 553, "letter": "B", "correct": true, "reply": "Answer: B. Reduces pain intensity but also causes sedation."}
+{"i": 554, "letter": "D", "correct": true, "reply": "Answer: D. Tension headaches is a common cause of headache."}
+{"i": 556, "letter": "D", "correct": true, "reply": "Answer: D. Poor technique, physical impairment, or lack of understanding."}
+{"i": 558, "letter": "C", "correct": true, "reply": "Answer: C. 100/minute. because this rate is recommended to ensure adequate blood flow during cardiac arrest."}
+{"i": 559, "letter": "D", "correct": true, "reply": "Answer: D. Muscle ATP and phosphocreatine content, because these are more relevant for short bursts of high-intensity activity rather than sustained endurance events."}
+{"i": 561, "letter": "C", "correct": false, "reply": "Answer: C. The pH of the muscle falls, reducing the enzyme activity and leading to lactate production as an alternative pathway."}
+{"i": 562, "letter": "B", "correct": true, "reply": "Answer: B. 10-30 seconds. Stretching for this duration allows for a noticeable increase in muscle length and range of motion."}
+{"i": 563, "letter": "B", "correct": true, "reply": "Answer: B. Preload, contractility, and afterload."}
+{"i": 565, "letter": "B", "correct": true, "reply": "Answer: B. Insulin promotes glucose and amino acid uptake by muscle."}
+{"i": 566, "letter": "A", "correct": false, "reply": "Answer: A. flush with the skin, to ensure proper healing and reduce the risk of infection."}
+{"i": 568, "letter": "C", "correct": false, "reply": "Answer: C. Pyruvate is converted to lactate, as this process can produce hydrogen ions as a byproduct."}
+{"i": 574, "letter": "B", "correct": true, "reply": "Answer: B. amino acids in the liver."}
+{"i": 576, "letter": "A", "correct": false, "reply": "Answer: A. warm, because it helps to relax the bladder muscles and improve irrigation effectiveness."}
+{"i": 577, "letter": "C", "correct": true, "reply": "Answer: C. physical, psychological, and pharmacological needs followed by regular reassessment."}
+{"i": 578, "letter": "C", "correct": true, "reply": "Answer: C. Alzheimer's disease. Because the apolipoprotein E gene is associated with the development and progression of Alzheimer's disease."}
+{"i": 582, "letter": "C", "correct": true, "reply": "Answer: C. Look for chest movements, listen for breath sounds, and feel for exhaled air on your cheek because this comprehensive approach evaluates multiple aspects of respiratory function."}
+{"i": 584, "letter": "A", "correct": true, "reply": "Answer: A. An accumulation of inorganic phosphate."}
+{"i": 585, "letter": "C", "correct": false, "reply": "Answer: C. 10 seconds."}
+{"i": 587, "letter": "C", "correct": true, "reply": "Answer: C. A raised TSH level. Because hypothyroidism leads to decreased thyroid hormone production, which stimulates the pituitary to produce more TSH to compensate."}
+{"i": 588, "letter": "C", "correct": true, "reply": "Answer: C. Reduced amount of gastric acid."}
+{"i": 590, "letter": "B", "correct": true, "reply": "Answer: B. a firm mass of scar tissue."}
+{"i": 591, "letter": "D", "correct": true, "reply": "Answer: D. Palmitic acid, because it is a saturated fatty acid, not an amino acid."}
+{"i": 592, "letter": "D", "correct": true, "reply": "Answer: D. it is clear or slightly yellow."}
+{"i": 593, "letter": "D", "correct": true, "reply": "The sex of a child is dictated by the inheritance of a single Y chromosome from the father. Answer: D."}
+{"i": 595, "letter": "D", "correct": true, "reply": "Answer: D. gluconeogenesis. Because it refers to the process of synthesizing glucose from non-carbohydrate precursors."}
+{"i": 596, "letter": "C", "correct": true, "reply": "Answer: C. Return it to the blood bank and inform them of why you have done so, because maintaining proper refrigeration is critical for blood safety and quality."}
+{"i": 598, "letter": "D", "correct": false, "reply": "Answer: D. 500, due to the diverse ecological niches and resources available in the oral cavity."}
+{"i": 599, "letter": "D", "correct": true, "reply": "Answer: D. It can cause dryness of the skin."}
+{"i": 602, "letter": null, "correct": false, "reply": "Answer: X. Sodium intake is excessive relative to water intake, leading to elevated serum sodium levels and dehydration."}
+{"i": 603, "letter": "D", "correct": true, "reply": "Answer: D. A respiratory rate of 16 breaths per minute."}
+{"i": 604, "letter": "C", "correct": true, "reply": "Answer: C. Carnosine, because it can buffer hydrogen ions produced during high glycolytic rates within muscle cells."}
+{"i": 606, "letter": "D", "correct": true, "reply": "Answer: D. Dyspnoea, tachycardia, and distended neck veins indicate circulatory overload as they suggest fluid accumulation and increased cardiac workload."}
+{"i": 607, "letter": "B", "correct": true, "reply": "Answer: B. Bladder outflow obstruction."}
+{"i": 608, "letter": "A", "correct": true, "reply": "Answer: A. Small, soft toothbrush.因为它可以有效清洁牙齿和牙龈，同时不会损伤口腔组织。"}
+{"i": 613, "letter": "A", "correct": true, "reply": "Answer: A. deoxyribonucleic acid."}
+{"i": 614, "letter": "C", "correct": true, "reply": "Answer: C. Excessive weight loss is not a mechanism of insensible loss, which primarily involves water loss through respiration and skin."}
+{"i": 617, "letter": "A", "correct": true, "reply": "Answer: A. the nerve stimulus is removed."}
+{"i": 618, "letter": "B", "correct": true, "reply": "Answer: B. Proprioceptive sensory receptor found at the junction between muscle and tendon."}
+{"i": 619, "letter": "D", "correct": true, "reply": "Answer: D. When an artery is close to the surface of the skin."}
+{"i": 620, "letter": "B", "correct": true, "reply": "Answer: B. Catalyzes the conversion of pyruvate to acetyl CoA, which is a key step in the citric acid cycle."}
+{"i": 622, "letter": "C", "correct": true, "reply": "Answer: C. The general public. Because it serves as an introductory guide to understanding the NHS system and services."}
+{"i": 625, "letter": "C", "correct": true, "reply": "Answer: C. Using water may cause electrolyte imbalance."}
+{"i": 626, "letter": "B", "correct": true, "reply": "Answer: B. 0-135 degrees, as this is the typical range allowing for full activities like sitting and bending without exceeding normal physiological limits."}
+{"i": 627, "letter": "D", "correct": true, "reply": "Answer: D, as it is a liquid medication and typically not classified as a controlled drug unless specifically scheduled as such."}
+{"i": 629, "letter": "D", "correct": true, "reply": "Answer: D. calcium binding to troponin."}
+{"i": 631, "letter": "D", "correct": true, "reply": "Answer: D. the extent to which the total adenine nucleotide pool is phosphorylated."}
+{"i": 632, "letter": "D", "correct": true, "reply": "Answer: D. store of calcium ions. Because the sarcoplasmic reticulum is specifically involved in storing and releasing calcium ions, which are crucial for muscle contraction."}
+{"i": 636, "letter": "B", "correct": true, "reply": "Answer: B. Four valves and four chambers."}
+{"i": 637, "letter": "D", "correct": true, "reply": "Answer: D. Any patient who is acutely unwell pre-operatively or post-operatively and those who have undergone major surgery."}
+{"i": 638, "letter": "A", "correct": true, "reply": "To create an air seal within the trachea and reduce the risk of aspirating saliva or gastric contents. Answer: A."}
+{"i": 639, "letter": "A", "correct": true, "reply": "Answer: A. Peptide bonds form between amino acids in a protein."}
+{"i": 640, "letter": "C", "correct": false, "reply": "Answer: C. Schamroth's sign, as it involves comparing the nail beds through a window and is less subjective."}
+{"i": 641, "letter": "B", "correct": true, "reply": "Answer: B. the use of genetic manipulation techniques to enhance performance in sport."}
+{"i": 643, "letter": "C", "correct": false, "reply": "Answer: C. A large mass arising out of the pelvis which disappears following urethral catheterization is caused by an ovarian cyst, as it can compress the urethra and disappear when the bladder is emp"}
+{"i": 644, "letter": "D", "correct": true, "reply": "Answer: D. Pupil response."}
+{"i": 646, "letter": "A", "correct": true, "reply": "A one-line reason: Informed patients about pain management can reduce psychological stress and enhance trust in medical staff.\n\nAnswer: A"}
+{"i": 650, "letter": "D", "correct": true, "reply": "Answer: D. occur spontaneously at a low rate."}
+{"i": 651, "letter": "A", "correct": false, "reply": "Answer: A. 10 litres per minute of each other. Because consistent readings within this range indicate proper technique and reliability."}
+{"i": 652, "letter": "D", "correct": true, "reply": "Answer: D. the highest rate of air expelled from the lungs through an open mouth."}
+{"i": 653, "letter": "C", "correct": true, "reply": "Answer: C. Patients should carefully check the contents of over-the-counter cold remedies in order to prevent accidental overdose, as such preparations often contain additional paracetamol."}
+{"i": 654, "letter": "D", "correct": true, "reply": "Answer: D. Amino acid."}
+{"i": 655, "letter": "C", "correct": true, "reply": "Answer: C. Itching may be a sign of obstructive jaundice because bile acid buildup can cause skin irritation."}
+{"i": 656, "letter": "A", "correct": true, "reply": "Answer: A. Thymine, because thymine is specific to DNA and not found in RNA, which contains uracil instead."}
+{"i": 658, "letter": "C", "correct": true, "reply": "Answer: C. Alcohol, because acute alcohol withdrawal can lead to delirium tremens and acute confusion."}
+{"i": 660, "letter": "A", "correct": true, "reply": "Answer: A. Scaphoid, lunate, triquetral, pisiform, trapezium, trapezoid, capitate, hamate."}
+{"i": 661, "letter": "A", "correct": true, "reply": "Answer: A. mRNA, tRNA and ribosomes."}
+{"i": 662, "letter": "D", "correct": true, "reply": "Answer: D. When drugs are withdrawn from a sealed vial, fragments of the rubber bung can be cut out by the needle."}
+{"i": 663, "letter": "C", "correct": true, "reply": "Answer: C. The cuff is deflated to allow air to pass through the speaking valve and facilitate speech."}
+{"i": 664, "letter": "C", "correct": true, "reply": "Answer: C. IV administration allows titration of a drug with its desired effect."}
+{"i": 665, "letter": "D", "correct": true, "reply": "Answer: D. All of the above."}
+{"i": 666, "letter": "C", "correct": false, "reply": "Answer: C. phosphocreatine stores. because they provide rapid energy for short, intense efforts."}
+{"i": 667, "letter": "A", "correct": true, "reply": "Answer: A. baroreceptors detect changes in blood pressure and signal the cardiovascular center to make adjustments."}
+{"i": 669, "letter": "B", "correct": true, "reply": "Answer: B. 7, because water is neutral and its pH is defined as 7 under standard conditions."}
+{"i": 670, "letter": "D", "correct": true, "reply": "Answer: D. 96 hours, as this is the maximum recommended duration to minimize complications and ensure patient comfort."}
+{"i": 671, "letter": "C", "correct": true, "reply": "Answer: C. proteins formed as dictated by the genetic material."}
+{"i": 672, "letter": "D", "correct": true, "reply": "Answer: D. 46, because human somatic cells contain 23 pairs of chromosomes."}
+{"i": 673, "letter": "C", "correct": true, "reply": "Answer: C. If the patient has an artificial heart valve, to prevent infective endocarditis."}
+{"i": 675, "letter": "D", "correct": true, "reply": "Answer: D. phosphofructokinase."}
+{"i": 676, "letter": "B", "correct": true, "reply": "Answer: B. Pregnancy increases pressure on pelvic veins, which can contribute to the development of haemorrhoids."}
+{"i": 677, "letter": "C", "correct": true, "reply": "Answer: C. Non-steroid drugs that act on androgen receptors mimicking the effects of natural steroid hormones."}
+{"i": 680, "letter": "C", "correct": true, "reply": "Answer: C. flat on a firm surface. Because this position ensures proper chest compression and access for rescue breathing."}
+{"i": 682, "letter": "C", "correct": true, "reply": "Answer: C. Synovial hinge joint because it allows for bending and straightening movements similar to a door hinge."}

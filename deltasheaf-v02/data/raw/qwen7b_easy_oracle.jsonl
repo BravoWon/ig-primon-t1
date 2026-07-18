@@ -1,0 +1,100 @@
+{"i": 0, "letter": "B", "correct": true, "reply": "The extension Q(sqrt(2), sqrt(3), sqrt(18)) = Q(sqrt(2), sqrt(3)) since sqrt(18) = sqrt(9)*sqrt(2) = 3*sqrt(2), and thus does not increase the degree of the ext"}
+{"i": 2, "letter": "D", "correct": true, "reply": "Reason: The polynomial evaluates to 0 for x = 0 and x = 4 in Z_5.\nAnswer: D"}
+{"i": 4, "letter": "B", "correct": true, "reply": "The product \\(f(x)g(x) = (4x - 5)(2x^2 - 4x + 2)\\) simplifies to \\(6x^2 + 4x + 6\\) in \\(Z_8[x]\\) after performing the multiplication and reducing coefficients m"}
+{"i": 7, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 8, "letter": "B", "correct": true, "reply": "The minimal polynomial of \\(\\sqrt{2} + \\sqrt{3}\\) over \\(\\mathbb{Q}\\) is of degree 4. Answer: B."}
+{"i": 9, "letter": "C", "correct": true, "reply": "Reason: The polynomial \\(x^3 + 2x + 2\\) has zeros 2 and 3 in \\(Z_7\\).\nAnswer: C. 2,3"}
+{"i": 11, "letter": "C", "correct": true, "reply": "Both symmetric and anti-symmetric because for all pairs in S, if (a, b) is in S, then (b, a) is also in S (satisfying symmetry), and there are no pairs (a, b) a"}
+{"i": 13, "letter": "C", "correct": true, "reply": "The correct factorization in \\( \\mathbb{Z}_7[x] \\) is given as (x + 1)(x − 4)(x − 2), which matches the reference note.\n\nAnswer: C"}
+{"i": 17, "letter": "C", "correct": true, "reply": "The product in \\(Z_5 \\times Z_9\\) of \\((2,3)(3,5)\\) is computed as \\((2 \\cdot 3, 3 \\cdot 5) = (6, 15)\\). Reducing modulo 5 and 9 respectively, we get \\((1,6)\\)."}
+{"i": 18, "letter": "D", "correct": true, "reply": "Answer: D. zero has no inverse."}
+{"i": 21, "letter": "A", "correct": true, "reply": "Reason: After adding the polynomials and reducing coefficients modulo 8, only \\(2x^2 + 5\\) remains.\nAnswer: A"}
+{"i": 22, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 23, "letter": "D", "correct": true, "reply": "Reason: The set of all nth roots of unity under multiplication forms a commutative group with the identity element 1.\nAnswer: D. abelian group"}
+{"i": 25, "letter": "C", "correct": true, "reply": "Answer: C. infinite, non abelian group. Reason: G contains infinitely many matrices and matrix multiplication is not commutative."}
+{"i": 26, "letter": "C", "correct": true, "reply": "Answer: C."}
+{"i": 28, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 31, "letter": "B", "correct": true, "reply": "Answer: B. abelian group. Because the given condition (ab)^-1 = a^-1b^-1 implies ab = ba for all a, b in G, which is the definition of an abelian group."}
+{"i": 33, "letter": "C", "correct": true, "reply": "Answer: C."}
+{"i": 35, "letter": "B", "correct": true, "reply": "The degree of the field extension Q(sqrt(2), sqrt(3)) over Q is 4 because the minimal polynomial of sqrt(2) over Q has degree 2 and the minimal polynomial of sq"}
+{"i": 37, "letter": "D", "correct": false, "reply": "No prime \\( p \\) satisfies the Eisenstein criterion for \\( x^2 - 12 \\). Answer: D."}
+{"i": 39, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 40, "letter": "C", "correct": true, "reply": "The identity element e must satisfy a*e = a and e*a = a for all a in Z. Given a*0 = a+0+1 = a+1 ≠ a, but a*(-1) = a-1+1 = a, so -1 is the identity element. Answ"}
+{"i": 44, "letter": "D", "correct": false, "reply": "Answer: D."}
+{"i": 48, "letter": "C", "correct": true, "reply": "Answer: C"}
+{"i": 49, "letter": "B", "correct": true, "reply": "The least common multiple of 8, 10, and 24 is 120. Answer: B."}
+{"i": 50, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 53, "letter": "C", "correct": true, "reply": "Answer: C."}
+{"i": 54, "letter": "B", "correct": true, "reply": "The minimal polynomial of sqrt(2) over Q is x^2 - 2, which is of degree 2. Answer: B."}
+{"i": 56, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 57, "letter": "B", "correct": true, "reply": "A generator of the finite field \\( \\mathbb{Z}_{11} \\) must have an order of 10, meaning its powers will generate all non-zero elements of \\( \\mathbb{Z}_{11} \\)."}
+{"i": 58, "letter": "C", "correct": false, "reply": "Answer: C. True, False.\n\nStatement 1 is true because 159 = 3 × 53, and a group of order p*q (where p and q are distinct primes) is cyclic if gcd(p-1, q-1) = 1, "}
+{"i": 64, "letter": "B", "correct": true, "reply": "Answer: B. There are exactly two homomorphisms from \\(\\mathbb{Z}\\) to \\(\\mathbb{Z}_2\\) because any homomorphism is determined by the image of 1, which can be ei"}
+{"i": 66, "letter": "D", "correct": true, "reply": "Statement 1 is False because the degree of the sum of two polynomials is not necessarily the maximum of their degrees; it can be less if the leading terms cance"}
+{"i": 68, "letter": "A", "correct": true, "reply": "The polynomial \\(x^4 + 4\\) can be rewritten as \\(x^4 + (2^2)\\) and factored over \\(\\mathbb{Z}_5\\) using difference of squares twice: \\(x^4 + 4 = (x^2 + 2)(x^2 -"}
+{"i": 72, "letter": "C", "correct": false, "reply": "By Fermat's Little Theorem, \\(3^{22} \\equiv 1 \\mod 23\\), and thus \\(3^{46} \\equiv 1 \\mod 23\\), so \\(3^{47} \\equiv 3 \\mod 23\\).\n\nAnswer: C"}
+{"i": 73, "letter": "B", "correct": true, "reply": "The characteristic of a ring R is the smallest positive integer n such that n·a = 0 for all a in R. For Z_3 x Z_3, the smallest n is 3 because adding any elemen"}
+{"i": 74, "letter": "D", "correct": true, "reply": "False, True. Statement 1 is false because there can exist elements \\(a\\) and \\(b\\) in a group such that \\(a \\neq b\\) but \\(a^2 = b^2\\). Statement 2 is true beca"}
+{"i": 77, "letter": "A", "correct": true, "reply": "The characteristic of the ring Z x Z is 0 because the direct product of rings with characteristics m and n has characteristic lcm(m,n), and since one of them is"}
+{"i": 78, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 79, "letter": "C", "correct": true, "reply": "Answer: C. True, False"}
+{"i": 81, "letter": "D", "correct": true, "reply": "Answer: D."}
+{"i": 83, "letter": "C", "correct": true, "reply": "Answer: C"}
+{"i": 88, "letter": null, "correct": false, "reply": "Reason: The product (12)(16) in \\(\\mathbb{Z}_{24}\\) is 0 because 12 and 16 are both multiples of 8, and thus their product is a multiple of 24.\nAnswer: 0."}
+{"i": 89, "letter": "C", "correct": true, "reply": "Answer: C."}
+{"i": 91, "letter": "B", "correct": true, "reply": "The cosets of 4Z in 2Z are formed by adding elements of 2Z to 4Z, resulting in 4Z and 2 + 4Z since 2Z is generated by 2 and 4Z is generated by 4. Answer: B."}
+{"i": 93, "letter": null, "correct": false, "reply": "The maximum order is achieved by the least common multiple of the lengths of the disjoint cycles whose product is a permutation in S_6, which can be 5 and 1 (yi"}
+{"i": 98, "letter": "A", "correct": false, "reply": "The order of an element in a direct product of groups is the least common multiple of the orders of its components. The order of (4, 2) in \\(Z_{12} \\times Z_8\\)"}
+{"i": 99, "letter": "B", "correct": false, "reply": "Answer: B."}
+{"i": 101, "letter": "B", "correct": true, "reply": "Answer: B. a recessive maxilla due to failure of elongation of the cranial base."}
+{"i": 102, "letter": "A", "correct": true, "reply": "Answer: A. Bladder"}
+{"i": 104, "letter": "B", "correct": true, "reply": "Answer: B. Glomerulus."}
+{"i": 106, "letter": "A", "correct": true, "reply": "Answer: A. Epigastric."}
+{"i": 107, "letter": "B", "correct": true, "reply": "Answer: B. Mucous membranes, because they line body cavities exposed to the external environment and trap pathogens."}
+{"i": 109, "letter": "D", "correct": true, "reply": "Answer: D. contraction of contralateral limb musculature.  \nReason: The primary motor cortex controls muscle movements on the opposite side of the body."}
+{"i": 110, "letter": "D", "correct": true, "reply": "The submandibular lymph nodes drain areas including the floor of the mouth, tongue, and lower teeth, so you would also consider the lower first molar. Answer: D"}
+{"i": 115, "letter": "C", "correct": true, "reply": "Answer: C. It is a consensual reflex."}
+{"i": 116, "letter": "B", "correct": true, "reply": "Answer: B. External intercostal muscles and diaphragm."}
+{"i": 117, "letter": "D", "correct": true, "reply": "Answer: D. Testes."}
+{"i": 119, "letter": "C", "correct": true, "reply": "Answer: C. Trachea."}
+{"i": 120, "letter": "C", "correct": true, "reply": "Answer: C. In the upper wall of the right atrium."}
+{"i": 126, "letter": "C", "correct": true, "reply": "Answer: C. Nephrolithiasis."}
+{"i": 127, "letter": "A", "correct": true, "reply": "Answer: A. facial artery crosses the mandible."}
+{"i": 128, "letter": "C", "correct": true, "reply": "Answer: C. Spleen."}
+{"i": 130, "letter": "C", "correct": true, "reply": "Answer: C. Flexion."}
+{"i": 132, "letter": "B", "correct": true, "reply": "Answer: B. Duodenum."}
+{"i": 134, "letter": "C", "correct": true, "reply": "Answer: C. palatine, frontonasal and secondary nasal processes."}
+{"i": 136, "letter": "D", "correct": true, "reply": "Answer: D. Spleen."}
+{"i": 137, "letter": "C", "correct": true, "reply": "Answer: C. Thoracic and abdominal. The diaphragm separates the thoracic cavity, which contains the heart and lungs, from the abdominal cavity, which contains th"}
+{"i": 138, "letter": "D", "correct": true, "reply": "Answer: D. smooth muscle and respiratory epithelium."}
+{"i": 139, "letter": "C", "correct": true, "reply": "Answer: C. Liver."}
+{"i": 140, "letter": "C", "correct": true, "reply": "Answer: C. Gastroesophageal reflux disease."}
+{"i": 142, "letter": "B", "correct": true, "reply": "Answer: B. Femur."}
+{"i": 143, "letter": "C", "correct": true, "reply": "Answer: C. Lower lip, mandibular teeth and labial gingivae of the anterior mandibular teeth."}
+{"i": 145, "letter": "C", "correct": true, "reply": "Answer: C. intramembranous ossification and follow the somatic growth pattern."}
+{"i": 146, "letter": null, "correct": false, "reply": "The fibula is a bone in the lower leg. Answer: X."}
+{"i": 147, "letter": "C", "correct": true, "reply": "Answer: C. Erythrocyte."}
+{"i": 148, "letter": "A", "correct": true, "reply": "Answer: A. frontal and parietal bones."}
+{"i": 149, "letter": "C", "correct": true, "reply": "The hyoid bone is located above the thyroid cartilage and below the cricoid cartilage in the neck. Answer: C."}
+{"i": 150, "letter": "D", "correct": true, "reply": "All bony structures listed can be palpated in a live patient due to their superficial location and size. Answer: D."}
+{"i": 151, "letter": "D", "correct": true, "reply": "Answer: D. The vagus nerves."}
+{"i": 153, "letter": "B", "correct": true, "reply": "The spinal canal runs along the dorsal side of the vertebral column. Answer: B."}
+{"i": 154, "letter": "B", "correct": true, "reply": "Answer: B. Superficial to masseter and enters the mouth opposite the upper second molar."}
+{"i": 156, "letter": "A", "correct": true, "reply": "Answer: A. is a terminal branch of the maxillary division of the trigeminal nerve."}
+{"i": 157, "letter": "C", "correct": true, "reply": "Answer: C. Peristalsis, because it refers to the wave-like muscle contractions that move food through the digestive tract."}
+{"i": 158, "letter": "D", "correct": true, "reply": "Answer: D. Synapse. Because it is the specialized junction where neurotransmitters are released to transmit impulses between neurons."}
+{"i": 160, "letter": "D", "correct": true, "reply": "Answer: D. Pancreas."}
+{"i": 161, "letter": "C", "correct": true, "reply": "The glossopharyngeal nerve supplies the posterior third of the tongue for taste and somaesthetic sensations. Answer: C."}
+{"i": 162, "letter": "B", "correct": true, "reply": "Answer: B. ptosis."}
+{"i": 163, "letter": "C", "correct": true, "reply": "Answer: C. Pulmonary arteries."}
+{"i": 164, "letter": "C", "correct": true, "reply": "Answer: C. lift their shoulders against resistance.  \nReason: The accessory nerve controls the sternocleidomastoid muscle for head rotation and the trapezius mu"}
+{"i": 166, "letter": "D", "correct": true, "reply": "Answer: D. On the anterior side of the neck."}
+{"i": 167, "letter": "C", "correct": true, "reply": "Answer: C. skilled motor movements decussate in the pyramids."}
+{"i": 169, "letter": "B", "correct": true, "reply": "The biopsy site is on the labial alveolar mucosa, which is innervated by the mental nerve. Answer: B."}
+{"i": 171, "letter": "A", "correct": true, "reply": "Answer: A. Acetylcholine"}
+{"i": 172, "letter": "D", "correct": true, "reply": "Answer: D. Lamina IX contains the motor neurons in the spinal cord."}
+{"i": 173, "letter": "A", "correct": true, "reply": "A. anterior fragment to be displaced downwards by the action of the digastric muscle. Answer: A."}
+{"i": 176, "letter": "A", "correct": true, "reply": "Answer: A. spastic paralysis.  \nReason: The damage to the motor neurons in the left internal capsule affects the right leg, causing spastic paralysis due to upp"}
+{"i": 177, "letter": "A", "correct": true, "reply": "Answer: A. right lung because the right main bronchus is wider and more vertical than the left."}
+{"i": 178, "letter": "C", "correct": true, "reply": "Answer: C. Electrolytes. Because they are minerals that ionize in solution and conduct electricity."}
+{"i": 179, "letter": "D", "correct": true, "reply": "Answer: D. sympathetic post-ganglionic neurons and target organs."}
